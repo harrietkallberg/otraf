@@ -1,0 +1,517 @@
+{
+  "201_Abisko": {
+    "sequence_corrections": {
+      "stop_name": "Abisko",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "17.0": 8199,
+            "16.0": 1278
+          },
+          "action": "Standardizing all to sequence: 17.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Berga Söderleden": {
+    "sequence_corrections": {
+      "stop_name": "Berga Söderleden",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "15.0": 8388,
+            "14.0": 1308
+          },
+          "action": "Standardizing all to sequence: 15.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Bergdalsgatan": {
+    "sequence_corrections": {
+      "stop_name": "Bergdalsgatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "13.0": 8388,
+            "12.0": 1308
+          },
+          "action": "Standardizing all to sequence: 13.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Blomgatan": {
+    "sequence_corrections": {
+      "stop_name": "Blomgatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "19.0": 8199,
+            "18.0": 1278
+          },
+          "action": "Standardizing all to sequence: 19.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Grindgatan": {
+    "sequence_corrections": {
+      "stop_name": "Grindgatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "19.0": 8388,
+            "18.0": 1308
+          },
+          "action": "Standardizing all to sequence: 19.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Hässlegatan": {
+    "sequence_corrections": {
+      "stop_name": "Hässlegatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "22.0": 8389,
+            "21.0": 1308
+          },
+          "action": "Standardizing all to sequence: 22.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Klostergatan": {
+    "sequence_corrections": {
+      "stop_name": "Klostergatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "15.0": 8198,
+            "14.0": 1278
+          },
+          "action": "Standardizing all to sequence: 15.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Konsert & Kongress": {
+    "sequence_corrections": {
+      "stop_name": "Konsert & Kongress",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "16.0": 8199,
+            "15.0": 1278
+          },
+          "action": "Standardizing all to sequence: 16.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Kungsgatan": {
+    "sequence_corrections": null,
+    "direction_corrections": null,
+    "root_causes": {
+      "stop_name": "Kungsgatan",
+      "route_long_name": "201",
+      "issue_type": "sequence_root_cause_detection",
+      "resolved": false,
+      "affected_directions": [
+        0,
+        1
+      ],
+      "details": {
+        "0": {
+          "sequence_number": 13.0,
+          "count_progression": "9471 → 8194 → 9476",
+          "proportion_passes_current": 0.865167352972231,
+          "proportion_passes_next": 1.0005279273571956,
+          "next_stop_name": "Linköpings resecentrum",
+          "next_stop_had_corrections": true
+        },
+        "1": {
+          "sequence_number": 10.0,
+          "count_progression": "9769 → 8385 → 9694",
+          "proportion_passes_current": 0.8583273620636708,
+          "proportion_passes_next": 0.9923226532910226,
+          "next_stop_name": "Trädgårdstorget",
+          "next_stop_had_corrections": true
+        }
+      }
+    }
+  },
+  "201_Linköpings resecentrum": {
+    "sequence_corrections": {
+      "stop_name": "Linköpings resecentrum",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "14.0": 8198,
+            "13.0": 1278
+          },
+          "action": "Standardizing all to sequence: 14.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Majelden": {
+    "sequence_corrections": {
+      "stop_name": "Majelden",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "14.0": 8388,
+            "13.0": 1308
+          },
+          "action": "Standardizing all to sequence: 14.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Mellangården": {
+    "sequence_corrections": {
+      "stop_name": "Mellangården",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "21.0": 8199,
+            "20.0": 1278
+          },
+          "action": "Standardizing all to sequence: 21.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Middagsgatan": {
+    "sequence_corrections": {
+      "stop_name": "Middagsgatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "20.0": 8388,
+            "19.0": 1308
+          },
+          "action": "Standardizing all to sequence: 20.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Myntgatan": {
+    "sequence_corrections": {
+      "stop_name": "Myntgatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "18.0": 8388,
+            "17.0": 1308
+          },
+          "action": "Standardizing all to sequence: 18.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Resedan": {
+    "sequence_corrections": {
+      "stop_name": "Resedan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "17.0": 8388,
+            "16.0": 1308
+          },
+          "action": "Standardizing all to sequence: 17.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Ridhusgatan": {
+    "sequence_corrections": {
+      "stop_name": "Ridhusgatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "16.0": 8388,
+            "15.0": 1308
+          },
+          "action": "Standardizing all to sequence: 16.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Rusthållaregården": {
+    "sequence_corrections": {
+      "stop_name": "Rusthållaregården",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "20.0": 8199,
+            "19.0": 1278
+          },
+          "action": "Standardizing all to sequence: 20.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Skäggetorp centrum": {
+    "sequence_corrections": {
+      "stop_name": "Skäggetorp centrum",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "22.0": 8199,
+            "21.0": 1278
+          },
+          "action": "Standardizing all to sequence: 22.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Strågatan": {
+    "sequence_corrections": {
+      "stop_name": "Strågatan",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "21.0": 8388,
+            "20.0": 1308
+          },
+          "action": "Standardizing all to sequence: 21.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Tinnerbäcksbadet": {
+    "sequence_corrections": {
+      "stop_name": "Tinnerbäcksbadet",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "12.0": 8388,
+            "11.0": 1308
+          },
+          "action": "Standardizing all to sequence: 12.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Trädgårdstorget": {
+    "sequence_corrections": {
+      "stop_name": "Trädgårdstorget",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        1
+      ],
+      "details": {
+        "1": {
+          "sequences_found": {
+            "11.0": 8386,
+            "10.0": 1308
+          },
+          "action": "Standardizing all to sequence: 11.0",
+          "records_corrected": 1308
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  },
+  "201_Åbylund": {
+    "sequence_corrections": {
+      "stop_name": "Åbylund",
+      "route_long_name": "201",
+      "issue_type": "multiple_stop_sequences",
+      "resolved": true,
+      "affected_directions": [
+        0
+      ],
+      "details": {
+        "0": {
+          "sequences_found": {
+            "18.0": 8199,
+            "17.0": 1278
+          },
+          "action": "Standardizing all to sequence: 18.0",
+          "records_corrected": 1278
+        }
+      }
+    },
+    "direction_corrections": null,
+    "root_causes": null
+  }
+}
