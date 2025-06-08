@@ -7,6 +7,17 @@ from pathlib import Path
 class DataFormer:
     def __init__(self, raw_data):
         self.raw_data = raw_data
+        
+        # FIX: Proper way to check if column exists and has non-null values
+        if 'route_long_name' in raw_data.columns and not raw_data['route_long_name'].empty:
+            # Get first non-null value
+            first_valid = raw_data['route_long_name'].dropna()
+            if not first_valid.empty:
+                self.route_long_name = first_valid.iloc[0]
+            else:
+                self.route_long_name = 'Unknown'
+        else:
+            self.route_long_name = 'Unknown'
 
         self._sequence_corrections_log = {}
         self._direction_pair_corrections_log = {}
@@ -797,58 +808,98 @@ class DataFormer:
 
     def generate_delay_histograms(self, bins=20):
         """
-        Generate normalized delay histograms for each route-stop combination
+        Generate normalized delay histograms for each route-stop combination by time type
         """
-        print("\n=== GENERATING DELAY HISTOGRAMS ===")
+        print("\n=== GENERATING DELAY HISTOGRAMS BY TIME TYPE ===")
         
-        df_final = self.df_final.copy()
-
-        route_name = df_final['route_long_name'].iloc[0] if 'route_long_name' in df_final.columns else 'Unknown Route'
+        route_name = self.route_long_name
         
         self._delay_histograms = {}
         
+        # Define time categories (same as travel times)
+        time_categories = ['am_rush', 'day', 'pm_rush', 'night', 'weekend']
+        
         # Generate histograms for each stop
-        for stop_name, group in df_final.groupby('stop_name'):
+        for stop_name, group in self.df_final.groupby('stop_name'):
             composite_key = f"{route_name}_{stop_name}"
             
             print(f"Generating histograms for: {stop_name}")
             
-            # Filter out invalid data and get clean delays
-            total_delays = group['departure_delay'].dropna()
-            
-            # For incremental delays, only use non-NaN values (automatically excludes sequence gaps)
-            incremental_delays = group['incremental_delay'].dropna()
-            
-            # Generate histograms if we have enough data
-            histogram_data = {}
-            
-            # Total delay histogram
-            if len(total_delays) >= 10:  # Minimum sample size
-                histogram_data['total_delay'] = self._create_normalized_histogram(
-                    total_delays, bins, 'Total Delay Distribution'
-                )
-            
-            # Incremental delay histogram  
-            if len(incremental_delays) >= 10:  # Minimum sample size
-                histogram_data['incremental_delay'] = self._create_normalized_histogram(
-                    incremental_delays, bins, 'Incremental Delay Distribution'
-                )
-            
-            # Store if we have any histograms
-            if histogram_data:
-                self._delay_histograms[composite_key] = {
-                    'stop_name': stop_name,
-                    'route_name': route_name,
-                    'histograms': histogram_data,
-                    'metadata': {
-                        'total_delay_sample_size': len(total_delays),
-                        'incremental_delay_sample_size': len(incremental_delays),
-                        'bins_used': bins,
-                        'generated_date': pd.Timestamp.now().isoformat()
-                    }
+            # Initialize stop data structure
+            stop_histogram_data = {
+                'stop_name': stop_name,
+                'route_name': route_name,
+                'time_categories': {},
+                'metadata': {
+                    'bins_used': bins,
+                    'generated_date': pd.Timestamp.now().isoformat()
                 }
+            }
+            
+            # Process each time category
+            for time_category in time_categories:
+                # Filter for this time category
+                if 'time_type' in group.columns:
+                    time_data = group[group['time_type'] == time_category]
+                else:
+                    # If no time_type column, skip this category
+                    continue
+                
+                if len(time_data) >= 10:  # Minimum sample size per time category
+                    
+                    # Filter out invalid data and get clean delays
+                    total_delays = time_data['departure_delay'].dropna()
+                    
+                    # For incremental delays, only use non-NaN values (automatically excludes sequence gaps)
+                    incremental_delays = time_data['incremental_delay'].dropna()
+                    # Additional safety: remove any remaining NaT values if column is object type
+                    if time_data['incremental_delay'].dtype == 'object':
+                        incremental_delays = incremental_delays[incremental_delays != pd.NaT]
+                    
+                    # Generate histograms if we have enough data for this time category
+                    category_histograms = {}
+                    
+                    # Total delay histogram
+                    if len(total_delays) >= 5:  # Lower threshold for time categories
+                        category_histograms['total_delay'] = self._create_normalized_histogram(
+                            total_delays, bins, f'Total Delay Distribution - {time_category.replace("_", " ").title()}'
+                        )
+                    
+                    # Incremental delay histogram  
+                    if len(incremental_delays) >= 5:  # Lower threshold for time categories
+                        category_histograms['incremental_delay'] = self._create_normalized_histogram(
+                            incremental_delays, bins, f'Incremental Delay Distribution - {time_category.replace("_", " ").title()}'
+                        )
+                    
+                    # Store if we have any histograms for this time category
+                    if category_histograms:
+                        stop_histogram_data['time_categories'][time_category] = {
+                            'histograms': category_histograms,
+                            'metadata': {
+                                'total_delay_sample_size': len(total_delays),
+                                'incremental_delay_sample_size': len(incremental_delays),
+                                'time_category': time_category
+                            }
+                        }
+                        print(f"  ✓ Generated histograms for {time_category}: {len(category_histograms)} types")
+            
+            # Only store if we have data for at least one time category
+            if stop_histogram_data['time_categories']:
+                self._delay_histograms[composite_key] = stop_histogram_data
+                total_categories = len(stop_histogram_data['time_categories'])
+                print(f"  ✓ Complete: {total_categories} time categories with histograms")
+            else:
+                print(f"  ✗ No sufficient data for any time category")
         
-        print(f"Generated histograms for {len(self._delay_histograms)} route-stop combinations")
+        print(f"\nGenerated histograms for {len(self._delay_histograms)} route-stop combinations")
+        
+        # Print summary of what was generated
+        total_histograms = 0
+        for stop_data in self._delay_histograms.values():
+            for time_cat_data in stop_data['time_categories'].values():
+                total_histograms += len(time_cat_data['histograms'])
+        
+        print(f"Total individual histograms generated: {total_histograms}")
         return self._delay_histograms
 
     def _create_normalized_histogram(self, data, bins, title):
@@ -902,12 +953,24 @@ class DataFormer:
             self.stop_analysis_dict[composite_key]['has_histograms'] = has_histograms
             
             if has_histograms:
-                # Add quick histogram info
+                # Add quick histogram info with time category breakdown
                 hist_data = self._delay_histograms[composite_key]
+                
+                # Count available time categories and histogram types
+                available_time_categories = list(hist_data['time_categories'].keys())
+                histogram_summary = {}
+                
+                for time_cat, time_data in hist_data['time_categories'].items():
+                    histogram_summary[time_cat] = {
+                        'available_types': list(time_data['histograms'].keys()),
+                        'total_delay_sample_size': time_data['metadata']['total_delay_sample_size'],
+                        'incremental_delay_sample_size': time_data['metadata']['incremental_delay_sample_size']
+                    }
+                
                 self.stop_analysis_dict[composite_key]['histogram_info'] = {
-                    'available_types': list(hist_data['histograms'].keys()),
-                    'total_delay_sample_size': hist_data['metadata']['total_delay_sample_size'],
-                    'incremental_delay_sample_size': hist_data['metadata']['incremental_delay_sample_size']
+                    'available_time_categories': available_time_categories,
+                    'total_time_categories': len(available_time_categories),
+                    'time_category_details': histogram_summary
                 }
 
     def generate_travel_times_data(self):
@@ -916,8 +979,7 @@ class DataFormer:
         """
         print("\n=== GENERATING TRAVEL TIMES DATA ===")
         df_final = self.df_final.copy()
-        route_name = df_final['route_long_name'].iloc[0] if 'route_long_name' in df_final.columns else 'Unknown Route'
-        
+        route_name = self.route_long_name
         self._travel_times_data = {}
         
         # Sort data and create next stop mapping
@@ -1082,12 +1144,7 @@ class DataFormer:
         stop_analysis_data = load_existing_json(file_paths["stop_analysis"])
         logs_details_data = load_existing_json(file_paths["logs_details"])
         route_tables_data = load_existing_json(file_paths["route_tables"])
-        
-        # Get current route name from the data
-        if hasattr(self, 'form_data') and 'route_long_name' in self.form_data.columns:
-            route_name = self.df_final['route_long_name'].iloc[0]
-        else:
-            route_name = 'Unknown Route'
+        route_name = self.route_long_name
             
         print(f"Processing route: {route_name}")
 
@@ -1096,9 +1153,9 @@ class DataFormer:
             stops_on_route = list(set(data['stop_name'] for data in self.stop_analysis_dict.values()))
             
             # Order stops by direction 0 sequence
-            if hasattr(self, 'form_data'):
+            if hasattr(self, 'df_final'):
                 # Get direction 0 sequences for sorting
-                dir0_sequences = self.form_data[self.form_data['direction_id'] == 0][['stop_name', 'stop_sequence']].drop_duplicates()
+                dir0_sequences = self.df_final[self.df_final['direction_id'] == 0][['stop_name', 'stop_sequence']].drop_duplicates()
                 seq_map = dict(zip(dir0_sequences['stop_name'], dir0_sequences['stop_sequence']))
                 
                 # Sort stops by sequence
@@ -1246,14 +1303,14 @@ class DataFormer:
         }
 
     def export_histograms_to_json(self, output_dir="./analysis_output"):
-        """Export histograms to separate JSON file"""
+        """Export histograms to separate JSON file with time category structure"""
         
         if not hasattr(self, '_delay_histograms') or not self._delay_histograms:
             print("No histograms to export")
             return
         
         # Load existing histogram data
-        histograms_path = os.path.join(output_dir, "delay_histograms.json")
+        histograms_path = os.path.join(output_dir, "delay_histograms_by_time.json")
         
         def load_existing_json(file_path):
             if os.path.exists(file_path):
@@ -1274,10 +1331,23 @@ class DataFormer:
             serializable_data = self._make_json_serializable(existing_histograms)
             with open(histograms_path, 'w', encoding='utf-8') as f:
                 json.dump(serializable_data, f, indent=2, ensure_ascii=False)
-            print(f"  ✓ Saved delay_histograms.json: {len(existing_histograms)} entries")
+            
+            # Count total histograms for summary
+            total_stops = len(existing_histograms)
+            total_time_categories = sum(len(stop_data['time_categories']) for stop_data in existing_histograms.values())
+            total_histograms = 0
+            for stop_data in existing_histograms.values():
+                for time_cat_data in stop_data['time_categories'].values():
+                    total_histograms += len(time_cat_data['histograms'])
+            
+            print(f"  ✓ Saved delay_histograms_by_time.json:")
+            print(f"    - {total_stops} stops")
+            print(f"    - {total_time_categories} time categories")  
+            print(f"    - {total_histograms} individual histograms")
+            
         except Exception as e:
-            print(f"  ✗ Error saving delay_histograms.json: {e}")
-        
+            print(f"  ✗ Error saving delay_histograms_by_time.json: {e}")
+
     def export_travel_times_to_json(self, output_dir="./analysis_output"):
         """Export travel times to separate JSON file"""
         
