@@ -7,50 +7,55 @@ from pathlib import Path
 class DataFormer:
     def __init__(self, raw_data):
         self.raw_data = raw_data
-        
-        # FIX: Proper way to check if column exists and has non-null values
-        if 'route_long_name' in raw_data.columns and not raw_data['route_long_name'].empty:
-            # Get first non-null value
-            first_valid = raw_data['route_long_name'].dropna()
-            if not first_valid.empty:
-                self.route_long_name = first_valid.iloc[0]
-            else:
-                self.route_long_name = 'Unknown'
-        else:
-            self.route_long_name = 'Unknown'
+        self.route_long_name = self.get_route_long_name()
 
         self._sequence_corrections_log = {}
         self._direction_pair_corrections_log = {}
         self._sequence_root_causes_log = {}
 
-        self.stop_analysis = pd.DataFrame()
-        self._delay_histograms = {}
-        self.direction_tables_before = None
-        self.direction_tables_after = None
+        self.stop_analysis_dict = {}
         
-        self.form_data = self._process_data()
+        self._direction_tables_before = None
+        self._direction_tables_after = None
+        self._delay_histograms = {}
+        self._travel_times_data = None
+
+        self._punctuality_analysis = None
+
+        self.df_before = self.prepare_columns(raw_data)
+        self.df_final = self._process_data()
+
+        # Run the basic analysis
+        self.stop_analysis_dict = self.create_stop_analysis()
+        
+        # Run additional analysis
+        self._direction_tables_before = self.create_direction_tables(self.df_before)
+        self._direction_tables_after = self.create_direction_tables(self.df_final)
+        self._delay_histograms = self.generate_delay_histograms()
+        self._travel_times_data = self.generate_travel_times_data()
+        self.add_analysis_availability_to_stop_analysis()
+
+        # 5. Export everything
+        self.export_basic_json_files()
+        self.export_tables_to_json()
+        self.export_histograms_to_json()
+        self.export_travel_times_to_json()
 
 #   ================================ Wrapper =====================================
+    def get_route_long_name(self):
+        if 'route_long_name' in self.raw_data.columns and not self.raw_data['route_long_name'].empty:
+            # Get first non-null value
+            first_valid = self.raw_data['route_long_name'].dropna()
+            if not first_valid.empty:
+                route_long_name = first_valid.iloc[0]
+            else:
+                route_long_name = 'Unknown'
+        else:
+            route_long_name = 'Unknown'
+        return route_long_name
+
     def _process_data(self):
-        df = self.raw_data.copy()
-        
-        df = self.prepare_columns(df)
-
-        # Create and store the BEFORE correction tables
-        dir0_table, dir1_table = self.create_direction_tables(df)
-        
-        # Store as JSON-ready format for export
-        self.direction_tables_before = {
-            'direction_0': dir0_table.reset_index().to_dict('records'),
-            'direction_1': dir1_table.reset_index().to_dict('records')
-        }
-
-        print('before')
-        print("=== DIRECTION 0 (ordered by stop_sequence) ===")
-        print(dir0_table.to_string())
-
-        print("\n=== DIRECTION 1 (ordered by stop_sequence) ===") 
-        print(dir1_table.to_string())
+        df = self.df_before.copy()
 
         df_seq, fixed_stop_sequence_stops = self.deduplicate_stop_sequences(df.copy()) # fix wrongly tracked stop_sequence for trips consecutive to missing records stops
         df_fixed, fixed_directions_stops = self.fix_stop_pairs(df_seq.copy()) # fix wrongly tracked stop_ids for trips on directional stops
@@ -64,6 +69,10 @@ class DataFormer:
             trip['prev_sequence'] = trip['stop_sequence'].shift(1)
             trip['sequence_diff'] = trip['stop_sequence'] - trip['prev_sequence'] 
             trip['has_sequence_gap'] = trip['sequence_diff'] > 1
+
+            # ADD: Previous stop name
+            trip['previous_stop'] = trip['stop_name'].shift(1)
+            trip.loc[trip['has_sequence_gap'], 'previous_stop'] = None
 
             # Calculate incremental delays
             trip['prev_delay'] = trip['departure_delay'].shift(1)
@@ -99,40 +108,7 @@ class DataFormer:
                     
         # Concatenate and store processed data
         df_final = pd.concat(processed_trips, ignore_index=True)
-        self.df_final = df_final
-        # Run the analysis
-        self.categorize_stops_correctly()
-        
-        # 3. Generate histograms
-        self.generate_delay_histograms()
-        
-        # 4. Add histogram info to stop analysis
-        self.add_histograms_to_stop_analysis()
-
-        # 4. Generate travel times data
-        self.generate_travel_times_data()
-        
-        # Create and store the AFTER correction tables
-        dir0_table_after, dir1_table_after = self.create_direction_tables(df_final)
-        
-        # Store as JSON-ready format for export
-        self.direction_tables_after = {
-            'direction_0': dir0_table_after.reset_index().to_dict('records'),
-            'direction_1': dir1_table_after.reset_index().to_dict('records')
-        }
-
-        print('after')
-        print("=== DIRECTION 0 (ordered by stop_sequence) ===")
-        print(dir0_table_after.to_string())
-
-        print("\n=== DIRECTION 1 (ordered by stop_sequence) ===") 
-        print(dir1_table_after.to_string())
-
-        # 5. Export everything
-        self.export_to_json_files()
-        self.export_histograms_to_json()
-        self.export_travel_times_to_json()
-
+    
         # Check and report memory usage reduction
         initial_memory = self.raw_data.memory_usage(deep=True).sum() / (1024 * 1024)  # MB
         optimized_memory = df.memory_usage(deep=True).sum() / (1024 * 1024)  # MB
@@ -613,13 +589,34 @@ class DataFormer:
         return df, list(sequence_root_causes_log.keys())
 
 #   ========================== Basic Stop Analysis ===============================
-    def categorize_stops_correctly(self):
+
+    def find_dir0_stop_sequence_for_order(self):
+
+        df = self.df_final.copy()
+
+        # First, get the Direction 0 sequence mapping for sorting
+        dir0_data = df[df['direction_id'] == 0][['stop_name', 'stop_sequence']]
+    
+        stop_sequence_map = {}
+        for stop_name, group in dir0_data.groupby('stop_name'):
+            sequence_counts = group['stop_sequence'].value_counts()
+            most_common_sequence = sequence_counts.index[0]  # Most frequent sequence
+            stop_sequence_map[stop_name] = most_common_sequence
+            # Log if there were multiple sequences for this stop
+            if len(sequence_counts) > 1:
+                print(f"  Warning: {stop_name} has multiple sequences in Dir 0: {dict(sequence_counts)}, using {most_common_sequence}")
+        
+        return stop_sequence_map
+    
+    def create_stop_analysis(self):
         """
         Categorize stops as directional or shared, and flag problematic ones
         """
         print(f"\n=== CATEGORIZING STOPS ===")
         stop_analysis = {}  # FIX: Use dictionary, not list
         df = self.df_final.copy()
+
+        dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
 
         for stop_name, group in df.groupby('stop_name'):
             stop_ids = group['stop_id'].unique()
@@ -658,7 +655,7 @@ class DataFormer:
                     stop_type = "Bidirectional"
             
             # Check what logs this stop appears in
-            route_name = group['route_long_name'].iloc[0] if 'route_long_name' in df.columns else 'unknown'
+            route_name = self.route_long_name
             composite_key = f"{route_name}_{stop_name}"
 
             in_sequence_log = composite_key in self._sequence_corrections_log
@@ -761,27 +758,54 @@ class DataFormer:
                 'problematic_type': problematic_type,
                 'problematic_description': problematic_description,
                 'shared_ids': shared_stop_ids,
-                'directional_ids': directional_stop_ids
+                'directional_ids': directional_stop_ids,
+                'print_order': dir_zero_stop_seq.get(stop_name, 999)
             }
 
-        # Convert dictionary to DataFrame for analysis
-        stop_analysis_df = pd.DataFrame(list(stop_analysis.values()))
-        
-        # Sort by Direction 0 sequence for easier reading
-        dir0_sequences = df[df['direction_id'] == 0][['stop_name', 'stop_sequence']].drop_duplicates()
-        
-        self.stop_analysis = stop_analysis_df.merge(
-            dir0_sequences, 
-            on='stop_name', 
-            how='left'
-        ).sort_values('stop_sequence').drop(columns=['stop_sequence'])
-        
-        # Store dictionary version for consistency with logs
-        self.stop_analysis_dict = stop_analysis
+        # Sort the dictionary by Direction 0 stop sequence
+        sorted_stop_analysis = dict(sorted(
+            stop_analysis.items(), 
+            key=lambda item: item[1]['print_order']
+        ))
 
-        return self.stop_analysis
+        # Remove the temporary stop_sequence field from the final dictionary
+        for entry in sorted_stop_analysis.values():
+            entry.pop('print_order', None)
 
-#   ====================== Additional Routewise Analysis =========================
+        print(f"\nStop analysis complete: {len(sorted_stop_analysis)} stops analyzed and sorted by Direction 0 sequence")
+        
+        return sorted_stop_analysis
+
+    def add_analysis_availability_to_stop_analysis(self):
+        """Add availability flags for histograms, travel times, punctuality, and tables to stop_analysis_dict"""
+        
+        # Update stop_analysis_dict with analysis availability flags
+        for composite_key in self.stop_analysis_dict.keys():
+            # Extract route name from composite key for table checking
+            route_name = composite_key.split('_')[0]  # Assumes format: route_stopname
+            
+            # Check histogram availability
+            has_histograms = hasattr(self, '_delay_histograms') and composite_key in self._delay_histograms
+            
+            # Check travel times availability
+            has_travel_times = hasattr(self, '_travel_times_data') and composite_key in self._travel_times_data
+            
+            # Check punctuality availability
+            has_punctuality = hasattr(self, '_punctuality_data') and composite_key in self._punctuality_data
+            
+            # Check tables availability (route-level, so check if route has before/after tables)
+            has_tables = (hasattr(self, '_direction_tables_before') and 
+                        hasattr(self, '_direction_tables_after'))
+            
+            # Add all flags to stop analysis
+            self.stop_analysis_dict[composite_key].update({
+                'has_histograms': has_histograms,
+                'has_travel_times': has_travel_times,
+                'has_punctuality_data': has_punctuality,
+                'has_tables': has_tables
+            })
+
+#   ====================== Additional Route-wise Analysis =========================
     def create_direction_tables(self, df):
         """
         Create separate tables for each direction, with extra column showing other direction
@@ -804,103 +828,135 @@ class DataFormer:
         # Direction 1 table: stops with dir 1 records, sorted by stop_sequence  
         dir1_data = pivot[pivot['Dir_1'] > 0].copy().sort_values('stop_sequence')
         
-        return dir0_data[['Dir_0', 'Dir_1']], dir1_data[['Dir_0', 'Dir_1']]
+        dir_table = {
+            'direction_0': dir0_data[['Dir_0', 'Dir_1']].reset_index().to_dict('records'),
+            'direction_1': dir1_data[['Dir_0', 'Dir_1']].reset_index().to_dict('records')
+        }
+        return dir_table
 
+
+#   ====================== Additional Route-Stop-wise Analysis =========================
     def generate_delay_histograms(self, bins=20):
         """
-        Generate normalized delay histograms for each route-stop combination by time type
+        Generate normalized delay histograms organized by stop with directional-time sub-keys
         """
-        print("\n=== GENERATING DELAY HISTOGRAMS BY TIME TYPE ===")
+        print("\n=== GENERATING DELAY HISTOGRAMS (STOP-ORGANIZED) ===")
         
         route_name = self.route_long_name
+        delay_histograms = {}
         
-        self._delay_histograms = {}
-        
-        # Define time categories (same as travel times)
-        time_categories = ['am_rush', 'day', 'pm_rush', 'night', 'weekend']
-        
-        # Generate histograms for each stop
-        for stop_name, group in self.df_final.groupby('stop_name'):
+        dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
+
+        # Generate histograms for each stop, then by direction-time combinations
+        for stop_name, stop_group in self.df_final.groupby('stop_name'):
             composite_key = f"{route_name}_{stop_name}"
             
-            print(f"Generating histograms for: {stop_name}")
+            print(f"Generating histograms for stop: {stop_name}")
             
             # Initialize stop data structure
             stop_histogram_data = {
-                'stop_name': stop_name,
                 'route_name': route_name,
-                'time_categories': {},
+                'stop_name': stop_name,
+                'histograms': {},
                 'metadata': {
                     'bins_used': bins,
-                    'generated_date': pd.Timestamp.now().isoformat()
-                }
+                    'histograms_count': 0
+                },
+                'print_order': dir_zero_stop_seq.get(stop_name, 999)
             }
             
-            # Process each time category
-            for time_category in time_categories:
-                # Filter for this time category
-                if 'time_type' in group.columns:
-                    time_data = group[group['time_type'] == time_category]
-                else:
-                    # If no time_type column, skip this category
-                    continue
+            # Generate histograms for each direction-time combination within this stop
+            for (direction_id, time_type), group in stop_group.groupby(['direction_id', 'time_type']):
+                sub_key = f"{direction_id}_{time_type}"
                 
-                if len(time_data) >= 10:  # Minimum sample size per time category
+                print(f"  Processing: Dir {direction_id}, {time_type}")
+                
+                if len(group) >= 10:  # Minimum sample size
                     
                     # Filter out invalid data and get clean delays
-                    total_delays = time_data['departure_delay'].dropna()
+                    total_delays = group['departure_delay'].dropna()
                     
                     # For incremental delays, only use non-NaN values (automatically excludes sequence gaps)
-                    incremental_delays = time_data['incremental_delay'].dropna()
+                    incremental_delays = group['incremental_delay'].dropna()
                     # Additional safety: remove any remaining NaT values if column is object type
-                    if time_data['incremental_delay'].dtype == 'object':
+                    if group['incremental_delay'].dtype == 'object':
                         incremental_delays = incremental_delays[incremental_delays != pd.NaT]
                     
-                    # Generate histograms if we have enough data for this time category
-                    category_histograms = {}
+                    # Generate histograms if we have enough data
+                    direction_time_histograms = {}
                     
                     # Total delay histogram
-                    if len(total_delays) >= 5:  # Lower threshold for time categories
-                        category_histograms['total_delay'] = self._create_normalized_histogram(
-                            total_delays, bins, f'Total Delay Distribution - {time_category.replace("_", " ").title()}'
+                    if len(total_delays) >= 5:
+                        direction_time_histograms['total_delay'] = self._create_normalized_histogram(
+                            total_delays, bins, f'Total Delay - {stop_name} (Dir {direction_id}, {time_type.replace("_", " ").title()})'
                         )
                     
                     # Incremental delay histogram  
-                    if len(incremental_delays) >= 5:  # Lower threshold for time categories
-                        category_histograms['incremental_delay'] = self._create_normalized_histogram(
-                            incremental_delays, bins, f'Incremental Delay Distribution - {time_category.replace("_", " ").title()}'
+                    if len(incremental_delays) >= 5:
+                        direction_time_histograms['incremental_delay'] = self._create_normalized_histogram(
+                            incremental_delays, bins, f'Incremental Delay - {stop_name} (Dir {direction_id}, {time_type.replace("_", " ").title()})'
                         )
                     
-                    # Store if we have any histograms for this time category
-                    if category_histograms:
-                        stop_histogram_data['time_categories'][time_category] = {
-                            'histograms': category_histograms,
+                    # Store if we have any histograms for this direction-time combination
+                    if direction_time_histograms:
+                        stop_histogram_data['histograms'][sub_key] = {
+                            'direction_id': direction_id,
+                            'time_type': time_type,
+                            'histograms': direction_time_histograms,
                             'metadata': {
                                 'total_delay_sample_size': len(total_delays),
-                                'incremental_delay_sample_size': len(incremental_delays),
-                                'time_category': time_category
+                                'incremental_delay_sample_size': len(incremental_delays)
                             }
                         }
-                        print(f"  ✓ Generated histograms for {time_category}: {len(category_histograms)} types")
+                        stop_histogram_data['metadata']['histograms_count'] += len(direction_time_histograms)
+                        print(f"    ✓ Generated {len(direction_time_histograms)} histogram types")
+                    else:
+                        print(f"    ✗ Insufficient data for histograms")
+                else:
+                    print(f"    ✗ Insufficient sample size ({len(group)} < 10)")
             
-            # Only store if we have data for at least one time category
-            if stop_histogram_data['time_categories']:
-                self._delay_histograms[composite_key] = stop_histogram_data
-                total_categories = len(stop_histogram_data['time_categories'])
-                print(f"  ✓ Complete: {total_categories} time categories with histograms")
+            # Only store stop if it has any histograms
+            if stop_histogram_data['histograms']:
+                delay_histograms[composite_key] = stop_histogram_data
+                histograms_count = stop_histogram_data['metadata']['histograms_count']
+                print(f"  ✓ Stop complete: {histograms_count} direction-time combinations")
             else:
-                print(f"  ✗ No sufficient data for any time category")
+                print(f"  ✗ No histograms generated for this stop")
         
-        print(f"\nGenerated histograms for {len(self._delay_histograms)} route-stop combinations")
-        
-        # Print summary of what was generated
+        print(f"\nGenerated histograms for {len(delay_histograms)} stops")
+        # Sort the dictionary by Direction 0 stop sequence
+        sorted_histograms = dict(sorted(
+            delay_histograms.items(), 
+            key=lambda item: item[1]['print_order']
+        ))
+
+        # Remove the temporary stop_sequence field from the final dictionary
+        for entry in sorted_histograms.values():
+            entry.pop('print_order', None)
+
+        # Print summary breakdown
+        total_combinations = 0
         total_histograms = 0
-        for stop_data in self._delay_histograms.values():
-            for time_cat_data in stop_data['time_categories'].values():
-                total_histograms += len(time_cat_data['histograms'])
+        direction_breakdown = {0: 0, 1: 0}
+        time_breakdown = {}
         
-        print(f"Total individual histograms generated: {total_histograms}")
-        return self._delay_histograms
+        for stop_data in sorted_histograms.values():
+            for sub_key, combo_data in stop_data['histograms'].items():
+                total_combinations += 1  # Count each direction-time combination
+                total_histograms += len(combo_data['histograms'])
+                
+                direction_id = combo_data['direction_id']
+                time_type = combo_data['time_type']
+                
+                direction_breakdown[direction_id] += 1
+                time_breakdown[time_type] = time_breakdown.get(time_type, 0) + 1
+        
+        print(f"Total direction-time combinations: {total_combinations}")
+        print(f"Total individual histograms: {total_histograms}")
+        print(f"Direction breakdown: Dir 0: {direction_breakdown[0]}, Dir 1: {direction_breakdown[1]}")
+        print(f"Time type breakdown: {time_breakdown}")
+        
+        return sorted_histograms
 
     def _create_normalized_histogram(self, data, bins, title):
         """Create a normalized histogram from delay data"""
@@ -940,138 +996,204 @@ class DataFormer:
             'statistics': stats
         }
 
-    def add_histograms_to_stop_analysis(self):
-        """Add histogram availability flags to stop_analysis_dict"""
-        
-        if not hasattr(self, '_delay_histograms'):
-            return
-        
-        # Update stop_analysis_dict with histogram availability
-        for composite_key in self.stop_analysis_dict.keys():
-            has_histograms = composite_key in self._delay_histograms
-            
-            self.stop_analysis_dict[composite_key]['has_histograms'] = has_histograms
-            
-            if has_histograms:
-                # Add quick histogram info with time category breakdown
-                hist_data = self._delay_histograms[composite_key]
-                
-                # Count available time categories and histogram types
-                available_time_categories = list(hist_data['time_categories'].keys())
-                histogram_summary = {}
-                
-                for time_cat, time_data in hist_data['time_categories'].items():
-                    histogram_summary[time_cat] = {
-                        'available_types': list(time_data['histograms'].keys()),
-                        'total_delay_sample_size': time_data['metadata']['total_delay_sample_size'],
-                        'incremental_delay_sample_size': time_data['metadata']['incremental_delay_sample_size']
-                    }
-                
-                self.stop_analysis_dict[composite_key]['histogram_info'] = {
-                    'available_time_categories': available_time_categories,
-                    'total_time_categories': len(available_time_categories),
-                    'time_category_details': histogram_summary
-                }
-
     def generate_travel_times_data(self):
         """
-        Generate travel times statistics for route segments by time category
+        Generate travel times statistics organized by stop with directional-time sub-keys
         """
-        print("\n=== GENERATING TRAVEL TIMES DATA ===")
-        df_final = self.df_final.copy()
+        print("\n=== GENERATING TRAVEL TIMES DATA (STOP-ORGANIZED) ===")
+        
         route_name = self.route_long_name
-        self._travel_times_data = {}
-        
-        # Sort data and create next stop mapping
-        df_sorted = df_final.sort_values(['trip_id', 'stop_sequence'])
-        df_sorted['next_stop'] = df_sorted.groupby('trip_id')['stop_name'].shift(-1)
-        
-        # Filter for valid travel times (no sequence gaps + has next stop)
-        valid_segments = df_sorted[
-            (df_sorted['travel_time_valid'] == True) & 
-            (df_sorted['next_stop'].notna()) &
-            (df_sorted['observed_travel_time'].notna()) &
-            (df_sorted['scheduled_travel_time'].notna())
+        travel_times_data = {}
+        df_final = self.df_final.copy()
+        dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
+
+        # Simple filtering - just need previous_stop and valid travel times
+        valid_data = df_final[
+            df_final['previous_stop'].notna() &              # Must have a previous stop
+            df_final['travel_time_valid'] == True            # Must be valid (no sequence gaps)
         ].copy()
         
-        # Convert travel times to seconds for analysis
-        valid_segments['observed_travel_time_seconds'] = valid_segments['observed_travel_time'].dt.total_seconds()
-        valid_segments['scheduled_travel_time_seconds'] = valid_segments['scheduled_travel_time'].dt.total_seconds()
+        print(f"Valid travel time records: {len(valid_data)}/{len(df_final)} rows")
         
-        # Define time categories
-        time_categories = ['am_rush', 'day', 'pm_rush', 'night', 'weekend']
+        # Convert to seconds
+        valid_data['observed_travel_time_seconds'] = valid_data['observed_travel_time'].dt.total_seconds()
+        valid_data['scheduled_travel_time_seconds'] = valid_data['scheduled_travel_time'].dt.total_seconds()
         
-        # Generate statistics for each route segment and time category
-        for (from_stop, to_stop), segment_group in valid_segments.groupby(['stop_name', 'next_stop']):
+        # Group by to_stop (arrival stop), then by direction and time category
+        for to_stop, stop_group in valid_data.groupby('stop_name'):
+            composite_key = f"{route_name}_{to_stop}"
             
-            segment_key = f"{from_stop} → {to_stop}"
-            route_segment_key = f"{route_name}_{segment_key}"
+            print(f"Generating travel times for stop: {to_stop}")
             
-            print(f"Processing segment: {segment_key}")
-            
-            # Initialize segment data structure
-            segment_data = {
+            # Initialize stop data structure
+            stop_travel_data = {
                 'route_name': route_name,
-                'from_stop': from_stop,
-                'to_stop': to_stop,
-                'time_categories': {}
+                'stop_name': to_stop,
+                'travel_times': {},
+                'metadata': {
+                    'total_segments': 0
+                },
+                'print_order': dir_zero_stop_seq.get(to_stop, 999)
             }
             
-            # Process each time category
-            for time_category in time_categories:
-                # Filter for this time category
-                if 'time_type' in segment_group.columns:
-                    time_data = segment_group[segment_group['time_type'] == time_category]
-                else:
-                    # If no time_type column, skip this category
-                    continue
+            # Generate travel times for each direction-time combination within this stop
+            for (direction_id, time_type), group in stop_group.groupby(['direction_id', 'time_type']):
+                sub_key = f"{direction_id}_{time_type}"
                 
-                if len(time_data) >= 3:  # Minimum sample size per time category
+                print(f"  Processing: Dir {direction_id}, {time_type}")
+                
+                if len(group) >= 3:  # Minimum sample size
                     
-                    # Get travel times for this time category
-                    observed_times = time_data['observed_travel_time_seconds'].dropna()
-                    scheduled_times = time_data['scheduled_travel_time_seconds'].dropna()
+                    # Get the from_stop for this direction-time combination
+                    # (should be consistent within each direction)
+                    from_stops = group['previous_stop'].unique()
+                    if len(from_stops) == 1:
+                        from_stop = from_stops[0]
+                    else:
+                        # Multiple from_stops - this could happen at transfer points
+                        # Take the most common one
+                        from_stop = group['previous_stop'].mode().iloc[0]
+                        print(f"    Warning: Multiple from_stops detected, using most common: {from_stop}")
                     
-                    category_stats = {
-                        'observed': self._calculate_travel_time_stats(observed_times, 'observed'),
-                        'scheduled': self._calculate_travel_time_stats(scheduled_times, 'scheduled'),
-                        'comparison': {
-                            'mean_difference_seconds': float(observed_times.mean() - scheduled_times.mean()) if len(observed_times) > 0 and len(scheduled_times) > 0 else None,
-                            'delay_rate': float((observed_times > scheduled_times).mean()) if len(observed_times) == len(scheduled_times) else None
-                        },
-                        'sample_size': len(time_data)
+                    observed_times = group['observed_travel_time_seconds']
+                    scheduled_times = group['scheduled_travel_time_seconds'] 
+                    incremental_delays = group['incremental_delay']
+                    
+                    direction_time_stats = {
+                        'direction_id': direction_id,
+                        'time_type': time_type,
+                        'from_stop': from_stop,
+                        'to_stop': to_stop,
+                        'stop_sequence': group['stop_sequence'].iloc[0],
+                        'segment_name': f"{from_stop} → {to_stop}",
+                        'statistics': {
+                            'observed_travel_time': self._calculate_time_stats(observed_times, 'observed'),
+                            'scheduled_travel_time': self._calculate_time_stats(scheduled_times, 'scheduled'),
+                            'incremental_delay': self._calculate_time_stats(incremental_delays, 'incremental_delay'),
+                            'sample_size': len(group),
+                            'comparison': {
+                                'mean_difference_seconds': float(observed_times.mean() - scheduled_times.mean()),
+                                'mean_incremental_delay': float(incremental_delays.mean())
+                            }
+                        }
                     }
-                    
-                    segment_data['time_categories'][time_category] = category_stats
+                    # Store the direction-time combination
+                    stop_travel_data['travel_times'][sub_key] = direction_time_stats
+                    stop_travel_data['metadata']['total_segments'] += 1
+                    print(f"    ✓ Generated travel time stats for {from_stop} → {to_stop}")
+                else:
+                    print(f"    ✗ Insufficient sample size ({len(group)} < 3)")
             
-            # Only store if we have data for at least one time category
-            if segment_data['time_categories']:
-                self._travel_times_data[route_segment_key] = segment_data
-                print(f"  ✓ Generated data for {len(segment_data['time_categories'])} time categories")
+            # Only store stop if it has any travel time data
+            if stop_travel_data['travel_times']:
+                travel_times_data[composite_key] = stop_travel_data
+                total_segments = stop_travel_data['metadata']['total_segments']
+                print(f"  ✓ Stop complete: {total_segments} direction-time combinations")
+            else:
+                print(f"  ✗ No travel time data generated for this stop")
         
-        print(f"Generated travel time data for {len(self._travel_times_data)} route segments")
-        return self._travel_times_data
+        print(f"\nGenerated travel time data for {len(travel_times_data)} stops")
 
-    def _calculate_travel_time_stats(self, travel_times, data_type):
-        """Calculate statistics for a set of travel times"""
+        # Sort the dictionary by Direction 0 stop sequence
+        sorted_travel_times = dict(sorted(
+            travel_times_data.items(), 
+            key=lambda item: item[1]['print_order']
+        ))
+
+        # Remove the temporary stop_sequence field from the final dictionary
+        for entry in sorted_travel_times.values():
+            entry.pop('print_order', None)
+
+        # Print summary breakdown
+        total_segments = 0
+        direction_breakdown = {0: 0, 1: 0}
+        time_breakdown = {}
         
-        if len(travel_times) == 0:
+        for stop_data in sorted_travel_times.values():
+            for sub_key, segment_data in stop_data['travel_times'].items():
+                total_segments += 1
+                
+                direction_id = segment_data['direction_id']
+                time_type = segment_data['time_type']
+                
+                direction_breakdown[direction_id] += 1
+                time_breakdown[time_type] = time_breakdown.get(time_type, 0) + 1
+        
+        print(f"Total direction-time segments: {total_segments}")
+        print(f"Direction breakdown: Dir 0: {direction_breakdown[0]}, Dir 1: {direction_breakdown[1]}")
+        print(f"Time type breakdown: {time_breakdown}")
+        
+        return sorted_travel_times
+
+    def _calculate_time_stats(self, times, data_type=None):
+        """Calculate statistics for a set of times with proper validation"""
+        
+        # First check: empty input
+        if len(times) == 0:
             return None
         
-        return {
-            'data_type': data_type,
-            'mean_travel_time_seconds': float(travel_times.mean()),
-            'std_travel_time_seconds': float(travel_times.std()),
-            'percentile_25': float(np.percentile(travel_times, 25)),
-            'percentile_75': float(np.percentile(travel_times, 75)),
-            'percentile_5': float(np.percentile(travel_times, 5)),
-            'percentile_95': float(np.percentile(travel_times, 95)),
-            'median_travel_time_seconds': float(travel_times.median()),
-            'min_travel_time_seconds': float(travel_times.min()),
-            'max_travel_time_seconds': float(travel_times.max()),
-            'sample_size': len(travel_times)
-        }
-
+        # DATA VALIDATION: Remove NaN/NaT values
+        clean_times = times.dropna()
+        
+        # Second check: no valid data after cleaning
+        if len(clean_times) == 0:
+            return {
+                'data_type': data_type,
+                'sample_size': 0,
+                'error': 'All values were NaN/NaT'
+            }
+        
+        # SAFE STATISTICAL CALCULATIONS with validation
+        try:
+            # Basic stats (always safe with clean data)
+            mean_val = float(clean_times.mean())
+            median_val = float(clean_times.median())
+            min_val = float(clean_times.min())
+            max_val = float(clean_times.max())
+            
+            # Standard deviation (safe only with 2+ values)
+            std_val = float(clean_times.std()) if len(clean_times) > 1 else 0.0
+            
+            # Percentiles (need sufficient data points)
+            if len(clean_times) >= 4:
+                p25 = float(np.percentile(clean_times, 25))
+                p75 = float(np.percentile(clean_times, 75))
+            else:
+                p25 = min_val  # Use min/max for small samples
+                p75 = max_val
+            
+            if len(clean_times) >= 20:
+                p5 = float(np.percentile(clean_times, 5))
+                p95 = float(np.percentile(clean_times, 95))
+            else:
+                p5 = min_val   # Use min/max for small samples
+                p95 = max_val
+            
+            return {
+                'data_type': data_type,
+                'mean_time_seconds': mean_val,
+                'std_time_seconds': std_val,
+                'percentile_25': p25,
+                'percentile_75': p75,
+                'percentile_5': p5,
+                'percentile_95': p95,
+                'median_time_seconds': median_val,
+                'min_time_seconds': min_val,
+                'max_time_seconds': max_val,
+                'sample_size': len(clean_times),
+                'original_sample_size': len(times),  # Track how many were removed
+                'nan_count': len(times) - len(clean_times)
+            }
+            
+        except Exception as e:
+            # ERROR HANDLING: Catch any unexpected issues
+            print(f"Warning: Error calculating statistics for {data_type}: {e}")
+            return {
+                'data_type': data_type,
+                'sample_size': len(clean_times),
+                'original_sample_size': len(times),
+                'error': str(e)
+            }
 #   ========================== Converting to JSON ================================
     def _convert_table_to_json(self, table_data):
         """Convert pandas DataFrame or dict to simple JSON format"""
@@ -1100,6 +1222,14 @@ class DataFormer:
             return {key: self._make_json_serializable(value) for key, value in obj.items()}
         elif isinstance(obj, list):
             return [self._make_json_serializable(item) for item in obj]
+        elif isinstance(obj, (np.integer, np.int64, np.int32)):
+            return int(obj)
+        elif isinstance(obj, (np.floating, np.float64, np.float32)):
+            return float(obj)
+        elif pd.isna(obj):  # Handle NaN/NaT values
+            return None
+        elif isinstance(obj, np.ndarray):  # Handle numpy arrays
+            return obj.tolist()
         elif hasattr(obj, 'item'):  # pandas/numpy scalars
             return obj.item()
         elif hasattr(obj, 'tolist'):  # pandas/numpy arrays
@@ -1107,24 +1237,23 @@ class DataFormer:
         else:
             return obj
         
-
 #   ========================== Exporting to JSON =================================    
-    def export_to_json_files(self, output_dir="./analysis_output"):
+    # Renamed and simplified basic export:
+    def export_basic_json_files(self, output_dir="./analysis_output"):
         """
-        Export analysis to 5 JSON files, creating new files or appending to existing ones
+        Export basic analysis to 4 core JSON files (no detailed data)
         """
-        print(f"\n=== EXPORTING TO JSON FILES ===")
+        print(f"\n=== EXPORTING BASIC JSON FILES ===")
         
         # Ensure output directory exists
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
-        # Define file paths
+        # Define file paths for basic files only
         file_paths = {
             "route_stops": os.path.join(output_dir, "route_stops.json"),
             "stop_routes": os.path.join(output_dir, "stop_routes.json"),
             "stop_analysis": os.path.join(output_dir, "stop_analysis.json"),
-            "logs_details": os.path.join(output_dir, "logs_details.json"),
-            "route_tables": os.path.join(output_dir, "route_tables.json")
+            "logs_details": os.path.join(output_dir, "logs_details.json")
         }
         
         # Load existing data or initialize empty dictionaries
@@ -1143,7 +1272,6 @@ class DataFormer:
         stop_routes_data = load_existing_json(file_paths["stop_routes"])
         stop_analysis_data = load_existing_json(file_paths["stop_analysis"])
         logs_details_data = load_existing_json(file_paths["logs_details"])
-        route_tables_data = load_existing_json(file_paths["route_tables"])
         route_name = self.route_long_name
             
         print(f"Processing route: {route_name}")
@@ -1152,18 +1280,11 @@ class DataFormer:
         if hasattr(self, 'stop_analysis_dict') and self.stop_analysis_dict:
             stops_on_route = list(set(data['stop_name'] for data in self.stop_analysis_dict.values()))
             
-            # Order stops by direction 0 sequence
-            if hasattr(self, 'df_final'):
-                # Get direction 0 sequences for sorting
-                dir0_sequences = self.df_final[self.df_final['direction_id'] == 0][['stop_name', 'stop_sequence']].drop_duplicates()
-                seq_map = dict(zip(dir0_sequences['stop_name'], dir0_sequences['stop_sequence']))
+            # Order stops by direction 0 sequence using centralized function
+            dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
+            stops_on_route.sort(key=lambda stop: dir_zero_stop_seq.get(stop, 999))
                 
-                # Sort stops by sequence
-                stops_on_route.sort(key=lambda stop: seq_map.get(stop, 999))
-            else:
-                stops_on_route = sorted(stops_on_route)
-            
-            # Calculate summary statistics with updated field names
+            # Calculate summary statistics
             summary_stats = {"normal_stops_count": 0, "minor_stops_count": 0, "severe_stops_count": 0}
             for data in self.stop_analysis_dict.values():
                 status = data.get('problematic_status', 'Normal').lower()
@@ -1180,9 +1301,10 @@ class DataFormer:
                 "total_stops": len(stops_on_route),
                 "summary": summary_stats,
                 "analysis_availability": {
-                    "before_and_after_tables": hasattr(self, 'direction_tables_before') and hasattr(self, 'direction_tables_after'),
-                    "directional_punctuality": False,  
-                    "travel_times": False  
+                    "before_and_after_tables": hasattr(self, '_direction_tables_before') and hasattr(self, '_direction_tables_after'),
+                    "delay_histograms": hasattr(self, '_delay_histograms') and bool(self._delay_histograms),
+                    "travel_times": hasattr(self, '_travel_times_data') and bool(self._travel_times_data),
+                    "punctuality": hasattr(self, '_punctuality_data') and bool(self._punctuality_data)
                 }
             }
             print(f"  Updated route_stops for {route_name} ({len(stops_on_route)} stops)")
@@ -1192,18 +1314,13 @@ class DataFormer:
             for data in self.stop_analysis_dict.values():
                 stop_name = data['stop_name']
                 
-                # Check if this stop is identified as a regulation stop
-                is_regulation_stop = any(composite_key.endswith(f"_{stop_name}") 
-                                    for composite_key in getattr(self, '_sequence_root_causes_log', {}))
-                
                 # Initialize stop entry if it doesn't exist
                 if stop_name not in stop_routes_data:
                     stop_routes_data[stop_name] = {
                         "stop_name": stop_name,
                         "routes": [],
                         "total_routes": 0,
-                        "summary": {"normal_routes_count": 0, "minor_routes_count": 0, "severe_routes_count": 0},
-                        "regulation_stop": is_regulation_stop
+                        "summary": {"normal_routes_count": 0, "minor_routes_count": 0, "severe_routes_count": 0}
                     }
                 
                 # Add route if not already present
@@ -1219,10 +1336,6 @@ class DataFormer:
                         stop_routes_data[stop_name]["summary"]["minor_routes_count"] += 1
                     elif status == 'severe':
                         stop_routes_data[stop_name]["summary"]["severe_routes_count"] += 1
-                    
-                    # Update regulation_stop flag if this route identifies it as such
-                    if is_regulation_stop:
-                        stop_routes_data[stop_name]["regulation_stop"] = True
             
             print(f"  Updated stop_routes for {len(set(data['stop_name'] for data in self.stop_analysis_dict.values()))} stops")
         
@@ -1261,23 +1374,10 @@ class DataFormer:
                     logs_added += 1
             
             print(f"  Updated logs_details for {logs_added} problematic route-stop combinations")
-        
-        # 5. UPDATE ROUTE TABLES 
-        if hasattr(self, 'direction_tables_before') and hasattr(self, 'direction_tables_after'):
-            # Simply convert your existing tables to JSON
-            route_tables_data[route_name] = {
-                "route_name": route_name,
-                "before_table": self._convert_table_to_json(self.direction_tables_before),
-                "after_table": self._convert_table_to_json(self.direction_tables_after)
-            }
-            print(f"  Updated route_tables for {route_name}")
-        else:
-            print(f"  No before/after tables found for {route_name}")
 
-        # 6. SAVE ALL FILES
+        # SAVE BASIC FILES ONLY
         def save_json_file(data, file_path, description):
             serializable_data = self._make_json_serializable(data)
-
             try:
                 with open(file_path, 'w', encoding='utf-8') as f:
                     json.dump(serializable_data, f, indent=2, ensure_ascii=False)
@@ -1289,28 +1389,67 @@ class DataFormer:
         save_json_file(stop_routes_data, file_paths["stop_routes"], "stop_routes.json") 
         save_json_file(stop_analysis_data, file_paths["stop_analysis"], "stop_analysis.json")
         save_json_file(logs_details_data, file_paths["logs_details"], "logs_details.json")
-        save_json_file(route_tables_data, file_paths["route_tables"], "route_tables.json")
         
-        print(f"\nExport complete! Files saved to: {output_dir}")
+        print(f"\nBasic export complete! Files saved to: {output_dir}")
         
         return {
             "route_stops_count": len(route_stops_data),
             "stop_routes_count": len(stop_routes_data),
             "stop_analysis_count": len(stop_analysis_data),
             "logs_details_count": len(logs_details_data),
-            "route_tables_count": len(route_tables_data),
             "output_directory": output_dir
         }
 
+    # New separate method for tables:
+    def export_tables_to_json(self, output_dir="./analysis_output"):
+        """Export before/after direction tables to separate JSON file"""
+        
+        if not (hasattr(self, '_direction_tables_before') and hasattr(self, '_direction_tables_after')):
+            print("No direction tables to export")
+            return
+        
+        # Load existing tables data
+        tables_path = os.path.join(output_dir, "route_tables.json")
+        
+        def load_existing_json(file_path):
+            if os.path.exists(file_path):
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        return json.load(f)
+                except (json.JSONDecodeError, FileNotFoundError):
+                    return {}
+            return {}
+        
+        existing_tables = load_existing_json(tables_path)
+        route_name = self.route_long_name
+        
+        # Add current route's tables
+        existing_tables[route_name] = {
+            "route_name": route_name,
+            "before_corrections": self._convert_table_to_json(self._direction_tables_before),
+            "after_corrections": self._convert_table_to_json(self._direction_tables_after),
+            "metadata": {
+                "last_updated": pd.Timestamp.now().isoformat()
+            }
+        }
+        
+        # Save updated tables
+        try:
+            serializable_data = self._make_json_serializable(existing_tables)
+            with open(tables_path, 'w', encoding='utf-8') as f:
+                json.dump(serializable_data, f, indent=2, ensure_ascii=False)
+            print(f"  ✓ Saved route_tables.json: {route_name} before/after tables")
+        except Exception as e:
+            print(f"  ✗ Error saving route_tables.json: {e}")
+
     def export_histograms_to_json(self, output_dir="./analysis_output"):
-        """Export histograms to separate JSON file with time category structure"""
+        """Export histograms to separate JSON file"""
         
         if not hasattr(self, '_delay_histograms') or not self._delay_histograms:
             print("No histograms to export")
             return
         
-        # Load existing histogram data
-        histograms_path = os.path.join(output_dir, "delay_histograms_by_time.json")
+        histograms_path = os.path.join(output_dir, "delay_histograms.json")
         
         def load_existing_json(file_path):
             if os.path.exists(file_path):
@@ -1332,21 +1471,23 @@ class DataFormer:
             with open(histograms_path, 'w', encoding='utf-8') as f:
                 json.dump(serializable_data, f, indent=2, ensure_ascii=False)
             
-            # Count total histograms for summary
+            # Count total histograms for summary (FIXED)
             total_stops = len(existing_histograms)
-            total_time_categories = sum(len(stop_data['time_categories']) for stop_data in existing_histograms.values())
+            total_combinations = 0
             total_histograms = 0
-            for stop_data in existing_histograms.values():
-                for time_cat_data in stop_data['time_categories'].values():
-                    total_histograms += len(time_cat_data['histograms'])
             
-            print(f"  ✓ Saved delay_histograms_by_time.json:")
+            for stop_data in existing_histograms.values():
+                for sub_key, combo_data in stop_data['histograms'].items():  # ← Fixed: use 'histograms'
+                    total_combinations += 1
+                    total_histograms += len(combo_data['histograms'])
+            
+            print(f"  ✓ Saved delay_histograms.json:")
             print(f"    - {total_stops} stops")
-            print(f"    - {total_time_categories} time categories")  
+            print(f"    - {total_combinations} direction-time combinations")  
             print(f"    - {total_histograms} individual histograms")
             
         except Exception as e:
-            print(f"  ✗ Error saving delay_histograms_by_time.json: {e}")
+            print(f"  ✗ Error saving delay_histograms.json: {e}")
 
     def export_travel_times_to_json(self, output_dir="./analysis_output"):
         """Export travel times to separate JSON file"""
@@ -1370,8 +1511,8 @@ class DataFormer:
         existing_travel_times = load_existing_json(travel_times_path)
         
         # Group by route for cleaner structure
-        route_name = self.df_final['route_long_name'].iloc[0] if 'route_long_name' in self.df_final.columns else 'Unknown Route'
-        
+        route_name = self.route_long_name
+
         # Create route entry if it doesn't exist
         if route_name not in existing_travel_times:
             existing_travel_times[route_name] = {
