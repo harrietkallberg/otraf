@@ -1238,6 +1238,16 @@ class DataFormer:
             return obj
         
 #   ========================== Exporting to JSON =================================    
+
+    def load_existing_json(self, file_path):
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError):
+                return {}
+        return {}
+    
     # Renamed and simplified basic export:
     def export_basic_json_files(self, output_dir="./analysis_output"):
         """
@@ -1256,22 +1266,11 @@ class DataFormer:
             "logs_details": os.path.join(output_dir, "logs_details.json")
         }
         
-        # Load existing data or initialize empty dictionaries
-        def load_existing_json(file_path):
-            if os.path.exists(file_path):
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        return json.load(f)
-                except (json.JSONDecodeError, FileNotFoundError):
-                    print(f"Warning: Could not load {file_path}, starting fresh")
-                    return {}
-            return {}
-        
         # Load existing data
-        route_stops_data = load_existing_json(file_paths["route_stops"])
-        stop_routes_data = load_existing_json(file_paths["stop_routes"])
-        stop_analysis_data = load_existing_json(file_paths["stop_analysis"])
-        logs_details_data = load_existing_json(file_paths["logs_details"])
+        route_stops_data = self.load_existing_json(file_paths["route_stops"])
+        stop_routes_data = self.load_existing_json(file_paths["stop_routes"])
+        stop_analysis_data = self.load_existing_json(file_paths["stop_analysis"])
+        logs_details_data = self.load_existing_json(file_paths["logs_details"])
         route_name = self.route_long_name
             
         print(f"Processing route: {route_name}")
@@ -1451,16 +1450,7 @@ class DataFormer:
         
         histograms_path = os.path.join(output_dir, "delay_histograms.json")
         
-        def load_existing_json(file_path):
-            if os.path.exists(file_path):
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        return json.load(f)
-                except (json.JSONDecodeError, FileNotFoundError):
-                    return {}
-            return {}
-        
-        existing_histograms = load_existing_json(histograms_path)
+        existing_histograms = self.load_existing_json(histograms_path)
         
         # Add current route's histograms
         existing_histograms.update(self._delay_histograms)
@@ -1490,7 +1480,7 @@ class DataFormer:
             print(f"  ✗ Error saving delay_histograms.json: {e}")
 
     def export_travel_times_to_json(self, output_dir="./analysis_output"):
-        """Export travel times to separate JSON file"""
+        """Export travel times to separate JSON file with flat route_stop structure"""
         
         if not hasattr(self, '_travel_times_data') or not self._travel_times_data:
             print("No travel times data to export")
@@ -1510,38 +1500,29 @@ class DataFormer:
         
         existing_travel_times = load_existing_json(travel_times_path)
         
-        # Group by route for cleaner structure
-        route_name = self.route_long_name
-
-        # Create route entry if it doesn't exist
-        if route_name not in existing_travel_times:
-            existing_travel_times[route_name] = {
-                'route_name': route_name,
-                'segments': {},
-                'metadata': {
-                    'last_updated': pd.Timestamp.now().isoformat(),
-                    'total_segments': 0
-                }
-            }
-        
-        # Add current route's segments
-        segments_added = 0
-        for route_segment_key, segment_data in self._travel_times_data.items():
-            # Extract segment key (remove route prefix)
-            segment_key = route_segment_key.replace(f"{route_name}_", "", 1)
-            
-            existing_travel_times[route_name]['segments'][segment_key] = segment_data
-            segments_added += 1
-        
-        # Update metadata
-        existing_travel_times[route_name]['metadata']['total_segments'] = len(existing_travel_times[route_name]['segments'])
-        existing_travel_times[route_name]['metadata']['last_updated'] = pd.Timestamp.now().isoformat()
+        # Add current route's travel times using flat route_stop keys (like histograms)
+        existing_travel_times.update(self._travel_times_data)
         
         # Save updated travel times
         try:
             serializable_data = self._make_json_serializable(existing_travel_times)
             with open(travel_times_path, 'w', encoding='utf-8') as f:
                 json.dump(serializable_data, f, indent=2, ensure_ascii=False)
-            print(f"  ✓ Saved travel_times.json: {segments_added} segments added for {route_name}")
+            
+            # Count total travel times for summary (same pattern as histograms)
+            total_stops = len(existing_travel_times)
+            total_combinations = 0
+            total_segments = 0
+            
+            for stop_data in existing_travel_times.values():
+                for direction_time_key, combo_data in stop_data['travel_times'].items():
+                    total_combinations += 1
+                    total_segments += 1  # Each combination is one travel segment
+            
+            print(f"  ✓ Saved travel_times.json:")
+            print(f"    - {total_stops} stops")
+            print(f"    - {total_combinations} direction-time combinations")  
+            print(f"    - {total_segments} travel segments")
+            
         except Exception as e:
             print(f"  ✗ Error saving travel_times.json: {e}")
