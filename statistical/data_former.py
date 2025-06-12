@@ -255,7 +255,7 @@ class DataFormer:
 #   ============ Validating / Logging Violating RouteID-DirectionID-TripType-Pattern Behaviours ==============
     
     def identify_and_classify_trips(self, df):
-        """Unified trip classification with gap detection using sorting approach"""
+        """Unified trip classification with gap detection using stop-level logs"""
         print("\n=== UNIFIED TRIP CLASSIFICATION WITH GAP DETECTION ===")
         
         df = df.copy()
@@ -282,7 +282,7 @@ class DataFormer:
         for direction in trip_info['direction_id'].unique():
             dir_trips = trip_info[trip_info['direction_id'] == direction]
             
-            # Establish canonical pattern (most common full trip)
+            # Establish canonical pattern
             full_trips = dir_trips[dir_trips['is_full']]
             if len(full_trips) == 0:
                 continue
@@ -290,28 +290,10 @@ class DataFormer:
             pattern_counts = full_trips['pattern'].value_counts()
             canonical = pattern_counts.index[0]
             
-            # Validate canonical pattern has expected length
-            if len(canonical) != max_stops[direction]:
-                print(f"⚠️  Direction {direction}: canonical pattern length {len(canonical)} != max_stops {max_stops[direction]}")
-                # Create violation for canonical pattern length mismatch
-                canonical_violation = self.create_violation_entry(
-                    violation_type='canonical_pattern_length_mismatch',
-                    severity='high',
-                    description=f"Canonical pattern has {len(canonical)} stops but max_stops is {max_stops[direction]}",
-                    direction_id=direction,
-                    canonical_pattern=list(canonical),
-                    canonical_length=len(canonical),
-                    expected_length=max_stops[direction],
-                    canonical_trip_count=pattern_counts.iloc[0]
-                )
-                canonical_log_key = f"canonical_{self.route_long_name}_{direction}_length_mismatch"
-                self.add_violation_to_log(pattern_violations_log, canonical_log_key, canonical_violation)
-            
             print(f"Direction {direction}: canonical pattern {len(canonical)} stops (from {pattern_counts.iloc[0]} trips)")
             
             # Analyze all patterns against canonical
             all_patterns = dir_trips['pattern'].unique()
-            trip_types = {}
             pattern_mapping = {}
             
             for i, pattern in enumerate(all_patterns):
@@ -319,7 +301,7 @@ class DataFormer:
                 trip_count = len(pattern_trips)
                 is_full_length = len(pattern) == max_stops[direction]
                 
-                # Analyze pattern using sorting approach
+                # Analyze pattern
                 analysis = self._analyze_pattern(pattern, canonical)
                 
                 # Create trip type
@@ -330,53 +312,67 @@ class DataFormer:
                 else:
                     trip_type = f'partial_{i+1}'
                 
-                trip_types[trip_type] = {
-                    'pattern': list(pattern),
-                    'pattern_description': self._create_pattern_description(pattern, canonical),
-                    'length': len(pattern),
-                    'first_stop': pattern_trips['first_stop'].iloc[0],
-                    'last_stop': pattern_trips['last_stop'].iloc[0],
-                    'is_canonical': pattern == canonical and is_full_length,
-                    'has_issues': analysis['type'] != 'consecutive',
-                    'issue_type': analysis['type'],
-                    'travel_reliable': analysis['valid'],
-                    'trip_count': trip_count
-                }
-                
                 pattern_mapping[pattern] = trip_type
                 
-                # Create violation entry for pattern issues (including full trips with issues)
-                if analysis['type'] != 'consecutive':
-                    severity = 'high' if analysis['type'] == 'has_swaps_and_gaps' else 'medium'
+                # CREATE STOP-LEVEL LOGS for each stop in this pattern
+                canonical_description = self._create_pattern_description(canonical, canonical)
+                pattern_description = self._create_pattern_description(pattern, canonical)
+                
+                for stop_id in pattern:
+                    # Get stop name
+                    stop_name = None
+                    stop_records = df[df['stop_id'] == stop_id]
+                    if not stop_records.empty:
+                        stop_name = stop_records['stop_name'].iloc[0]
                     
-                    violation = self.create_violation_entry(
-                        violation_type=f'pattern_{analysis["type"]}',
-                        severity=severity,
-                        description=f"Trip pattern {analysis['type'].replace('_', ' ')}",
-                        direction_id=direction,
-                        trip_type=trip_type,
-                        canonical_pattern=list(canonical),
-                        canonical_description=self._create_pattern_description(canonical, canonical),
-                        problematic_pattern=list(pattern),
-                        problematic_description=self._create_pattern_description(pattern, canonical),
-                        trip_count=trip_count,
-                        is_full_length=is_full_length
-                    )
+                    # Create stop-level trip type log key
+                    trip_type_key = f"{self.route_long_name}_{stop_id}_{direction}_{trip_type}"
                     
-                    log_key = f"pattern_{self.route_long_name}_{direction}_{trip_type}_{analysis['type']}"
-                    self.add_violation_to_log(pattern_violations_log, log_key, violation)
+                    trip_types_log[trip_type_key] = {
+                        'route_id': self.route_id,
+                        'route_name': self.route_long_name,
+                        'route_short_name': self.route_short_name,
+                        'stop_id': stop_id,
+                        'stop_name': stop_name,
+                        'direction_id': direction,
+                        'trip_type': trip_type,
+                        'pattern_length': len(pattern),
+                        'is_canonical': pattern == canonical and is_full_length,
+                        'has_issues': analysis['type'] != 'consecutive',
+                        'issue_type': analysis['type'],
+                        'travel_reliable': analysis['valid'],
+                        'trip_count': trip_count,
+                        'canonical_description': canonical_description,
+                        'pattern_description': pattern_description
+                    }
+                    
+                    # Create stop-level pattern violation using standard formatter
+                    if analysis['type'] != 'consecutive':
+                        has_gap_before = self._stop_has_gap_before(stop_id, pattern, canonical)
+                        
+                        if has_gap_before:
+                            severity = 'high' if analysis['type'] == 'has_swaps_and_gaps' else 'medium'
+                            
+                            # USE STANDARD VIOLATION FORMATTER
+                            violation = self.create_violation_entry(
+                                violation_type='gap_before_stop',
+                                severity=severity,
+                                description=f'Gap exists before this stop in {trip_type} trips',
+                                stop_id=stop_id,
+                                stop_name=stop_name,
+                                direction_id=direction,
+                                trip_type=trip_type,
+                                trip_count=trip_count,
+                                original_issue_type=analysis['type'],
+                                canonical_description=canonical_description,
+                                problematic_description=pattern_description
+                            )
+                            
+                            violation_key = f"pattern_{self.route_long_name}_{stop_id}_{direction}_{trip_type}"
+                            self.add_violation_to_log(pattern_violations_log, violation_key, violation)
             
-            # Store results
+            # Store direction mapping
             direction_mapping[direction] = pattern_mapping
-            trip_types_log[f"{self.route_long_name}_{direction}"] = {
-                'route_id': self.route_id,
-                'route_name': self.route_long_name,
-                'direction': direction,
-                'canonical_pattern': list(canonical),
-                'canonical_description': self._create_pattern_description(canonical, canonical),
-                'has_issues': any(t['has_issues'] for t in trip_types.values()),
-                'trip_types': trip_types
-            }
         
         # Apply trip types to dataframe
         def get_trip_type(row):
@@ -396,7 +392,107 @@ class DataFormer:
         self._trip_types_log = trip_types_log
         self._pattern_violations_log = pattern_violations_log
         
-        print(f"Complete: {len(trip_info)} trips, {len(pattern_violations_log)} violations")
+        # Count affected records (same logic as before)
+        violated_trip_types = set()
+        for violation in pattern_violations_log.values():
+            direction_id = violation.get('direction_id')
+            trip_type = violation.get('trip_type')
+            violated_trip_types.add((direction_id, trip_type))
+
+        affected_records = 0
+        if violated_trip_types:
+            for direction_id, trip_type in violated_trip_types:
+                affected_records += len(df[(df['direction_id'] == direction_id) & (df['trip_type'] == trip_type)])
+
+        non_full_records = len(df[df['trip_type'] != 'full'])
+
+        print(f"Complete: {len(trip_info)} trips, {len(pattern_violations_log)} stop-level violations affecting {affected_records} records")
+        print(f"Additional info: {non_full_records} total non-full trip records")
+        
+        return df
+
+    def _stop_has_gap_before(self, stop_id, pattern, canonical):
+        """Check if a specific stop has a gap before it in the pattern"""
+        pattern_list = list(pattern)
+        canonical_list = list(canonical)
+        
+        try:
+            pattern_idx = pattern_list.index(stop_id)
+            canonical_idx = canonical_list.index(stop_id)
+            
+            # First stop can't have gap before it
+            if pattern_idx == 0 or canonical_idx == 0:
+                return False
+            
+            # Get previous stops
+            pattern_prev = pattern_list[pattern_idx - 1]
+            canonical_prev = canonical_list[canonical_idx - 1]
+            
+            # Gap exists if previous stops are different
+            return pattern_prev != canonical_prev
+            
+        except (ValueError, IndexError):
+            return False
+
+    # SIMPLE TRAVEL TIME CALCULATOR:
+    def calculate_travel_times_and_delays(self, df):
+        """Calculate travel times using stop-level pattern violations"""
+        print("\n=== CALCULATING TRAVEL TIMES AND DELAYS ===")
+        
+        df = df.sort_values(['trip_id', 'direction_id', 'start_date', 'stop_sequence'])
+        trip_groups = ['trip_id', 'direction_id', 'start_date']
+        
+        # Get previous stop info
+        df['previous_stop'] = df.groupby(trip_groups)['stop_name'].shift(1)
+        df['prev_delay'] = df.groupby(trip_groups)['departure_delay'].shift(1)
+        
+        # Calculate incremental delay
+        df['incremental_delay'] = df['departure_delay'] - df['prev_delay']
+        
+        print("  Using stop-level pattern violations for travel time validation")
+        
+        def is_travel_time_valid(row):
+            """Simple lookup in stop-level pattern violations log"""
+            
+            # First stop in trip - no travel time possible
+            if pd.isna(row['previous_stop']):
+                return False
+            
+            # Check if this specific stop has a gap violation
+            violation_key = f"pattern_{self.route_long_name}_{row['stop_id']}_{row['direction_id']}_{row['trip_type']}"
+            
+            if hasattr(self, '_pattern_violations_log'):
+                return violation_key not in self._pattern_violations_log  # Valid if NOT in violations log
+            
+            return True  # Default to valid if no violations log
+        
+        # Apply validation
+        df['travel_time_valid'] = df.apply(is_travel_time_valid, axis=1)
+        
+        # Set incremental delay to NaN for invalid segments
+        df.loc[~df['travel_time_valid'], 'incremental_delay'] = np.nan
+        
+        # Calculate travel times
+        time_columns = ['scheduled_departure_time', 'observed_departure_time']
+        for time_col in time_columns:
+            if time_col in df.columns:
+                prefix = time_col.split('_')[0]
+                prev_col = f'prev_{prefix}_departure'
+                df[prev_col] = df.groupby(trip_groups)[time_col].shift(1)
+                travel_col = f'{prefix}_travel_time'
+                
+                df[travel_col] = df[time_col] - df[prev_col]
+                df.loc[~df['travel_time_valid'], travel_col] = pd.NaT
+                df = df.drop(columns=[prev_col])
+        
+        # Clean up
+        df = df.drop(columns=['prev_delay'])
+        
+        valid_segments = df['travel_time_valid'].sum()
+        
+        print(f"Calculation complete: {valid_segments}/{len(df)} valid segments ({valid_segments/len(df)*100:.1f}%)")
+        print(f"  Using stop-level pattern violations for precise validation")
+        
         return df
 
     def _analyze_pattern(self, pattern, canonical):
@@ -619,62 +715,9 @@ class DataFormer:
         print(f"Regulatory analysis complete: {len(self._regulatory_stops_log)} combinations, {len(regulatory_violations_log)} violations")
         return df
    
-    def calculate_travel_times_and_delays(self, df):
-        """Calculate travel times using gap info from unified classification"""
-        print("\n=== CALCULATING TRAVEL TIMES AND DELAYS ===")
-        
-        df = df.sort_values(['trip_id', 'direction_id', 'start_date', 'stop_sequence'])
-        trip_groups = ['trip_id', 'direction_id', 'start_date']
-        
-        # Get previous stop info
-        df['previous_stop'] = df.groupby(trip_groups)['stop_name'].shift(1)
-        df['prev_delay'] = df.groupby(trip_groups)['departure_delay'].shift(1)
-        
-        # Calculate incremental delay
-        df['incremental_delay'] = df['departure_delay'] - df['prev_delay']
-        
-        # Use gap info from unified classification
-        if hasattr(self, '_trip_types_log'):
-            reliability_map = {}
-            for route_direction, data in self._trip_types_log.items():
-                for trip_type, trip_info in data['trip_types'].items():
-                    key = (data['direction'], trip_type)
-                    reliability_map[key] = trip_info.get('travel_reliable', True)
-            
-            df['travel_time_valid'] = df.apply(
-                lambda row: reliability_map.get((row['direction_id'], row['trip_type']), True), 
-                axis=1
-            )
-        else:
-            df['travel_time_valid'] = True
-        
-        # Invalidate incremental delay where travel time is not valid
-        df.loc[~df['travel_time_valid'], 'incremental_delay'] = np.nan
-        df.loc[df.groupby(trip_groups).cumcount() == 0, 'incremental_delay'] = np.nan
-        
-        # Calculate travel times
-        time_columns = ['scheduled_departure_time', 'observed_departure_time']
-        for time_col in time_columns:
-            if time_col in df.columns:
-                prefix = time_col.split('_')[0]
-                prev_col = f'prev_{prefix}_departure'
-                df[prev_col] = df.groupby(trip_groups)[time_col].shift(1)
-                travel_col = f'{prefix}_travel_time'
-                df[travel_col] = df[time_col] - df[prev_col]
-                df.loc[~df['travel_time_valid'], travel_col] = pd.NaT
-                df = df.drop(columns=[prev_col])
-        
-        df = df.drop(columns=['prev_delay'])
-        
-        valid_segments = df['travel_time_valid'].sum()
-        print(f"Calculation complete: {valid_segments}/{len(df)} valid segments ({valid_segments/len(df)*100:.1f}%)")
-        
-        return df
-
 #   ======================================= Handle Navigational Maps =========================================
-    
     def create_master_indexer(self):
-        """Create master indexer with correct granularity: route_id_stop_id_direction_id_trip_type"""
+        """Create master indexer with correct stop-level lookups"""
         print("\n=== CREATING MASTER INDEXER ===")
         
         if not hasattr(self, 'df_final') or len(self.df_final) == 0:
@@ -683,7 +726,7 @@ class DataFormer:
         
         master_indexer = {}
         
-        # Group by combination level (without time_type to get all time_types per combination)
+        # Group by combination level
         combination_groups = self.df_final.groupby([
             'stop_id', 'stop_name', 'direction_id', 'trip_type'
         ])
@@ -715,8 +758,9 @@ class DataFormer:
             
             # Get analysis information for this combination
             topology_info = self._get_topology_info_for_stop(stop_name)
-            pattern_info = self._get_pattern_info_for_combination(direction_id, trip_type)
+            pattern_info = self._get_pattern_info_for_combination(stop_id, direction_id, trip_type)  # FIXED: Added stop_id
             regulatory_info = self._get_regulatory_info_for_combination(stop_id, direction_id, trip_type)
+            gap_info = self._get_gap_info_for_combination(stop_id, direction_id, trip_type)
             
             # Create master indexer entry
             master_indexer[indexer_key] = {
@@ -736,21 +780,27 @@ class DataFormer:
                     'data': time_type_data
                 },
                 
+                # Gap information
+                'gap_info': gap_info,
+                
                 # Violation flags
                 'violation_flags': {
                     'has_topology_violation': topology_info.get('is_flagged', False),
                     'has_pattern_violation': pattern_info.get('has_issues', False),
                     'has_regulatory_violation': regulatory_info.get('has_anomaly', False),
+                    'has_gap_before_this_stop': gap_info.get('has_gap', False),
                     'has_any_violation': (
                         topology_info.get('is_flagged', False) or 
                         pattern_info.get('has_issues', False) or 
-                        regulatory_info.get('has_anomaly', False)
+                        regulatory_info.get('has_anomaly', False) or
+                        gap_info.get('has_gap', False)
                     ),
                     'time_types_with_violations': sorted([
                         time_type for time_type in time_type_data.keys()
                     ] if (topology_info.get('is_flagged', False) or 
-                          pattern_info.get('has_issues', False) or 
-                          regulatory_info.get('has_anomaly', False)) else [], 
+                        pattern_info.get('has_issues', False) or 
+                        regulatory_info.get('has_anomaly', False) or
+                        gap_info.get('has_gap', False)) else [], 
                     key=lambda x: ['am_rush', 'day', 'pm_rush', 'night', 'weekend'].index(x) if x in ['am_rush', 'day', 'pm_rush', 'night', 'weekend'] else 999)
                 },
                 
@@ -772,6 +822,11 @@ class DataFormer:
                             'proportion': 1.0 - regulatory_info.get('regulation_ratio', 1.0)
                         } if regulatory_info.get('has_anomaly', False) else None,
                         
+                        'gap': {
+                            'severity': gap_info.get('severity'),
+                            'proportion': 1.0
+                        } if gap_info.get('has_gap', False) else None,
+                        
                         'travel_time_unreliable': not time_data.get('travel_time_valid', True)
                     }
                     for time_type, time_data in time_type_data.items()
@@ -781,7 +836,8 @@ class DataFormer:
                 'overall_severity': self._determine_overall_severity(
                     topology_info.get('severity'),
                     pattern_info.get('severity'),
-                    regulatory_info.get('severity')
+                    regulatory_info.get('severity'),
+                    gap_info.get('severity')  # FIXED: Now method accepts 4 parameters
                 )
             }
         
@@ -790,7 +846,7 @@ class DataFormer:
         # Create summary statistics
         total_combinations = len(master_indexer)
         flagged_combinations = sum(1 for entry in master_indexer.values() 
-                                 if entry['violation_flags']['has_any_violation'])
+                                if entry['violation_flags']['has_any_violation'])
         
         severity_counts = {'high': 0, 'medium': 0, 'low': 0, 'none': 0}
         for entry in master_indexer.values():
@@ -804,6 +860,27 @@ class DataFormer:
         print(f"  - Low severity: {severity_counts['low']}")
         
         return master_indexer
+
+    def _get_gap_info_for_combination(self, stop_id, direction_id, trip_type):
+        """Get gap information from pattern violations log"""
+        # Create the key for pattern violations log
+        violation_key = f"pattern_{self.route_long_name}_{stop_id}_{direction_id}_{trip_type}"
+        
+        if hasattr(self, '_pattern_violations_log') and violation_key in self._pattern_violations_log:
+            violation = self._pattern_violations_log[violation_key]
+            return {
+                'has_gap': True,
+                'severity': violation.get('severity', 'medium'),
+                'violation_type': violation.get('violation_type'),
+                'description': violation.get('description')
+            }
+        
+        return {
+            'has_gap': False,
+            'severity': None,
+            'violation_type': None,
+            'description': None
+        }
 
     def _get_topology_info_for_stop(self, stop_name):
         """Get topology information for a specific stop"""
@@ -821,18 +898,19 @@ class DataFormer:
             'severity': None
         }
 
-    def _get_pattern_info_for_combination(self, direction_id, trip_type):
-        """Get pattern information for direction/trip_type combination"""
-        for route_direction, data in self._trip_types_log.items():
-            if str(data.get('direction')) == str(direction_id):
-                trip_info = data.get('trip_types', {}).get(trip_type, {})
-                if trip_info:
-                    return {
-                        'has_issues': trip_info.get('has_issues', False),
-                        'issue_type': trip_info.get('issue_type'),
-                        'severity': 'high' if trip_info.get('issue_type') == 'has_swaps_and_gaps' 
-                                  else 'medium' if trip_info.get('has_issues') else None
-                    }
+    def _get_pattern_info_for_combination(self, stop_id, direction_id, trip_type):
+        """Get pattern information for specific stop/direction/trip_type combination"""
+        # Create the key for stop-level trip types log
+        trip_type_key = f"{self.route_long_name}_{stop_id}_{direction_id}_{trip_type}"
+        
+        if hasattr(self, '_trip_types_log') and trip_type_key in self._trip_types_log:
+            trip_info = self._trip_types_log[trip_type_key]
+            return {
+                'has_issues': trip_info.get('has_issues', False),
+                'issue_type': trip_info.get('issue_type'),
+                'severity': 'high' if trip_info.get('issue_type') == 'has_swaps_and_gaps' 
+                        else 'medium' if trip_info.get('has_issues') else None
+            }
         
         return {
             'has_issues': False,
@@ -858,9 +936,9 @@ class DataFormer:
             'severity': None
         }
 
-    def _determine_overall_severity(self, topology_severity, pattern_severity, regulatory_severity):
+    def _determine_overall_severity(self, topology_severity, pattern_severity, regulatory_severity, gap_severity=None):
         """Determine overall severity from individual severities"""
-        severities = [s for s in [topology_severity, pattern_severity, regulatory_severity] if s is not None]
+        severities = [s for s in [topology_severity, pattern_severity, regulatory_severity, gap_severity] if s is not None]
         
         if not severities:
             return 'none'
@@ -1081,15 +1159,37 @@ class DataFormer:
             elif data_type == 'summary':
                 # Summary: aggregate statistics across routes
                 if not existing_data:
+                    print(f"    Creating new summary file for route {list(new_data['route_info'].keys())[0]}")
                     return new_data
                 
-                # Merge route_info (keep all routes)
-                merged_routes = existing_data.get('route_info', {})
-                merged_routes[str(new_data['route_info']['route_id'])] = new_data['route_info']
+                # FIXED: Properly merge route_info (keep all routes)
+                merged_routes = existing_data.get('route_info', {}).copy()
+                existing_route_count = len(merged_routes)
+                
+                # Get the current route being processed and merge it
+                current_route_id = None
+                for route_id, route_info in new_data['route_info'].items():
+                    current_route_id = route_id
+                    was_already_processed = route_id in merged_routes
+                    merged_routes[route_id] = route_info
+                    break  # Should only be one route in new_data
+                
+                new_route_count = len(merged_routes)
+                
+                print(f"    Route summary: {existing_route_count} → {new_route_count} routes")
+                if current_route_id:
+                    if was_already_processed:
+                        print(f"    Route {current_route_id} was reprocessed (replacing existing data)")
+                    else:
+                        print(f"    Route {current_route_id} added as new route")
                 
                 # Aggregate data_summary
                 existing_summary = existing_data.get('data_summary', {})
                 new_summary = new_data['data_summary']
+                
+                if was_already_processed:
+                    print(f"    Warning: Route {current_route_id} reprocessed - summary stats may be inflated")
+                    print(f"    Consider cleaning the summary file if this is unexpected")
                 
                 aggregated_summary = {
                     'total_combinations': existing_summary.get('total_combinations', 0) + new_summary.get('total_combinations', 0),
@@ -1156,7 +1256,7 @@ class DataFormer:
                                 existing_times = set(result[key])
                                 new_times = set(value)
                                 result[key] = sorted(list(existing_times | new_times), 
-                                                   key=lambda x: ['am_rush', 'day', 'pm_rush', 'night', 'weekend'].index(x) if x in ['am_rush', 'day', 'pm_rush', 'night', 'weekend'] else 999)
+                                                key=lambda x: ['am_rush', 'day', 'pm_rush', 'night', 'weekend'].index(x) if x in ['am_rush', 'day', 'pm_rush', 'night', 'weekend'] else 999)
                             elif "time_types" in value and isinstance(value["time_types"], list):
                                 # Structure with time_types list inside
                                 merged_struct = deep_merge_nav_structure(result[key], value)
@@ -1164,7 +1264,7 @@ class DataFormer:
                                     existing_times = set(result[key]["time_types"])
                                     new_times = set(value["time_types"])
                                     merged_struct["time_types"] = sorted(list(existing_times | new_times),
-                                                                       key=lambda x: ['am_rush', 'day', 'pm_rush', 'night', 'weekend'].index(x) if x in ['am_rush', 'day', 'pm_rush', 'night', 'weekend'] else 999)
+                                                                    key=lambda x: ['am_rush', 'day', 'pm_rush', 'night', 'weekend'].index(x) if x in ['am_rush', 'day', 'pm_rush', 'night', 'weekend'] else 999)
                                 if "stop_ids" in merged_struct and "stop_ids" in result[key]:
                                     existing_stops = set(result[key]["stop_ids"])
                                     new_stops = set(value["stop_ids"])
@@ -1263,14 +1363,16 @@ class DataFormer:
         # Create/update global summary
         route_summary = {
             'route_info': {
-                'route_id': str(self.route_id),
-                'route_name': str(self.route_long_name),
-                'route_short_name': str(self.route_short_name)
+                str(self.route_id): {  # ← KEY FIX: Use route_id as dictionary key
+                    'route_id': str(self.route_id),
+                    'route_name': str(self.route_long_name),
+                    'route_short_name': str(self.route_short_name)
+                }
             },
             'data_summary': {
                 'total_combinations': len(self._master_indexer),
                 'flagged_combinations': sum(1 for entry in self._master_indexer.values() 
-                                          if entry['violation_flags']['has_any_violation']),
+                                        if entry['violation_flags']['has_any_violation']),
                 'severity_breakdown': {
                     'high': sum(1 for entry in self._master_indexer.values() if entry.get('overall_severity') == 'high'),
                     'medium': sum(1 for entry in self._master_indexer.values() if entry.get('overall_severity') == 'medium'),
@@ -1310,9 +1412,6 @@ class DataFormer:
             'total_routes': total_routes_in_summary,
             'total_combinations': total_global_combinations
         }
-
-
-
 
 
 
