@@ -6,7 +6,6 @@ from pathlib import Path
 
 class DataFormer:
     def __init__(self, raw_data):
-
         self.raw_data = raw_data
         self.route_id = self.raw_data['route_id'].iloc[0]
         self.route_short_name = self.raw_data['route_short_name'].iloc[0]
@@ -15,11 +14,13 @@ class DataFormer:
         # Store results - existing violation logs
         self._stop_name_to_stop_ids = {} 
         self._trip_types_log = {}  
+        self._regulatory_stops_log = {}  
 
-        self._topology_violations_log = {}
-        self._regulatory_stops_log = {}        
+        self._topology_violations_log = {}       
         self._pattern_violations_log = {}
         self._regulatory_violations_log = {}
+        self._histograms_log = {}
+        self._punctuality_log = {}
         
         # Master indexer
         self._master_indexer = {}
@@ -30,17 +31,31 @@ class DataFormer:
 
         # Process data through the pipeline
         self.df_before = self.prepare_columns(raw_data)
+        
+        # STEP 1: Early topology detection (basic flags only)
         self.create_and_validate_stop_topology(self.df_before)
+        
+        # STEP 2: Trip classification (creates trip_type column)
         self.df_classified = self.identify_and_classify_trips(self.df_before)
+        
+        # STEP 3: Finalize topology violations with trip_type granularity
+        self.finalize_topology_violations_log(self.df_classified)
+        
+        # STEP 4: Continue with rest of pipeline
         self.df_regulatory = self.identify_and_classify_stops(self.df_classified)
         self.df_ready = self.calculate_travel_times_and_delays(self.df_regulatory)
         self.df_final = self.df_ready
-        
+        # Add after line with self.df_final = self.df_ready
+        self.create_histograms_and_punctuality_analysis(self.df_final)
+
         # Create master indexer after all processing
         self.create_master_indexer()
         
+        # STEP 7: Create analysis master indexer (time_type level)
+        self.create_analysis_master_indexer()
+        
         # Create navigation and export
-        self.create_new_navigation_maps()
+        self.create_unified_navigation_maps()
         self.export_all_data()
 
 #   ================================ Preparation =====================================
@@ -117,17 +132,34 @@ class DataFormer:
 
         return df
 
+    def get_combination_key(self, stop_id, direction_id, trip_type):
+        """Generate standardized combination key for all violation logs and master indexer"""
+        return f"{self.route_id}_{stop_id}_{direction_id}_{trip_type}"
+
+    def get_combination_key_from_row(self, row):
+        """Generate standardized combination key from dataframe row"""
+        return f"{self.route_id}_{row['stop_id']}_{row['direction_id']}_{row['trip_type']}"
+
+
 #   ====================================== Handle Violation Logging ==========================================
 
     def create_violation_entry(self, violation_type, severity, description, **details):
-        """Create standardized violation entry"""
+        """Create standardized violation entry with searchable fields"""
         return {
             'violation_type': violation_type,
             'severity': severity,
             'description': description,
-            'route_id': self.route_id,
+            
+            # SEARCHABLE FIELDS - always included
+            'route_id': str(self.route_id),
             'route_name': self.route_long_name,
             'route_short_name': self.route_short_name,
+            'stop_name': details.get('stop_name'),
+            'stop_id': str(details.get('stop_id', '')),
+            'direction_id': str(details.get('direction_id', '')),
+            'trip_type': details.get('trip_type', ''),
+            
+            # Original details
             **details
         }
 
@@ -139,118 +171,294 @@ class DataFormer:
 #   ================ Validating / Logging Violating RouteID-DirectionID-StopID Behaviours =====================
 
     def create_and_validate_stop_topology(self, df):
-            """Create stop-to-direction mapping and detect violations"""
-            print("\n=== STOP TOPOLOGY VALIDATION ===")
+        """Create stop-to-direction mapping and detect violations, store temp results for later detailed logging"""
+        print("\n=== STOP TOPOLOGY VALIDATION ===")
+        
+        # Build stop_name to stop_ids mapping for NAVIGATION
+        stop_name_to_stop_ids = {}
+        for _, row in df[['stop_name', 'stop_id']].drop_duplicates().iterrows():
+            stop_name = row['stop_name']
+            stop_id = str(row['stop_id'])
             
-            # Build stop_name to stop_ids mapping for NAVIGATION
-            stop_name_to_stop_ids = {}
-            for _, row in df[['stop_name', 'stop_id']].drop_duplicates().iterrows():
-                stop_name = row['stop_name']
-                stop_id = str(row['stop_id'])
+            if stop_name not in stop_name_to_stop_ids:
+                stop_name_to_stop_ids[stop_name] = []
+            if stop_id not in stop_name_to_stop_ids[stop_name]:
+                stop_name_to_stop_ids[stop_name].append(stop_id)
+        
+        # Sort for consistency
+        for stop_name in stop_name_to_stop_ids:
+            stop_name_to_stop_ids[stop_name].sort()
+        
+        print(f"Built mapping for {len(stop_name_to_stop_ids)} stop names")
+        
+        # ✅ DETECT violations but store them temporarily (without trip_type granularity yet)
+        temp_violations = {}  # Temporary storage
+        
+        for stop_name, stop_ids in stop_name_to_stop_ids.items():
+            violations = self._detect_topology_violation(df, stop_ids)
+            
+            if violations:
+                print(f"🚩 {stop_name}: {len(violations)} violation(s) detected")
                 
-                if stop_name not in stop_name_to_stop_ids:
-                    stop_name_to_stop_ids[stop_name] = []
+                # Store violations temporarily by stop_id + direction_id
+                for violation_info in violations:
+                    problematic_stop_ids = violation_info['problematic_stop_ids']
+                    violation = violation_info['violation']
+                    
+                    # Get all direction_ids that exist for these problematic stop_ids
+                    affected_directions = df[
+                        df['stop_id'].astype(str).isin([str(sid) for sid in problematic_stop_ids])
+                    ]['direction_id'].unique()
+                    
+                    for stop_id in problematic_stop_ids:
+                        for direction_id in affected_directions:
+                            temp_key = f"{stop_id}_{direction_id}"
+                            temp_violations[temp_key] = {
+                                'violation': violation,
+                                'stop_id': str(stop_id),
+                                'direction_id': str(direction_id),
+                                'stop_name': stop_name
+                            }
+                    
+                    print(f"  - {violation['violation_type']}: {len(problematic_stop_ids)} stop_ids × {len(affected_directions)} directions")
+            else:
+                print(f"✅ {stop_name}: Valid mapping")
+        
+        # Store results
+        self._stop_name_to_stop_ids = stop_name_to_stop_ids
+        self._temp_topology_violations = temp_violations  # Store temporarily
+        
+        # Add basic flags to dataframe (will be updated later with trip_type granularity)
+        self._add_basic_topology_flags(df, temp_violations)
+        
+        print(f"Validation complete: {len(temp_violations)} stop_id-direction violations detected (detailed logging deferred)")
+        return temp_violations
+
+    def _add_basic_topology_flags(self, df, temp_violations):
+        """Add basic topology violation flags to dataframe (before trip_type exists)"""
+        
+        # Extract flagged combinations from temp violation keys
+        flagged_combinations = set()
+        critical_combinations = set()
+        
+        for temp_key, violation_data in temp_violations.items():
+            stop_id, direction_id = temp_key.split('_')
+            combo = (stop_id, direction_id)
+            flagged_combinations.add(combo)
+            
+            if violation_data['violation'].get('severity') == 'high':
+                critical_combinations.add(combo)
+        
+        # Apply flags
+        df['topology_flagged'] = df.apply(
+            lambda row: (str(row['stop_id']), str(row['direction_id'])) in flagged_combinations, axis=1
+        )
+        df['topology_critical'] = df.apply(
+            lambda row: (str(row['stop_id']), str(row['direction_id'])) in critical_combinations, axis=1
+        )
+        
+        if flagged_combinations:
+            print(f"🚩 Basic flags added: {df['topology_flagged'].sum()} flagged, {df['topology_critical'].sum()} critical records")
+
+    def finalize_topology_violations_log(self, df):
+        """Create final topology violations log with trip_type granularity after trip classification"""
+        print("\n=== FINALIZING TOPOLOGY VIOLATIONS LOG ===")
+        
+        if not hasattr(self, '_temp_topology_violations'):
+            self._topology_violations_log = {}
+            return
+        
+        topology_violations_log = {}
+        
+        # Get all unique combinations that exist in the data
+        combinations = df.groupby(['stop_id', 'stop_name', 'direction_id', 'trip_type']).size().reset_index()
+        
+        violation_count = 0
+        for temp_key, violation_data in self._temp_topology_violations.items():
+            stop_id, direction_id = temp_key.split('_')
+            
+            # Find all trip_types for this stop_id + direction_id combination
+            matching_combos = combinations[
+                (combinations['stop_id'].astype(str) == stop_id) & 
+                (combinations['direction_id'].astype(str) == direction_id)
+            ]
+            
+            # Create detailed violation entry for each trip_type
+            for _, combo in matching_combos.iterrows():
+                detailed_key = self.get_combination_key(combo['stop_id'], combo['direction_id'], combo['trip_type'])
                 
-                if stop_id not in stop_name_to_stop_ids[stop_name]:
-                    stop_name_to_stop_ids[stop_name].append(stop_id)
-            
-            # Sort for consistency
-            for stop_name in stop_name_to_stop_ids:
-                stop_name_to_stop_ids[stop_name].sort()
-            
-            print(f"Built mapping for {len(stop_name_to_stop_ids)} stop names")
-            
-            violations_log = {}
-            
-            for stop_name, stop_ids in stop_name_to_stop_ids.items():
-                violation = self._detect_topology_violation(df, stop_name, stop_ids)
+                # Get total records for this stop_id + direction_id combination
+                stop_direction_records = len(df[
+                    (df['stop_id'].astype(str) == str(combo['stop_id'])) &
+                    (df['direction_id'].astype(str) == str(combo['direction_id']))
+                ])
+
+                # Create detailed violation with trip_type information
+                detailed_violation = violation_data['violation'].copy()
+                detailed_violation.update({
+                    'stop_id': str(combo['stop_id']),
+                    'direction_id': str(combo['direction_id']),
+                    'trip_type': combo['trip_type'],
+                    'stop_name': combo['stop_name'],
+                    'stop_id_direction_records': stop_direction_records
+                })
                 
-                if violation:
-                    log_key = f"topology_{self.route_long_name}_{stop_name}"
-                    self.add_violation_to_log(violations_log, log_key, violation)
-                    print(f"🚩 {stop_name}: {violation['violation_type']} ({violation['severity']})")
-                else:
-                    print(f"✅ {stop_name}: Valid mapping")
-            
-            # Store results
-            self._stop_name_to_stop_ids = stop_name_to_stop_ids
-            self._topology_violations_log = violations_log
-            
-            # Add flags to dataframe
-            self._add_topology_flags(df, violations_log)
-            
-            print(f"Validation complete: {len(violations_log)} violations detected")
-            return violations_log
+                topology_violations_log[detailed_key] = detailed_violation
+                violation_count += 1
+        
+        # Store final log and clean up temp
+        self._topology_violations_log = topology_violations_log
+        delattr(self, '_temp_topology_violations')  # Clean up temporary storage
+        
+        print(f"Finalized {violation_count} detailed topology violations with trip_type granularity")
+        return topology_violations_log
 
     def _detect_topology_violation(self, df, stop_name, stop_ids):
-        """Detect topology violation and return standardized format"""
+        """Detect topology violations and return violations per problematic stop_id"""
         
+        # Analyze direction behavior for each stop_id
         stop_direction_map = {}
         for stop_id in stop_ids:
-            stop_data = df[df['stop_id'] == stop_id]
-            direction_counts = stop_data['direction_id'].value_counts().to_dict()
-            
+            direction_counts = df[df['stop_id'] == stop_id]['direction_id'].value_counts().to_dict()
             stop_direction_map[stop_id] = {
-                'directions': list(direction_counts.keys()),
-                'counts': direction_counts,
                 'is_bidirectional': len(direction_counts) > 1,
-                'dominant_direction': max(direction_counts.items(), key=lambda x: x[1])[0] if direction_counts else None
+                'dominant_direction': max(direction_counts.items(), key=lambda x: x[1])[0] if direction_counts else None,
+                'counts': direction_counts
             }
         
         num_stop_ids = len(stop_ids)
+        bidirectional = [sid for sid, data in stop_direction_map.items() if data['is_bidirectional']]
+        directional = [sid for sid, data in stop_direction_map.items() if not data['is_bidirectional']]
         
-        if num_stop_ids == 2:
-            bidirectional_stops = [sid for sid, data in stop_direction_map.items() if data['is_bidirectional']]
+        violations = []
+        
+        def create_violation(violation_type, severity, description, problematic_stops, **extra_details):
+            """Helper to create violation with standard topology analysis"""
+            base_details = {
+                'stop_name': stop_name,
+                'all_stop_ids_for_stop': stop_ids,
+                **extra_details
+            }
             
-            if bidirectional_stops:
-                contamination_rate = max([
-                    (sum(stop_direction_map[sid]['counts'].values()) - max(stop_direction_map[sid]['counts'].values())) / 
-                    sum(stop_direction_map[sid]['counts'].values()) 
-                    for sid in bidirectional_stops
-                ])
+            # Add topology analysis based on number of problematic stops
+            if len(problematic_stops) == 1:
+                # Single stop - add direction_analysis
+                stop_id = problematic_stops[0]
+                base_details['problematic_stop_id'] = stop_id
+                base_details['direction_analysis'] = {
+                    'is_bidirectional': stop_direction_map[stop_id]['is_bidirectional'],
+                    'dominant_direction': stop_direction_map[stop_id]['dominant_direction'],
+                    'direction_counts': stop_direction_map[stop_id]['counts'],
+                    'total_records': sum(stop_direction_map[stop_id]['counts'].values())
+                }
+            else:
+                # Multiple stops - add topology_analysis for all
+                base_details['problematic_stop_ids'] = problematic_stops
+                base_details['topology_analysis'] = {
+                    str(sid): {
+                        'is_bidirectional': stop_direction_map[sid]['is_bidirectional'],
+                        'dominant_direction': stop_direction_map[sid]['dominant_direction'],
+                        'direction_counts': stop_direction_map[sid]['counts'],
+                        'total_records': sum(stop_direction_map[sid]['counts'].values())
+                    } for sid in problematic_stops
+                }
+            
+            return {
+                'problematic_stop_ids': problematic_stops,
+                'violation': self.create_violation_entry(violation_type, severity, description, **base_details)
+            }
+        
+        # Case 1: Single stop_id - always valid
+        if num_stop_ids == 1:
+            return violations
+        
+        # Case 2: Two stop_ids - should be directional pair
+        elif num_stop_ids == 2:
+            for stop_id in bidirectional:
+                contamination_rate = (
+                    sum(stop_direction_map[stop_id]['counts'].values()) - 
+                    max(stop_direction_map[stop_id]['counts'].values())
+                ) / sum(stop_direction_map[stop_id]['counts'].values())
                 
-                return self.create_violation_entry(
-                    violation_type='directional_pair_contamination',
-                    severity='high' if contamination_rate > 0.3 else 'medium',
-                    description=f'Stop_ids should serve separate directions but {len(bidirectional_stops)} serve both',
-                    stop_name=stop_name,
-                    affected_stop_ids=bidirectional_stops,
+                violations.append(create_violation(
+                    'directional_contamination',
+                    'high' if contamination_rate > 0.3 else 'medium',
+                    f'Stop_id {stop_id} serves both directions (contamination: {contamination_rate:.1%})',
+                    [stop_id],
                     contamination_rate=contamination_rate
-                )
+                ))
         
-        elif num_stop_ids >= 5:
-            return self.create_violation_entry(
-                violation_type='unexpected_stop_count',
-                severity='high',
-                description=f'Stop has {num_stop_ids} stop_ids (expected 1-4)',
-                stop_name=stop_name,
-                affected_stop_ids=stop_ids
-            )
+        # Case 3: Three stop_ids - should be 1 shared + 2 directional
+        elif num_stop_ids == 3:
+            if len(bidirectional) > 1:
+                # Flag extra shared stops
+                for stop_id in bidirectional[1:]:
+                    violations.append(create_violation(
+                        'unexpected_shared_stop',
+                        'high',
+                        f'Stop_id {stop_id} is unexpectedly shared (expected only 1 shared stop)',
+                        [stop_id],
+                        expected_shared_count=1,
+                        actual_shared_count=len(bidirectional)
+                    ))
+            elif len(bidirectional) == 0:
+                # Flag missing shared stop
+                violations.append(create_violation(
+                    'missing_shared_stop',
+                    'high',
+                    f'Expected 1 shared stop, found 0 (all {len(directional)} are directional)',
+                    stop_ids,
+                    expected_shared_count=1,
+                    actual_shared_count=0
+                ))
         
-        return None
-    
-    def _add_topology_flags(self, df, violations_log):
-        """Add topology violation flags to dataframe"""
-        
-        flagged_stops = set()
-        critical_stops = set()
-        
-        for violation in violations_log.values():
-            stop_name = violation.get('stop_name', '')
-            if not stop_name:
-                continue
+        # Case 4: Four stop_ids - should be 2 pairs of directional
+        elif num_stop_ids == 4:
+            # Flag unexpected shared stops
+            for stop_id in bidirectional:
+                violations.append(create_violation(
+                    'unexpected_shared_stop',
+                    'high',
+                    f'Stop_id {stop_id} is unexpectedly shared (expected 0 shared stops)',
+                    [stop_id],
+                    expected_shared_count=0,
+                    actual_shared_count=len(bidirectional)
+                ))
+            
+            # Check directional pairing
+            if not bidirectional:
+                direction_counts = {}
+                for stop_id in directional:
+                    direction = stop_direction_map[stop_id]['dominant_direction']
+                    direction_counts[direction] = direction_counts.get(direction, 0) + 1
                 
-            flagged_stops.add(stop_name)
-            if violation.get('severity') == 'high':
-                critical_stops.add(stop_name)
+                for direction, count in direction_counts.items():
+                    if count != 2:
+                        problematic_stops = [
+                            sid for sid in directional 
+                            if stop_direction_map[sid]['dominant_direction'] == direction
+                        ]
+                        violations.append(create_violation(
+                            'improper_directional_pairing',
+                            'medium',
+                            f'Direction {direction} has {count} stops (expected 2)',
+                            problematic_stops,
+                            direction=direction,
+                            actual_count=count,
+                            expected_count=2
+                        ))
         
-        df['topology_flagged'] = df['stop_name'].isin(flagged_stops)
-        df['topology_critical'] = df['stop_name'].isin(critical_stops)
+        # Case 5+: More than 4 stop_ids - all are unexpected
+        else:
+            violations.append(create_violation(
+                'unexpected_stop_count',
+                'high',
+                f'Stop has {num_stop_ids} stop_ids (expected 1-4, all are flagged)',
+                stop_ids,
+                actual_stop_count=num_stop_ids
+            ))
         
-        if flagged_stops:
-            flagged_count = df['topology_flagged'].sum()
-            critical_count = df['topology_critical'].sum()
-            print(f"🚩 Flags added: {flagged_count} flagged, {critical_count} critical records")
+        return violations
 
 #   ============ Validating / Logging Violating RouteID-DirectionID-TripType-Pattern Behaviours ==============
     
@@ -326,7 +534,7 @@ class DataFormer:
                         stop_name = stop_records['stop_name'].iloc[0]
                     
                     # Create stop-level trip type log key
-                    trip_type_key = f"{self.route_long_name}_{stop_id}_{direction}_{trip_type}"
+                    trip_type_key = self.get_combination_key(stop_id, direction, trip_type)
                     
                     trip_types_log[trip_type_key] = {
                         'route_id': self.route_id,
@@ -338,8 +546,8 @@ class DataFormer:
                         'trip_type': trip_type,
                         'pattern_length': len(pattern),
                         'is_canonical': pattern == canonical and is_full_length,
-                        'has_issues': analysis['type'] != 'consecutive',
-                        'issue_type': analysis['type'],
+                        'pattern_violation': analysis['type'] != 'consecutive',
+                        'violation_type': analysis['type'] if analysis['type'] != 'consecutive' else None,
                         'travel_reliable': analysis['valid'],
                         'trip_count': trip_count,
                         'canonical_description': canonical_description,
@@ -348,28 +556,43 @@ class DataFormer:
                     
                     # Create stop-level pattern violation using standard formatter
                     if analysis['type'] != 'consecutive':
-                        has_gap_before = self._stop_has_gap_before(stop_id, pattern, canonical)
                         
-                        if has_gap_before:
-                            severity = 'high' if analysis['type'] == 'has_swaps_and_gaps' else 'medium'
+                        # Determine severity based on issue type
+                        if analysis['type'] == 'has_swaps':
+                            severity = 'high'  # Swaps are more severe
+                            violation_type = 'pattern_has_swaps'
+                            description = f'Stop sequence swaps invalidate travel times in {trip_type} trips'
+                        elif analysis['type'] == 'has_gaps':
+                            severity = 'medium'  # Gaps are medium severity
+                            violation_type = 'pattern_has_gaps'
+                            description = f'Stop sequence gaps invalidate travel times in {trip_type} trips'
+                        elif analysis['type'] == 'has_swaps_and_gaps':
+                            severity = 'high'  # Combined issues are most severe
+                            violation_type = 'pattern_has_swaps_and_gaps'
+                            description = f'Stop sequence swaps and gaps invalidate travel times in {trip_type} trips'
+                        else:
+                            severity = 'medium'  # Default for other issues
+                            violation_type = 'pattern_issue'
+                            description = f'Pattern issue ({analysis["type"]}) affects {trip_type} trips'
+            
+
+                        violation = self.create_violation_entry(
+                            violation_type=violation_type,
+                            severity=severity,
+                            description=description,
+                            stop_id=stop_id,
+                            stop_name=stop_name,
+                            direction_id=direction,
+                            trip_type=trip_type,
+                            trip_count=trip_count,
+                            pattern_issue_type=analysis['type'],
+                            canonical_description=canonical_description,
+                            problematic_description=pattern_description,
+                            invalidates_travel_time=True  # All pattern issues invalidate travel time
+                        )
                             
-                            # USE STANDARD VIOLATION FORMATTER
-                            violation = self.create_violation_entry(
-                                violation_type='gap_before_stop',
-                                severity=severity,
-                                description=f'Gap exists before this stop in {trip_type} trips',
-                                stop_id=stop_id,
-                                stop_name=stop_name,
-                                direction_id=direction,
-                                trip_type=trip_type,
-                                trip_count=trip_count,
-                                original_issue_type=analysis['type'],
-                                canonical_description=canonical_description,
-                                problematic_description=pattern_description
-                            )
-                            
-                            violation_key = f"pattern_{self.route_long_name}_{stop_id}_{direction}_{trip_type}"
-                            self.add_violation_to_log(pattern_violations_log, violation_key, violation)
+                        violation_key = self.get_combination_key(stop_id, direction, trip_type)
+                        self.add_violation_to_log(pattern_violations_log, violation_key, violation)
             
             # Store direction mapping
             direction_mapping[direction] = pattern_mapping
@@ -411,29 +634,6 @@ class DataFormer:
         
         return df
 
-    def _stop_has_gap_before(self, stop_id, pattern, canonical):
-        """Check if a specific stop has a gap before it in the pattern"""
-        pattern_list = list(pattern)
-        canonical_list = list(canonical)
-        
-        try:
-            pattern_idx = pattern_list.index(stop_id)
-            canonical_idx = canonical_list.index(stop_id)
-            
-            # First stop can't have gap before it
-            if pattern_idx == 0 or canonical_idx == 0:
-                return False
-            
-            # Get previous stops
-            pattern_prev = pattern_list[pattern_idx - 1]
-            canonical_prev = canonical_list[canonical_idx - 1]
-            
-            # Gap exists if previous stops are different
-            return pattern_prev != canonical_prev
-            
-        except (ValueError, IndexError):
-            return False
-
     # SIMPLE TRAVEL TIME CALCULATOR:
     def calculate_travel_times_and_delays(self, df):
         """Calculate travel times using stop-level pattern violations"""
@@ -459,7 +659,9 @@ class DataFormer:
                 return False
             
             # Check if this specific stop has a gap violation
-            violation_key = f"pattern_{self.route_long_name}_{row['stop_id']}_{row['direction_id']}_{row['trip_type']}"
+            
+            violation_key = self.get_combination_key_from_row(row)
+
             
             if hasattr(self, '_pattern_violations_log'):
                 return violation_key not in self._pattern_violations_log  # Valid if NOT in violations log
@@ -674,7 +876,7 @@ class DataFormer:
         regulatory_violations_log = {}
         
         for _, row in regulatory_combinations.iterrows():
-            key = f"{self.route_long_name}_{row['stop_id']}_{row['direction_id']}_{row['trip_type']}"
+            key = self.get_combination_key(row['stop_id'], row['direction_id'], row['trip_type'])
             
             self._regulatory_stops_log[key] = {
                 'route_id': self.route_id,
@@ -705,48 +907,77 @@ class DataFormer:
                     total_records=int(row['total_records'])
                 )
                 
-                violation_key = f"regulatory_{key}"
+                violation_key = f"{key}"
                 self.add_violation_to_log(regulatory_violations_log, violation_key, violation)
         
         self._regulatory_violations_log = regulatory_violations_log
         
         df = df.drop('departure_seconds', axis=1)
-        
+        print(f"Regulatory violations created: {len(regulatory_violations_log)}")
         print(f"Regulatory analysis complete: {len(self._regulatory_stops_log)} combinations, {len(regulatory_violations_log)} violations")
         return df
    
 #   ======================================= Handle Navigational Maps =========================================
-    def create_master_indexer(self):
-        """Create master indexer with correct stop-level lookups"""
-        print("\n=== CREATING MASTER INDEXER ===")
+    def create_canonical_combinations(self):
+        """Create the single source of truth for all valid combinations"""
+        print("\n=== CREATING CANONICAL COMBINATIONS (SINGLE SOURCE OF TRUTH) ===")
         
-        if not hasattr(self, 'df_final') or len(self.df_final) == 0:
-            print("No final dataframe found")
-            return
+        # Use consistent grouping logic
+        combinations = self.df_final.groupby([
+            'stop_id', 'stop_name', 'direction_id', 'trip_type'
+        ]).agg({
+            'time_type': lambda x: sorted(list(x.unique())),  # All time_types for this combination
+            'trip_id': 'nunique',  # Total unique trips
+            # Add other aggregations you need
+        }).reset_index()
+        
+        combinations.columns = ['stop_id', 'stop_name', 'direction_id', 'trip_type', 'time_types_list', 'total_records']
+        
+        # Apply any filtering logic consistently
+        # combinations = combinations[combinations['total_records'] >= MIN_RECORDS]
+        
+        self._canonical_combinations = combinations
+        print(f"Canonical combinations created: {len(combinations)} total")
+        return combinations
+
+    def create_master_indexer(self):
+        """Create master indexer using canonical combinations"""
+        print("\n=== CREATING MASTER INDEXER FROM CANONICAL COMBINATIONS ===")
+        
+        if not hasattr(self, '_canonical_combinations'):
+            print("No canonical combinations found - creating them first")
+            self.create_canonical_combinations()
         
         master_indexer = {}
         
-        # Group by combination level
-        combination_groups = self.df_final.groupby([
-            'stop_id', 'stop_name', 'direction_id', 'trip_type'
-        ])
+        print(f"Processing {len(self._canonical_combinations)} canonical combinations")
         
-        print(f"Processing {len(combination_groups)} unique combinations")
-        
-        for (stop_id, stop_name, direction_id, trip_type), group in combination_groups:
-            route_id = str(self.route_id)
-            stop_id = str(stop_id)
-            direction_id = str(direction_id)
+        for _, combo in self._canonical_combinations.iterrows():
+            stop_id = str(combo['stop_id'])
+            direction_id = str(combo['direction_id'])
+            trip_type = combo['trip_type']
+            stop_name = combo['stop_name']
             
-            # Create indexer key at combination level
-            indexer_key = f"{route_id}_{stop_id}_{direction_id}_{trip_type}"
+            # Create indexer key
+            indexer_key = self.get_combination_key(stop_id, direction_id, trip_type)
+            
+            # Get data for this specific combination
+            combo_data = self.df_final[
+                (self.df_final['stop_id'].astype(str) == stop_id) &
+                (self.df_final['direction_id'].astype(str) == direction_id) &
+                (self.df_final['trip_type'] == trip_type)
+            ]
+            
+            if len(combo_data) == 0:
+                print(f"Warning: No data found for combination {indexer_key}")
+                continue
             
             # Get all time_types for this combination
             time_type_data = {}
             total_records = 0
             
-            for time_type in group['time_type'].unique():
-                time_group = group[group['time_type'] == time_type]
+            for time_type in combo_data['time_type'].unique():
+                time_group = combo_data[combo_data['time_type'] == time_type]
                 time_type_data[time_type] = {
                     'record_count': len(time_group),
                     'is_regulatory': bool(time_group['is_regulatory'].iloc[0]) if 'is_regulatory' in time_group.columns else False,
@@ -757,15 +988,14 @@ class DataFormer:
                 total_records += len(time_group)
             
             # Get analysis information for this combination
-            topology_info = self._get_topology_info_for_stop(stop_name)
-            pattern_info = self._get_pattern_info_for_combination(stop_id, direction_id, trip_type)  # FIXED: Added stop_id
+            topology_info = self._get_topology_info_for_combination(stop_id, direction_id, trip_type)
+            pattern_info = self._get_pattern_info_for_combination(stop_id, direction_id, trip_type)
             regulatory_info = self._get_regulatory_info_for_combination(stop_id, direction_id, trip_type)
-            gap_info = self._get_gap_info_for_combination(stop_id, direction_id, trip_type)
             
             # Create master indexer entry
             master_indexer[indexer_key] = {
                 # Basic identifiers
-                'route_id': route_id,
+                'route_id': str(self.route_id),
                 'route_name': self.route_long_name,
                 'route_short_name': self.route_short_name,
                 'stop_id': stop_id,
@@ -779,9 +1009,6 @@ class DataFormer:
                     'available': sorted(time_type_data.keys(), key=lambda x: ['am_rush', 'day', 'pm_rush', 'night', 'weekend'].index(x) if x in ['am_rush', 'day', 'pm_rush', 'night', 'weekend'] else 999),
                     'data': time_type_data
                 },
-                
-                # Gap information
-                'gap_info': gap_info,
                 
                 # Violation flags
                 'violation_flags': {
@@ -837,7 +1064,7 @@ class DataFormer:
                     topology_info.get('severity'),
                     pattern_info.get('severity'),
                     regulatory_info.get('severity'),
-                    gap_info.get('severity')  # FIXED: Now method accepts 4 parameters
+                    gap_info.get('severity')
                 )
             }
         
@@ -861,55 +1088,36 @@ class DataFormer:
         
         return master_indexer
 
-    def _get_gap_info_for_combination(self, stop_id, direction_id, trip_type):
-        """Get gap information from pattern violations log"""
-        # Create the key for pattern violations log
-        violation_key = f"pattern_{self.route_long_name}_{stop_id}_{direction_id}_{trip_type}"
+    def _get_topology_info_for_combination(self, stop_id, direction_id, trip_type):
+        """Get topology information for specific combination"""
+        combination_key = self.get_combination_key(stop_id, direction_id, trip_type)
         
-        if hasattr(self, '_pattern_violations_log') and violation_key in self._pattern_violations_log:
-            violation = self._pattern_violations_log[violation_key]
+        if combination_key in self._topology_violations_log:
+            violation = self._topology_violations_log[combination_key]
             return {
-                'has_gap': True,
-                'severity': violation.get('severity', 'medium'),
-                'violation_type': violation.get('violation_type'),
-                'description': violation.get('description')
+                'topology_violation': True,
+                'topology_violation_type': violation.get('violation_type'),
+                'severity': violation.get('severity')
             }
         
         return {
-            'has_gap': False,
-            'severity': None,
-            'violation_type': None,
-            'description': None
-        }
-
-    def _get_topology_info_for_stop(self, stop_name):
-        """Get topology information for a specific stop"""
-        for log_key, violation in self._topology_violations_log.items():
-            if violation.get('stop_name') == stop_name:
-                return {
-                    'is_flagged': True,
-                    'violation_type': violation.get('violation_type'),
-                    'severity': violation.get('severity')
-                }
-        
-        return {
-            'is_flagged': False,
-            'violation_type': None,
+            'topology_violation': False,
+            'topology_violation_type': None,
             'severity': None
         }
 
     def _get_pattern_info_for_combination(self, stop_id, direction_id, trip_type):
         """Get pattern information for specific stop/direction/trip_type combination"""
         # Create the key for stop-level trip types log
-        trip_type_key = f"{self.route_long_name}_{stop_id}_{direction_id}_{trip_type}"
+        trip_type_key = self.get_combination_key(stop_id, direction_id, trip_type)
         
         if hasattr(self, '_trip_types_log') and trip_type_key in self._trip_types_log:
             trip_info = self._trip_types_log[trip_type_key]
             return {
-                'has_issues': trip_info.get('has_issues', False),
-                'issue_type': trip_info.get('issue_type'),
-                'severity': 'high' if trip_info.get('issue_type') == 'has_swaps_and_gaps' 
-                        else 'medium' if trip_info.get('has_issues') else None
+                'pattern_violation': trip_info.get('has_issues', False),
+                'pattern_violation_type': trip_info.get('violation_type'),
+                'pattern_description': trip_info.get('pattern_description'),
+                'severity': trip_info.get('severity')
             }
         
         return {
@@ -920,7 +1128,7 @@ class DataFormer:
 
     def _get_regulatory_info_for_combination(self, stop_id, direction_id, trip_type):
         """Get regulatory information for specific stop/direction/trip_type combination"""
-        key = f"{self.route_long_name}_{stop_id}_{direction_id}_{trip_type}"
+        key = self.get_combination_key(stop_id, direction_id, trip_type)
         
         if key in self._regulatory_stops_log:
             reg_info = self._regulatory_stops_log[key]
@@ -936,9 +1144,103 @@ class DataFormer:
             'severity': None
         }
 
-    def _determine_overall_severity(self, topology_severity, pattern_severity, regulatory_severity, gap_severity=None):
-        """Determine overall severity from individual severities"""
-        severities = [s for s in [topology_severity, pattern_severity, regulatory_severity, gap_severity] if s is not None]
+    def _sort_enhanced_navigation(self, stop_to_combinations, route_to_combinations):
+        """Sort all arrays in the enhanced navigation structure"""
+        
+        time_order = ['am_rush', 'day', 'pm_rush', 'night', 'weekend']
+        trip_type_order = ['full', 'partial_1', 'partial_2', 'partial_3', 'partial_4', 'partial_5']
+        
+        def sort_time_types(time_types_list):
+            return sorted(time_types_list, key=lambda x: time_order.index(x) if x in time_order else 999)
+        
+        def sort_trip_types(trip_types_list):
+            return sorted(trip_types_list, key=lambda x: trip_type_order.index(x) if x in trip_type_order else 999)
+        
+        # Sort route_to_combinations
+        for route_id in route_to_combinations:
+            # Sort directions array
+            if "directions" in route_to_combinations[route_id]:
+                route_to_combinations[route_id]["directions"].sort()
+            
+            for direction_id in route_to_combinations[route_id]:
+                if direction_id == "directions":
+                    continue
+                    
+                # Sort stop_ids array
+                if "stop_ids" in route_to_combinations[route_id][direction_id]:
+                    route_to_combinations[route_id][direction_id]["stop_ids"].sort()
+                
+                for stop_id in route_to_combinations[route_id][direction_id].get("stop_ids", []):
+                    if stop_id in route_to_combinations[route_id][direction_id]:
+                        stop_data = route_to_combinations[route_id][direction_id][stop_id]
+                        
+                        # Sort convenience arrays
+                        if "trip_types" in stop_data:
+                            stop_data["trip_types"] = sort_trip_types(stop_data["trip_types"])
+                        if "time_types" in stop_data:
+                            stop_data["time_types"] = sort_time_types(stop_data["time_types"])
+                        
+                        # Sort time_types arrays within each trip_type
+                        for trip_type in stop_data.get("trip_types", []):
+                            if trip_type in stop_data and isinstance(stop_data[trip_type], dict):
+                                if "time_types" in stop_data[trip_type]:
+                                    stop_data[trip_type]["time_types"] = sort_time_types(
+                                        stop_data[trip_type]["time_types"]
+                                    )
+                        
+                        # Sort available_trip_types arrays within each time_type
+                        for time_type in stop_data.get("time_types", []):
+                            if time_type in stop_data and isinstance(stop_data[time_type], dict):
+                                if "available_trip_types" in stop_data[time_type]:
+                                    stop_data[time_type]["available_trip_types"] = sort_trip_types(
+                                        stop_data[time_type]["available_trip_types"]
+                                    )
+        
+        # Sort stop_to_combinations (same logic)
+        for stop_id in stop_to_combinations:
+            # Sort routes array
+            if "routes" in stop_to_combinations[stop_id]:
+                stop_to_combinations[stop_id]["routes"].sort()
+            
+            for route_id in stop_to_combinations[stop_id]:
+                if route_id == "routes":
+                    continue
+                    
+                # Sort directions array
+                if "directions" in stop_to_combinations[stop_id][route_id]:
+                    stop_to_combinations[stop_id][route_id]["directions"].sort()
+                
+                for direction_id in stop_to_combinations[stop_id][route_id]:
+                    if direction_id == "directions":
+                        continue
+                        
+                    direction_data = stop_to_combinations[stop_id][route_id][direction_id]
+                    
+                    # Sort convenience arrays
+                    if "trip_types" in direction_data:
+                        direction_data["trip_types"] = sort_trip_types(direction_data["trip_types"])
+                    if "time_types" in direction_data:
+                        direction_data["time_types"] = sort_time_types(direction_data["time_types"])
+                    
+                    # Sort time_types arrays within each trip_type
+                    for trip_type in direction_data.get("trip_types", []):
+                        if trip_type in direction_data and isinstance(direction_data[trip_type], dict):
+                            if "time_types" in direction_data[trip_type]:
+                                direction_data[trip_type]["time_types"] = sort_time_types(
+                                    direction_data[trip_type]["time_types"]
+                                )
+                    
+                    # Sort available_trip_types arrays within each time_type
+                    for time_type in direction_data.get("time_types", []):
+                        if time_type in direction_data and isinstance(direction_data[time_type], dict):
+                            if "available_trip_types" in direction_data[time_type]:
+                                direction_data[time_type]["available_trip_types"] = sort_trip_types(
+                                    direction_data[time_type]["available_trip_types"]
+                                )
+
+    def _determine_overall_severity(self, topology_severity, pattern_severity, regulatory_severity):
+        """Determine overall severity from individual severities (updated to 3 parameters)"""
+        severities = [s for s in [topology_severity, pattern_severity, regulatory_severity] if s is not None]
         
         if not severities:
             return 'none'
@@ -950,16 +1252,165 @@ class DataFormer:
         
         return 'none'
 
-    def create_new_navigation_maps(self):
-        """Create navigation maps using clean topology results"""
-        print("\n=== CREATING NEW NAVIGATION MAPS ===")
-        
-        stop_to_combinations = {}
-        route_to_combinations = {}
+    def create_analysis_master_indexer(self):
+        """Create analysis master indexer with time_type level granularity (parallel to violations master indexer)"""
+        print("\n=== CREATING ANALYSIS MASTER INDEXER ===")
         
         if not hasattr(self, 'df_final') or len(self.df_final) == 0:
             print("No final dataframe found")
             return
+        
+        analysis_master_indexer = {}
+        
+        # Group by stop-direction-time combinations (aggregating across trip_types)
+        analysis_groups = self.df_final.groupby(['stop_id', 'stop_name', 'direction_id', 'time_type'])
+        
+        print(f"Processing {len(analysis_groups)} unique analysis combinations")
+        
+        for (stop_id, stop_name, direction_id, time_type), group in analysis_groups:
+            route_id = str(self.route_id)
+            stop_id = str(stop_id)
+            direction_id = str(direction_id)
+            
+            # Create analysis indexer key at time_type level: route_id_stop_id_direction_id_time_type
+            analysis_key = f"{route_id}_{stop_id}_{direction_id}_{time_type}"
+            
+            # Get all trip_types for this time_type combination
+            trip_types_data = {}
+            total_records = 0
+            
+            for trip_type in group['trip_type'].unique():
+                trip_group = group[group['trip_type'] == trip_type]
+                trip_types_data[trip_type] = {
+                    'record_count': len(trip_group),
+                    'is_regulatory': bool(trip_group['is_regulatory'].iloc[0]) if 'is_regulatory' in trip_group.columns else False,
+                    'travel_time_valid': bool(trip_group['travel_time_valid'].iloc[0]) if 'travel_time_valid' in trip_group.columns else True,
+                    'topology_flagged': bool(trip_group['topology_flagged'].iloc[0]) if 'topology_flagged' in trip_group.columns else False,
+                    'topology_critical': bool(trip_group['topology_critical'].iloc[0]) if 'topology_critical' in trip_group.columns else False
+                }
+                total_records += len(trip_group)
+            
+            # Get histogram and punctuality info for this time_type combination
+            histogram_info = self._get_histogram_info_for_combination(stop_id, direction_id, time_type)
+            punctuality_info = self._get_punctuality_info_for_combination(stop_id, direction_id, time_type)
+            
+            # Create analysis master indexer entry
+            analysis_master_indexer[analysis_key] = {
+                # Basic identifiers (time_type level)
+                'route_id': route_id,
+                'route_name': self.route_long_name,
+                'route_short_name': self.route_short_name,
+                'stop_id': stop_id,
+                'stop_name': stop_name,
+                'direction_id': direction_id,
+                'time_type': time_type,
+                'total_records': total_records,
+                
+                # Trip types breakdown (which trip_types contribute to this time_type)
+                'trip_types': {
+                    'available': sorted(trip_types_data.keys(), key=lambda x: ['full', 'partial_1', 'partial_2', 'partial_3', 'partial_4', 'partial_5'].index(x) if x in ['full', 'partial_1', 'partial_2', 'partial_3', 'partial_4', 'partial_5'] else 999),
+                    'data': trip_types_data
+                },
+                
+                # Analysis availability flags
+                'analysis_flags': {
+                    'has_histogram_data': histogram_info['has_histograms'],
+                    'has_punctuality_data': punctuality_info['has_punctuality'],
+                    'histogram_types': histogram_info['histogram_types'],
+                    'histogram_sample_size': histogram_info['sample_size'],
+                    'punctuality_sample_size': punctuality_info['sample_size'],
+                    'on_time_performance': punctuality_info['on_time_performance'],
+                    'performance_level': punctuality_info['performance_level']
+                },
+                
+                # Aggregated violation indicators (rolled up from trip_types)
+                'violation_indicators': {
+                    'any_trip_type_flagged': any(data.get('topology_flagged', False) for data in trip_types_data.values()),
+                    'any_trip_type_critical': any(data.get('topology_critical', False) for data in trip_types_data.values()),
+                    'any_trip_type_regulatory': any(data.get('is_regulatory', False) for data in trip_types_data.values()),
+                    'all_trip_types_have_valid_travel': all(data.get('travel_time_valid', True) for data in trip_types_data.values()),
+                    'flagged_trip_types': [tt for tt, data in trip_types_data.items() if data.get('topology_flagged', False)],
+                    'regulatory_trip_types': [tt for tt, data in trip_types_data.items() if data.get('is_regulatory', False)]
+                },
+                
+                # Direct log keys for easy lookup
+                'log_keys': {
+                    'histogram_key': f"{route_id}_{stop_id}_{direction_id}_{time_type}" if histogram_info['has_histograms'] else None,
+                    'punctuality_key': f"{route_id}_{stop_id}_{direction_id}_{time_type}" if punctuality_info['has_punctuality'] else None,
+                    'violation_keys': [f"{route_id}_{stop_id}_{direction_id}_{tt}" for tt in trip_types_data.keys()]  # Links to violation master indexer
+                }
+            }
+        
+        # Store analysis master indexer
+        self._analysis_master_indexer = analysis_master_indexer
+        
+        # Create summary statistics
+        total_combinations = len(analysis_master_indexer)
+        with_histograms = sum(1 for entry in analysis_master_indexer.values() 
+                            if entry['analysis_flags']['has_histogram_data'])
+        with_punctuality = sum(1 for entry in analysis_master_indexer.values() 
+                            if entry['analysis_flags']['has_punctuality_data'])
+        with_violations = sum(1 for entry in analysis_master_indexer.values() 
+                            if entry['violation_indicators']['any_trip_type_flagged'])
+        
+        print(f"Analysis master indexer created: {total_combinations} time_type combinations")
+        print(f"  - With histograms: {with_histograms} ({with_histograms/total_combinations*100:.1f}%)")
+        print(f"  - With punctuality: {with_punctuality} ({with_punctuality/total_combinations*100:.1f}%)")
+        print(f"  - With violations: {with_violations} ({with_violations/total_combinations*100:.1f}%)")
+        
+        return analysis_master_indexer
+
+# 2. ADD MISSING HELPER METHODS FOR ANALYSIS MASTER INDEXER
+    def _get_histogram_info_for_combination(self, stop_id, direction_id, time_type):
+        """Get histogram information for specific stop/direction/time_type combination"""
+        combo_key = f"{self.route_id}_{stop_id}_{direction_id}_{time_type}"
+        
+        if hasattr(self, '_histograms_log') and combo_key in self._histograms_log:
+            histogram_data = self._histograms_log[combo_key]
+            return {
+                'has_histograms': True,
+                'histogram_types': list(histogram_data['histograms'].keys()),
+                'sample_size': histogram_data['metadata']['total_sample_size']
+            }
+        
+        return {
+            'has_histograms': False,
+            'histogram_types': [],
+            'sample_size': 0
+        }
+
+    def _get_punctuality_info_for_combination(self, stop_id, direction_id, time_type):
+        """Get punctuality information for specific stop/direction/time_type combination"""
+        combo_key = f"{self.route_id}_{stop_id}_{direction_id}_{time_type}"
+        
+        if hasattr(self, '_punctuality_log') and combo_key in self._punctuality_log:
+            punctuality_data = self._punctuality_log[combo_key]
+            otp = punctuality_data['punctuality_metrics']['performance_indicators']['on_time_performance_percent']
+            return {
+                'has_punctuality': True,
+                'on_time_performance': otp,
+                'sample_size': punctuality_data['metadata']['sample_size'],
+                'performance_level': 'excellent' if otp >= 85 else 'good' if otp >= 70 else 'poor'
+            }
+        
+        return {
+            'has_punctuality': False,
+            'on_time_performance': None,
+            'sample_size': 0,
+            'performance_level': None
+        }
+
+
+    def create_unified_navigation_maps(self):
+        """Create unified navigation maps using canonical combinations for single source of truth"""
+        print("\n=== CREATING UNIFIED NAVIGATION MAPS FROM CANONICAL COMBINATIONS ===")
+        
+        if not hasattr(self, '_canonical_combinations'):
+            print("No canonical combinations found - creating them first")
+            self.create_canonical_combinations()
+        
+        stop_to_combinations = {}
+        route_to_combinations = {}
         
         # Use clean stop mapping from topology validation
         if hasattr(self, '_stop_name_to_stop_ids') and self._stop_name_to_stop_ids:
@@ -980,77 +1431,200 @@ class DataFormer:
             
             for stop_name in stop_name_to_stop_ids:
                 stop_name_to_stop_ids[stop_name].sort()
-                
+            
             self._stop_name_to_stop_ids = stop_name_to_stop_ids
         
-        # Get unique combinations
-        unique_combinations = self.df_final.groupby([
-            'stop_id', 'stop_name', 'direction_id', 'time_type', 'trip_type'
-        ]).size().reset_index(name='count')
+        # Expand canonical combinations to time_type level for navigation
+        print(f"Expanding {len(self._canonical_combinations)} canonical combinations to include time_type level")
+        expanded_combinations = []
         
-        print(f"Processing {len(unique_combinations)} unique data combinations")
+        for _, combo in self._canonical_combinations.iterrows():
+            stop_id = str(combo['stop_id'])
+            direction_id = str(combo['direction_id'])
+            trip_type = combo['trip_type']
+            time_types_list = combo['time_types_list']
+            
+            for time_type in time_types_list:
+                expanded_combinations.append({
+                    'stop_id': stop_id,
+                    'stop_name': combo['stop_name'],
+                    'direction_id': direction_id,
+                    'trip_type': trip_type,
+                    'time_type': time_type,
+                    'total_records': combo['total_records']
+                })
         
-        # Build main navigation structures
-        for _, row in unique_combinations.iterrows():
-            stop_id = str(row['stop_id'])
-            direction_id = str(row['direction_id'])
-            time_type = row['time_type']
-            trip_type = row['trip_type']
+        print(f"Expanded to {len(expanded_combinations)} stop-direction-trip_type-time_type combinations")
+        
+        # Build enhanced navigation structures from expanded combinations
+        for combo in expanded_combinations:
+            stop_id = combo['stop_id']
+            direction_id = combo['direction_id']
+            time_type = combo['time_type']
+            trip_type = combo['trip_type']
+            stop_name = combo['stop_name']
             route_id = str(self.route_id)
             
-            # Structure 1: stop_to_combinations
+            # ===========================
+            # ROUTE_TO_COMBINATIONS STRUCTURE
+            # ===========================
+            if route_id not in route_to_combinations:
+                route_to_combinations[route_id] = {"directions": []}
+            
+            if direction_id not in route_to_combinations[route_id]:
+                route_to_combinations[route_id][direction_id] = {"stop_ids": []}
+                if direction_id not in route_to_combinations[route_id]["directions"]:
+                    route_to_combinations[route_id]["directions"].append(direction_id)
+            
+            if stop_id not in route_to_combinations[route_id][direction_id]:
+                route_to_combinations[route_id][direction_id][stop_id] = {}
+                if stop_id not in route_to_combinations[route_id][direction_id]["stop_ids"]:
+                    route_to_combinations[route_id][direction_id]["stop_ids"].append(stop_id)
+            
+            route_stop_data = route_to_combinations[route_id][direction_id][stop_id]
+            
+            # Ensure convenience arrays exist at stop level
+            if "trip_types" not in route_stop_data:
+                route_stop_data["trip_types"] = []
+            if "time_types" not in route_stop_data:
+                route_stop_data["time_types"] = []
+            
+            # Add to convenience arrays
+            if trip_type not in route_stop_data["trip_types"]:
+                route_stop_data["trip_types"].append(trip_type)
+            if time_type not in route_stop_data["time_types"]:
+                route_stop_data["time_types"].append(time_type)
+            
+            # ===========================
+            # TRIP_TYPE DATA (VIOLATION INFO) - Use Master Indexer as Source of Truth
+            # ===========================
+            if trip_type not in route_stop_data:
+                # Get data from master indexer (single source of truth)
+                master_key = self.get_combination_key(stop_id, direction_id, trip_type)
+                master_data = self._master_indexer.get(master_key, {})
+                
+                # Use the COMPLETE master indexer entry
+                route_stop_data[trip_type] = master_data.copy()
+                    
+                # Add navigation-specific convenience fields
+                route_stop_data[trip_type].update({
+                    "time_types": [],  # Will be populated as we process
+                    # Any other navigation-specific helpers
+                })
+            
+            # Add time_type to trip_type's time_types array
+            if time_type not in route_stop_data[trip_type]["time_types"]:
+                route_stop_data[trip_type]["time_types"].append(time_type)
+            
+            # ===========================
+            # TIME_TYPE DATA (ANALYSIS INFO)
+            # ===========================
+            if time_type not in route_stop_data:
+                # Get analysis info for this time_type (aggregated across trip_types)
+                histogram_info = self._get_histogram_info_for_combination(stop_id, direction_id, time_type)
+                punctuality_info = self._get_punctuality_info_for_combination(stop_id, direction_id, time_type)
+                
+                # Get violation summary for this time_type (rolled up from all trip_types that contribute)
+                contributing_trip_types = [
+                    tt for combo_inner in expanded_combinations 
+                    if (combo_inner['stop_id'] == stop_id and 
+                        combo_inner['direction_id'] == direction_id and 
+                        combo_inner['time_type'] == time_type)
+                    for tt in [combo_inner['trip_type']]
+                ]
+                
+                flagged_trip_types = []
+                regulatory_trip_types = []
+                any_trip_type_flagged = False
+                
+                # Check violations across all contributing trip_types
+                for tt in set(contributing_trip_types):  # Remove duplicates
+                    master_key = self.get_combination_key(stop_id, direction_id, tt)
+                    master_data = self._master_indexer.get(master_key, {})
+                    violation_flags = master_data.get('violation_flags', {})
+                    
+                    if (violation_flags.get('has_topology_violation', False) or 
+                        violation_flags.get('has_pattern_violation', False)):
+                        flagged_trip_types.append(tt)
+                        any_trip_type_flagged = True
+                    
+                    if self._is_combination_regulatory(stop_id, direction_id, tt):
+                        regulatory_trip_types.append(tt)
+                
+                route_stop_data[time_type] = {
+                    "time_type": time_type,
+                    "available_trip_types": [],  # Will be populated as we process
+                    
+                    # ANALYSIS AVAILABILITY FLAGS
+                    "has_histogram_data": histogram_info.get('has_histograms', False),
+                    "has_punctuality_data": punctuality_info.get('has_punctuality', False),
+                    "histogram_types": histogram_info.get('histogram_types', []),
+                    "histogram_sample_size": histogram_info.get('sample_size', 0),
+                    "punctuality_sample_size": punctuality_info.get('sample_size', 0),
+                    "on_time_performance": punctuality_info.get('on_time_performance'),
+                    "performance_level": punctuality_info.get('performance_level'),
+                    
+                    # VIOLATION SUMMARY (rolled up from trip_types)
+                    "any_trip_type_flagged": any_trip_type_flagged,
+                    "flagged_trip_types": sorted(flagged_trip_types),
+                    "regulatory_trip_types": sorted(regulatory_trip_types)
+                }
+            
+            # Add trip_type to time_type's available_trip_types array
+            if trip_type not in route_stop_data[time_type]["available_trip_types"]:
+                route_stop_data[time_type]["available_trip_types"].append(trip_type)
+            
+            # ===========================
+            # STOP_TO_COMBINATIONS STRUCTURE (MIRROR LOGIC)
+            # ===========================
             if stop_id not in stop_to_combinations:
-                stop_to_combinations[stop_id] = {}
+                stop_to_combinations[stop_id] = {"routes": []}
+            
             if route_id not in stop_to_combinations[stop_id]:
-                stop_to_combinations[stop_id][route_id] = {}
+                stop_to_combinations[stop_id][route_id] = {"directions": []}
+                if route_id not in stop_to_combinations[stop_id]["routes"]:
+                    stop_to_combinations[stop_id]["routes"].append(route_id)
+            
             if direction_id not in stop_to_combinations[stop_id][route_id]:
                 stop_to_combinations[stop_id][route_id][direction_id] = {}
-            if trip_type not in stop_to_combinations[stop_id][route_id][direction_id]:
-                stop_to_combinations[stop_id][route_id][direction_id][trip_type] = {"time_types": []}
+                if direction_id not in stop_to_combinations[stop_id][route_id]["directions"]:
+                    stop_to_combinations[stop_id][route_id]["directions"].append(direction_id)
             
-            time_types_list = stop_to_combinations[stop_id][route_id][direction_id][trip_type]["time_types"]
-            if time_type not in time_types_list:
-                time_types_list.append(time_type)
+            stop_direction_data = stop_to_combinations[stop_id][route_id][direction_id]
             
-            # Structure 2: route_to_combinations
-            if route_id not in route_to_combinations:
-                route_to_combinations[route_id] = {}
-            if direction_id not in route_to_combinations[route_id]:
-                route_to_combinations[route_id][direction_id] = {}
-            if trip_type not in route_to_combinations[route_id][direction_id]:
-                route_to_combinations[route_id][direction_id][trip_type] = {"time_types": [], "stop_ids": []}
+            # Ensure convenience arrays exist
+            if "trip_types" not in stop_direction_data:
+                stop_direction_data["trip_types"] = []
+            if "time_types" not in stop_direction_data:
+                stop_direction_data["time_types"] = []
             
-            route_time_types = route_to_combinations[route_id][direction_id][trip_type]["time_types"]
-            if time_type not in route_time_types:
-                route_time_types.append(time_type)
+            # Add to convenience arrays
+            if trip_type not in stop_direction_data["trip_types"]:
+                stop_direction_data["trip_types"].append(trip_type)
+            if time_type not in stop_direction_data["time_types"]:
+                stop_direction_data["time_types"].append(time_type)
             
-            route_stop_ids = route_to_combinations[route_id][direction_id][trip_type]["stop_ids"]
-            if stop_id not in route_stop_ids:
-                route_stop_ids.append(stop_id)
+            # Copy the same trip_type and time_type data from route_to_combinations
+            # (to maintain consistency between both navigation structures)
+            if trip_type not in stop_direction_data:
+                stop_direction_data[trip_type] = route_stop_data[trip_type].copy()
+            if time_type not in stop_direction_data:
+                stop_direction_data[time_type] = route_stop_data[time_type].copy()
         
-        # Sort time types logically
-        time_order = ['am_rush', 'day', 'pm_rush', 'night', 'weekend']
-        def sort_structure(structure):
-            if isinstance(structure, dict):
-                for key, value in structure.items():
-                    if key == "time_types" and isinstance(value, list):
-                        value.sort(key=lambda x: time_order.index(x) if x in time_order else 999)
-                    elif key == "stop_ids" and isinstance(value, list):
-                        value.sort()
-                    else:
-                        sort_structure(value)
-        
-        sort_structure(stop_to_combinations)
-        sort_structure(route_to_combinations)
+        # ===========================
+        # SORT EVERYTHING
+        # ===========================
+        self._sort_enhanced_navigation(stop_to_combinations, route_to_combinations)
         
         # Store results
         self._stop_to_combinations = stop_to_combinations
         self._route_to_combinations = route_to_combinations
         
-        print(f"Navigation maps created:")
-        print(f"  - {len(stop_to_combinations)} stops in combinations")
-        print(f"  - {len(route_to_combinations)} routes") 
+        print(f"Enhanced navigation maps created:")
+        print(f"  - {len(stop_to_combinations)} stops")
+        print(f"  - {len(route_to_combinations)} routes")
         print(f"  - {len(stop_name_to_stop_ids)} stop names mapped")
+        print(f"  - Using master indexer as single source of truth for violation data")
         
         return {
             'stop_to_combinations': stop_to_combinations,
@@ -1058,52 +1632,43 @@ class DataFormer:
             'stop_name_to_stop_ids': stop_name_to_stop_ids
         }
 
-    def export_new_navigation_maps(self):
-        """Export the new navigation maps to JSON files"""
-        print("\n=== EXPORTING NEW NAVIGATION MAPS ===")
+    # Helper methods to extract data from logs (single source of truth)
+    def _is_combination_regulatory(self, stop_id, direction_id, trip_type):
+        """Check if combination is regulatory from regulatory stops log"""
+        key = self.get_combination_key(stop_id, direction_id, trip_type)
+        return key in getattr(self, '_regulatory_stops_log', {})
+
+    def _get_pattern_issue_type(self, stop_id, direction_id, trip_type):
+        """Get pattern issue type from trip types log"""
+        key = self.get_combination_key(stop_id, direction_id, trip_type)
+        trip_data = getattr(self, '_trip_types_log', {}).get(key, {})
+        return trip_data.get('issue_type', 'consecutive')
+
+    def _get_topology_violation_type(self, stop_id, direction_id, trip_type):
+        """Get topology violation type from topology violations log"""
+        key = self.get_combination_key(stop_id, direction_id, trip_type)
+        violation = getattr(self, '_topology_violations_log', {}).get(key, {})
+        return violation.get('violation_type')
+
+    def _get_regulation_ratio(self, stop_id, direction_id, trip_type):
+        """Get regulation ratio from regulatory stops log"""
+        key = self.get_combination_key(stop_id, direction_id, trip_type)
+        reg_data = getattr(self, '_regulatory_stops_log', {}).get(key, {})
+        return reg_data.get('zero_seconds_ratio')
+
+    def _determine_overall_severity(self, topology_severity, pattern_severity, regulatory_severity, gap_severity=None):
+        """Determine overall severity from individual severities"""
+        severities = [s for s in [topology_severity, pattern_severity, regulatory_severity, gap_severity] if s is not None]
         
-        if not hasattr(self, '_stop_to_combinations') or not hasattr(self, '_route_to_combinations'):
-            print("Navigation maps not found. Creating them first...")
-            self.create_new_navigation_maps()
+        if not severities:
+            return 'none'
         
-        def make_json_serializable(obj):
-            if hasattr(obj, 'item'):
-                return obj.item()
-            elif hasattr(obj, 'tolist'):
-                return obj.tolist()
-            elif isinstance(obj, dict):
-                return {key: make_json_serializable(value) for key, value in obj.items()}
-            elif isinstance(obj, list):
-                return [make_json_serializable(item) for item in obj]
-            elif hasattr(obj, '__dict__'):
-                return str(obj)
-            else:
-                return obj
+        severity_order = ['low', 'medium', 'high']
+        for severity in reversed(severity_order):
+            if severity in severities:
+                return severity
         
-        safe_route_name = self.route_long_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
-        output_folder = Path(f'route_analysis_{safe_route_name}_{self.route_id}')
-        output_folder.mkdir(exist_ok=True)
-        navigation_folder = output_folder / 'navigation_maps'
-        navigation_folder.mkdir(exist_ok=True)
-        
-        print(f"Created output folder: {output_folder}")
-        
-        # Export the three navigation structures
-        stop_to_comb_file = navigation_folder / 'stop_to_combinations.json'
-        route_to_comb_file = navigation_folder / 'route_to_combinations.json'
-        stop_name_to_ids_file = navigation_folder / 'stop_name_to_stop_ids.json'
-        
-        with open(stop_to_comb_file, 'w', encoding='utf-8') as f:
-            json.dump(make_json_serializable(self._stop_to_combinations), f, indent=2, ensure_ascii=False)
-        
-        with open(route_to_comb_file, 'w', encoding='utf-8') as f:
-            json.dump(make_json_serializable(self._route_to_combinations), f, indent=2, ensure_ascii=False)
-        
-        with open(stop_name_to_ids_file, 'w', encoding='utf-8') as f:
-            json.dump(make_json_serializable(self._stop_name_to_stop_ids), f, indent=2, ensure_ascii=False)
-        
-        print(f"Navigation maps exported to: {navigation_folder}")
-        return output_folder
+        return 'none'
 
     # ======================================= Export All Data =========================================
 
@@ -1137,87 +1702,6 @@ class DataFormer:
                     print(f"Warning: Could not load existing {file_path.name}: {e}")
                     return {}
             return {}
-        
-        def merge_data(existing_data, new_data, data_type):
-            """Merge new data with existing data based on data type"""
-            if data_type == 'master_indexer':
-                # Master indexer: clean existing route data, then merge
-                cleaned = clean_existing_route_data(existing_data, str(self.route_id))
-                cleaned.update(new_data)
-                return cleaned
-            
-            elif data_type in ['violations', 'stops', 'trip_types']:
-                # Violation logs: clean existing route data, then merge
-                cleaned = clean_existing_route_data(existing_data, str(self.route_id))
-                cleaned.update(new_data)
-                return cleaned
-            
-            elif data_type == 'navigation':
-                # Navigation maps: always accumulate (no cleanup)
-                return merge_navigation_data(existing_data, new_data)
-            
-            elif data_type == 'summary':
-                # Summary: aggregate statistics across routes
-                if not existing_data:
-                    print(f"    Creating new summary file for route {list(new_data['route_info'].keys())[0]}")
-                    return new_data
-                
-                # FIXED: Properly merge route_info (keep all routes)
-                merged_routes = existing_data.get('route_info', {}).copy()
-                existing_route_count = len(merged_routes)
-                
-                # Get the current route being processed and merge it
-                current_route_id = None
-                for route_id, route_info in new_data['route_info'].items():
-                    current_route_id = route_id
-                    was_already_processed = route_id in merged_routes
-                    merged_routes[route_id] = route_info
-                    break  # Should only be one route in new_data
-                
-                new_route_count = len(merged_routes)
-                
-                print(f"    Route summary: {existing_route_count} → {new_route_count} routes")
-                if current_route_id:
-                    if was_already_processed:
-                        print(f"    Route {current_route_id} was reprocessed (replacing existing data)")
-                    else:
-                        print(f"    Route {current_route_id} added as new route")
-                
-                # Aggregate data_summary
-                existing_summary = existing_data.get('data_summary', {})
-                new_summary = new_data['data_summary']
-                
-                if was_already_processed:
-                    print(f"    Warning: Route {current_route_id} reprocessed - summary stats may be inflated")
-                    print(f"    Consider cleaning the summary file if this is unexpected")
-                
-                aggregated_summary = {
-                    'total_combinations': existing_summary.get('total_combinations', 0) + new_summary.get('total_combinations', 0),
-                    'flagged_combinations': existing_summary.get('flagged_combinations', 0) + new_summary.get('flagged_combinations', 0),
-                    'severity_breakdown': {
-                        'high': existing_summary.get('severity_breakdown', {}).get('high', 0) + new_summary.get('severity_breakdown', {}).get('high', 0),
-                        'medium': existing_summary.get('severity_breakdown', {}).get('medium', 0) + new_summary.get('severity_breakdown', {}).get('medium', 0),
-                        'low': existing_summary.get('severity_breakdown', {}).get('low', 0) + new_summary.get('severity_breakdown', {}).get('low', 0),
-                        'none': existing_summary.get('severity_breakdown', {}).get('none', 0) + new_summary.get('severity_breakdown', {}).get('none', 0)
-                    },
-                    'violation_type_counts': {
-                        'topology': existing_summary.get('violation_type_counts', {}).get('topology', 0) + new_summary.get('violation_type_counts', {}).get('topology', 0),
-                        'pattern': existing_summary.get('violation_type_counts', {}).get('pattern', 0) + new_summary.get('violation_type_counts', {}).get('pattern', 0),
-                        'regulatory': existing_summary.get('violation_type_counts', {}).get('regulatory', 0) + new_summary.get('violation_type_counts', {}).get('regulatory', 0)
-                    }
-                }
-                
-                return {
-                    'route_info': merged_routes,
-                    'data_summary': aggregated_summary,
-                    'files_exported': new_data['files_exported']  # Keep current export info
-                }
-            
-            else:
-                # Default: simple merge
-                merged = existing_data.copy()
-                merged.update(new_data)
-                return merged
         
         def clean_existing_route_data(existing_data, route_id):
             """Remove all entries for a specific route before adding new data"""
@@ -1285,6 +1769,57 @@ class DataFormer:
             
             return deep_merge_nav_structure(existing_nav, new_nav)
         
+        def merge_data(existing_data, new_data, data_type):
+            """Merge new data with existing data based on data type"""
+            if data_type == 'master_indexer':
+                # Master indexer: clean existing route data, then merge
+                cleaned = clean_existing_route_data(existing_data, str(self.route_id))
+                cleaned.update(new_data)
+                return cleaned
+            
+            elif data_type in ['violations', 'stops', 'trip_types']:
+                # Violation logs: clean existing route data, then merge
+                cleaned = clean_existing_route_data(existing_data, str(self.route_id))
+                cleaned.update(new_data)
+                return cleaned
+            
+            elif data_type == 'navigation':
+                # Navigation maps: always accumulate (no cleanup)
+                return merge_navigation_data(existing_data, new_data)
+            
+            elif data_type == 'summary':
+                # Summary: aggregate statistics across routes
+                if not existing_data:
+                    return new_data
+                
+                existing_summary = existing_data.get('data_summary', {})
+                new_summary = new_data['data_summary']
+                
+                aggregated_summary = {
+                    # Additive counts
+                    'total_routes_analyzed': existing_summary.get('total_routes_analyzed', 0) + new_summary.get('total_routes_analyzed', 0),
+                    'total_stop_names': existing_summary.get('total_stop_names', 0) + new_summary.get('total_stop_names', 0),
+                    'total_unique_stop_ids': existing_summary.get('total_unique_stop_ids', 0) + new_summary.get('total_unique_stop_ids', 0),
+                    'total_combinations': existing_summary.get('total_combinations', 0) + new_summary.get('total_combinations', 0),
+                    
+                    # Boolean OR for violation flags (if ANY route has violations, global = true)
+                    'has_topology_violations': existing_summary.get('has_topology_violations', False) or new_summary.get('has_topology_violations', False),
+                    'has_pattern_violations': existing_summary.get('has_pattern_violations', False) or new_summary.get('has_pattern_violations', False),
+                    'has_regulatory_violations': existing_summary.get('has_regulatory_violations', False) or new_summary.get('has_regulatory_violations', False),
+                    'has_any_violations': existing_summary.get('has_any_violations', False) or new_summary.get('has_any_violations', False)
+                }
+                
+                return {
+                    'data_summary': aggregated_summary,
+                    'files_exported': new_data['files_exported']
+                }
+            
+            else:
+                # Default: simple merge
+                merged = existing_data.copy()
+                merged.update(new_data)
+                return merged
+        
         # Use global output folder (not route-specific)
         output_folder = Path('transit_analysis_global')
         output_folder.mkdir(exist_ok=True)
@@ -1294,11 +1829,14 @@ class DataFormer:
         # Define all files to export
         files_to_export = {
             'master_indexer.json': ('master_indexer', self._master_indexer),
-            'topology_violations.json': ('violations', self._topology_violations_log),
-            'pattern_violations.json': ('violations', self._pattern_violations_log),
-            'regulatory_violations.json': ('violations', self._regulatory_violations_log),
-            'trip_types.json': ('trip_types', self._trip_types_log),
-            'regulatory_stops.json': ('stops', self._regulatory_stops_log)
+            'log_topology_violations.json': ('violations', self._topology_violations_log),
+            'log_pattern_violations.json': ('violations', self._pattern_violations_log),
+            'log_regulatory_violations.json': ('violations', self._regulatory_violations_log),
+            'log_trip_types.json': ('trip_types', self._trip_types_log),
+            'log_regulatory_stops.json': ('stops', self._regulatory_stops_log),
+            # Add to files_to_export in export_all_data()
+            'log_histograms.json': ('analysis', self._histograms_log),
+            'log_punctuality.json': ('analysis', self._punctuality_log),
         }
         
         exported_files = []
@@ -1334,7 +1872,8 @@ class DataFormer:
         navigation_files = {
             'global_stop_to_combinations.json': ('navigation', self._stop_to_combinations),
             'global_route_to_combinations.json': ('navigation', self._route_to_combinations),
-            'global_stop_name_to_stop_ids.json': ('navigation', self._stop_name_to_stop_ids)
+            'global_stop_name_to_stop_ids.json': ('navigation', self._stop_name_to_stop_ids),
+            'global_route_short_name_to_info.json': ('navigation', self._create_route_mapping())
         }
         
         for nav_filename, (nav_data_type, nav_data) in navigation_files.items():
@@ -1362,28 +1901,20 @@ class DataFormer:
         
         # Create/update global summary
         route_summary = {
-            'route_info': {
-                str(self.route_id): {  # ← KEY FIX: Use route_id as dictionary key
-                    'route_id': str(self.route_id),
-                    'route_name': str(self.route_long_name),
-                    'route_short_name': str(self.route_short_name)
-                }
-            },
             'data_summary': {
+                # High-level scope
+                'total_routes_analyzed': 1,
+                'total_stop_names': len(self._stop_name_to_stop_ids),
+                'total_unique_stop_ids': len(set(entry['stop_id'] for entry in self._master_indexer.values())),
                 'total_combinations': len(self._master_indexer),
-                'flagged_combinations': sum(1 for entry in self._master_indexer.values() 
-                                        if entry['violation_flags']['has_any_violation']),
-                'severity_breakdown': {
-                    'high': sum(1 for entry in self._master_indexer.values() if entry.get('overall_severity') == 'high'),
-                    'medium': sum(1 for entry in self._master_indexer.values() if entry.get('overall_severity') == 'medium'),
-                    'low': sum(1 for entry in self._master_indexer.values() if entry.get('overall_severity') == 'low'),
-                    'none': sum(1 for entry in self._master_indexer.values() if entry.get('overall_severity') == 'none')
-                },
-                'violation_type_counts': {
-                    'topology': len(self._topology_violations_log),
-                    'pattern': len(self._pattern_violations_log),
-                    'regulatory': len(self._regulatory_violations_log)
-                }
+                
+                # Simple violation presence flags
+                'has_topology_violations': len(self._topology_violations_log) > 0,
+                'has_pattern_violations': len(self._pattern_violations_log) > 0,
+                'has_regulatory_violations': len(self._regulatory_violations_log) > 0,
+                'has_any_violations': (len(self._topology_violations_log) + 
+                                    len(self._pattern_violations_log) + 
+                                    len(self._regulatory_violations_log)) > 0
             },
             'files_exported': exported_files
         }
@@ -1397,436 +1928,174 @@ class DataFormer:
         
         print(f"✅ Global summary updated: {summary_file}")
         
-        total_routes_in_summary = len(merged_summary.get('route_info', {}))
-        total_global_combinations = merged_summary.get('data_summary', {}).get('total_combinations', 0)
-        
+        # Clean final print
+        total_routes = merged_summary.get('data_summary', {}).get('total_routes_analyzed', 0)
+        total_stop_names = merged_summary.get('data_summary', {}).get('total_stop_names', 0)
+        total_combinations = merged_summary.get('data_summary', {}).get('total_combinations', 0)
+        has_violations = merged_summary.get('data_summary', {}).get('has_any_violations', False)
+
         print(f"\n🌍 GLOBAL ANALYSIS STATUS:")
-        print(f"  - Total routes processed: {total_routes_in_summary}")
-        print(f"  - Total combinations: {total_global_combinations}")
+        print(f"  - Routes analyzed: {total_routes}")
+        print(f"  - Stop names: {total_stop_names}")
+        print(f"  - Total combinations: {total_combinations}")
+        print(f"  - Issues detected: {'Yes' if has_violations else 'No'}")
         print(f"  - Global files: {output_folder}")
-        print(f"  - All data available in global files")
+        print(f"  - Use master_indexer.json for detailed violation analysis")
         
         return {
             'global_output_folder': str(output_folder),
             'global_summary_file': str(summary_file),
-            'total_routes': total_routes_in_summary,
-            'total_combinations': total_global_combinations
+            'total_routes': total_routes,
+            'total_combinations': total_combinations
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#OLD OLD OLD
-
-
-
-
-
-
-
-
-
-
-#   ========================== Basic Stop Analysis ===============================
-
-    def find_dir0_stop_sequence_for_order(self):
-
-        df = self.df_final.copy()
-
-        # First, get the Direction 0 sequence mapping for sorting
-        dir0_data = df[df['direction_id'] == 0][['stop_name', 'stop_sequence']]
-    
-        stop_sequence_map = {}
-        for stop_name, group in dir0_data.groupby('stop_name'):
-            sequence_counts = group['stop_sequence'].value_counts()
-            most_common_sequence = sequence_counts.index[0]  # Most frequent sequence
-            stop_sequence_map[stop_name] = most_common_sequence
-            # Log if there were multiple sequences for this stop
-            if len(sequence_counts) > 1:
-                print(f"  Warning: {stop_name} has multiple sequences in Dir 0: {dict(sequence_counts)}, using {most_common_sequence}")
-        
-        return stop_sequence_map
-    
-    def create_stop_analysis(self):
-        """
-        Categorize stops as directional or shared, and flag problematic ones
-        """
-        print(f"\n=== CATEGORIZING STOPS ===")
-        stop_analysis = {}  # FIX: Use dictionary, not list
-        df = self.df_final.copy()
-
-        dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
-
-        for stop_name, group in df.groupby('stop_name'):
-            stop_ids = group['stop_id'].unique()
-            
-            print(f"\nAnalyzing: {stop_name}")
-            print(f"  Mapped to stop_ids: {list(stop_ids)}")
-            
-            # Check how each stop_id behaves
-            shared_stop_ids = []
-            directional_stop_ids = []
-            
-            for stop_id in stop_ids:
-                stop_id_data = group[group['stop_id'] == stop_id]
-                directions_for_this_stop_id = stop_id_data['direction_id'].unique()
-                
-                if len(directions_for_this_stop_id) > 1:
-                    shared_stop_ids.append(stop_id)
-                    behavior = "shared"
-                else:
-                    directional_stop_ids.append(stop_id)
-                    behavior = "directional"
-                    
-                print(f"    {stop_id}: {behavior} (directions: {list(directions_for_this_stop_id)})")
-            
-            # Check which directions this stop serves
-            directions_served = group['direction_id'].unique()
-
-            # Determine stop type - more detailed classification
-            if len(shared_stop_ids) > 0:
-                stop_type = "Shared"
-            else:
-                # All stop_ids are directional, but check how many directions
-                if len(directions_served) == 1:
-                    stop_type = "Unidirectional"
-                else:
-                    stop_type = "Bidirectional"
-            
-            # Check what logs this stop appears in
-            route_name = self.route_long_name
-            composite_key = f"{route_name}_{stop_name}"
-
-            in_sequence_log = composite_key in self._sequence_corrections_log
-            in_direction_log = composite_key in self._direction_pair_corrections_log
-            in_root_cause_log = composite_key in self._sequence_root_causes_log
-
-            # SIMPLIFIED CLASSIFICATION LOGIC
-            # Check if issues were resolved (using 'resolved' key from consistent log structure)
-            sequence_resolved = True  # Default to resolved if not in log
-            direction_resolved = True  # Default to resolved if not in log
-            root_cause_resolved = True  # Root causes are detected, not resolved, so always False if present
-
-            if in_sequence_log:
-                sequence_resolved = self._sequence_corrections_log[composite_key].get('resolved', False)
-
-            if in_direction_log:
-                direction_resolved = self._direction_pair_corrections_log[composite_key].get('resolved', False)
-
-            if in_root_cause_log:
-                root_cause_resolved = self._sequence_root_causes_log[composite_key].get('resolved', False)  # Always False
-
-            # Determine if stop appears in any log
-            appears_in_any_log = in_sequence_log or in_direction_log or in_root_cause_log
-            
-            # Determine if all issues were resolved
-            all_issues_resolved = sequence_resolved and direction_resolved and root_cause_resolved
-
-            # SIMPLIFIED SEVERITY AND STATUS
-            if not appears_in_any_log:
-                # Not apparent in any log = severity 0
-                severity = 0
-                problematic_status = "Normal"
-                problematic_description = "No data quality issues detected."
-                
-            elif appears_in_any_log and all_issues_resolved:
-                # Apparent in log AND resolved = severity 1
-                severity = 1
-                problematic_status = "Minor"
-                fixed_issues = []
-                if in_sequence_log and sequence_resolved:
-                    fixed_issues.append("sequence standardized")
-                if in_direction_log and direction_resolved:
-                    fixed_issues.append("direction reassigned")
-                problematic_description = f"Issues detected and successfully resolved: {', '.join(fixed_issues)}."
-                
-            else:
-                # Apparent in log AND NOT resolved = severity 2
-                severity = 2
-                problematic_status = "Severe"
-                unresolved_issues = []
-                if in_sequence_log and not sequence_resolved:
-                    unresolved_issues.append("multiple stop sequences")
-                if in_direction_log and not direction_resolved:
-                    unresolved_issues.append("direction inconsistencies")
-                if in_root_cause_log:
-                    unresolved_issues.append("sequence root cause")
-                problematic_description = f"Unresolved issues: {', '.join(unresolved_issues)}."
-
-            print(f"  Final Classification: {stop_type} - {problematic_status} (Severity: {severity})")
-
-            # Determine problematic type based on which logs the stop appears in
-            problematic_type = "None"  # FIX: Use string instead of False
-
-            if (in_sequence_log or in_root_cause_log) and in_direction_log:
-                problematic_type = "Complex"
-            elif in_sequence_log or in_root_cause_log:
-                problematic_type = "Sequential"
-            elif in_direction_log:
-                problematic_type = "Directional"
-
-            if severity > 0:
-                print(f"    Issue: {problematic_description}")
-
-            # Generate stop type description  
-            if stop_type == "Shared":
-                stop_type_description = f"uses the same stop_id for both directions (has {len(shared_stop_ids)} shared stop_id{'s' if len(shared_stop_ids) != 1 else ''})"
-            elif stop_type == "Bidirectional":
-                stop_type_description = f"serves both directions using separate stop_ids ({len(directional_stop_ids)} directional stop_ids total)"
-            elif stop_type == "Unidirectional":
-                stop_type_description = f"only serves one direction ({len(directional_stop_ids)} directional stop_id{'s' if len(directional_stop_ids) != 1 else ''})"
-
-            # Generate severity description
-            if severity == 0:
-                severity_description = "no data quality issues were detected"
-            elif severity == 1:
-                severity_description = "data quality issues were detected but successfully resolved"
-            elif severity == 2:
-                severity_description = "data quality issues were detected but remain unresolved"
-
-            # Create full description
-            full_description = f"On route {route_name}, the stop {stop_name} is a {stop_type.lower()} stop, since it {stop_type_description}. It is marked as {problematic_status.lower()} since {severity_description}."
-
-            # Store with only the entries you want
-            stop_analysis[composite_key] = {
-                'stop_name': stop_name,
-                'route_long_name': route_name,
-                'description': full_description,
-                'stop_type': stop_type,
-                'problematic_status': problematic_status,  # FIX: Use status not severity
-                'problematic_type': problematic_type,
-                'problematic_description': problematic_description,
-                'shared_ids': shared_stop_ids,
-                'directional_ids': directional_stop_ids,
-                'print_order': dir_zero_stop_seq.get(stop_name, 999)
+    def _create_route_mapping(self):
+        """Create route name ↔ route ID mapping for easy lookups"""
+        return {
+            f'{self.route_short_name}': {
+                'route_id': self.route_id,
+                'route_long_name': self.route_long_name
             }
+        }  
 
-        # Sort the dictionary by Direction 0 stop sequence
-        sorted_stop_analysis = dict(sorted(
-            stop_analysis.items(), 
-            key=lambda item: item[1]['print_order']
-        ))
+    # 1. ADD HISTOGRAM AND PUNCTUALITY ANALYSIS GENERATION
+    def create_histograms_and_punctuality_analysis(self, df):
+        """Create histograms and punctuality analysis aggregated across all trip types"""
+        print("\n=== CREATING HISTOGRAMS AND PUNCTUALITY ANALYSIS ===")
+        
+        df = df.copy()
+        
+        # Initialize logs
+        histograms_log = {}
+        punctuality_log = {}
+        
+        # Group by stop, direction, and time_type (aggregating across trip_types)
+        analysis_groups = df.groupby(['stop_id', 'stop_name', 'direction_id', 'time_type'])
+        
+        print(f"Processing {len(analysis_groups)} unique stop-direction-time combinations")
+        
+        for (stop_id, stop_name, direction_id, time_type), group in analysis_groups:
+            
+            # Create combination key WITHOUT trip_type
+            combo_key = f"{self.route_id}_{stop_id}_{direction_id}_{time_type}"
+            
+            print(f"Analyzing: {stop_name} (Dir {direction_id}, {time_type})")
+            
+            # HISTOGRAMS ANALYSIS
+            histogram_data = self._create_histogram_analysis(group, stop_id, stop_name, direction_id, time_type)
+            if histogram_data:
+                histograms_log[combo_key] = histogram_data
+            
+            # PUNCTUALITY ANALYSIS  
+            punctuality_data = self._create_punctuality_analysis(group, stop_id, stop_name, direction_id, time_type)
+            if punctuality_data:
+                punctuality_log[combo_key] = punctuality_data
+        
+        # Store in class
+        self._histograms_log = histograms_log
+        self._punctuality_log = punctuality_log
+        
+        print(f"Analysis complete:")
+        print(f"  - {len(histograms_log)} histogram combinations")
+        print(f"  - {len(punctuality_log)} punctuality combinations")
+        
+        return histograms_log, punctuality_log
 
-        # Remove the temporary stop_sequence field from the final dictionary
-        for entry in sorted_stop_analysis.values():
-            entry.pop('print_order', None)
-
-        print(f"\nStop analysis complete: {len(sorted_stop_analysis)} stops analyzed and sorted by Direction 0 sequence")
+    def _create_histogram_analysis(self, group, stop_id, stop_name, direction_id, time_type, bins=20):
+        """Create histogram analysis for a specific combination"""
         
-        return sorted_stop_analysis
-
-    def add_analysis_availability_to_stop_analysis(self):
-        """Add availability flags for histograms, travel times, punctuality, and tables to stop_analysis_dict"""
+        if len(group) < 10:  # Minimum sample size
+            return None
         
-        # Update stop_analysis_dict with analysis availability flags
-        for composite_key in self.stop_analysis_dict.keys():
-            # Extract route name from composite key for table checking
-            route_name = composite_key.split('_')[0]  # Assumes format: route_stopname
+        # Get clean delay data
+        total_delays = group['departure_delay'].dropna()
+        incremental_delays = group['incremental_delay'].dropna()
+        
+        if len(total_delays) < 5:  # Need sufficient data
+            return None
+        
+        histograms = {}
+        
+        # Total delay histogram
+        if len(total_delays) >= 5:
+            histograms['total_delay'] = self._create_normalized_histogram(
+                total_delays, bins, 
+                f'Total Delay - {stop_name} (Dir {direction_id}, {time_type.replace("_", " ").title()})'
+            )
+        
+        # Incremental delay histogram (only if valid travel times)
+        valid_incremental = incremental_delays[group['travel_time_valid'] == True] if 'travel_time_valid' in group.columns else incremental_delays
+        if len(valid_incremental) >= 5:
+            histograms['incremental_delay'] = self._create_normalized_histogram(
+                valid_incremental, bins,
+                f'Incremental Delay - {stop_name} (Dir {direction_id}, {time_type.replace("_", " ").title()})'
+            )
+        
+        if not histograms:
+            return None
+        
+        # Create standardized log entry
+        return {
+            # SEARCHABLE FIELDS - consistent with other logs
+            'route_id': str(self.route_id),
+            'route_name': self.route_long_name,
+            'route_short_name': self.route_short_name,
+            'stop_id': str(stop_id),
+            'stop_name': stop_name,
+            'direction_id': str(direction_id),
+            'time_type': time_type,
+            # Note: NO trip_type field since we aggregate across all trip types
             
-            # Check histogram availability
-            has_histograms = hasattr(self, '_delay_histograms') and composite_key in self._delay_histograms
-            
-            # Check travel times availability
-            has_travel_times = hasattr(self, '_travel_times_data') and composite_key in self._travel_times_data
-            
-            # Check punctuality availability
-            has_punctuality = hasattr(self, '_punctuality_data') and composite_key in self._punctuality_data
-            
-            # Check tables availability (route-level, so check if route has before/after tables)
-            has_tables = (hasattr(self, '_direction_tables_before') and 
-                        hasattr(self, '_direction_tables_after'))
-            
-            # Add all flags to stop analysis
-            self.stop_analysis_dict[composite_key].update({
-                'has_histograms': has_histograms,
-                'has_travel_times': has_travel_times,
-                'has_punctuality_data': has_punctuality,
-                'has_tables': has_tables
-            })
-
-#   ====================== Additional Route-wise Analysis =========================
-    def create_direction_tables(self, df):
-        """
-        Create separate tables for each direction, with extra column showing other direction
-        """
-        # Get direction distribution  
-        direction_dist = df.groupby(['stop_name', 'stop_id', 'direction_id', 'stop_sequence']).size().reset_index(name='count')
-        
-        # Create pivot to get both directions for each stop
-        pivot = direction_dist.pivot_table(
-            index=['stop_name', 'stop_id', 'stop_sequence'],
-            columns='direction_id', 
-            values='count',
-            fill_value=0
-        )
-        pivot.columns = ['Dir_0', 'Dir_1']
-        
-        # Direction 0 table: stops with dir 0 records, sorted by stop_sequence
-        dir0_data = pivot[pivot['Dir_0'] > 0].copy().sort_values('stop_sequence')
-        
-        # Direction 1 table: stops with dir 1 records, sorted by stop_sequence  
-        dir1_data = pivot[pivot['Dir_1'] > 0].copy().sort_values('stop_sequence')
-        
-        dir_table = {
-            'direction_0': dir0_data[['Dir_0', 'Dir_1']].reset_index().to_dict('records'),
-            'direction_1': dir1_data[['Dir_0', 'Dir_1']].reset_index().to_dict('records')
+            # HISTOGRAM DATA
+            'histograms': histograms,
+            'metadata': {
+                'bins_used': bins,
+                'total_sample_size': len(group),
+                'total_delay_sample_size': len(total_delays),
+                'incremental_delay_sample_size': len(valid_incremental),
+                'trip_types_included': sorted(group['trip_type'].unique().tolist()) if 'trip_type' in group.columns else ['all'],
+                'histogram_count': len(histograms)
+            }
         }
-        return dir_table
 
-#   ====================== Additional Route-Stop-wise Analysis =========================
-    def generate_delay_histograms(self, bins=20):
-        """
-        Generate normalized delay histograms organized by stop with directional-time sub-keys
-        """
-        print("\n=== GENERATING DELAY HISTOGRAMS (STOP-ORGANIZED) ===")
+    def _create_punctuality_analysis(self, group, stop_id, stop_name, direction_id, time_type):
+        """Create punctuality analysis for a specific combination"""
         
-        route_name = self.route_long_name
-        delay_histograms = {}
+        if len(group) < 5:  # Minimum sample size
+            return None
         
-        dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
-
-        # Generate histograms for each stop, then by direction-time combinations
-        for stop_name, stop_group in self.df_final.groupby('stop_name'):
-            composite_key = f"{route_name}_{stop_name}"
+        # Get clean delay data
+        delays = group['departure_delay'].dropna()
+        
+        if len(delays) < 5:
+            return None
+        
+        # Calculate punctuality metrics
+        punctuality_metrics = self._calculate_punctuality_metrics(delays)
+        
+        if not punctuality_metrics:
+            return None
+        
+        # Create standardized log entry
+        return {
+            # SEARCHABLE FIELDS - consistent with other logs
+            'route_id': str(self.route_id),
+            'route_name': self.route_long_name,
+            'route_short_name': self.route_short_name,
+            'stop_id': str(stop_id),
+            'stop_name': stop_name,
+            'direction_id': str(direction_id),
+            'time_type': time_type,
+            # Note: NO trip_type field since we aggregate across all trip types
             
-            print(f"Generating histograms for stop: {stop_name}")
-            
-            # Initialize stop data structure
-            stop_histogram_data = {
-                'route_name': route_name,
-                'stop_name': stop_name,
-                'histograms': {},
-                'metadata': {
-                    'bins_used': bins,
-                    'histograms_count': 0
-                },
-                'print_order': dir_zero_stop_seq.get(stop_name, 999)
+            # PUNCTUALITY DATA
+            'punctuality_metrics': punctuality_metrics,
+            'metadata': {
+                'sample_size': len(delays),
+                'trip_types_included': sorted(group['trip_type'].unique().tolist()) if 'trip_type' in group.columns else ['all'],
+                'analysis_type': 'departure_delay_based'
             }
-            
-            # Generate histograms for each direction-time combination within this stop
-            for (direction_id, time_type), group in stop_group.groupby(['direction_id', 'time_type']):
-                sub_key = f"{direction_id}_{time_type}"
-                
-                print(f"  Processing: Dir {direction_id}, {time_type}")
-                
-                if len(group) >= 10:  # Minimum sample size
-                    
-                    # Filter out invalid data and get clean delays
-                    total_delays = group['departure_delay'].dropna()
-                    
-                    # For incremental delays, only use non-NaN values (automatically excludes sequence gaps)
-                    incremental_delays = group['incremental_delay'].dropna()
-                    # Additional safety: remove any remaining NaT values if column is object type
-                    if group['incremental_delay'].dtype == 'object':
-                        incremental_delays = incremental_delays[incremental_delays != pd.NaT]
-                    
-                    # Generate histograms if we have enough data
-                    direction_time_histograms = {}
-                    
-                    # Total delay histogram
-                    if len(total_delays) >= 5:
-                        direction_time_histograms['total_delay'] = self._create_normalized_histogram(
-                            total_delays, bins, f'Total Delay - {stop_name} (Dir {direction_id}, {time_type.replace("_", " ").title()})'
-                        )
-                    
-                    # Incremental delay histogram  
-                    if len(incremental_delays) >= 5:
-                        direction_time_histograms['incremental_delay'] = self._create_normalized_histogram(
-                            incremental_delays, bins, f'Incremental Delay - {stop_name} (Dir {direction_id}, {time_type.replace("_", " ").title()})'
-                        )
-                    
-                    # Store if we have any histograms for this direction-time combination
-                    if direction_time_histograms:
-                        stop_histogram_data['histograms'][sub_key] = {
-                            'direction_id': direction_id,
-                            'time_type': time_type,
-                            'histograms': direction_time_histograms,
-                            'metadata': {
-                                'total_delay_sample_size': len(total_delays),
-                                'incremental_delay_sample_size': len(incremental_delays)
-                            }
-                        }
-                        stop_histogram_data['metadata']['histograms_count'] += len(direction_time_histograms)
-                        print(f"    ✓ Generated {len(direction_time_histograms)} histogram types")
-                    else:
-                        print(f"    ✗ Insufficient data for histograms")
-                else:
-                    print(f"    ✗ Insufficient sample size ({len(group)} < 10)")
-            
-            # Only store stop if it has any histograms
-            if stop_histogram_data['histograms']:
-                delay_histograms[composite_key] = stop_histogram_data
-                histograms_count = stop_histogram_data['metadata']['histograms_count']
-                print(f"  ✓ Stop complete: {histograms_count} direction-time combinations")
-            else:
-                print(f"  ✗ No histograms generated for this stop")
-        
-        print(f"\nGenerated histograms for {len(delay_histograms)} stops")
-        # Sort the dictionary by Direction 0 stop sequence
-        sorted_histograms = dict(sorted(
-            delay_histograms.items(), 
-            key=lambda item: item[1]['print_order']
-        ))
-
-        # Remove the temporary stop_sequence field from the final dictionary
-        for entry in sorted_histograms.values():
-            entry.pop('print_order', None)
-
-        # Print summary breakdown
-        total_combinations = 0
-        total_histograms = 0
-        direction_breakdown = {0: 0, 1: 0}
-        time_breakdown = {}
-        
-        for stop_data in sorted_histograms.values():
-            for sub_key, combo_data in stop_data['histograms'].items():
-                total_combinations += 1  # Count each direction-time combination
-                total_histograms += len(combo_data['histograms'])
-                
-                direction_id = combo_data['direction_id']
-                time_type = combo_data['time_type']
-                
-                direction_breakdown[direction_id] += 1
-                time_breakdown[time_type] = time_breakdown.get(time_type, 0) + 1
-        
-        print(f"Total direction-time combinations: {total_combinations}")
-        print(f"Total individual histograms: {total_histograms}")
-        print(f"Direction breakdown: Dir 0: {direction_breakdown[0]}, Dir 1: {direction_breakdown[1]}")
-        print(f"Time type breakdown: {time_breakdown}")
-        
-        return sorted_histograms
+        }
 
     def _create_normalized_histogram(self, data, bins, title):
         """Create a normalized histogram from delay data"""
@@ -1866,491 +2135,415 @@ class DataFormer:
             'statistics': stats
         }
 
-    def generate_travel_times_data(self):
-        """
-        Generate travel times statistics organized by stop with directional-time sub-keys
-        """
-        print("\n=== GENERATING TRAVEL TIMES DATA (STOP-ORGANIZED) ===")
+    def _calculate_punctuality_metrics(self, delays):
+        """Calculate comprehensive punctuality metrics"""
         
-        route_name = self.route_long_name
-        travel_times_data = {}
-        df_final = self.df_final.copy()
-        dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
-
-        # Simple filtering - just need previous_stop and valid travel times
-        valid_data = df_final[
-            df_final['previous_stop'].notna() &              # Must have a previous stop
-            df_final['travel_time_valid'] == True            # Must be valid (no sequence gaps)
-        ].copy()
-        
-        print(f"Valid travel time records: {len(valid_data)}/{len(df_final)} rows")
-        
-        # Convert to seconds
-        valid_data['observed_travel_time_seconds'] = valid_data['observed_travel_time'].dt.total_seconds()
-        valid_data['scheduled_travel_time_seconds'] = valid_data['scheduled_travel_time'].dt.total_seconds()
-        
-        # Group by to_stop (arrival stop), then by direction and time category
-        for to_stop, stop_group in valid_data.groupby('stop_name'):
-            composite_key = f"{route_name}_{to_stop}"
-            
-            print(f"Generating travel times for stop: {to_stop}")
-            
-            # Initialize stop data structure
-            stop_travel_data = {
-                'route_name': route_name,
-                'stop_name': to_stop,
-                'travel_times': {},
-                'metadata': {
-                    'total_segments': 0
-                },
-                'print_order': dir_zero_stop_seq.get(to_stop, 999)
-            }
-            
-            # Generate travel times for each direction-time combination within this stop
-            for (direction_id, time_type), group in stop_group.groupby(['direction_id', 'time_type']):
-                sub_key = f"{direction_id}_{time_type}"
-                
-                print(f"  Processing: Dir {direction_id}, {time_type}")
-                
-                if len(group) >= 3:  # Minimum sample size
-                    
-                    # Get the from_stop for this direction-time combination
-                    # (should be consistent within each direction)
-                    from_stops = group['previous_stop'].unique()
-                    if len(from_stops) == 1:
-                        from_stop = from_stops[0]
-                    else:
-                        # Multiple from_stops - this could happen at transfer points
-                        # Take the most common one
-                        from_stop = group['previous_stop'].mode().iloc[0]
-                        print(f"    Warning: Multiple from_stops detected, using most common: {from_stop}")
-                    
-                    observed_times = group['observed_travel_time_seconds']
-                    scheduled_times = group['scheduled_travel_time_seconds'] 
-                    incremental_delays = group['incremental_delay']
-                    
-                    direction_time_stats = {
-                        'direction_id': direction_id,
-                        'time_type': time_type,
-                        'from_stop': from_stop,
-                        'to_stop': to_stop,
-                        'stop_sequence': group['stop_sequence'].iloc[0],
-                        'segment_name': f"{from_stop} → {to_stop}",
-                        'statistics': {
-                            'observed_travel_time': self._calculate_time_stats(observed_times, 'observed'),
-                            'scheduled_travel_time': self._calculate_time_stats(scheduled_times, 'scheduled'),
-                            'incremental_delay': self._calculate_time_stats(incremental_delays, 'incremental_delay'),
-                            'sample_size': len(group),
-                            'comparison': {
-                                'mean_difference_seconds': float(observed_times.mean() - scheduled_times.mean()),
-                                'mean_incremental_delay': float(incremental_delays.mean())
-                            }
-                        }
-                    }
-                    # Store the direction-time combination
-                    stop_travel_data['travel_times'][sub_key] = direction_time_stats
-                    stop_travel_data['metadata']['total_segments'] += 1
-                    print(f"    ✓ Generated travel time stats for {from_stop} → {to_stop}")
-                else:
-                    print(f"    ✗ Insufficient sample size ({len(group)} < 3)")
-            
-            # Only store stop if it has any travel time data
-            if stop_travel_data['travel_times']:
-                travel_times_data[composite_key] = stop_travel_data
-                total_segments = stop_travel_data['metadata']['total_segments']
-                print(f"  ✓ Stop complete: {total_segments} direction-time combinations")
-            else:
-                print(f"  ✗ No travel time data generated for this stop")
-        
-        print(f"\nGenerated travel time data for {len(travel_times_data)} stops")
-
-        # Sort the dictionary by Direction 0 stop sequence
-        sorted_travel_times = dict(sorted(
-            travel_times_data.items(), 
-            key=lambda item: item[1]['print_order']
-        ))
-
-        # Remove the temporary stop_sequence field from the final dictionary
-        for entry in sorted_travel_times.values():
-            entry.pop('print_order', None)
-
-        # Print summary breakdown
-        total_segments = 0
-        direction_breakdown = {0: 0, 1: 0}
-        time_breakdown = {}
-        
-        for stop_data in sorted_travel_times.values():
-            for sub_key, segment_data in stop_data['travel_times'].items():
-                total_segments += 1
-                
-                direction_id = segment_data['direction_id']
-                time_type = segment_data['time_type']
-                
-                direction_breakdown[direction_id] += 1
-                time_breakdown[time_type] = time_breakdown.get(time_type, 0) + 1
-        
-        print(f"Total direction-time segments: {total_segments}")
-        print(f"Direction breakdown: Dir 0: {direction_breakdown[0]}, Dir 1: {direction_breakdown[1]}")
-        print(f"Time type breakdown: {time_breakdown}")
-        
-        return sorted_travel_times
-
-    def _calculate_time_stats(self, times, data_type=None):
-        """Calculate statistics for a set of times with proper validation"""
-        
-        # First check: empty input
-        if len(times) == 0:
-            return None
-        
-        # DATA VALIDATION: Remove NaN/NaT values
-        clean_times = times.dropna()
-        
-        # Second check: no valid data after cleaning
-        if len(clean_times) == 0:
-            return {
-                'data_type': data_type,
-                'sample_size': 0,
-                'error': 'All values were NaN/NaT'
-            }
-        
-        # SAFE STATISTICAL CALCULATIONS with validation
         try:
-            # Basic stats (always safe with clean data)
-            mean_val = float(clean_times.mean())
-            median_val = float(clean_times.median())
-            min_val = float(clean_times.min())
-            max_val = float(clean_times.max())
+            # Basic statistics
+            mean_delay = float(delays.mean())
+            median_delay = float(delays.median())
+            std_delay = float(delays.std()) if len(delays) > 1 else 0.0
             
-            # Standard deviation (safe only with 2+ values)
-            std_val = float(clean_times.std()) if len(clean_times) > 1 else 0.0
+            # Punctuality thresholds (in seconds)
+            thresholds = {
+                'early': delays < -60,          # More than 1 min early
+                'on_time': (delays >= -60) & (delays <= 300),  # Within 1 min early to 5 min late
+                'slightly_late': (delays > 300) & (delays <= 600),  # 5-10 min late
+                'late': (delays > 600) & (delays <= 1200),          # 10-20 min late
+                'very_late': delays > 1200      # More than 20 min late
+            }
             
-            # Percentiles (need sufficient data points)
-            if len(clean_times) >= 4:
-                p25 = float(np.percentile(clean_times, 25))
-                p75 = float(np.percentile(clean_times, 75))
-            else:
-                p25 = min_val  # Use min/max for small samples
-                p75 = max_val
+            # Calculate percentages
+            total_count = len(delays)
+            percentages = {}
+            counts = {}
             
-            if len(clean_times) >= 20:
-                p5 = float(np.percentile(clean_times, 5))
-                p95 = float(np.percentile(clean_times, 95))
-            else:
-                p5 = min_val   # Use min/max for small samples
-                p95 = max_val
+            for category, condition in thresholds.items():
+                count = condition.sum()
+                counts[category] = int(count)
+                percentages[category] = float(count / total_count * 100)
+            
+            # Additional metrics
+            percentiles = {
+                'p5': float(delays.quantile(0.05)),
+                'p25': float(delays.quantile(0.25)),
+                'p75': float(delays.quantile(0.75)),
+                'p95': float(delays.quantile(0.95))
+            }
+            
+            # Performance indicators
+            on_time_performance = percentages['on_time']  # OTP
+            reliability_index = 100 - std_delay / 60  # Simple reliability metric
             
             return {
-                'data_type': data_type,
-                'mean_time_seconds': mean_val,
-                'std_time_seconds': std_val,
-                'percentile_25': p25,
-                'percentile_75': p75,
-                'percentile_5': p5,
-                'percentile_95': p95,
-                'median_time_seconds': median_val,
-                'min_time_seconds': min_val,
-                'max_time_seconds': max_val,
-                'sample_size': len(clean_times),
-                'original_sample_size': len(times),  # Track how many were removed
-                'nan_count': len(times) - len(clean_times)
+                'basic_statistics': {
+                    'mean_delay_seconds': mean_delay,
+                    'median_delay_seconds': median_delay,
+                    'std_delay_seconds': std_delay,
+                    'min_delay_seconds': float(delays.min()),
+                    'max_delay_seconds': float(delays.max())
+                },
+                'percentiles': percentiles,
+                'punctuality_categories': {
+                    'counts': counts,
+                    'percentages': percentages
+                },
+                'performance_indicators': {
+                    'on_time_performance_percent': on_time_performance,
+                    'reliability_index': max(0, reliability_index),  # Cap at 0 minimum
+                    'punctuality_score': on_time_performance  # Could be enhanced later
+                },
+                'sample_size': total_count
             }
             
         except Exception as e:
-            # ERROR HANDLING: Catch any unexpected issues
-            print(f"Warning: Error calculating statistics for {data_type}: {e}")
-            return {
-                'data_type': data_type,
-                'sample_size': len(clean_times),
-                'original_sample_size': len(times),
-                'error': str(e)
-            }
-#   ========================== Converting to JSON ================================
-
-    def _convert_table_to_json(self, table_data):
-        """Convert pandas DataFrame or dict to simple JSON format"""
-        if table_data is None:
-            return {"columns": [], "data": []}
-        
-        # If it's already a dict, return as-is (assuming it's already in correct format)
-        if isinstance(table_data, dict):
-            return table_data
-        
-        # If it's a DataFrame, convert it
-        if hasattr(table_data, 'empty'):  # pandas DataFrame
-            if table_data.empty:
-                return {"columns": [], "data": []}
-            return {
-                "columns": table_data.columns.tolist(),
-                "data": table_data.values.tolist()
-            }
-        
-        # If it's something else, try to handle it
-        return {"columns": [], "data": []}
-
-    def _make_json_serializable(self, obj):
-        """Convert pandas/numpy types to JSON serializable types"""
-        if isinstance(obj, dict):
-            return {key: self._make_json_serializable(value) for key, value in obj.items()}
-        elif isinstance(obj, list):
-            return [self._make_json_serializable(item) for item in obj]
-        elif isinstance(obj, (np.integer, np.int64, np.int32)):
-            return int(obj)
-        elif isinstance(obj, (np.floating, np.float64, np.float32)):
-            return float(obj)
-        elif pd.isna(obj):  # Handle NaN/NaT values
+            print(f"Error calculating punctuality metrics: {e}")
             return None
-        elif isinstance(obj, np.ndarray):  # Handle numpy arrays
-            return obj.tolist()
-        elif hasattr(obj, 'item'):  # pandas/numpy scalars
-            return obj.item()
-        elif hasattr(obj, 'tolist'):  # pandas/numpy arrays
-            return obj.tolist()
+
+
+    def create_unified_navigation_maps(self):
+        """Create unified navigation maps with flattened structure and all violation/analysis data"""
+        print("\n=== CREATING UNIFIED NAVIGATION MAPS (ENHANCED WITH ALL DATA) ===")
+        
+        stop_to_combinations = {}
+        route_to_combinations = {}
+        
+        if not hasattr(self, 'df_final') or len(self.df_final) == 0:
+            print("No final dataframe found")
+            return
+        
+        # Use clean stop mapping from topology validation
+        if hasattr(self, '_stop_name_to_stop_ids') and self._stop_name_to_stop_ids:
+            print("Using topology validation results for stop mapping")
+            stop_name_to_stop_ids = self._stop_name_to_stop_ids
         else:
-            return obj
-        
-#   ========================== Exporting to JSON =================================    
-
-    def load_existing_json(self, file_path):
-        if os.path.exists(file_path):
-            try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except (json.JSONDecodeError, FileNotFoundError):
-                return {}
-        return {}
-    
-    # Renamed and simplified basic export:
-    def export_basic_json_files(self, output_dir="./analysis_output"):
-        """
-        Export basic analysis to 4 core JSON files (no detailed data)
-        """
-        print(f"\n=== EXPORTING BASIC JSON FILES ===")
-        
-        # Ensure output directory exists
-        Path(output_dir).mkdir(parents=True, exist_ok=True)
-        
-        # Define file paths for basic files only
-        file_paths = {
-            "route_stops": os.path.join(output_dir, "route_stops.json"),
-            "stop_routes": os.path.join(output_dir, "stop_routes.json"),
-            "stop_analysis": os.path.join(output_dir, "stop_analysis.json"),
-            "logs_details": os.path.join(output_dir, "logs_details.json")
-        }
-        
-        # Load existing data
-        route_stops_data = self.load_existing_json(file_paths["route_stops"])
-        stop_routes_data = self.load_existing_json(file_paths["stop_routes"])
-        stop_analysis_data = self.load_existing_json(file_paths["stop_analysis"])
-        logs_details_data = self.load_existing_json(file_paths["logs_details"])
-        route_name = self.route_long_name
-            
-        print(f"Processing route: {route_name}")
-
-        # 1. UPDATE ROUTE-TO-STOPS MAPPING
-        if hasattr(self, 'stop_analysis_dict') and self.stop_analysis_dict:
-            stops_on_route = list(set(data['stop_name'] for data in self.stop_analysis_dict.values()))
-            
-            # Order stops by direction 0 sequence using centralized function
-            dir_zero_stop_seq = self.find_dir0_stop_sequence_for_order()
-            stops_on_route.sort(key=lambda stop: dir_zero_stop_seq.get(stop, 999))
+            print("Warning: No topology validation results found. Creating basic mapping...")
+            stop_name_to_stop_ids = {}
+            stop_name_mapping = self.df_final[['stop_name', 'stop_id']].drop_duplicates()
+            for _, row in stop_name_mapping.iterrows():
+                stop_name = row['stop_name']
+                stop_id = str(row['stop_id'])
                 
-            # Calculate summary statistics
-            summary_stats = {"normal_stops_count": 0, "minor_stops_count": 0, "severe_stops_count": 0}
-            for data in self.stop_analysis_dict.values():
-                status = data.get('problematic_status', 'Normal').lower()
-                if status == 'normal':
-                    summary_stats["normal_stops_count"] += 1
-                elif status == 'minor':
-                    summary_stats["minor_stops_count"] += 1
-                elif status == 'severe':
-                    summary_stats["severe_stops_count"] += 1
+                if stop_name not in stop_name_to_stop_ids:
+                    stop_name_to_stop_ids[stop_name] = []
+                if stop_id not in stop_name_to_stop_ids[stop_name]:
+                    stop_name_to_stop_ids[stop_name].append(stop_id)
             
-            route_stops_data[route_name] = {
-                "route_name": route_name,
-                "stops": stops_on_route,
-                "total_stops": len(stops_on_route),
-                "summary": summary_stats,
-                "analysis_availability": {
-                    "before_and_after_tables": hasattr(self, '_direction_tables_before') and hasattr(self, '_direction_tables_after'),
-                    "delay_histograms": hasattr(self, '_delay_histograms') and bool(self._delay_histograms),
-                    "travel_times": hasattr(self, '_travel_times_data') and bool(self._travel_times_data),
-                    "punctuality": hasattr(self, '_punctuality_data') and bool(self._punctuality_data)
-                }
-            }
-            print(f"  Updated route_stops for {route_name} ({len(stops_on_route)} stops)")
+            for stop_name in stop_name_to_stop_ids:
+                stop_name_to_stop_ids[stop_name].sort()
+                
+            self._stop_name_to_stop_ids = stop_name_to_stop_ids
         
-        # 2. UPDATE STOP-TO-ROUTES MAPPING
-        if hasattr(self, 'stop_analysis_dict') and self.stop_analysis_dict:
-            for data in self.stop_analysis_dict.values():
-                stop_name = data['stop_name']
+        # Get unique combinations
+        unique_combinations = self.df_final.groupby([
+            'stop_id', 'stop_name', 'direction_id', 'time_type', 'trip_type'
+        ]).size().reset_index(name='count')
+        
+        print(f"Processing {len(unique_combinations)} unique data combinations")
+        
+        # Build enhanced navigation structures
+        for _, row in unique_combinations.iterrows():
+            stop_id = str(row['stop_id'])
+            direction_id = str(row['direction_id'])
+            time_type = row['time_type']
+            trip_type = row['trip_type']
+            route_id = str(self.route_id)
+            
+            # ===========================
+            # ROUTE_TO_COMBINATIONS STRUCTURE
+            # ===========================
+            if route_id not in route_to_combinations:
+                route_to_combinations[route_id] = {"directions": []}
+            if direction_id not in route_to_combinations[route_id]:
+                route_to_combinations[route_id][direction_id] = {"stop_ids": []}
+                if direction_id not in route_to_combinations[route_id]["directions"]:
+                    route_to_combinations[route_id]["directions"].append(direction_id)
+            if stop_id not in route_to_combinations[route_id][direction_id]:
+                route_to_combinations[route_id][direction_id][stop_id] = {}
+                if stop_id not in route_to_combinations[route_id][direction_id]["stop_ids"]:
+                    route_to_combinations[route_id][direction_id]["stop_ids"].append(stop_id)
+            
+            route_stop_data = route_to_combinations[route_id][direction_id][stop_id]
+            
+            # Ensure convenience arrays exist at stop level
+            if "trip_types" not in route_stop_data:
+                route_stop_data["trip_types"] = []
+            if "time_types" not in route_stop_data:
+                route_stop_data["time_types"] = []
+            
+            # Add to convenience arrays
+            if trip_type not in route_stop_data["trip_types"]:
+                route_stop_data["trip_types"].append(trip_type)
+            if time_type not in route_stop_data["time_types"]:
+                route_stop_data["time_types"].append(time_type)
+            
+            # ===========================
+            # TRIP_TYPE DATA (VIOLATION INFO)
+            # ===========================
+            if trip_type not in route_stop_data:
+                # Get detailed violation information from all logs
+                topology_info = self._get_topology_info_for_combination(stop_id, direction_id, trip_type)
+                pattern_info = self._get_pattern_info_for_combination(stop_id, direction_id, trip_type)
+                regulatory_info = self._get_regulatory_info_for_combination(stop_id, direction_id, trip_type)
                 
-                # Initialize stop entry if it doesn't exist
-                if stop_name not in stop_routes_data:
-                    stop_routes_data[stop_name] = {
-                        "stop_name": stop_name,
-                        "routes": [],
-                        "total_routes": 0,
-                        "summary": {"normal_routes_count": 0, "minor_routes_count": 0, "severe_routes_count": 0}
-                    }
+                # Get total records from master indexer if available
+                master_key = self.get_combination_key(stop_id, direction_id, trip_type)
+                master_data = self._master_indexer.get(master_key, {})
                 
-                # Add route if not already present
-                if route_name not in stop_routes_data[stop_name]["routes"]:
-                    stop_routes_data[stop_name]["routes"].append(route_name)
-                    stop_routes_data[stop_name]["total_routes"] = len(stop_routes_data[stop_name]["routes"])
+                route_stop_data[trip_type] = {
+                    "trip_type": trip_type,
+                    "total_records": master_data.get('total_records', 0),
+                    "time_types": [],  # Will be populated as we process
                     
-                    # Update summary based on this route's status for this stop
-                    status = data.get('problematic_status', 'Normal').lower()
-                    if status == 'normal':
-                        stop_routes_data[stop_name]["summary"]["normal_routes_count"] += 1
-                    elif status == 'minor':
-                        stop_routes_data[stop_name]["summary"]["minor_routes_count"] += 1
-                    elif status == 'severe':
-                        stop_routes_data[stop_name]["summary"]["severe_routes_count"] += 1
-            
-            print(f"  Updated stop_routes for {len(set(data['stop_name'] for data in self.stop_analysis_dict.values()))} stops")
-        
-        # 3. UPDATE STOP ANALYSIS
-        if hasattr(self, 'stop_analysis_dict') and self.stop_analysis_dict:
-            for composite_key, analysis in self.stop_analysis_dict.items():
-                # Check if this stop has detailed logs
-                has_details = (
-                    composite_key in getattr(self, '_sequence_corrections_log', {}) or
-                    composite_key in getattr(self, '_direction_pair_corrections_log', {}) or
-                    composite_key in getattr(self, '_sequence_root_causes_log', {})
-                )
-                
-                stop_analysis_data[composite_key] = {
-                    **analysis,
-                    "has_details": has_details
+                    # VIOLATION FLAGS (from all violation logs)
+                    "has_valid_travel_time": not pattern_info.get('invalidates_travel_time', False),
+                    "is_regulatory": regulatory_info.get('has_anomaly', False),  # Will be updated
+                    "topology_flagged": topology_info.get('is_flagged', False),
+                    "topology_critical": topology_info.get('severity') == 'high',
+                    "has_pattern_violation": pattern_info.get('has_issues', False),
+                    "has_regulatory_violation": regulatory_info.get('has_anomaly', False),
+                    "has_gaps_before_stop": pattern_info.get('has_gaps', False),
+                    "has_swaps": pattern_info.get('has_swaps', False),
+                    "pattern_issue_type": pattern_info.get('issue_type', 'consecutive'),
+                    "overall_severity": self._determine_overall_severity(
+                        topology_info.get('severity'),
+                        pattern_info.get('severity'),
+                        regulatory_info.get('severity')
+                    ),
+                    
+                    # DETAILED VIOLATION INFO (optional)
+                    "topological_violation_type": topology_info.get('violation_type'),
+                    "regulation_ratio": regulatory_info.get('regulation_ratio')
                 }
             
-            print(f"  Updated stop_analysis for {len(self.stop_analysis_dict)} route-stop combinations")
-        
-        # 4. UPDATE DETAILED LOGS (only for stops with issues)
-        logs_added = 0
-        if hasattr(self, 'stop_analysis_dict') and self.stop_analysis_dict:
-            for composite_key in self.stop_analysis_dict.keys():
-                # Check if any logs exist for this composite key
-                has_sequence_log = composite_key in getattr(self, '_sequence_corrections_log', {})
-                has_direction_log = composite_key in getattr(self, '_direction_pair_corrections_log', {})
-                has_root_cause_log = composite_key in getattr(self, '_sequence_root_causes_log', {})
-                
-                if has_sequence_log or has_direction_log or has_root_cause_log:
-                    logs_details_data[composite_key] = {
-                        "sequence_corrections": getattr(self, '_sequence_corrections_log', {}).get(composite_key),
-                        "direction_corrections": getattr(self, '_direction_pair_corrections_log', {}).get(composite_key),
-                        "root_causes": getattr(self, '_sequence_root_causes_log', {}).get(composite_key)
-                    }
-                    logs_added += 1
+            # Add time_type to trip_type's time_types array
+            if time_type not in route_stop_data[trip_type]["time_types"]:
+                route_stop_data[trip_type]["time_types"].append(time_type)
             
-            print(f"  Updated logs_details for {logs_added} problematic route-stop combinations")
-
-        # SAVE BASIC FILES ONLY
-        def save_json_file(data, file_path, description):
-            serializable_data = self._make_json_serializable(data)
-            try:
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    json.dump(serializable_data, f, indent=2, ensure_ascii=False)
-                print(f"  ✓ Saved {description}: {len(data)} entries")
-            except Exception as e:
-                print(f"  ✗ Error saving {description}: {e}")
+            # ===========================
+            # TIME_TYPE DATA (ANALYSIS INFO)
+            # ===========================
+            if time_type not in route_stop_data:
+                # Get analysis info for this time_type
+                histogram_info = self._get_histogram_info_for_combination(stop_id, direction_id, time_type)
+                punctuality_info = self._get_punctuality_info_for_combination(stop_id, direction_id, time_type)
+                
+                # Get violation summary for this time_type (rolled up from trip_types)
+                flagged_trip_types = []
+                regulatory_trip_types = []
+                any_trip_type_flagged = False
+                
+                # Check all trip_types that contribute to this time_type
+                for tt in route_stop_data["trip_types"]:
+                    if tt in route_stop_data:  # Trip type already processed
+                        if route_stop_data[tt].get("topology_flagged", False) or route_stop_data[tt].get("has_pattern_violation", False):
+                            flagged_trip_types.append(tt)
+                            any_trip_type_flagged = True
+                        if route_stop_data[tt].get("is_regulatory", False):
+                            regulatory_trip_types.append(tt)
+                
+                route_stop_data[time_type] = {
+                    "time_type": time_type,
+                    "available_trip_types": [],  # Will be populated as we process
+                    
+                    # ANALYSIS AVAILABILITY FLAGS
+                    "has_histogram_data": histogram_info.get('has_histograms', False),
+                    "has_punctuality_data": punctuality_info.get('has_punctuality', False),
+                    "histogram_types": histogram_info.get('histogram_types', []),
+                    "histogram_sample_size": histogram_info.get('sample_size', 0),
+                    "punctuality_sample_size": punctuality_info.get('sample_size', 0),
+                    "on_time_performance": punctuality_info.get('on_time_performance'),
+                    "performance_level": punctuality_info.get('performance_level'),
+                    
+                    # VIOLATION SUMMARY (rolled up from trip_types)
+                    "any_trip_type_flagged": any_trip_type_flagged,
+                    "flagged_trip_types": flagged_trip_types,
+                    "regulatory_trip_types": regulatory_trip_types
+                }
+            
+            # Add trip_type to time_type's available_trip_types array
+            if trip_type not in route_stop_data[time_type]["available_trip_types"]:
+                route_stop_data[time_type]["available_trip_types"].append(trip_type)
+            
+            # ===========================
+            # STOP_TO_COMBINATIONS STRUCTURE (SAME LOGIC)
+            # ===========================
+            if stop_id not in stop_to_combinations:
+                stop_to_combinations[stop_id] = {"routes": []}
+            if route_id not in stop_to_combinations[stop_id]:
+                stop_to_combinations[stop_id][route_id] = {"directions": []}
+                if route_id not in stop_to_combinations[stop_id]["routes"]:
+                    stop_to_combinations[stop_id]["routes"].append(route_id)
+            if direction_id not in stop_to_combinations[stop_id][route_id]:
+                stop_to_combinations[stop_id][route_id][direction_id] = {}
+                if direction_id not in stop_to_combinations[stop_id][route_id]["directions"]:
+                    stop_to_combinations[stop_id][route_id]["directions"].append(direction_id)
+            
+            stop_direction_data = stop_to_combinations[stop_id][route_id][direction_id]
+            
+            # Ensure convenience arrays exist at stop level
+            if "trip_types" not in stop_direction_data:
+                stop_direction_data["trip_types"] = []
+            if "time_types" not in stop_direction_data:
+                stop_direction_data["time_types"] = []
+            
+            # Add to convenience arrays
+            if trip_type not in stop_direction_data["trip_types"]:
+                stop_direction_data["trip_types"].append(trip_type)
+            if time_type not in stop_direction_data["time_types"]:
+                stop_direction_data["time_types"].append(time_type)
+            
+            # Copy the same trip_type and time_type data from route_to_combinations
+            # (to maintain consistency between both navigation structures)
+            if trip_type not in stop_direction_data:
+                stop_direction_data[trip_type] = route_stop_data[trip_type].copy()
+            if time_type not in stop_direction_data:
+                stop_direction_data[time_type] = route_stop_data[time_type].copy()
         
-        save_json_file(route_stops_data, file_paths["route_stops"], "route_stops.json")
-        save_json_file(stop_routes_data, file_paths["stop_routes"], "stop_routes.json") 
-        save_json_file(stop_analysis_data, file_paths["stop_analysis"], "stop_analysis.json")
-        save_json_file(logs_details_data, file_paths["logs_details"], "logs_details.json")
+        # ===========================
+        # UPDATE REGULATORY FLAGS
+        # ===========================
+        self._update_regulatory_flags_in_navigation(stop_to_combinations, route_to_combinations)
         
-        print(f"\nBasic export complete! Files saved to: {output_dir}")
+        # ===========================
+        # SORT EVERYTHING
+        # ===========================
+        self._sort_enhanced_navigation(stop_to_combinations, route_to_combinations)
+        
+        # Store results
+        self._stop_to_combinations = stop_to_combinations
+        self._route_to_combinations = route_to_combinations
+        
+        print(f"Enhanced navigation maps created:")
+        print(f"  - {len(stop_to_combinations)} stops")
+        print(f"  - {len(route_to_combinations)} routes")
+        print(f"  - {len(stop_name_to_stop_ids)} stop names mapped")
+        print(f"  - Complete violation and analysis data integrated")
         
         return {
-            "route_stops_count": len(route_stops_data),
-            "stop_routes_count": len(stop_routes_data),
-            "stop_analysis_count": len(stop_analysis_data),
-            "logs_details_count": len(logs_details_data),
-            "output_directory": output_dir
+            'stop_to_combinations': stop_to_combinations,
+            'route_to_combinations': route_to_combinations,
+            'stop_name_to_stop_ids': stop_name_to_stop_ids
         }
 
-    # New separate method for tables:
-    def export_tables_to_json(self, output_dir="./analysis_output"):
-        """Export before/after direction tables to separate JSON file"""
+    def _update_regulatory_flags_in_navigation(self, stop_to_combinations, route_to_combinations):
+        """Update regulatory flags based on regulatory stops log"""
         
-        if not (hasattr(self, '_direction_tables_before') and hasattr(self, '_direction_tables_after')):
-            print("No direction tables to export")
+        if not hasattr(self, '_regulatory_stops_log'):
             return
         
-        # Load existing tables data
-        tables_path = os.path.join(output_dir, "route_tables.json")
-        
-        def load_existing_json(file_path):
-            if os.path.exists(file_path):
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        return json.load(f)
-                except (json.JSONDecodeError, FileNotFoundError):
-                    return {}
-            return {}
-        
-        existing_tables = load_existing_json(tables_path)
-        route_name = self.route_long_name
-        
-        # Add current route's tables
-        existing_tables[route_name] = {
-            "route_name": route_name,
-            "before_corrections": self._convert_table_to_json(self._direction_tables_before),
-            "after_corrections": self._convert_table_to_json(self._direction_tables_after),
-            "metadata": {
-                "last_updated": pd.Timestamp.now().isoformat()
-            }
-        }
-        
-        # Save updated tables
-        try:
-            serializable_data = self._make_json_serializable(existing_tables)
-            with open(tables_path, 'w', encoding='utf-8') as f:
-                json.dump(serializable_data, f, indent=2, ensure_ascii=False)
-            print(f"  ✓ Saved route_tables.json: {route_name} before/after tables")
-        except Exception as e:
-            print(f"  ✗ Error saving route_tables.json: {e}")
+        for reg_key, reg_data in self._regulatory_stops_log.items():
+            stop_id = str(reg_data['stop_id'])
+            route_id = str(reg_data['route_id'])
+            direction_id = str(reg_data['direction_id'])
+            trip_type = reg_data['trip_type']
+            
+            # Update route_to_combinations
+            if (route_id in route_to_combinations and 
+                direction_id in route_to_combinations[route_id] and
+                stop_id in route_to_combinations[route_id][direction_id] and
+                trip_type in route_to_combinations[route_id][direction_id][stop_id]):
+                
+                route_to_combinations[route_id][direction_id][stop_id][trip_type]["is_regulatory"] = True
+            
+            # Update stop_to_combinations
+            if (stop_id in stop_to_combinations and 
+                route_id in stop_to_combinations[stop_id] and 
+                direction_id in stop_to_combinations[stop_id][route_id] and
+                trip_type in stop_to_combinations[stop_id][route_id][direction_id]):
+                
+                stop_to_combinations[stop_id][route_id][direction_id][trip_type]["is_regulatory"] = True
 
-    def export_histograms_to_json(self, output_dir="./analysis_output"):
-        """Export histograms to separate JSON file"""
+    def _sort_enhanced_navigation(self, stop_to_combinations, route_to_combinations):
+        """Sort all arrays in the enhanced navigation structure"""
         
-        if not hasattr(self, '_delay_histograms') or not self._delay_histograms:
-            print("No histograms to export")
-            return
+        time_order = ['am_rush', 'day', 'pm_rush', 'night', 'weekend']
+        trip_type_order = ['full', 'partial_1', 'partial_2', 'partial_3', 'partial_4', 'partial_5']
         
-        histograms_path = os.path.join(output_dir, "delay_histograms.json")
+        def sort_time_types(time_types_list):
+            return sorted(time_types_list, key=lambda x: time_order.index(x) if x in time_order else 999)
         
-        existing_histograms = self.load_existing_json(histograms_path)
+        def sort_trip_types(trip_types_list):
+            return sorted(trip_types_list, key=lambda x: trip_type_order.index(x) if x in trip_type_order else 999)
         
-        # Add current route's histograms
-        existing_histograms.update(self._delay_histograms)
-        
-        # Save updated histograms
-        try:
-            serializable_data = self._make_json_serializable(existing_histograms)
-            with open(histograms_path, 'w', encoding='utf-8') as f:
-                json.dump(serializable_data, f, indent=2, ensure_ascii=False)
+        # Sort route_to_combinations
+        for route_id in route_to_combinations:
+            # Sort directions array
+            route_to_combinations[route_id]["directions"].sort()
             
-            # Count total histograms for summary (FIXED)
-            total_stops = len(existing_histograms)
-            total_combinations = 0
-            total_histograms = 0
+            for direction_id in route_to_combinations[route_id]:
+                if direction_id == "directions":
+                    continue
+                    
+                # Sort stop_ids array
+                route_to_combinations[route_id][direction_id]["stop_ids"].sort()
+                
+                for stop_id in route_to_combinations[route_id][direction_id]["stop_ids"]:
+                    if stop_id in route_to_combinations[route_id][direction_id]:
+                        stop_data = route_to_combinations[route_id][direction_id][stop_id]
+                        
+                        # Sort convenience arrays
+                        if "trip_types" in stop_data:
+                            stop_data["trip_types"] = sort_trip_types(stop_data["trip_types"])
+                        if "time_types" in stop_data:
+                            stop_data["time_types"] = sort_time_types(stop_data["time_types"])
+                        
+                        # Sort time_types arrays within each trip_type
+                        for trip_type in stop_data.get("trip_types", []):
+                            if trip_type in stop_data and isinstance(stop_data[trip_type], dict):
+                                if "time_types" in stop_data[trip_type]:
+                                    stop_data[trip_type]["time_types"] = sort_time_types(
+                                        stop_data[trip_type]["time_types"]
+                                    )
+                        
+                        # Sort available_trip_types arrays within each time_type
+                        for time_type in stop_data.get("time_types", []):
+                            if time_type in stop_data and isinstance(stop_data[time_type], dict):
+                                if "available_trip_types" in stop_data[time_type]:
+                                    stop_data[time_type]["available_trip_types"] = sort_trip_types(
+                                        stop_data[time_type]["available_trip_types"]
+                                    )
+        
+        # Sort stop_to_combinations (same logic)
+        for stop_id in stop_to_combinations:
+            # Sort routes array
+            stop_to_combinations[stop_id]["routes"].sort()
             
-            for stop_data in existing_histograms.values():
-                for sub_key, combo_data in stop_data['histograms'].items():  # ← Fixed: use 'histograms'
-                    total_combinations += 1
-                    total_histograms += len(combo_data['histograms'])
-            
-            print(f"  ✓ Saved delay_histograms.json:")
-            print(f"    - {total_stops} stops")
-            print(f"    - {total_combinations} direction-time combinations")  
-            print(f"    - {total_histograms} individual histograms")
-            
-        except Exception as e:
-            print(f"  ✗ Error saving delay_histograms.json: {e}")
+            for route_id in stop_to_combinations[stop_id]:
+                if route_id == "routes":
+                    continue
+                    
+                # Sort directions array
+                stop_to_combinations[stop_id][route_id]["directions"].sort()
+                
+                for direction_id in stop_to_combinations[stop_id][route_id]:
+                    if direction_id == "directions":
+                        continue
+                        
+                    direction_data = stop_to_combinations[stop_id][route_id][direction_id]
+                    
+                    # Sort convenience arrays
+                    if "trip_types" in direction_data:
+                        direction_data["trip_types"] = sort_trip_types(direction_data["trip_types"])
+                    if "time_types" in direction_data:
+                        direction_data["time_types"] = sort_time_types(direction_data["time_types"])
+                    
+                    # Sort time_types arrays within each trip_type
+                    for trip_type in direction_data.get("trip_types", []):
+                        if trip_type in direction_data and isinstance(direction_data[trip_type], dict):
+                            if "time_types" in direction_data[trip_type]:
+                                direction_data[trip_type]["time_types"] = sort_time_types(
+                                    direction_data[trip_type]["time_types"]
+                                )
+                    
+                    # Sort available_trip_types arrays within each time_type
+                    for time_type in direction_data.get("time_types", []):
+                        if time_type in direction_data and isinstance(direction_data[time_type], dict):
+                            if "available_trip_types" in direction_data[time_type]:
+                                direction_data[time_type]["available_trip_types"] = sort_trip_types(
+                                    direction_data[time_type]["available_trip_types"]
+                                )
 
-    def export_travel_times_to_json(self, output_dir="./analysis_output"):
         """Export travel times to separate JSON file with flat route_stop structure"""
         
         if not hasattr(self, '_travel_times_data') or not self._travel_times_data:

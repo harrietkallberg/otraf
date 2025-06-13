@@ -1,0 +1,30 @@
+{
+  "101_1001_0_full": {
+    "violation_type": "incomplete_regulation",
+    "severity": "low",
+    "description": "Only 96.0% regulated",
+    "route_id": "101",
+    "route_name": "Blue Line Express",
+    "route_short_name": "Blue",
+    "stop_name": "Central Station",
+    "stop_id": 1001,
+    "direction_id": 0,
+    "trip_type": "full",
+    "zero_seconds_ratio": 0.96,
+    "total_records": 200
+  },
+  "101_1009_0_full": {
+    "violation_type": "incomplete_regulation",
+    "severity": "low",
+    "description": "Only 95.5% regulated",
+    "route_id": "101",
+    "route_name": "Blue Line Express",
+    "route_short_name": "Blue",
+    "stop_name": "Medical Center",
+    "stop_id": 1009,
+    "direction_id": 0,
+    "trip_type": "full",
+    "zero_seconds_ratio": 0.955,
+    "total_records": 200
+  }
+}
