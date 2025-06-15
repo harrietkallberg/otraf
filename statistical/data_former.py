@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 import json as json 
@@ -16,22 +17,40 @@ class DataFormer:
         self._stop_id_to_stop_name = {}
         
         self.basic_nav_map = {}
+        
+        # Enhanced stop topology structures
         self._stop_name_hierarchy = {}
         self._stop_id_hierarchy = {}
-        self._parent_station_violations = {}
-        self._topology_violations = {}
-        self._station_labels = {}
-        self._route_dir_alt_trip_types_log = {}  
-        self._route_dir_alt_trip_types_regulatory_stops_log = {}  
+        self._direction_hierarchy = {}
+        self._stop_sequence_hierarchy = {}
+        self._direction_violations_log = {}
+        self._direction_stop_navigation = {}
+        self._direction_violations_log = {}
 
-        self._route_dir_full_trip_log = {}
-        self._topology_violations_log = {}       
-        self._pattern_violations_log = {}
-        self._regulatory_violations_log = {}
+        # CENTRALIZED STOP-RELATED LOGS - All stop violations go here
+        self._stop_related_logs = {
+            'stop_name_violations': {},      # stop_name consistency violations
+            'parent_station_violations': {}, # parent_station topology violations  
+            'stop_id_violations': {},        # stop_id direction data violations
+            'metadata': {
+                'total_violations': 0,
+                'violation_counts_by_type': {}
+            }
+        }
 
-        self._histograms_log = {}
-        self._punctuality_log = {}
-        
+        self._pattern_related_logs = {
+            'multiple_patterns_log': {},
+            'nonconsecutive_patterns_log':{},
+            'regulatory_violations': {},
+            'has_gaps_before_stop_log': {},
+            'stop_pattern_issues_log': {}
+        }
+
+        self.analysis_logs = {
+            'histograms_log' : {},
+            'punctuality_log' : {}
+        }
+            
         # Navigation structures
         self._stop_to_combinations = {}      
         self._route_to_combinations = {}
@@ -39,28 +58,79 @@ class DataFormer:
         # Process data through the pipeline
         self.df_before = self.prepare_columns(raw_data)
         
-        # STEP 1: Early topology detection (basic flags only)
+        # STEP 1: Stop topology validation (enhanced with hierarchies and labels)
+        print("STEP 1: Stop topology validation...")
         self.create_and_validate_stop_topology(self.df_before)
         
-        # STEP 2: Trip classification (creates trip_type column)
-        self.df_classified = self.identify_and_classify_trips(self.df_before)
-        
-        # STEP 3: Finalize topology violations with trip_type granularity
-        self.finalize_topology_violations_log(self.df_classified)
-        
-        # STEP 4: Continue with rest of pipeline
-        self.df_regulatory = self.identify_and_classify_stops(self.df_classified)
-        self.df_ready = self.calculate_travel_times_and_delays(self.df_regulatory)
-        self.df_final = self.df_ready
-        # Add after line with self.df_final = self.df_ready
-        self.create_histograms_and_punctuality_analysis(self.df_final)
+        self.validate_direction_topology(self.df_before)
+        print("✅ DataFormer initialization complete!")
 
-        self.create_simplified_navigation_maps()
-        # Create master indexer after all processing
-        self.create_master_log_indexer()
-        self.create_master_analysis_indexer()
+    def create_and_validate_stop_topology(self, df):
+        """Main topology validation method that orchestrates the three validation steps"""
         
-        self.export_all_data()
+        print("\n=== COMPLETE STOP VALIDATION WORKFLOW ===")
+        
+        # STEP 1: Validate stop name consistency
+        stop_name_violations, stop_name_labels = self._validate_stop_name_consistency(df)
+        
+        # STEP 2: Validate parent station topology
+        parent_station_violations, parent_labels = self._validate_parent_station_topology(df)
+        
+        # STEP 3: Validate individual stop ID directions
+        stop_id_violations, stop_id_labels = self._validate_stop_id_directions(df)
+        
+        print(f"Found {len(stop_name_violations)} stop name + {len(parent_station_violations)} parent station + {len(stop_id_violations)} stop ID violations")
+        
+        # Store labels for hierarchy creation
+        self._validation_labels = {
+            'stop_name_labels': stop_name_labels,
+            'parent_labels': parent_labels,
+            'stop_id_labels': stop_id_labels
+        }
+        
+        # Collect all violations
+        all_violations = stop_name_violations + parent_station_violations + stop_id_violations
+        
+        # FIX: Store violations with empty pattern_violations list for now
+        self._store_violations_in_logs(stop_name_violations, parent_station_violations, stop_id_violations, [])
+        
+        # Create hierarchies with all labels
+        self._build_unified_hierarchies(df, all_violations)
+        
+        print(f"✅ Topology validation complete with {len(all_violations)} total violations")
+
+    def _store_violations_in_logs(self, stop_name_violations, parent_station_violations, stop_id_violations, pattern_violations):
+        """Store violations in the centralized log structure"""
+        
+        # Store stop name violations
+        for i, violation in enumerate(stop_name_violations):
+            key = f"stop_name_violation_{i}"
+            self._stop_related_logs['stop_name_violations'][key] = violation
+        
+        # Store parent station violations  
+        for i, violation in enumerate(parent_station_violations):
+            key = f"parent_station_violation_{i}"
+            self._stop_related_logs['parent_station_violations'][key] = violation
+            
+        # Store stop ID violations
+        for i, violation in enumerate(stop_id_violations):
+            key = f"stop_id_violation_{i}"
+            self._stop_related_logs['stop_id_violations'][key] = violation
+            
+        # Store pattern violations in pattern_related_logs
+        for i, violation in enumerate(pattern_violations):
+            key = f"pattern_violation_{i}"
+            self._pattern_related_logs['multiple_patterns_log'][key] = violation
+        
+        # Update metadata
+        total_violations = len(stop_name_violations) + len(parent_station_violations) + len(stop_id_violations) + len(pattern_violations)
+        self._stop_related_logs['metadata']['total_violations'] = total_violations
+        self._stop_related_logs['metadata']['violation_counts_by_type'] = {
+            'stop_name': len(stop_name_violations),
+            'parent_station': len(parent_station_violations),
+            'stop_id': len(stop_id_violations),
+            'pattern': len(pattern_violations)
+        }
 
 #   ================================ Preparation =====================================
 
@@ -86,7 +156,7 @@ class DataFormer:
             df['start_date'] = pd.to_datetime(df['start_date'], format='%Y%m%d')
 
         columns_to_keep = ['trip_id', 'route_long_name', 'start_date', 'direction_id', 'stop_id', 'stop_name', 'stop_sequence', 
-            'scheduled_departure_time', 'observed_departure_time', 'departure_delay', 'route_short_name','city']
+            'scheduled_departure_time', 'observed_departure_time', 'departure_delay', 'route_short_name','city', 'parent_station']
 
         available_columns = [col for col in columns_to_keep if col in df.columns]
 
@@ -136,41 +206,6 @@ class DataFormer:
 
         return df
 
-# for tracking alternative trip_types
-    def get_route_dir_key(self, direction_id):
-        return f"{self.route_id}_{direction_id}"
-    
-    def get_route_dir_key_from_row(self, row):
-        """Generate standardized combination key from dataframe row"""
-        return f"{self.route_id}_{row['direction_id']}"
-    
-# for tracking pattern inconsistencies for given trip_type
-    def get_route_dir_trip_type_key(self, direction_id, trip_type):
-        """Generate standardized combination key for all violation logs and master indexer"""
-        return f"{self.route_id}_{direction_id}_{trip_type}"
-
-    def get_route_dir_trip_type_key_from_row(self, row):
-        """Generate standardized combination key from dataframe row"""
-        return f"{self.route_id}_{row['direction_id']}_{row['trip_type']}"
-
-# for tracking topology inconsistencies for given stop
-    def get_route_dir_stop_id_key(self, stop_id, direction_id):
-        """Generate standardized combination key for all violation logs and master indexer"""
-        return f"{self.route_id}_{direction_id}_{stop_id}"
-
-    def get_route_dir_stop_id_key_from_row(self, row):
-        """Generate standardized combination key from dataframe row"""
-        return f"{self.route_id}_{row['direction_id']}_{row['stop_id']}"
-
-# for assigning regulatory behaviour of given stop in given trip type
-    def get_route_dir_trip_type_stop_id_key(self, stop_id, direction_id, trip_type):
-        """Generate standardized combination key for all violation logs and master indexer"""
-        return f"{self.route_id}_{direction_id}_{trip_type}_{stop_id}"
-
-    def get_route_dir_trip_type_stop_id_key_from_row(self, row):
-        """Generate standardized combination key from dataframe row"""
-        return f"{self.route_id}_{row['direction_id']}_{row['trip_type']}_{row['stop_id']}"
-
 #   ====================================== Handle Violation Logging ==========================================
 
     def create_violation_entry(self, violation_type, severity, description, **details):
@@ -194,432 +229,1096 @@ class DataFormer:
         log_dict[key] = violation_entry
         return violation_entry
 
-#   ================ Validating / Logging Violating RouteID-DirectionID-StopID Behaviours =====================
-    def validate_parent_station_consistency(self, df):
-        """Validate that each parent_station corresponds to exactly one stop_name"""
+#   ================ CLEARLY SEPARATED VALIDATION METHODS =====================
+
+    def _validate_stop_name_consistency(self, df):
+        """STEP 1: Validate that each stop_name corresponds to exactly one parent_station"""
         
-        # Group by parent_station and check unique stop_names
-        parent_station_names = df.groupby('parent_station')['stop_name'].unique()
+        print("Validating stop name consistency...")
+        
+        # Group by stop_name and check unique parent_stations
+        stop_name_parents = df.groupby('stop_name')['parent_station'].unique()
         
         violations = []
+        stop_name_labels = {}
         
-        for parent_station, stop_names in parent_station_names.items():
-            if len(stop_names) > 1:
+        for stop_name, parent_stations in stop_name_parents.items():
+            if len(parent_stations) > 1:
+                # Multiple parent stations for this stop_name - violation
                 violation = self.create_violation_entry(
-                    'multiple_stop_names_per_parent',
+                    'multiple_parent_stations_per_stop_name',
                     'high',
-                    f'Parent station {parent_station} has {len(stop_names)} different stop names',
-                    {
-                        'parent_station': parent_station,
-                        'stop_names': stop_names.tolist(),
-                        'affected_stop_ids': df[df['parent_station'] == parent_station]['stop_id'].unique().tolist(),
-                        'stop_name_count': len(stop_names)
+                    f'Stop name "{stop_name}" spans {len(parent_stations)} different parent stations',
+                    stop_name=stop_name,
+                    parent_stations=parent_stations.tolist(),
+                    affected_stop_ids=df[df['stop_name'] == stop_name]['stop_id'].unique().tolist(),
+                    parent_station_count=len(parent_stations)
+                )
+                violations.append(violation)
+                stop_name_labels[stop_name] = 'Multiple Parent Stations'
+                print(f"🚩 {stop_name}: Multiple parent stations detected")
+            else:
+                # Single parent station - consistent
+                stop_name_labels[stop_name] = 'Single Parent Station'
+        
+        print(f"Stop name validation complete: {len(violations)} violations found")
+        return violations, stop_name_labels
+
+    def _validate_parent_station_topology(self, df):
+        """STEP 2: Validate topology for all (stop_name, parent_station) combinations"""
+        
+        print("Validating parent station topology...")
+        
+        # Get all unique combinations
+        parent_data = df[['stop_name', 'parent_station']].drop_duplicates()
+        
+        violations = []
+        parent_labels = {}
+
+        for _, row in parent_data.iterrows():
+            stop_name = row['stop_name']
+            parent_station = str(row['parent_station'])
+            combo_key = (stop_name, parent_station)
+            
+            # Analyze this parent station's topology
+            label, violation = self._analyze_single_parent_station_topology(df, stop_name, parent_station)
+            
+            parent_labels[combo_key] = label
+            
+            if violation:
+                violations.append(violation)
+                print(f"🚩 {stop_name} (parent: {parent_station}) [{label}]: {violation['description']}")
+            else:
+                print(f"✅ {stop_name} (parent: {parent_station}) [{label}]: Valid topology")
+        
+        print(f"Parent station validation complete: {len(violations)} violations found")
+        return violations, parent_labels
+
+    def _analyze_single_parent_station_topology(self, df, stop_name, parent_station):
+        """Analyze topology for a single (stop_name, parent_station) combination"""
+        
+        # Get stop_ids for this combination
+        combo_data = df[(df['stop_name'] == stop_name) & (df['parent_station'].astype(str) == str(parent_station))]
+        stop_ids = combo_data['stop_id'].unique().tolist()
+        
+        # Get directional analysis for each stop_id (but don't log violations here)
+        stop_id_analysis = {}
+        for stop_id in stop_ids:
+            directions, direction_counts = self._get_stop_id_directions(df, stop_id, stop_name, parent_station)
+            stop_id_analysis[str(stop_id)] = {
+                'directions': directions,
+                'direction_counts': direction_counts,
+                'is_multi_directional': len(directions) > 1
+            }
+        
+        # Count totals
+        total_stops = len(stop_ids)
+        multi_count = sum(1 for analysis in stop_id_analysis.values() if analysis['is_multi_directional'])
+        single_count = total_stops - multi_count
+        
+        # Validate topology and assign label
+        if total_stops == 1:
+            if multi_count == 1:
+                return 'Shared', None
+            elif single_count == 1:
+                return 'Unidirectional', None
+        
+        elif total_stops == 2:
+            if single_count == 2 and multi_count == 0:
+                return 'Bidirectional', None
+            else:
+                violation = self.create_violation_entry(
+                    'two_stop_misassigned_directions',
+                    'high',
+                    f'2-stop station with wrong configuration: {single_count} single + {multi_count} multi (expected: 2 single + 0 multi)',
+                    stop_name=stop_name,
+                    parent_station=parent_station,
+                    expected='2 single-directional, 0 multi-directional',
+                    actual=f'{single_count} single-directional, {multi_count} multi-directional',
+                    stop_ids_dir_detail=stop_id_analysis  # Include the directional details
+                )
+                return 'Undefined', violation
+        
+        # Multiple stop cases (3+)
+        else:
+            # Even total: all should be paired
+            if total_stops % 2 == 0:
+                if single_count == total_stops and multi_count == 0:
+                    return 'Bidirectional', None
+                elif single_count % 2 == 0 and multi_count % 2 == 0:
+                    return 'Hybrid', None
+                else:
+                    violation = self.create_violation_entry(
+                        'unpaired_directional_stops',
+                        'medium',
+                        f'Even-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+                        stop_name=stop_name,
+                        parent_station=parent_station,
+                        expected='even single-directional, even multi-directional',
+                        actual=f'{single_count} single-directional, {multi_count} multi-directional',
+                        stop_ids_dir_detail=stop_id_analysis
+                    )
+                    return 'Undefined', violation
+            
+            # Odd total: single should be even, multi should be odd
+            else:
+                if single_count % 2 == 0 and multi_count % 2 == 1:
+                    return 'Hybrid', None
+                else:
+                    violation = self.create_violation_entry(
+                        'unpaired_directional_stops',
+                        'medium',
+                        f'Odd-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+                        stop_name=stop_name,
+                        parent_station=parent_station,
+                        expected='even single-directional, odd multi-directional',
+                        actual=f'{single_count} single-directional, {multi_count} multi-directional',
+                        stop_ids_dir_detail=stop_id_analysis
+                    )
+                    return 'Undefined', violation
+        
+        return 'Undefined', None
+
+    def _validate_stop_id_directions(self, df):
+        """STEP 3: Validate individual stop ID direction behavior (separate from parent station)"""
+        
+        print("Validating individual stop ID directions...")
+        
+        violations = []
+        stop_id_labels = {}
+        
+        # Get all unique stop_ids with their context
+        stop_id_data = df[['stop_id', 'stop_name', 'parent_station']].drop_duplicates()
+        
+        for _, row in stop_id_data.iterrows():
+            stop_id = str(row['stop_id'])
+            stop_name = row['stop_name']
+            parent_station = str(row['parent_station'])
+            
+            # Analyze this specific stop_id
+            directions, direction_counts = self._get_stop_id_directions(df, stop_id, stop_name, parent_station)
+            
+            if len(directions) > 1:
+                stop_id_labels[stop_id] = 'multi_directional'
+            elif len(directions) == 1:
+                stop_id_labels[stop_id] = 'single_directional'
+            else:
+                # No direction data - this is a stop_id violation
+                stop_id_labels[stop_id] = 'no_data'
+                violation = self.create_violation_entry(
+                    'stop_id_without_direction_data',
+                    'high',
+                    f'Stop id: {stop_id} has no direction data',
+                    stop_id=stop_id,
+                    stop_name=stop_name,
+                    parent_station=parent_station,
+                    direction_detail={
+                        'directions': [],
+                        'direction_counts': {},
+                        'is_multi_directional': False
                     }
                 )
                 violations.append(violation)
+                print(f"🚩 Stop ID {stop_id}: No direction data")
         
-        return violations
-    
-    def create_hierarchical_stop_mappings(self, df):
+        print(f"Stop ID validation complete: {len(violations)} violations found")
+        return violations, stop_id_labels
+
+    def _get_stop_id_directions(self, df, stop_id, stop_name, parent_station):
+        """Helper: Get direction information for a specific stop_id"""
+        combo_data = df[
+            (df['stop_id'].astype(str) == str(stop_id)) & 
+            (df['stop_name'] == stop_name) & 
+            (df['parent_station'].astype(str) == str(parent_station))
+        ]
+        
+        if combo_data.empty:
+            return [], {}
+        
+        directions = combo_data['direction_id'].unique().tolist()
+        direction_counts = combo_data['direction_id'].value_counts().to_dict()
+        
+        return directions, direction_counts
+
+#   ================ HIERARCHY CREATION =====================
+
+    def _build_unified_hierarchies(self, df, violations):
+        """Build hierarchies with all information"""
+        
+        labels = self._validation_labels
+        
+        # Create hierarchies using your existing method
+        stop_name_hierarchy, stop_id_hierarchy = self.create_bidirectional_hierarchies(
+            df, 
+            labels['stop_name_labels'], 
+            labels['parent_labels'], 
+            labels['stop_id_labels']
+        )
+        
+        # Store in existing structure
+        self._stop_name_hierarchy = stop_name_hierarchy
+        self._stop_id_hierarchy = stop_id_hierarchy
+        
+        # Add violation references
+        hierarchies = {
+            'stop_name_hierarchy': stop_name_hierarchy,
+            'stop_id_hierarchy': stop_id_hierarchy
+        }
+        self.add_log_references_to_hierarchies(hierarchies, violations)
+
+    def create_bidirectional_hierarchies(self, df, stop_name_labels=None, parent_station_labels=None, stop_id_labels=None):
         """
-        Create two enhanced hierarchical dictionaries:
-        1. stop_name -> parent_station -> {stop_ids, label, metadata}
-        2. stop_id -> {parent_station, stop_name, label, metadata}
+        Create two hierarchies that enable complete bidirectional navigation:
+        1. stop_name -> parent_station -> [stop_ids]
+        2. stop_id -> {parent_station, stop_name}
         """
         
-        # Basic mapping first
-        stop_name_hierarchy = {}
-        stop_id_hierarchy = {}
+        # Initialize labels if not provided
+        if stop_name_labels is None:
+            stop_name_labels = {}
+        if parent_station_labels is None:
+            parent_station_labels = {}
+        if stop_id_labels is None:
+            stop_id_labels = {}
+        
+        stop_name_hierarchy = {}  # stop_name -> parent_station -> stop_ids
+        stop_id_hierarchy = {}    # stop_id -> parent_station + stop_name info
         
         for _, row in df[['stop_name', 'parent_station', 'stop_id']].drop_duplicates().iterrows():
             stop_name = row['stop_name']
             parent_station = str(row['parent_station'])
             stop_id = str(row['stop_id'])
             
-            # Build basic stop_name hierarchy
+            combo_key = (stop_name, parent_station)
+            
+            # Build stop_name hierarchy
             if stop_name not in stop_name_hierarchy:
-                stop_name_hierarchy[stop_name] = {}
+                stop_name_hierarchy[stop_name] = {
+                    'label': stop_name_labels.get(stop_name, 'Unknown'),
+                    'parent_stations': {}
+                }
             
-            if parent_station not in stop_name_hierarchy[stop_name]:
-                stop_name_hierarchy[stop_name][parent_station] = []
+            if parent_station not in stop_name_hierarchy[stop_name]['parent_stations']:
+                stop_name_hierarchy[stop_name]['parent_stations'][parent_station] = {
+                    'label': parent_station_labels.get(combo_key, 'Unknown'),
+                    'stop_ids': {},
+                    'stop_ids_list': []
+                }
             
-            if stop_id not in stop_name_hierarchy[stop_name][parent_station]:
-                stop_name_hierarchy[stop_name][parent_station].append(stop_id)
+            if stop_id not in stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids']:
+                stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids'][stop_id] = {
+                    'label': stop_id_labels.get(stop_id, 'Unknown')
+                }
+                stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids_list'].append(stop_id)
             
-            # Build basic stop_id hierarchy  
+            # Build stop_id hierarchy
             stop_id_hierarchy[stop_id] = {
                 'parent_station': parent_station,
-                'stop_name': stop_name
+                'stop_name': stop_name,
+                'stop_id_label': stop_id_labels.get(stop_id, 'Unknown'),
+                'stop_name_label': stop_name_labels.get(stop_name, 'Unknown'),
+                'parent_station_label': parent_station_labels.get(combo_key, 'Unknown')
             }
         
-        # Sort for consistency
+        # Sort stop_ids for consistency (both dict keys and list)
         for stop_name in stop_name_hierarchy:
-            for parent_station in stop_name_hierarchy[stop_name]:
-                stop_name_hierarchy[stop_name][parent_station].sort()
+            for parent_station in stop_name_hierarchy[stop_name]['parent_stations']:
+                # Sort the stop_ids_list
+                stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids_list'].sort()
+                
+                # Rebuild stop_ids dict in sorted order
+                sorted_stop_ids = {}
+                for stop_id in sorted(stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids'].keys()):
+                    sorted_stop_ids[stop_id] = stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids'][stop_id]
+                stop_name_hierarchy[stop_name]['parent_stations'][parent_station]['stop_ids'] = sorted_stop_ids
         
         return stop_name_hierarchy, stop_id_hierarchy
 
-    def create_and_validate_stop_topology(self, df):
-        """Create hierarchical mappings and validate topology"""
-        print("\n=== STOP TOPOLOGY VALIDATION ===")
+    def add_log_references_to_hierarchies(self, hierarchies, violations):
+        """Add log references to hierarchies - simplified approach"""
         
-        # First validate parent station consistency
-        parent_violations = self.validate_parent_station_consistency(df)
-        if parent_violations:
-            print(f"🚩 Found {len(parent_violations)} parent station consistency violations:")
-            for violation in parent_violations:
-                print(f"  - {violation['issue']}")
-                print(f"    Stop names: {violation['stop_names']}")
-        else:
-            print("✅ All parent stations have consistent stop names")
+        # Create simple lookup of violations by entity
+        violations_by_entity = {}
         
-        # Create basic hierarchical mappings
-        stop_name_hierarchy, stop_id_hierarchy = self.create_hierarchical_stop_mappings(df)
-        
-        # Validate topology and create enhanced hierarchies
-        topology_violations = []
-        enhanced_stop_hierarchy = {}
-        enhanced_stop_id_hierarchy = {}
-        
-        for stop_name, parent_stations in stop_name_hierarchy.items():
-            enhanced_stop_hierarchy[stop_name] = {}
+        for violation in violations:
+            # Create a unique ID for this violation (simpler than complex log_id generation)
+            violation_id = f"{violation['violation_type']}_{hash(str(violation))}"
             
-            for parent_station, stop_ids in parent_stations.items():
-                label, violation = self._validate_parent_station_topology(df, stop_name, parent_station)
+            # Index by all relevant entities in the violation
+            for key, value in violation.items():
+                if key in ['stop_name', 'parent_station', 'stop_id']:
+                    if value not in violations_by_entity:
+                        violations_by_entity[value] = []
+                    violations_by_entity[value].append(violation_id)
+                elif key == 'affected_stop_ids' and isinstance(value, list):
+                    for stop_id in value:
+                        if stop_id not in violations_by_entity:
+                            violations_by_entity[stop_id] = []
+                        violations_by_entity[stop_id].append(violation_id)
+        
+        # Add log references to stop_name_hierarchy
+        for stop_name, stop_data in hierarchies['stop_name_hierarchy'].items():
+            stop_data['log_references'] = violations_by_entity.get(stop_name, [])
+            
+            for parent_station, parent_data in stop_data['parent_stations'].items():
+                # Combine logs for stop_name and parent_station
+                combo_logs = set()
+                combo_logs.update(violations_by_entity.get(stop_name, []))
+                combo_logs.update(violations_by_entity.get(parent_station, []))
+                parent_data['log_references'] = list(combo_logs)
+        
+        # Add log references to stop_id_hierarchy
+        for stop_id, stop_data in hierarchies['stop_id_hierarchy'].items():
+            # Combine logs for stop_id, stop_name, and parent_station
+            related_logs = set()
+            related_logs.update(violations_by_entity.get(stop_id, []))
+            related_logs.update(violations_by_entity.get(stop_data['stop_name'], []))
+            related_logs.update(violations_by_entity.get(stop_data['parent_station'], []))
+            stop_data['log_references'] = list(related_logs)
+        
+        return hierarchies
+
+
+#   ================ DIRECTION TOPOLOGY VALIDATION (following stop pattern) =====================
+
+    def validate_direction_topology(self, df):
+        """Main direction topology validation - mirrors stop validation structure"""
+        print("\n=== DIRECTION TOPOLOGY VALIDATION ===")
+        
+        # STEP 1: Validate direction pattern consistency (like stop_name consistency)
+        violations_1, direction_labels = self._validate_direction_consistency(df)
+        
+        # STEP 2: Validate stop sequences within patterns (like parent station topology)
+        violations_2, pattern_labels = self._validate_pattern_topology(df)
+        
+        # STEP 3: Create stop-level violations for missing/swapped stops
+        violations_3, stop_sequence_labels = self._validate_stop_sequence_integrity(df)
+        
+        # Combine all violations
+        all_violations = violations_1 + violations_2 + violations_3
+        
+        # SEPARATE the violations by type
+        direction_level_violations = violations_1 + violations_2  # Steps 1 & 2
+        stop_level_violations = violations_3  # Step 3 (stop-specific)
+        
+        # Store in appropriate logs
+        for i, violation in enumerate(direction_level_violations):
+            key = f"direction_violation_{i}"
+            self._direction_violations_log[key] = violation
+        
+        for i, violation in enumerate(stop_level_violations):
+            key = f"stop_pattern_violation_{i}"
+            self._pattern_related_logs['stop_pattern_issues_log'][key] = violation
+            
+        # Store validation results
+        self._validation_labels_direction = {
+            'direction_labels': direction_labels,
+            'pattern_labels': pattern_labels, 
+            'stop_sequence_labels': stop_sequence_labels
+        }
+        
+        # Build hierarchies
+        self._build_direction_hierarchies(df, all_violations)
+        
+        print(f"Direction validation complete: {len(all_violations)} violations found")
+        return all_violations
+
+    def _validate_direction_consistency(self, df):
+        """STEP 1: Validate that each direction has consistent pattern behavior"""
+        
+        print("Validating direction consistency...")
+        
+        # Group by direction and check unique patterns
+        direction_patterns = {}
+        for direction_id in df['direction_id'].unique():
+            direction_data = df[df['direction_id'] == direction_id]
+            
+            # Get all unique patterns in this direction
+            patterns = []
+            for trip_id in direction_data['trip_id'].unique():
+                trip_pattern = tuple(sorted(direction_data[direction_data['trip_id'] == trip_id]['stop_sequence'].unique()))
+                if trip_pattern not in patterns:
+                    patterns.append(trip_pattern)
+            
+            direction_patterns[direction_id] = patterns
+        
+        violations = []
+        direction_labels = {}
+        
+        for direction_id, patterns in direction_patterns.items():
+            if len(patterns) > 1:
+                # Multiple patterns for this direction - violation
+                violation = self.create_violation_entry(
+                    'multiple_patterns_per_direction',
+                    'medium',
+                    f'Direction {direction_id} has {len(patterns)} different patterns',
+                    direction_id=direction_id,
+                    patterns=[list(p) for p in patterns],
+                    pattern_count=len(patterns)
+                )
+                violations.append(violation)
+                direction_labels[direction_id] = 'Multiple Patterns'
+                print(f"🚩 Direction {direction_id}: Multiple patterns detected")
+            else:
+                # Single pattern - consistent
+                direction_labels[direction_id] = 'Single Pattern'
+        
+        print(f"Direction consistency validation complete: {len(violations)} violations found")
+        return violations, direction_labels
+
+    def _validate_pattern_topology(self, df):
+        """STEP 2: Validate topology for all (direction_id, pattern) combinations"""
+        
+        print("Validating pattern topology...")
+        
+        # Get all unique direction-pattern combinations
+        direction_patterns = {}
+        for direction_id in df['direction_id'].unique():
+            direction_data = df[df['direction_id'] == direction_id]
+            
+            patterns = []
+            for trip_id in direction_data['trip_id'].unique():
+                trip_pattern = tuple(sorted(direction_data[direction_data['trip_id'] == trip_id]['stop_sequence'].unique()))
+                if trip_pattern not in patterns:
+                    patterns.append(trip_pattern)
+            
+            direction_patterns[direction_id] = patterns
+        
+        violations = []
+        pattern_labels = {}
+        
+        for direction_id, patterns in direction_patterns.items():
+            # Get canonical pattern for this direction
+            direction_data = df[df['direction_id'] == direction_id]
+            max_sequence = direction_data['stop_sequence'].max()
+            min_sequence = direction_data['stop_sequence'].min()
+            canonical_pattern = tuple(range(int(min_sequence), int(max_sequence) + 1))
+            
+            for pattern in patterns:
+                combo_key = (direction_id, pattern)
                 
-                # Enhanced stop_name hierarchy
-                enhanced_stop_hierarchy[stop_name][parent_station] = {
-                    'stop_ids': stop_ids,
-                    'label': label,
-                    'has_violation': violation is not None,
-                    'violation_type': violation.get('violation_type') if violation else None
-                }
+                # Analyze this pattern's topology
+                label, violation = self._analyze_single_pattern_topology(df, direction_id, pattern, canonical_pattern)
                 
-                # Enhanced stop_id hierarchy - add metadata to each stop_id
-                for stop_id in stop_ids:
-                    enhanced_stop_id_hierarchy[stop_id] = {
-                        'parent_station': parent_station,
-                        'stop_name': stop_name,
-                        'label': label,  # Same label as the parent station
-                        'has_violation': violation is not None,
-                        'violation_type': violation.get('violation_type') if violation else None,
-                        'sibling_stop_ids': [sid for sid in stop_ids if sid != stop_id]  # Other stop_ids at same station
-                    }
+                pattern_labels[combo_key] = label
                 
                 if violation:
-                    topology_violations.append(violation)
-                    print(f"🚩 {stop_name} (parent: {parent_station}) [{label}]: {violation['description']}")
+                    violations.append(violation)
+                    print(f"🚩 Direction {direction_id} pattern {pattern} [{label}]: {violation['description']}")
                 else:
-                    print(f"✅ {stop_name} (parent: {parent_station}) [{label}]: Valid")
+                    print(f"✅ Direction {direction_id} pattern {pattern} [{label}]: Valid topology")
         
-        # Store enhanced results
-        self._stop_name_hierarchy = enhanced_stop_hierarchy
-        self._stop_id_hierarchy = enhanced_stop_id_hierarchy  # Enhanced version
-        self._parent_station_violations = parent_violations
-        self._topology_violations = topology_violations
-        
-        total_violations = len(parent_violations) + len(topology_violations)
-        print(f"Validation complete: {total_violations} total violations ({len(parent_violations)} parent consistency + {len(topology_violations)} topology)")
-        
-        return {
-            'parent_station_violations': parent_violations,
-            'topology_violations': topology_violations,
-            'enhanced_stop_hierarchy': enhanced_stop_hierarchy,
-            'enhanced_stop_id_hierarchy': enhanced_stop_id_hierarchy
-        }
+        print(f"Pattern topology validation complete: {len(violations)} violations found")
+        return violations, pattern_labels
 
-    def _validate_parent_station_topology(self, df, stop_name, parent_station):
-        """Validate topology for a single parent_station's stop_ids"""
+    def _analyze_single_pattern_topology(self, df, direction_id, pattern, canonical_pattern):
+        """Analyze topology for a single (direction_id, pattern) combination"""
         
-        stop_ids = self._stop_name_hierarchy[stop_name][parent_station]
+        if pattern == canonical_pattern:
+            return 'Standard', None
         
-        # Initialize classification lists
-        bidirectional_stop_ids = []
-        directional_stop_ids = []
-        no_data_stop_ids = []
-        stop_id_direction_details = {}
+        pattern_list = list(pattern)
+        canonical_list = list(canonical_pattern)
         
-        # First pass: Classify each stop_id based on direction behavior
-        for stop_id in stop_ids:
-            stop_data = df[df['stop_id'].astype(str) == str(stop_id)]
-            directions = stop_data['direction_id'].unique()
-            # Get the direction counts
-            direction_counts = stop_data['direction_id'].value_counts().to_dict()
-            
-            # Store detailed direction information
-            stop_id_direction_details[stop_id] = {
-                'directions': directions.tolist(),
-                'direction_counts': direction_counts,  # This gives you {0: 150, 1: 143}
-            }
-
-            if len(directions) > 1:
-                # Stop serves multiple directions → bidirectional stop id
-                bidirectional_stop_ids.append(stop_id)
-            elif len(directions) == 1:
-                # Stop serves single direction → directional stop id
-                directional_stop_ids.append(stop_id)
-            else:
-                # Stop has no direction data → no data, violation
-                no_data_stop_ids.append(stop_id)
-        
-        # Second pass: Analyze and validate the classification
-        num_total = len(stop_ids)
-        num_bidirectional = len(bidirectional_stop_ids)
-        num_directional = len(directional_stop_ids)
-        
-        # Check for no data violations first
-        if no_data_stop_ids:
-            label = "Undefined"
-            return label, self.create_violation_entry(
-                'stop_ids_without_direction_data', 
+        # Check for extra stops (not in canonical)
+        extra_stops = set(pattern_list) - set(canonical_list)
+        if extra_stops:
+            violation = self.create_violation_entry(
+                'pattern_has_extra_stops',
                 'high',
-                f'Stop id(s): {no_data_stop_ids} have no direction data',
-                {
-                    'parent_station': parent_station,
-                    'stop_name': stop_name,
-                    'classification': {
-                        stop_id: {
-                            'type': (
-                                'no_data' if stop_id in no_data_stop_ids 
-                                else 'bidirectional' if stop_id in bidirectional_stop_ids 
-                                else 'directional'
-                            ),
-                            'direction_counts': details['direction_counts']
-                        } for stop_id, details in stop_id_direction_details.items()
-                    },
-                    'station_label': "Missing data",
-                    'all_stop_ids': stop_ids,
-                    'no_data_stop_ids': no_data_stop_ids
-                }
+                f'Pattern has {len(extra_stops)} stops not in canonical sequence',
+                direction_id=direction_id,
+                pattern=pattern_list,
+                canonical_pattern=canonical_list,
+                extra_stops=sorted(list(extra_stops))
             )
+            return 'Invalid', violation
         
-        # Determine station type and validate
-        if num_total == 1 and num_bidirectional == 1:
-            # Single bidirectional stop → Shared station
-            label = 'Shared'
-            return label, None  # Valid
-            
-        elif num_total == 1 and num_directional == 1:
-            # Single directional stop → Unidirectional station  
-            label = 'Unidirectional'
-            return label, None  # Valid
-            
-        elif num_total % 2 == 0:
-            # Even number of stop_ids means even number in both categories, else violation.
-            if num_directional % 2 == 0 and num_bidirectional % 2 == 0:
-                label = 'Bidirectional'
-                return label, None
-            else: 
-                label = 'Undefined'
-                return label, self.create_violation_entry(
-                    'odd_directional_count_mixed',
-                    'high',
-                    f'Odd station behaviour with {num_directional} directional stop ids and {num_bidirectional} bidirectional stop ids.',
-                    {
-                        'stop_name': stop_name,
-                        'parent_station': parent_station,
-                        'classification': {stop_id: {
-                                'type': 'bidirectional' if stop_id in bidirectional_stop_ids else 'directional',
-                                'direction_counts': details['direction_counts']
-                            } for stop_id, details in stop_id_direction_details.items()
-                        },
-                        'station_label': label,
-                        'all_stop_ids': stop_ids
-                    }
-                )
-                
-        elif num_total % 2 != 0:
-            # Odd total - directional must be even, bidirectional can be odd
-            if num_directional % 2 == 0 and num_bidirectional % 2 != 0:
-                label = 'Mixed'
-                return label, None
-            else:
-                label = 'Undefined'
-                return label, self.create_violation_entry(
-                    'odd_directional_count_mixed',
-                    'high',
-                    f'Odd station behaviour with {num_directional} directional stop ids and {num_bidirectional} bidirectional stop ids.',
-                    {
-                        'stop_name': stop_name,
-                        'parent_station': parent_station,
-                        'classification': {stop_id: {
-                                'type': 'bidirectional' if stop_id in bidirectional_stop_ids else 'directional',
-                                'direction_counts': details['direction_counts']
-                            } for stop_id, details in stop_id_direction_details.items()
-                        },
-                        'station_label': label,
-                        'all_stop_ids': stop_ids
-                    }
-                )
+        # Check for missing stops
+        missing_stops = set(canonical_list) - set(pattern_list)
         
-        return label, None  # No violations
+        # Check if pattern is in correct order
+        try:
+            sorted_pattern = sorted(pattern_list, key=lambda x: canonical_list.index(x))
+            order_changed = pattern_list != sorted_pattern
+        except ValueError:
+            return 'Invalid', None
+        
+        # Check if consecutive after sorting
+        consecutive_after_sort = self._is_consecutive(sorted_pattern, canonical_list)
+        
+        # Classify pattern
+        if missing_stops and order_changed:
+            violation = self.create_violation_entry(
+                'pattern_missing_and_swapped_stops',
+                'high',
+                f'Pattern has missing stops and wrong order',
+                direction_id=direction_id,
+                pattern=pattern_list,
+                canonical_pattern=canonical_list,
+                missing_stops=sorted(list(missing_stops)),
+                swapped_stops=True
+            )
+            return 'Missing+Swapped', violation
+        elif missing_stops and consecutive_after_sort:
+            return 'Partial', None  # Valid partial pattern (like express service)
+        elif missing_stops:
+            violation = self.create_violation_entry(
+                'pattern_has_gaps',
+                'medium',
+                f'Pattern has gaps (non-consecutive missing stops)',
+                direction_id=direction_id,
+                pattern=pattern_list,
+                canonical_pattern=canonical_list,
+                missing_stops=sorted(list(missing_stops))
+            )
+            return 'Has Gaps', violation
+        elif order_changed:
+            violation = self.create_violation_entry(
+                'pattern_wrong_order',
+                'medium',
+                f'Pattern has stops in wrong order',
+                direction_id=direction_id,
+                pattern=pattern_list,
+                canonical_pattern=canonical_list,
+                correct_order=sorted_pattern
+            )
+            return 'Wrong Order', violation
+        
+        return 'Valid Subset', None
 
-#   ============ Validating / Logging Violating RouteID-DirectionID-TripType-Pattern Behaviours ==============
-    
-    def identify_and_classify_trips(self, df):
-        """Unified trip classification with gap detection using stop-level logs"""
-        print("\n=== UNIFIED TRIP CLASSIFICATION WITH GAP DETECTION ===")
+    def _validate_stop_sequence_integrity(self, df):
+        """STEP 3: Validate individual stop sequences (like stop_id directions)"""
         
-        df = df.copy()
+        print("Validating stop sequence integrity...")
         
-        # Get trip patterns
-        trip_info = df.groupby(['trip_id', 'direction_id', 'start_date']).apply(
-            lambda g: pd.Series({
-                'trip_length': len(g),
-                'pattern': tuple(g.sort_values('stop_sequence')['stop_id'].tolist()),
-                'first_stop': g.sort_values('stop_sequence')['stop_name'].iloc[0],
-                'last_stop': g.sort_values('stop_sequence')['stop_name'].iloc[-1]
-            })
-        ).reset_index()
+        violations = []
+        stop_sequence_labels = {}
         
-        # Classify full vs partial
-        max_stops = trip_info.groupby('direction_id')['trip_length'].max()
-        trip_info = trip_info.merge(max_stops.reset_index().rename(columns={'trip_length': 'max_stops'}), on='direction_id')
-        trip_info['is_full'] = trip_info['trip_length'] == trip_info['max_stops']
-        
-        trip_types_log = {}
-        pattern_violations_log = {}
-        direction_mapping = {}
-        
-        for direction in trip_info['direction_id'].unique():
-            dir_trips = trip_info[trip_info['direction_id'] == direction]
+        # Get all direction-pattern combinations that have violations
+        for direction_id in df['direction_id'].unique():
+            direction_data = df[df['direction_id'] == direction_id]
             
-            # Establish canonical pattern
-            full_trips = dir_trips[dir_trips['is_full']]
-            if len(full_trips) == 0:
-                continue
-                
-            pattern_counts = full_trips['pattern'].value_counts()
-            canonical = pattern_counts.index[0]
+            # Get canonical pattern
+            max_sequence = direction_data['stop_sequence'].max()
+            min_sequence = direction_data['stop_sequence'].min()
+            canonical_pattern = list(range(int(min_sequence), int(max_sequence) + 1))
             
-            print(f"Direction {direction}: canonical pattern {len(canonical)} stops (from {pattern_counts.iloc[0]} trips)")
+            # Get all patterns for this direction
+            patterns = []
+            for trip_id in direction_data['trip_id'].unique():
+                trip_pattern = tuple(sorted(direction_data[direction_data['trip_id'] == trip_id]['stop_sequence'].unique()))
+                if trip_pattern not in patterns:
+                    patterns.append(trip_pattern)
             
-            # Analyze all patterns against canonical
-            all_patterns = dir_trips['pattern'].unique()
-            pattern_mapping = {}
-            counter = 0
-            for i, pattern in enumerate(all_patterns):
-                pattern_trips = dir_trips[dir_trips['pattern'] == pattern]
-                trip_count = len(pattern_trips)
-                is_full_length = len(pattern) == max_stops[direction]
+            # Check if direction has multiple patterns
+            if len(patterns) > 1:
+                non_canonical_patterns = [p for p in patterns if tuple(p) != tuple(canonical_pattern)]
                 
-                # Analyze pattern
-                analysis = self._analyze_pattern(pattern, canonical)
-                
-                # Create trip type
-                if pattern == canonical and is_full_length:
-                    trip_type = 'full'
-                else:
-                    trip_type = f'alt_{counter+1}'
-                
-                pattern_mapping[pattern] = trip_type
-                
-                # CREATE STOP-LEVEL LOGS for each stop in this pattern
-                canonical_description = self._create_pattern_description(canonical, canonical)
-                pattern_description = self._create_pattern_description(pattern, canonical)
-                
-                for stop_id in pattern:
-                    # Get stop name
-                    stop_name = None
-                    stop_records = df[df['stop_id'] == stop_id]
-                    if not stop_records.empty:
-                        stop_name = stop_records['stop_name'].iloc[0]
+                # For each stop in canonical pattern, check if it's missing or swapped
+                for stop_seq in canonical_pattern:
+                    # Check this stop and the stop before it
+                    stops_to_check = [stop_seq]
+                    if stop_seq > min_sequence:
+                        stops_to_check.append(stop_seq - 1)  # Previous stop
                     
-                    # Create trip type log key
-                    trip_type_key = self.get_route_dir_trip_type_key(direction_id, trip_type)
-                    invalid_travel_time_key = self.get_route_dir_trip_type_stop_id_key(stop_id, direction_id, trip_type)
-                    
-                    trip_types_log[trip_type_key] = {
-                        'direction_id': direction,
-                        'trip_type': trip_type,
-
-                        'pattern_length': len(pattern),
-                        'is_canonical': pattern == canonical and is_full_length,
-                        'has_gaps': analysis['type'] != 'consecutive',
-                        'violation_type': analysis['type'] if analysis['type'] != 'consecutive' else None,
-                        'travel_reliable': analysis['valid'],
-                        'trip_count': trip_count,
-                        'canonical_description': canonical_description,
-                        'pattern_description': pattern_description
-                    }
-                    
-                    # Create stop-level pattern violation using standard formatter
-                    if analysis['type'] != 'consecutive':
+                    for check_stop in stops_to_check:
+                        missing_in_patterns = []
+                        swapped_in_patterns = []
                         
-                        # Determine severity based on issue type
-                        if analysis['type'] == 'has_swaps':
-                            severity = 'high'  # Swaps are more severe
-                            violation_type = 'pattern_has_swaps'
-                            description = f'Stop sequence swaps invalidate travel times in {trip_type} trips'
-                        elif analysis['type'] == 'has_gaps':
-                            severity = 'medium'  # Gaps are medium severity
-                            violation_type = 'pattern_has_gaps'
-                            description = f'Stop sequence gaps invalidate travel times in {trip_type} trips'
-                        elif analysis['type'] == 'has_swaps_and_gaps':
-                            severity = 'high'  # Combined issues are most severe
-                            violation_type = 'pattern_has_swaps_and_gaps'
-                            description = f'Stop sequence swaps and gaps invalidate travel times in {trip_type} trips'
-                        else:
-                            severity = 'medium'  # Default for other issues
-                            violation_type = 'pattern_issue'
-                            description = f'Pattern issue ({analysis["type"]}) affects {trip_type} trips'
-            
-
-                        violation = self.create_violation_entry(
-                            violation_type=violation_type,
-                            severity=severity,
-                            description=description,
-                            stop_id=stop_id,
-                            stop_name=stop_name,
-                            direction_id=direction,
-                            trip_type=trip_type,
-                            trip_count=trip_count,
-                            canonical_description=canonical_description,
-                            problematic_description=pattern_description
-                        )
+                        for pattern in non_canonical_patterns:
+                            pattern_list = list(pattern)
                             
-                        violation_key = self.get_combination_key(stop_id, direction, trip_type)
-                        self.add_violation_to_log(pattern_violations_log, violation_key, violation)
+                            # Check if stop is missing
+                            if check_stop not in pattern_list:
+                                missing_in_patterns.append(pattern)
+                            
+                            # Check if stop is swapped (out of order)
+                            elif check_stop in pattern_list:
+                                try:
+                                    sorted_pattern = sorted(pattern_list, key=lambda x: canonical_pattern.index(x))
+                                    if pattern_list != sorted_pattern:
+                                        swapped_in_patterns.append(pattern)
+                                except ValueError:
+                                    pass
+                        
+                        # Create violations for missing stops
+                        if missing_in_patterns:
+                            stop_data = direction_data[direction_data['stop_sequence'] == check_stop]
+                            if not stop_data.empty:
+                                stop_id = stop_data['stop_id'].iloc[0]
+                                stop_name = stop_data['stop_name'].iloc[0]
+                                
+                                violation = self.create_violation_entry(
+                                    'stop_missing_in_patterns',
+                                    'medium',
+                                    f'Stop sequence {check_stop} (stop_id: {stop_id}) missing in some patterns',
+                                    direction_id=direction_id,
+                                    stop_sequence=check_stop,
+                                    stop_id=stop_id,
+                                    stop_name=stop_name,
+                                    affected_patterns=[list(p) for p in missing_in_patterns]
+                                )
+                                violations.append(violation)
+                                stop_sequence_labels[f"{direction_id}_{check_stop}"] = 'missing'
+                        
+                        # Create violations for swapped stops
+                        if swapped_in_patterns:
+                            stop_data = direction_data[direction_data['stop_sequence'] == check_stop]
+                            if not stop_data.empty:
+                                stop_id = stop_data['stop_id'].iloc[0]
+                                stop_name = stop_data['stop_name'].iloc[0]
+                                
+                                violation = self.create_violation_entry(
+                                    'stop_swapped_in_patterns', 
+                                    'medium',
+                                    f'Stop sequence {check_stop} (stop_id: {stop_id}) swapped in some patterns',
+                                    direction_id=direction_id,
+                                    stop_sequence=check_stop,
+                                    stop_id=stop_id,
+                                    stop_name=stop_name,
+                                    affected_patterns=[list(p) for p in swapped_in_patterns]
+                                )
+                                violations.append(violation)
+                                stop_sequence_labels[f"{direction_id}_{check_stop}"] = 'swapped'
+        
+        print(f"Stop sequence validation complete: {len(violations)} violations found")
+        return violations, stop_sequence_labels
+
+    def _is_consecutive(self, pattern, canonical):
+        """Helper: Check if pattern is consecutive within canonical"""
+        if not pattern or not canonical:
+            return False
+        
+        canonical_list = list(canonical)
+        
+        # Find if pattern appears consecutively in canonical
+        for i in range(len(canonical_list) - len(pattern) + 1):
+            if canonical_list[i:i+len(pattern)] == pattern:
+                return True
+        return False
+
+    def _build_direction_hierarchies(self, df, violations):
+        """Build direction navigation hierarchy with missing/swapped statistics"""
+        
+        # Create the focused navigation structure you want
+        direction_navigation = self.create_direction_stop_navigation_hierarchy(df)
+        
+        # Store the navigation structure
+        self._direction_stop_navigation = direction_navigation
+        
+        print(f"Direction navigation created:")
+        print(f"  - {len(direction_navigation)} directions mapped")
+        
+        # Count stops with issues
+        total_stops_with_issues = 0
+        for direction_id, direction_data in direction_navigation.items():
+            stops_with_issues = 0
+            for stop_seq, stop_data in direction_data['canonical_pattern'].items():
+                if 'missing' in stop_data or 'swapped' in stop_data:
+                    stops_with_issues += 1
+                    total_stops_with_issues += 1
             
-            # Store direction mapping
-            direction_mapping[direction] = pattern_mapping
+            if stops_with_issues > 0:
+                print(f"  - Direction {direction_id}: {stops_with_issues} stops with missing/swapped issues")
         
-        # Apply trip types to dataframe
-        def get_trip_type(row):
-            direction = row['direction_id']
-            pattern = row['pattern']
-            return direction_mapping.get(direction, {}).get(pattern, 'full')
-        
-        trip_info['trip_type'] = trip_info.apply(get_trip_type, axis=1)
-        
-        trip_mapping = dict(zip(
-            trip_info[['trip_id', 'direction_id', 'start_date']].apply(tuple, axis=1),
-            trip_info['trip_type']
-        ))
-        df['trip_type'] = df[['trip_id', 'direction_id', 'start_date']].apply(tuple, axis=1).map(trip_mapping).fillna('full')
-        
-        # Store violations
-        self._trip_types_log = trip_types_log
-        self._pattern_violations_log = pattern_violations_log
-        
-        # Count affected records (same logic as before)
-        violated_trip_types = set()
-        for violation in pattern_violations_log.values():
-            direction_id = violation.get('direction_id')
-            trip_type = violation.get('trip_type')
-            violated_trip_types.add((direction_id, trip_type))
+        print(f"  - Total: {total_stops_with_issues} stops with issues across all directions")
 
-        affected_records = 0
-        if violated_trip_types:
-            for direction_id, trip_type in violated_trip_types:
-                affected_records += len(df[(df['direction_id'] == direction_id) & (df['trip_type'] == trip_type)])
+    def _convert_numpy_types(self, obj):
+        """Convert numpy types to native Python types for JSON serialization"""
+        if isinstance(obj, dict):
+            return {str(k) if hasattr(k, 'dtype') else k: self._convert_numpy_types(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [self._convert_numpy_types(item) for item in obj]
+        elif hasattr(obj, 'dtype'):  # numpy types
+            return obj.item()  # Convert to native Python type
+        else:
+            return obj
 
-        non_full_records = len(df[df['trip_type'] != 'full'])
-
-        print(f"Complete: {len(trip_info)} trips, {len(pattern_violations_log)} stop-level violations affecting {affected_records} records")
-        print(f"Additional info: {non_full_records} total non-full trip records")
+    def _unified_export(self):
+        """Single export operation for all data"""
+        safe_route_name = self.route_long_name.replace(' ', '_').replace('/', '_')
+        output_folder = Path(f'route_analysis_{safe_route_name}_{self.route_id}')
+        output_folder.mkdir(exist_ok=True)
         
-        return df
+        # Export all data in single operation
+        exports = {
+            'stop_violations.json': self._stop_related_logs,
+            'direction_violations.json': self._direction_violations_log,
+            'direction_navigation.json': self._direction_stop_navigation,
+            'hierarchies.json': {
+                'stop_name_hierarchy': self._stop_name_hierarchy,
+                'stop_id_hierarchy': self._stop_id_hierarchy
+            },
+            'analysis.json': self.analysis_logs
+        }
+        
+        for filename, data in exports.items():
+            with open(output_folder / filename, 'w', encoding='utf-8') as f:
+                # Convert numpy types before serializing
+                clean_data = self._convert_numpy_types(data)
+                json.dump(clean_data, f, indent=2, ensure_ascii=False, default=str)
+        
+        print(f"All data exported to: {output_folder}")
+
+    def _is_consecutive_pattern(self, pattern_list):
+        """Check if pattern consists of consecutive numbers"""
+        if len(pattern_list) <= 1:
+            return True
+        
+        sorted_pattern = sorted(pattern_list)
+        for i in range(1, len(sorted_pattern)):
+            if sorted_pattern[i] != sorted_pattern[i-1] + 1:
+                return False
+        return True
+
+    def _classify_pattern_with_enhanced_labeling(self, pattern, canonical_pattern_list, direction_data):
+        """Enhanced pattern classification with detailed, human-readable labels"""
+        
+        pattern_list = list(pattern)
+        canonical_list = canonical_pattern_list
+        canonical_tuple = tuple(canonical_list)
+        
+        if pattern == canonical_tuple:
+            return {
+                'pattern_type': 'canonical',
+                'has_missing_stops': False,
+                'has_swapped_stops': False
+            }
+        
+        # Check for extra stops (not in canonical) - invalid pattern
+        extra_stops = set(pattern_list) - set(canonical_list)
+        if extra_stops:
+            return {
+                'pattern_type': 'invalid (extra stops)',
+                'has_missing_stops': False,
+                'has_swapped_stops': False,
+                'extra_stops': sorted(list(extra_stops))
+            }
+        
+        # Analyze missing and swapped characteristics
+        missing_stops_info = []
+        swapped_stops_info = []
+        
+        # Check for missing stops
+        missing_stop_sequences = set(canonical_list) - set(pattern_list)
+        has_missing = len(missing_stop_sequences) > 0
+        
+        if has_missing:
+            for seq in missing_stop_sequences:
+                stop_data = direction_data[direction_data['stop_sequence'] == seq]
+                if not stop_data.empty:
+                    missing_stops_info.append({
+                        'stop_sequence': seq,
+                        'stop_id': stop_data['stop_id'].iloc[0],
+                        'stop_name': stop_data['stop_name'].iloc[0]
+                    })
+        
+        # Check for swapped stops (wrong order)
+        has_swapped = False
+        if set(pattern_list).issubset(set(canonical_list)):
+            try:
+                sorted_pattern = sorted(pattern_list, key=lambda x: canonical_list.index(x))
+                if pattern_list != sorted_pattern:
+                    has_swapped = True
+                    # Find swapped positions
+                    for k, (actual, expected) in enumerate(zip(pattern_list, sorted_pattern)):
+                        if actual != expected:
+                            stop_data = direction_data[direction_data['stop_sequence'] == actual]
+                            if not stop_data.empty:
+                                swapped_stops_info.append({
+                                    'stop_sequence': actual,
+                                    'stop_id': stop_data['stop_id'].iloc[0],
+                                    'expected_position': sorted_pattern.index(actual) + 1,
+                                    'actual_position': k + 1
+                                })
+            except ValueError:
+                pass
+        
+        # Determine pattern type using enhanced labeling logic
+        pattern_type = self._get_enhanced_pattern_label(pattern_list, canonical_list, has_missing, has_swapped)
+        
+        # Build result
+        result = {
+            'pattern_type': pattern_type,
+            'has_missing_stops': has_missing,
+            'has_swapped_stops': has_swapped
+        }
+        
+        # Add details only when relevant
+        if has_missing and missing_stops_info:
+            result['missing_stops'] = missing_stops_info
+        if has_swapped and swapped_stops_info:
+            result['swapped_stops'] = swapped_stops_info
+        
+        return result
+
+    def _get_enhanced_pattern_label(self, pattern_list, canonical_list, has_missing, has_swapped):
+        """Get enhanced human-readable pattern label based on detailed rules"""
+        
+        if len(pattern_list) == 1:
+            return "Single stop"
+        
+        min_canonical = min(canonical_list)
+        max_canonical = max(canonical_list)
+        min_pattern = min(pattern_list)
+        max_pattern = max(pattern_list)
+        
+        # Combined missing and swapped cases
+        if has_missing and has_swapped:
+            # Determine if it's a partial pattern for more specific labeling
+            late_start = min_pattern > min_canonical
+            early_end = max_pattern < max_canonical
+            
+            if late_start and early_end:
+                return "Partial, Missing and Swapped"
+            elif late_start:
+                return "Partial late start, Missing and Swapped"
+            elif early_end:
+                return "Partial early end, Missing and Swapped"
+            else:
+                return "Missing and Swapped"
+        
+        # Swapped only cases
+        elif has_swapped and not has_missing:
+            # Check if first stop is swapped
+            if len(pattern_list) > 1 and pattern_list[0] != min_canonical:
+                return "Swapped first stop"
+            # Check if last stop is swapped  
+            elif len(pattern_list) > 1 and pattern_list[-1] != max_pattern:
+                return "Swapped last stop"
+            else:
+                return "Swapped internal stops"
+        
+        # Missing only cases
+        elif has_missing and not has_swapped:
+            # Check if pattern is consecutive (no gaps)
+            if self._is_consecutive_pattern(pattern_list):
+                # Missing first stop only
+                if min_pattern == min_canonical + 1 and max_pattern == max_canonical:
+                    return "Missing first stop"
+                # Missing last stop only
+                elif min_pattern == min_canonical and max_pattern == max_canonical - 1:
+                    return "Missing last stop"
+                # Partial, late start (consecutive but starts later)
+                elif min_pattern > min_canonical + 1 and max_pattern == max_canonical:
+                    return "Partial, late start"
+                # Partial, early end (consecutive but ends earlier)
+                elif min_pattern == min_canonical and max_pattern < max_canonical - 1:
+                    return "Partial, early end"
+                # Partial (both late start and early end)
+                elif min_pattern > min_canonical and max_pattern < max_canonical:
+                    return "Partial"
+            else:
+                # Has gaps - missing internal stops
+                return "Missing internal stops"
+        
+        # Fallback (shouldn't reach here with proper logic)
+        return "Unknown variation"
+
+    def _is_consecutive_pattern(self, pattern_list):
+        """Check if pattern consists of consecutive numbers"""
+        if len(pattern_list) <= 1:
+            return True
+        
+        sorted_pattern = sorted(pattern_list)
+        for i in range(1, len(sorted_pattern)):
+            if sorted_pattern[i] != sorted_pattern[i-1] + 1:
+                return False
+        return True
+
+    def create_direction_stop_navigation_hierarchy(self, df):
+        """
+        Create direction -> stop navigation with enhanced pattern analysis:
+        direction_id -> canonical_pattern + observed_patterns
+        """
+        
+        direction_navigation = {}
+        
+        for direction_id in df['direction_id'].unique():
+            direction_data = df[df['direction_id'] == direction_id]
+            
+            # Get canonical pattern for this direction
+            max_sequence = direction_data['stop_sequence'].max()
+            min_sequence = direction_data['stop_sequence'].min()
+            canonical_pattern_list = list(range(int(min_sequence), int(max_sequence) + 1))
+            canonical_tuple = tuple(canonical_pattern_list)
+            
+            # Get all patterns for this direction with trip counts
+            patterns = []
+            pattern_trip_counts = {}  # Track how many (trip_id, start_date) combinations use each pattern
+            
+            for (trip_id, start_date), trip_group in direction_data.groupby(['trip_id', 'start_date']):
+                trip_pattern = tuple(sorted(trip_group['stop_sequence'].unique()))
+                if trip_pattern not in patterns:
+                    patterns.append(trip_pattern)
+                    pattern_trip_counts[trip_pattern] = 0
+                pattern_trip_counts[trip_pattern] += 1
+            
+            # Initialize direction structure
+            direction_navigation[direction_id] = {
+                'canonical_pattern': {},
+                'observed_patterns': {}
+            }
+            
+            # Build observed_patterns section first with enhanced labeling
+            for i, pattern in enumerate(patterns):
+                pattern_key = f"pattern_{i+1}"
+                pattern_list = list(pattern)
+                
+                # Create pattern description (keep existing logic)
+                if len(pattern_list) == 1:
+                    pattern_desc = str(pattern_list[0])
+                else:
+                    # Group consecutive numbers
+                    groups = []
+                    current_group = [pattern_list[0]]
+                    
+                    for j in range(1, len(pattern_list)):
+                        if pattern_list[j] == pattern_list[j-1] + 1:
+                            current_group.append(pattern_list[j])
+                        else:
+                            groups.append(current_group)
+                            current_group = [pattern_list[j]]
+                    groups.append(current_group)
+                    
+                    # Format groups: single numbers as-is, ranges as "start-end"
+                    formatted = []
+                    for group in groups:
+                        if len(group) == 1:
+                            formatted.append(str(group[0]))
+                        else:
+                            formatted.append(f"{group[0]}-{group[-1]}")
+                    
+                    pattern_desc = "_".join(formatted)
+                
+                # Use enhanced classification
+                classification_result = self._classify_pattern_with_enhanced_labeling(
+                    pattern, canonical_pattern_list, direction_data
+                )
+                
+                # Build pattern entry
+                pattern_entry = {
+                    'pattern': pattern_list,
+                    'pattern_description': pattern_desc,
+                    'trip_count': pattern_trip_counts[pattern],
+                    'pattern_type': classification_result['pattern_type']
+                }
+                
+                # For non-canonical patterns, add detailed missing/swapped information
+                if classification_result['pattern_type'] != 'canonical':
+                    if classification_result.get('has_missing_stops') and 'missing_stops' in classification_result:
+                        pattern_entry['missing_stops'] = classification_result['missing_stops']
+                    
+                    if classification_result.get('has_swapped_stops') and 'swapped_stops' in classification_result:
+                        pattern_entry['swapped_stops'] = classification_result['swapped_stops']
+                    
+                    if 'extra_stops' in classification_result:
+                        pattern_entry['extra_stops'] = classification_result['extra_stops']
+                
+                direction_navigation[direction_id]['observed_patterns'][pattern_key] = pattern_entry
+            
+            # Build canonical_pattern section with stop info and pattern references
+            for stop_seq in canonical_pattern_list:
+                # Get stop_id for this stop_sequence
+                stop_data = direction_data[direction_data['stop_sequence'] == stop_seq]
+                if stop_data.empty:
+                    continue
+                    
+                stop_id = stop_data['stop_id'].iloc[0]
+                stop_name = stop_data['stop_name'].iloc[0]
+                
+                # Initialize stop entry
+                stop_entry = {
+                    'stop_id': stop_id,
+                    'stop_name': stop_name
+                }
+                
+                # Find which patterns this stop is missing/swapped in
+                missing_in_patterns = []
+                swapped_in_patterns = []
+                
+                for pattern_key, pattern_info in direction_navigation[direction_id]['observed_patterns'].items():
+                    # Check if this stop is missing in this pattern
+                    if 'missing_stops' in pattern_info:
+                        for missing_stop in pattern_info['missing_stops']:
+                            if missing_stop['stop_sequence'] == stop_seq:
+                                missing_in_patterns.append(pattern_key)
+                                break
+                    
+                    # Check if this stop is swapped in this pattern
+                    if 'swapped_stops' in pattern_info:
+                        for swapped_stop in pattern_info['swapped_stops']:
+                            if swapped_stop['stop_sequence'] == stop_seq:
+                                swapped_in_patterns.append(pattern_key)
+                                break
+                
+                # Set complete flag and add pattern references if needed
+                if missing_in_patterns or swapped_in_patterns:
+                    stop_entry['complete'] = False
+                    if missing_in_patterns:
+                        stop_entry['missing_in_patterns'] = missing_in_patterns
+                    if swapped_in_patterns:
+                        stop_entry['swapped_in_patterns'] = swapped_in_patterns
+                else:
+                    stop_entry['complete'] = True
+                
+                direction_navigation[direction_id]['canonical_pattern'][str(stop_seq)] = stop_entry
+        
+        return direction_navigation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def calculate_travel_times_and_delays(self, df):
         """Calculate travel times using stop-level pattern violations"""
@@ -682,132 +1381,6 @@ class DataFormer:
         print(f"  Using stop-level pattern violations for precise validation")
         
         return df
-
-    def _analyze_pattern(self, pattern, canonical):
-        """Analyze pattern using elegant sorting approach"""
-        if not canonical or not pattern:
-            return {'type': 'unknown', 'valid': False}
-        
-        p_list, c_list = list(pattern), list(canonical)
-        
-        # Check if already consecutive
-        if self._is_consecutive(p_list, c_list):
-            return {'type': 'consecutive', 'valid': True}
-        
-        # Check for invalid stops
-        if not set(p_list).issubset(set(c_list)):
-            return {'type': 'invalid_stops', 'valid': False}
-        
-        # Sort and analyze
-        sorted_p = sorted(p_list, key=lambda x: c_list.index(x))
-        order_changed = p_list != sorted_p
-        consecutive_after_sort = self._is_consecutive(sorted_p, c_list)
-        
-        if order_changed and consecutive_after_sort:
-            return {'type': 'has_swaps', 'valid': False}
-        elif not order_changed and not consecutive_after_sort:
-            return {'type': 'has_gaps', 'valid': False}
-        elif order_changed and not consecutive_after_sort:
-            return {'type': 'has_swaps_and_gaps', 'valid': False}
-        else:
-            return {'type': 'unknown', 'valid': False}
-
-    def _is_consecutive(self, pattern, canonical):
-        """Check if pattern appears consecutively in canonical"""
-        n = len(pattern)
-        return any(canonical[i:i+n] == pattern for i in range(len(canonical) - n + 1))
-
-    def _create_pattern_description(self, pattern, canonical=None):
-        """Create human-readable pattern description showing positions in canonical pattern like '1-2-3_6-7' for gaps"""
-        if not pattern:
-            return "Empty"
-        
-        if len(pattern) <= 1:
-            if canonical and pattern[0] in canonical:
-                return str(canonical.index(pattern[0]) + 1)  # 1-based indexing
-            return str(pattern[0]) if pattern else "Empty"
-        
-        # If no canonical provided, use stop_ids directly (fallback)
-        if not canonical:
-            try:
-                int_pattern = [int(x) for x in pattern]
-            except (ValueError, TypeError):
-                return "-".join(map(str, pattern))
-            
-            # Group consecutive numbers
-            groups = []
-            current_group = [int_pattern[0]]
-            
-            for i in range(1, len(int_pattern)):
-                if int_pattern[i] == int_pattern[i-1] + 1:
-                    current_group.append(int_pattern[i])
-                else:
-                    groups.append(current_group)
-                    current_group = [int_pattern[i]]
-            groups.append(current_group)
-            
-            # Format groups
-            formatted_groups = []
-            for group in groups:
-                if len(group) == 1:
-                    formatted_groups.append(str(group[0]))
-                elif len(group) == 2:
-                    formatted_groups.append(f"{group[0]}-{group[1]}")
-                else:
-                    formatted_groups.append(f"{group[0]}-{group[-1]}")
-            
-            return "_".join(formatted_groups)
-        
-        # Convert pattern stop_ids to positions in canonical pattern (1-based)
-        try:
-            positions = []
-            for stop_id in pattern:
-                if stop_id in canonical:
-                    positions.append(canonical.index(stop_id) + 1)  # 1-based indexing
-                else:
-                    # Stop not in canonical - this shouldn't happen for valid patterns
-                    positions.append(f"?{stop_id}")  # Mark as unknown
-            
-            # Group consecutive positions
-            groups = []
-            current_group = []
-            
-            for pos in positions:
-                if isinstance(pos, str) and pos.startswith('?'):
-                    # Handle unknown positions
-                    if current_group:
-                        groups.append(current_group)
-                        current_group = []
-                    groups.append([pos])
-                else:
-                    if not current_group:
-                        current_group = [pos]
-                    elif pos == current_group[-1] + 1:
-                        current_group.append(pos)
-                    else:
-                        groups.append(current_group)
-                        current_group = [pos]
-            
-            if current_group:
-                groups.append(current_group)
-            
-            # Format groups
-            formatted_groups = []
-            for group in groups:
-                if len(group) == 1:
-                    formatted_groups.append(str(group[0]))
-                elif len(group) == 2:
-                    formatted_groups.append(f"{group[0]}-{group[1]}")
-                else:
-                    formatted_groups.append(f"{group[0]}-{group[-1]}")
-            
-            return "_".join(formatted_groups)
-            
-        except Exception:
-            # Fallback to stop_id representation
-            return "-".join(map(str, pattern))
-
-#   ===== Validating / Logging Violating Regulatory RouteID-DirectionID-TripType-StopID Behaviours ===========
 
     def identify_and_classify_stops(self, df):
         """Detect regulatory stops"""
@@ -905,117 +1478,6 @@ class DataFormer:
    
 #   ======================================= Handle Navigational Maps =========================================
 
-    def _get_topology_info_for_combination(self, stop_id, direction_id, trip_type):
-        """Get topology information for specific combination"""
-        combination_key = self.get_combination_key(stop_id, direction_id, trip_type)
-        
-        if combination_key in self._topology_violations_log:
-            violation = self._topology_violations_log[combination_key]
-            return {
-                'topology_violation': True,
-                'topology_violation_type': violation.get('violation_type'),
-                'severity': violation.get('severity')
-            }
-        
-        return {
-            'topology_violation': False,
-            'topology_violation_type': None,
-            'severity': None
-        }
-
-    def _get_pattern_info_for_combination(self, stop_id, direction_id, trip_type):
-        """Get pattern information for specific stop/direction/trip_type combination"""
-        # Create the key for stop-level trip types log
-        trip_type_key = self.get_combination_key(stop_id, direction_id, trip_type)
-        
-        if hasattr(self, '_trip_types_log') and trip_type_key in self._trip_types_log:
-            trip_info = self._trip_types_log[trip_type_key]
-            return {
-                'pattern_violation': trip_info.get('has_issues', False),
-                'pattern_violation_type': trip_info.get('violation_type'),
-                'pattern_description': trip_info.get('pattern_description'),
-                'severity': trip_info.get('severity')
-            }
-        
-        return {
-            'has_issues': False,
-            'issue_type': None,
-            'severity': None
-        }
-
-    def _get_regulatory_info_for_combination(self, stop_id, direction_id, trip_type):
-        """Get regulatory information for specific stop/direction/trip_type combination"""
-        key = self.get_combination_key(stop_id, direction_id, trip_type)
-        
-        if key in self._regulatory_stops_log:
-            reg_info = self._regulatory_stops_log[key]
-            return {
-                'has_anomaly': reg_info.get('has_anomaly', False),
-                'regulation_ratio': reg_info.get('zero_seconds_ratio', 1.0),
-                'severity': 'low' if reg_info.get('has_anomaly') else None
-            }
-        
-        return {
-            'has_anomaly': False,
-            'regulation_ratio': None,
-            'severity': None
-        }
-
-    def _get_histogram_info_for_combination(self, stop_id, direction_id, time_type):
-        """Get histogram information for specific stop/direction/time_type combination"""
-        combo_key = f"{self.route_id}_{stop_id}_{direction_id}_{time_type}"
-        
-        if hasattr(self, '_histograms_log') and combo_key in self._histograms_log:
-            histogram_data = self._histograms_log[combo_key]
-            return {
-                'has_histograms': True,
-                'histogram_types': list(histogram_data['histograms'].keys()),
-                'sample_size': histogram_data['metadata']['total_sample_size']
-            }
-        
-        return {
-            'has_histograms': False,
-            'histogram_types': [],
-            'sample_size': 0
-        }
-
-    def _get_punctuality_info_for_combination(self, stop_id, direction_id, time_type):
-        """Get punctuality information for specific stop/direction/time_type combination"""
-        combo_key = f"{self.route_id}_{stop_id}_{direction_id}_{time_type}"
-        
-        if hasattr(self, '_punctuality_log') and combo_key in self._punctuality_log:
-            punctuality_data = self._punctuality_log[combo_key]
-            otp = punctuality_data['punctuality_metrics']['performance_indicators']['on_time_performance_percent']
-            return {
-                'has_punctuality': True,
-                'on_time_performance': otp,
-                'sample_size': punctuality_data['metadata']['sample_size'],
-                'performance_level': 'excellent' if otp >= 85 else 'good' if otp >= 70 else 'poor'
-            }
-        
-        return {
-            'has_punctuality': False,
-            'on_time_performance': None,
-            'sample_size': 0,
-            'performance_level': None
-        }
-
-    def _determine_overall_severity(self, topology_severity, pattern_severity, regulatory_severity):
-        """Determine overall severity from individual severities (updated to 3 parameters)"""
-        severities = [s for s in [topology_severity, pattern_severity, regulatory_severity] if s is not None]
-        
-        if not severities:
-            return 'none'
-        
-        severity_order = ['low', 'medium', 'high']
-        for severity in reversed(severity_order):
-            if severity in severities:
-                return severity
-        
-        return 'none'
-
-    # ======================================= Export All Data =========================================
-    def _create_route_mapping(self):
         """Create route name ↔ route ID mapping for easy lookups"""
         return {
             f'{self.route_short_name}': {
@@ -1284,40 +1746,6 @@ class DataFormer:
         }
         
         return self._navigation_maps
-
-    def _build_basic_route_navigation(self):
-        """Build basic route navigation without complex embedded details"""
-        route_nav = {}
-        
-        # Group by route→direction→stop
-        route_groups = self.df_final.groupby(['stop_id', 'stop_name', 'direction_id'])
-        
-        for (stop_id, stop_name, direction_id), group in route_groups:
-            route_id = str(self.route_id)
-            
-            # Initialize nested structure
-            if route_id not in route_nav:
-                route_nav[route_id] = {
-                    "route_name": self.route_long_name,
-                    "route_short_name": self.route_short_name,
-                    "directions": {}
-                }
-            
-            if str(direction_id) not in route_nav[route_id]["directions"]:
-                route_nav[route_id]["directions"][str(direction_id)] = {
-                    "stops": {}
-                }
-            
-            # Add stop with simple summary
-            route_nav[route_id]["directions"][str(direction_id)]["stops"][str(stop_id)] = {
-                "stop_name": stop_name,
-                "trip_types": sorted(group['trip_type'].unique().tolist()),
-                "time_types": sorted(group['time_type'].unique().tolist()),
-                "total_records": len(group),
-                "has_violations": self.has_violations_for_combination(stop_id, direction_id, group['trip_type'].iloc[0])
-            }
-        
-        return route_nav
 
     def _build_basic_stop_navigation(self):
         """Build basic stop navigation without complex embedded details"""
