@@ -1,69 +1,67 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-import json
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)
 
-def load_json_file(filename):
-    """Load JSON file safely"""
-    try:
-        with open(f'./data/{filename}', 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print(f"Warning: {filename} not found")
-        return {}
-    except json.JSONDecodeError:
-        print(f"Error: Invalid JSON in {filename}")
-        return {}
+DATA_FOLDER = os.path.join(app.root_path, 'data')
 
-# Health check endpoint
-@app.route('/')
-def health_check():
+def load_json(filename):
+    path = os.path.join(DATA_FOLDER, filename)
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+@app.route('/api/health')
+def api_health():
+    expected_files = [
+        'analysis.json',
+        'direction_navigation.json',
+        'direction_violations.json',
+        'hierarchies.json',
+        'stop_violations.json'
+    ]
+    result = {
+        fname: os.path.exists(os.path.join(DATA_FOLDER, fname))
+        for fname in expected_files
+    }
     return jsonify({
-        "status": "healthy",
-        "service": "Transit Analysis API",
-        "available_files": os.listdir('./data') if os.path.exists('./data') else []
+        'status': 'healthy',
+        'files': result
     })
-
-# Main endpoints that your React app expects
-@app.route('/api/routes')
-def get_routes():
-    """Get all routes - React expects this endpoint"""
-    return jsonify(load_json_file('route_stops.json'))
 
 @app.route('/api/analysis')
-def get_analysis():
-    """Get stop analysis - React expects this endpoint"""
-    return jsonify(load_json_file('stop_analysis.json'))
+def api_analysis():
+    return jsonify(load_json('analysis.json'))
+
+@app.route('/api/direction-navigation')
+def api_direction_navigation():
+    return jsonify(load_json('direction_navigation.json'))
+
+@app.route('/api/direction-violations')
+def api_direction_violations():
+    return jsonify(load_json('direction_violations.json'))
+
+@app.route('/api/hierarchies')
+def api_hierarchies():
+    return jsonify(load_json('hierarchies.json'))
+
+@app.route('/api/stop-violations')
+def api_stop_violations():
+    return jsonify(load_json('stop_violations.json'))
+
 @app.route('/api/stats')
-def get_stats():
-    """Get statistics directly from the JSON files - no calculations"""
-    route_stops = load_json_file('route_stops.json')
-    stop_analysis = load_json_file('stop_analysis.json')
-    
-    if not route_stops or not stop_analysis:
-        return jsonify({"error": "Required data files not found"}), 404
-    
-    # Just return the data as-is from the JSON files
+def api_stats():
+    """Optional combined object if frontend prefers one request"""
     return jsonify({
-        "route_stops": route_stops,
-        "stop_analysis": stop_analysis
+        'analysis': load_json('analysis.json'),
+        'directionNavigation': load_json('direction_navigation.json'),
+        'directionViolations': load_json('direction_violations.json'),
+        'hierarchies': load_json('hierarchies.json'),
+        'stopViolations': load_json('stop_violations.json')
     })
 
-# Your original endpoints (keep them working)
-@app.route('/api/route-stops')
-def get_route_stops():
-    return jsonify(load_json_file('route_stops.json'))
-
-@app.route('/api/stop-analysis')
-def get_stop_analysis():
-    return jsonify(load_json_file('stop_analysis.json'))
-
-@app.route('/api/histograms')
-def get_histograms():
-    return jsonify(load_json_file('delay_histograms_by_time.json'))
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    print(f"Expecting files in: {DATA_FOLDER}")
+    app.run(debug=True, host='0.0.0.0', port=5000)

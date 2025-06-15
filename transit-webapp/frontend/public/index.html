@@ -1,43 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transit Analysis Dashboard</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/recharts@2.8.0/umd/Recharts.js"></script>
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
+</head>
+<body>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
+        const { AlertTriangle, MapPin, Route, TrendingUp, FileText, ChevronDown, ChevronRight, Clock, Activity } = lucideReact;
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        const TransitAnalysisDashboard = () => {
+          const [data, setData] = useState({
+            analysis: null,
+            directionNavigation: null,
+            directionViolations: null,
+            hierarchies: null,
+            stopViolations: null
+          });
+          const [loading, setLoading] = useState(true);
+          const [error, setError] = useState(null);
+          const [activeTab, setActiveTab] = useState('overview');
+          const [expandedSections, setExpandedSections] = useState({});
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+          // Load JSON files from data folder
+          useEffect(() => {
+            const loadData = async () => {
+              try {
+                // Try to use the Flask API first, then fall back to direct file access
+                const baseUrl = window.location.hostname === 'localhost' && window.location.port !== '8000' 
+                  ? 'http://localhost:5000' 
+                  : '';
+                
+                const files = [
+                  'analysis.json',
+                  'direction_navigation.json', 
+                  'direction_violations.json',
+                  'hierarchies.json',
+                  'stop_violations.json'
+                ];
+
+                const results = {};
+                let hasBackend = false;
+                
+                // First try to check if Flask backend is available
+                try {
+                  const healthResponse = await fetch(`${baseUrl}/api/health`);
+                  if (healthResponse.ok) {
+                    hasBackend = true;
+                    console.log('Flask backend detected, using API endpoints');
+                  }
+                } catch (e) {
+                  console.log('No Flask backend detected, trying direct file access');
+                }
+                
+                for (const file of files) {
+                  try {
+                    let response;
+                    if (hasBackend) {
+                      // Use Flask API
+                      response = await fetch(`${baseUrl}/data/${file}`);
+                    } else {
+                      // Direct file access
+                      response = await fetch(`./data/${file}`);
+                    }
+                    
+                    if (!response.ok) {
+                      throw new Error(`Failed to load ${file}: ${response.status}`);
+                    }
+                    
+                    const jsonData = await response.json();
+                    const key = file.replace('.json', '').replace('_', '');
+                    results[key === 'directionnavigation' ? 'directionNavigation' : 
+                            key === 'directionviolations' ? 'directionViolations' :
+                            key === 'stopviolations' ? 'stopViolations' : key] = jsonData;
+                  } catch (err) {
+                    console.warn(`Could not load ${file}:`, err);
+                    const key = file.replace('.json', '').replace('_', '');
+                    results[key === 'directionnavigation' ? 'directionNavigation' : 
+                            key === 'directionviolations' ? 'directionViolations' :
+                            key === 'stopviolations' ? 'stopViolations' : key] = {};
+                  }
+                }
+                
+                setData(results);
+                setLoading(false);
+              } catch (error) {
+                console.error('Error loading data:', error);
+                setError(`Connection Error: ${error.message}. Make sure your Flask backend is running on http://localhost:5000 or your JSON files are in the ./data folder.`);
+                setLoading(false);
+              }
+            };
+
+            loadData();
+          }, []);
+
+          const toggleSection = (section) => {
+            setExpandedSections(prev => ({
+              ...prev,
+              [section]: !prev[section]
+            }));
+          };
+
+          const renderOverview = () => {
+            const violations = data.stopViolations?.metadata?.total_violations || 0;
+            const totalDirections = Object.keys(data.directionNavigation || {}).length;
+            const hierarchyStops = Object.keys(data.hierarchies?.stop_name_hierarchy || {}).length;
+            const parentStationViolations = Object.keys(data.stopViolations?.parent_station_violations || {}).length;
+
+            return (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                    <div className="flex items-center">
+                      <Route className="h-8 w-8 text-blue-500" />
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-600">Directions</p>
+                        <p className="text-2xl font-bold text-gray-900">{totalDirections}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+                    <div className="flex items-center">
+                      <MapPin className="h-8 w-8 text-green-500" />
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-600">Stop Hierarchies</p>
+                        <p className="text-2xl font-bold text-gray-900">{hierarchyStops}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
+                    <div className="flex items-center">
+                      <AlertTriangle className="h-8 w-8 text-red-500" />
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-600">Total Violations</p>
+                        <p className="text-2xl font-bold text-gray-900">{violations}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
+                    <div className="flex items-center">
+                      <Activity className="h-8 w-8 text-purple-500" />
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-600">Station Issues</p>
+                        <p className="text-2xl font-bold text-gray-900">{parentStationViolations}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="bg-white rounded-lg shadow-md p-6">
+                    <h3 className="text-lg font-semibold mb-4">Analysis Summary</h3>
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Histogram Logs:</span>
+                        <span className="font-medium">{Object.keys(data.analysis?.histograms_log || {}).length}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Punctuality Logs:</span>
+                        <span className="font-medium">{Object.keys(data.analysis?.punctuality_log || {}).length}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Direction Violations:</span>
+                        <span className="font-medium">{Object.keys(data.directionViolations || {}).length}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-lg shadow-md p-6">
+                    <h3 className="text-lg font-semibold mb-4">Violation Breakdown</h3>
+                    {data.stopViolations?.metadata && (
+                      <div className="space-y-3">
+                        {Object.entries(data.stopViolations.metadata.violation_counts_by_type || {}).map(([type, count]) => (
+                          <div key={type} className="flex justify-between">
+                            <span className="text-gray-600 capitalize">{type.replace('_', ' ')}:</span>
+                            <span className="font-medium">{count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
+          const renderDirectionNavigation = () => {
+            const directions = data.directionNavigation || {};
+            
+            return (
+              <div className="space-y-6">
+                {Object.entries(directions).map(([directionId, directionData]) => {
+                  const canonicalStops = Object.keys(directionData.canonical_pattern || {}).length;
+                  const observedPatterns = Object.keys(directionData.observed_patterns || {}).length;
+                  
+                  return (
+                    <div key={directionId} className="bg-white rounded-lg shadow-md p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-lg font-semibold">Direction {directionId}</h3>
+                        <div className="flex space-x-4 text-sm text-gray-600">
+                          <span>{canonicalStops} stops</span>
+                          <span>{observedPatterns} patterns</span>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                          <h4 className="font-medium text-gray-700 mb-3 flex items-center">
+                            <Route className="h-4 w-4 mr-2" />
+                            Canonical Pattern
+                          </h4>
+                          <div className="max-h-64 overflow-y-auto bg-gray-50 rounded p-4">
+                            {Object.entries(directionData.canonical_pattern || {}).map(([seq, stop]) => (
+                              <div key={seq} className={`flex justify-between items-center py-2 px-3 mb-1 rounded ${
+                                stop.complete ? 'bg-green-100' : 'bg-yellow-100'
+                              }`}>
+                                <span className="font-mono text-sm w-8">{seq}</span>
+                                <span className="flex-1 mx-2 text-sm">{stop.stop_name}</span>
+                                <div className="flex flex-col items-end">
+                                  <span className={`px-2 py-1 rounded-full text-xs ${
+                                    stop.complete ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'
+                                  }`}>
+                                    {stop.complete ? 'Complete' : 'Incomplete'}
+                                  </span>
+                                  {stop.missing_in_patterns && (
+                                    <span className="text-xs text-red-600 mt-1">
+                                      Missing in: {stop.missing_in_patterns.join(', ')}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-medium text-gray-700 mb-3 flex items-center">
+                            <Activity className="h-4 w-4 mr-2" />
+                            Observed Patterns
+                          </h4>
+                          <div className="space-y-3 max-h-64 overflow-y-auto">
+                            {Object.entries(directionData.observed_patterns || {}).map(([patternId, pattern]) => (
+                              <div key={patternId} className="border rounded-lg p-4">
+                                <div className="flex justify-between items-start mb-2">
+                                  <span className="font-medium">{patternId}</span>
+                                  <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                    {pattern.trip_count} trips
+                                  </span>
+                                </div>
+                                <p className="text-sm text-gray-600 mb-2">{pattern.pattern_description}</p>
+                                <div className="flex justify-between items-center">
+                                  <span className={`text-xs px-2 py-1 rounded ${
+                                    pattern.pattern_type === 'canonical' 
+                                      ? 'bg-green-100 text-green-800' 
+                                      : 'bg-orange-100 text-orange-800'
+                                  }`}>
+                                    {pattern.pattern_type}
+                                  </span>
+                                  {pattern.missing_stops && (
+                                    <span className="text-xs text-red-600">
+                                      {pattern.missing_stops.length} missing stops
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          };
+
+          const renderViolations = () => {
+            const violations = data.stopViolations?.parent_station_violations || {};
+            const metadata = data.stopViolations?.metadata || {};
+            
+            return (
+              <div className="space-y-6">
+                <div className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center">
+                    <AlertTriangle className="h-5 w-5 text-red-500 mr-2" />
+                    Stop Violations Analysis
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-red-50 p-4 rounded-lg">
+                      <p className="text-sm text-red-600">Total Violations</p>
+                      <p className="text-2xl font-bold text-red-700">{metadata.total_violations || 0}</p>
+                    </div>
+                    <div className="bg-yellow-50 p-4 rounded-lg">
+                      <p className="text-sm text-yellow-600">Parent Station</p>
+                      <p className="text-2xl font-bold text-yellow-700">
+                        {metadata.violation_counts_by_type?.parent_station || 0}
+                      </p>
+                    </div>
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <p className="text-sm text-blue-600">Stop Name</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {metadata.violation_counts_by_type?.stop_name || 0}
+                      </p>
+                    </div>
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <p className="text-sm text-purple-600">Stop ID</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {metadata.violation_counts_by_type?.stop_id || 0}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {Object.entries(violations).map(([violationId, violation]) => (
+                      <div key={violationId} className="border-l-4 border-red-500 bg-red-50 p-4 rounded">
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-semibold text-red-800">{violation.stop_name}</h4>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            violation.severity === 'high' ? 'bg-red-200 text-red-800' : 'bg-yellow-200 text-yellow-800'
+                          }`}>
+                            {violation.severity}
+                          </span>
+                        </div>
+                        <p className="text-sm text-red-700 mb-2">{violation.description}</p>
+                        <div className="text-xs text-red-600 space-y-1">
+                          <p>Type: {violation.violation_type}</p>
+                          <p>Route: {violation.route_short_name} ({violation.route_name})</p>
+                          <p>Expected: {violation.expected}</p>
+                          <p>Actual: {violation.actual}</p>
+                        </div>
+                        
+                        {violation.stop_ids_dir_detail && (
+                          <div className="mt-3 bg-white p-3 rounded border">
+                            <p className="text-xs font-medium text-gray-700 mb-2">Stop Direction Details:</p>
+                            {Object.entries(violation.stop_ids_dir_detail).map(([stopId, details]) => (
+                              <div key={stopId} className="text-xs text-gray-600 mb-1">
+                                <span className="font-mono">{stopId}</span>: 
+                                Directions {details.directions?.join(', ')} 
+                                (Counts: {Object.entries(details.direction_counts || {}).map(([dir, count]) => `${dir}:${count}`).join(', ')})
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
+          const renderHierarchies = () => {
+            const hierarchies = data.hierarchies?.stop_name_hierarchy || {};
+            
+            return (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-semibold mb-4">Stop Name Hierarchies</h3>
+                
+                <div className="space-y-4">
+                  {Object.entries(hierarchies).map(([stopName, hierarchy]) => {
+                    const hasLogReferences = hierarchy.log_references && hierarchy.log_references.length > 0;
+                    
+                    return (
+                      <div key={stopName} className="border rounded-lg">
+                        <button
+                          onClick={() => toggleSection(stopName)}
+                          className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50"
+                        >
+                          <div className="flex items-center">
+                            <MapPin className="h-4 w-4 text-gray-500 mr-2" />
+                            <span className="font-medium">{stopName}</span>
+                            <span className="ml-2 text-sm text-gray-500">({hierarchy.label})</span>
+                            {hasLogReferences && (
+                              <AlertTriangle className="h-4 w-4 text-yellow-500 ml-2" />
+                            )}
+                          </div>
+                          {expandedSections[stopName] ? 
+                            <ChevronDown className="h-4 w-4" /> : 
+                            <ChevronRight className="h-4 w-4" />
+                          }
+                        </button>
+                        
+                        {expandedSections[stopName] && (
+                          <div className="px-4 pb-4 border-t bg-gray-50">
+                            {hasLogReferences && (
+                              <div className="mt-3 p-2 bg-yellow-100 rounded text-sm text-yellow-800">
+                                <strong>Log References:</strong> {hierarchy.log_references.join(', ')}
+                              </div>
+                            )}
+                            
+                            <div className="space-y-2 mt-4">
+                              {Object.entries(hierarchy.parent_stations || {}).map(([stationId, station]) => (
+                                <div key={stationId} className="bg-white p-3 rounded border">
+                                  <div className="flex justify-between items-center mb-2">
+                                    <span className="font-mono text-sm">{stationId}</span>
+                                    <span className="text-sm text-gray-600">{station.label}</span>
+                                  </div>
+                                  
+                                  <div className="space-y-1">
+                                    <div className="text-xs text-gray-500">
+                                      Stop IDs: {station.stop_ids_list?.join(', ') || 'None'}
+                                    </div>
+                                    
+                                    {station.stop_ids && Object.entries(station.stop_ids).map(([stopId, details]) => (
+                                      <div key={stopId} className="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+                                        <span className="font-mono">{stopId}</span>: {details.label}
+                                      </div>
+                                    ))}
+                                    
+                                    {station.log_references && station.log_references.length > 0 && (
+                                      <div className="text-xs text-yellow-600">
+                                        Issues: {station.log_references.join(', ')}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          };
+
+          const renderAnalysis = () => {
+            return (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-semibold mb-4 flex items-center">
+                  <FileText className="h-5 w-5 text-blue-500 mr-2" />
+                  Analysis Data
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <BarChart className="h-4 w-4 text-blue-500 mr-2" />
+                      <h4 className="font-medium text-gray-700">Histograms Log</h4>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      {Object.keys(data.analysis?.histograms_log || {}).length} entries
+                    </p>
+                    {Object.keys(data.analysis?.histograms_log || {}).length === 0 && (
+                      <p className="text-xs text-gray-500 mt-1">No histogram data available</p>
+                    )}
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <Clock className="h-4 w-4 text-green-500 mr-2" />
+                      <h4 className="font-medium text-gray-700">Punctuality Log</h4>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      {Object.keys(data.analysis?.punctuality_log || {}).length} entries
+                    </p>
+                    {Object.keys(data.analysis?.punctuality_log || {}).length === 0 && (
+                      <p className="text-xs text-gray-500 mt-1">No punctuality data available</p>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                  <p className="text-sm text-blue-700">
+                    Analysis data structure is initialized and ready for detailed metrics.
+                    When you add histogram and punctuality data to your analysis.json file, 
+                    detailed charts and insights will appear here.
+                  </p>
+                </div>
+              </div>
+            );
+          };
+
+          if (loading) {
+            return (
+              <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+                  <p className="mt-4 text-gray-600">Loading transit analysis data...</p>
+                </div>
+              </div>
+            );
+          }
+
+          if (error) {
+            return (
+              <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+                <div className="text-center max-w-md mx-auto">
+                  <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+                  <h2 className="text-xl font-bold text-red-600 mb-2">Connection Error</h2>
+                  <p className="text-gray-600 text-sm mb-4">{error}</p>
+                  <button 
+                    onClick={() => window.location.reload()}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Retry
+                  </button>
+                  <div className="mt-6 p-4 bg-yellow-50 rounded-lg text-left">
+                    <h3 className="font-medium text-yellow-800 mb-2">Troubleshooting:</h3>
+                    <ul className="text-sm text-yellow-700 space-y-1">
+                      <li>• Make sure Flask is running: <code className="bg-yellow-200 px-1 rounded">python app.py</code></li>
+                      <li>• Check your data folder has the JSON files</li>
+                      <li>• Verify Flask is on http://localhost:5000</li>
+                      <li>• Check browser console for more details</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className="min-h-screen bg-gray-100">
+              <div className="container mx-auto px-4 py-8">
+                <h1 className="text-3xl font-bold text-gray-900 mb-8">Transit Analysis Dashboard</h1>
+                
+                <div className="mb-8 border-b border-gray-200">
+                  <nav className="-mb-px flex space-x-8">
+                    {[
+                      { id: 'overview', label: 'Overview', icon: TrendingUp },
+                      { id: 'navigation', label: 'Direction Navigation', icon: Route },
+                      { id: 'violations', label: 'Violations', icon: AlertTriangle },
+                      { id: 'hierarchies', label: 'Hierarchies', icon: MapPin },
+                      { id: 'analysis', label: 'Analysis', icon: FileText }
+                    ].map(({ id, label, icon: Icon }) => (
+                      <button
+                        key={id}
+                        onClick={() => setActiveTab(id)}
+                        className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
+                          activeTab === id
+                            ? 'border-blue-500 text-blue-600'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`}
+                      >
+                        <Icon className="h-4 w-4 mr-2" />
+                        {label}
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+                
+                <div className="tab-content">
+                  {activeTab === 'overview' && renderOverview()}
+                  {activeTab === 'navigation' && renderDirectionNavigation()}
+                  {activeTab === 'violations' && renderViolations()}
+                  {activeTab === 'hierarchies' && renderHierarchies()}
+                  {activeTab === 'analysis' && renderAnalysis()}
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        ReactDOM.render(React.createElement(TransitAnalysisDashboard), document.getElementById('root'));
+    </script>
+</body>
 </html>

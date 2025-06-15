@@ -1,0 +1,860 @@
+{
+  "stop_name_hierarchy": {
+    "MAXI": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005004189000": {
+          "label": "Shared",
+          "stop_ids": {
+            "9022005004189001": {
+              "label": "multi_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005004189001"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Norra Tornby": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005004171000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005004171001": {
+              "label": "single_directional"
+            },
+            "9022005004171002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005004171001",
+            "9022005004171002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "IKEA": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000429000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005000429001": {
+              "label": "single_directional"
+            },
+            "9022005000429002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000429001",
+            "9022005000429002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Ullevi": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001237000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001237001": {
+              "label": "single_directional"
+            },
+            "9022005001237002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001237001",
+            "9022005001237002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Skäggetorp centrum": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000048000": {
+          "label": "Shared",
+          "stop_ids": {
+            "9022005000048001": {
+              "label": "multi_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000048001"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Mellangården": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001411000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001411001": {
+              "label": "single_directional"
+            },
+            "9022005001411002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001411001",
+            "9022005001411002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Rusthållaregården": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001236000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001236001": {
+              "label": "single_directional"
+            },
+            "9022005001236003": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001236001",
+            "9022005001236003"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Solhaga": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001315000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001315001": {
+              "label": "single_directional"
+            },
+            "9022005001315002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001315001",
+            "9022005001315002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Ryd centrum": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000214000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005000214001": {
+              "label": "single_directional"
+            },
+            "9022005000214002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000214001",
+            "9022005000214002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Mårdtorpsgatan": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001343000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001343001": {
+              "label": "single_directional"
+            },
+            "9022005001343002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001343001",
+            "9022005001343002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Djursjukhuset": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005003840000": {
+          "label": "Undefined",
+          "stop_ids": {
+            "9022005003840001": {
+              "label": "multi_directional"
+            },
+            "9022005003840002": {
+              "label": "multi_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005003840001",
+            "9022005003840002"
+          ],
+          "log_references": [
+            "two_stop_misassigned_directions_9095227473874366394"
+          ]
+        }
+      },
+      "log_references": [
+        "two_stop_misassigned_directions_9095227473874366394"
+      ]
+    },
+    "Tingsvägen": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005003839000": {
+          "label": "Undefined",
+          "stop_ids": {
+            "9022005003839001": {
+              "label": "multi_directional"
+            },
+            "9022005003839002": {
+              "label": "multi_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005003839001",
+            "9022005003839002"
+          ],
+          "log_references": [
+            "two_stop_misassigned_directions_-8780397833744368029"
+          ]
+        }
+      },
+      "log_references": [
+        "two_stop_misassigned_directions_-8780397833744368029"
+      ]
+    },
+    "Jägarvallsvägen": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000228000": {
+          "label": "Shared",
+          "stop_ids": {
+            "9022005000228001": {
+              "label": "multi_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000228001"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Mjärdevi": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005004139000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005004139001": {
+              "label": "single_directional"
+            },
+            "9022005004139002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005004139001",
+            "9022005004139002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Mjärdevi Center": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005004232000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005004232001": {
+              "label": "single_directional"
+            },
+            "9022005004232003": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005004232001",
+            "9022005004232003"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Forskningsbyn": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005003847000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005003847001": {
+              "label": "single_directional"
+            },
+            "9022005003847002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005003847001",
+            "9022005003847002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Nobeltorget": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005080182000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005080182001": {
+              "label": "single_directional"
+            },
+            "9022005080182002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005080182001",
+            "9022005080182002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Boställsgatan": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001275000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001275001": {
+              "label": "single_directional"
+            },
+            "9022005001275002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001275001",
+            "9022005001275002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Slestadsskolan": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001274000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001274001": {
+              "label": "single_directional"
+            },
+            "9022005001274002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001274001",
+            "9022005001274002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Landbogatan": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000223000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005000223001": {
+              "label": "single_directional"
+            },
+            "9022005000223002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000223001",
+            "9022005000223002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Änggårdsskolan": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000418000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005000418001": {
+              "label": "single_directional"
+            },
+            "9022005000418002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000418001",
+            "9022005000418002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Isberget": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005000213000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005000213001": {
+              "label": "single_directional"
+            },
+            "9022005000213002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005000213001",
+            "9022005000213002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    },
+    "Rättaregatan": {
+      "label": "Single Parent Station",
+      "parent_stations": {
+        "9021005001273000": {
+          "label": "Bidirectional",
+          "stop_ids": {
+            "9022005001273001": {
+              "label": "single_directional"
+            },
+            "9022005001273002": {
+              "label": "single_directional"
+            }
+          },
+          "stop_ids_list": [
+            "9022005001273001",
+            "9022005001273002"
+          ],
+          "log_references": []
+        }
+      },
+      "log_references": []
+    }
+  },
+  "stop_id_hierarchy": {
+    "9022005004189001": {
+      "parent_station": "9021005004189000",
+      "stop_name": "MAXI",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Shared",
+      "log_references": []
+    },
+    "9022005004171001": {
+      "parent_station": "9021005004171000",
+      "stop_name": "Norra Tornby",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000429001": {
+      "parent_station": "9021005000429000",
+      "stop_name": "IKEA",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001237002": {
+      "parent_station": "9021005001237000",
+      "stop_name": "Ullevi",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000048001": {
+      "parent_station": "9021005000048000",
+      "stop_name": "Skäggetorp centrum",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Shared",
+      "log_references": []
+    },
+    "9022005001411001": {
+      "parent_station": "9021005001411000",
+      "stop_name": "Mellangården",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001236001": {
+      "parent_station": "9021005001236000",
+      "stop_name": "Rusthållaregården",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001315002": {
+      "parent_station": "9021005001315000",
+      "stop_name": "Solhaga",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000214002": {
+      "parent_station": "9021005000214000",
+      "stop_name": "Ryd centrum",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001343002": {
+      "parent_station": "9021005001343000",
+      "stop_name": "Mårdtorpsgatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005003840001": {
+      "parent_station": "9021005003840000",
+      "stop_name": "Djursjukhuset",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Undefined",
+      "log_references": [
+        "two_stop_misassigned_directions_9095227473874366394"
+      ]
+    },
+    "9022005003839001": {
+      "parent_station": "9021005003839000",
+      "stop_name": "Tingsvägen",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Undefined",
+      "log_references": [
+        "two_stop_misassigned_directions_-8780397833744368029"
+      ]
+    },
+    "9022005000228001": {
+      "parent_station": "9021005000228000",
+      "stop_name": "Jägarvallsvägen",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Shared",
+      "log_references": []
+    },
+    "9022005003839002": {
+      "parent_station": "9021005003839000",
+      "stop_name": "Tingsvägen",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Undefined",
+      "log_references": [
+        "two_stop_misassigned_directions_-8780397833744368029"
+      ]
+    },
+    "9022005003840002": {
+      "parent_station": "9021005003840000",
+      "stop_name": "Djursjukhuset",
+      "stop_id_label": "multi_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Undefined",
+      "log_references": [
+        "two_stop_misassigned_directions_9095227473874366394"
+      ]
+    },
+    "9022005004139001": {
+      "parent_station": "9021005004139000",
+      "stop_name": "Mjärdevi",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005004232001": {
+      "parent_station": "9021005004232000",
+      "stop_name": "Mjärdevi Center",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005003847001": {
+      "parent_station": "9021005003847000",
+      "stop_name": "Forskningsbyn",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005080182002": {
+      "parent_station": "9021005080182000",
+      "stop_name": "Nobeltorget",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001275002": {
+      "parent_station": "9021005001275000",
+      "stop_name": "Boställsgatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001274002": {
+      "parent_station": "9021005001274000",
+      "stop_name": "Slestadsskolan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000223002": {
+      "parent_station": "9021005000223000",
+      "stop_name": "Landbogatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000418002": {
+      "parent_station": "9021005000418000",
+      "stop_name": "Änggårdsskolan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000213002": {
+      "parent_station": "9021005000213000",
+      "stop_name": "Isberget",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001273002": {
+      "parent_station": "9021005001273000",
+      "stop_name": "Rättaregatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000223001": {
+      "parent_station": "9021005000223000",
+      "stop_name": "Landbogatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000418001": {
+      "parent_station": "9021005000418000",
+      "stop_name": "Änggårdsskolan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001275001": {
+      "parent_station": "9021005001275000",
+      "stop_name": "Boställsgatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001274001": {
+      "parent_station": "9021005001274000",
+      "stop_name": "Slestadsskolan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001273001": {
+      "parent_station": "9021005001273000",
+      "stop_name": "Rättaregatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000213001": {
+      "parent_station": "9021005000213000",
+      "stop_name": "Isberget",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005080182001": {
+      "parent_station": "9021005080182000",
+      "stop_name": "Nobeltorget",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005004232003": {
+      "parent_station": "9021005004232000",
+      "stop_name": "Mjärdevi Center",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005003847002": {
+      "parent_station": "9021005003847000",
+      "stop_name": "Forskningsbyn",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005004139002": {
+      "parent_station": "9021005004139000",
+      "stop_name": "Mjärdevi",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001343001": {
+      "parent_station": "9021005001343000",
+      "stop_name": "Mårdtorpsgatan",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000214001": {
+      "parent_station": "9021005000214000",
+      "stop_name": "Ryd centrum",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001315001": {
+      "parent_station": "9021005001315000",
+      "stop_name": "Solhaga",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001411002": {
+      "parent_station": "9021005001411000",
+      "stop_name": "Mellangården",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005000429002": {
+      "parent_station": "9021005000429000",
+      "stop_name": "IKEA",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001237001": {
+      "parent_station": "9021005001237000",
+      "stop_name": "Ullevi",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005001236003": {
+      "parent_station": "9021005001236000",
+      "stop_name": "Rusthållaregården",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    },
+    "9022005004171002": {
+      "parent_station": "9021005004171000",
+      "stop_name": "Norra Tornby",
+      "stop_id_label": "single_directional",
+      "stop_name_label": "Single Parent Station",
+      "parent_station_label": "Bidirectional",
+      "log_references": []
+    }
+  }
+}
