@@ -1,17 +1,59 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(#f0f4f7, #eaf1ef);
+  color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+.tile {
+  border: 3px solid transparent;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: border 0.2s ease;
+}
+
+.tile.has-violation {
+  border-color: #b22222;
+}
+
+.tile.has-label {
+  border-left: 6px solid #2a9d8f;
+}
+
+.grid-two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-summary {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-around;
+  padding: 2rem;
+  background-color: #dceef2;
+  border-radius: 12px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
+/* 
+.trees {
+  background-image: url('/trees.svg');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+  height: 120px;
+} */

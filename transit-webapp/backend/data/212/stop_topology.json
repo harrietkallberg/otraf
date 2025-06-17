@@ -1,0 +1,70 @@
+{
+  "parent_station_classifications": {
+    "9021005000050000": "Shared",
+    "9021005001223000": "Bidirectional",
+    "9021005000417000": "Bidirectional",
+    "9021005003848000": "Bidirectional",
+    "9021005001253000": "Bidirectional",
+    "9021005001254000": "Bidirectional",
+    "9021005000215000": "Bidirectional",
+    "9021005001274000": "Bidirectional",
+    "9021005001273000": "Bidirectional",
+    "9021005001275000": "Bidirectional",
+    "9021005003870000": "Bidirectional",
+    "9021005004232000": "Bidirectional",
+    "9021005003847000": "Bidirectional",
+    "9021005000213000": "Bidirectional",
+    "9021005001256000": "Bidirectional",
+    "9021005001257000": "Bidirectional",
+    "9021005000418000": "Shared"
+  },
+  "stop_id_direction_assignment_violations": {},
+  "metadata": {
+    "total_violations": 0,
+    "violation_counts_by_type": {
+      "parent_station": 0,
+      "stop_id": 0
+    },
+    "route_summary": {
+      "total_stops": 0,
+      "total_parent_stations": 0,
+      "topology_types": {}
+    }
+  },
+  "stop_id_classifications": {
+    "9022005000050013": "multi_directional",
+    "9022005001223002": "single_directional",
+    "9022005000417002": "single_directional",
+    "9022005003848002": "single_directional",
+    "9022005001253002": "single_directional",
+    "9022005001254002": "single_directional",
+    "9022005000215002": "single_directional",
+    "9022005001274002": "single_directional",
+    "9022005001273002": "single_directional",
+    "9022005001275002": "single_directional",
+    "9022005003870002": "single_directional",
+    "9022005004232002": "single_directional",
+    "9022005003847002": "single_directional",
+    "9022005000213002": "single_directional",
+    "9022005001256001": "single_directional",
+    "9022005001257001": "single_directional",
+    "9022005000418003": "multi_directional",
+    "9022005001275001": "single_directional",
+    "9022005001274001": "single_directional",
+    "9022005001273001": "single_directional",
+    "9022005000213001": "single_directional",
+    "9022005003870001": "single_directional",
+    "9022005004232001": "single_directional",
+    "9022005003847001": "single_directional",
+    "9022005001257002": "single_directional",
+    "9022005001256002": "single_directional",
+    "9022005000215001": "single_directional",
+    "9022005000417001": "single_directional",
+    "9022005001223001": "single_directional",
+    "9022005001253001": "single_directional",
+    "9022005003848001": "single_directional",
+    "9022005001254001": "single_directional"
+  },
+  "parent_station_violations": {},
+  "stop_id_violations": {}
+}
