@@ -1,0 +1,342 @@
+{
+  "direction_classifications": {
+    "0": "Multi-Pattern",
+    "1": "Multi-Pattern"
+  },
+  "stop_id_pattern_assignment_violations": {},
+  "metadata": {
+    "total_violations": 16,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 14
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    }
+  },
+  "stop_id_classifications": {
+    "__TUPLE__9022005000042001::0": "high_coverage",
+    "__TUPLE__9022005000042002::1": "high_coverage",
+    "__TUPLE__9022005000046003::0": "high_coverage",
+    "__TUPLE__9022005000046006::1": "high_coverage",
+    "__TUPLE__9022005000050007::0": "high_coverage",
+    "__TUPLE__9022005000050028::1": "high_coverage",
+    "__TUPLE__9022005000153001::0": "high_coverage",
+    "__TUPLE__9022005000153001::1": "varying_coverage",
+    "__TUPLE__9022005000155001::1": "varying_coverage",
+    "__TUPLE__9022005000155002::0": "high_coverage",
+    "__TUPLE__9022005000320001::0": "high_coverage",
+    "__TUPLE__9022005000320002::1": "high_coverage",
+    "__TUPLE__9022005000423001::0": "high_coverage",
+    "__TUPLE__9022005000439001::0": "high_coverage",
+    "__TUPLE__9022005000439002::1": "high_coverage",
+    "__TUPLE__9022005000440001::1": "varying_coverage",
+    "__TUPLE__9022005000440002::0": "high_coverage",
+    "__TUPLE__9022005000448001::0": "high_coverage",
+    "__TUPLE__9022005000448002::1": "high_coverage",
+    "__TUPLE__9022005001221002::1": "high_coverage",
+    "__TUPLE__9022005001222001::0": "high_coverage",
+    "__TUPLE__9022005001243001::0": "varying_coverage",
+    "__TUPLE__9022005001243002::1": "varying_coverage",
+    "__TUPLE__9022005001252001::0": "high_coverage",
+    "__TUPLE__9022005001252002::1": "high_coverage",
+    "__TUPLE__9022005001332001::0": "high_coverage",
+    "__TUPLE__9022005001332002::1": "high_coverage",
+    "__TUPLE__9022005001392001::0": "high_coverage",
+    "__TUPLE__9022005001392002::1": "high_coverage",
+    "__TUPLE__9022005001447002::1": "high_coverage",
+    "__TUPLE__9022005001458001::1": "varying_coverage",
+    "__TUPLE__9022005001458002::0": "high_coverage",
+    "__TUPLE__9022005002014001::1": "varying_coverage",
+    "__TUPLE__9022005002014002::0": "high_coverage",
+    "__TUPLE__9022005002015001::1": "varying_coverage",
+    "__TUPLE__9022005002015002::0": "high_coverage",
+    "__TUPLE__9022005002024001::1": "varying_coverage",
+    "__TUPLE__9022005002024002::0": "high_coverage",
+    "__TUPLE__9022005002025001::1": "varying_coverage",
+    "__TUPLE__9022005002025002::0": "high_coverage",
+    "__TUPLE__9022005002026001::1": "varying_coverage",
+    "__TUPLE__9022005002026002::0": "high_coverage",
+    "__TUPLE__9022005002028001::1": "varying_coverage",
+    "__TUPLE__9022005002028002::0": "high_coverage",
+    "__TUPLE__9022005002030001::1": "varying_coverage",
+    "__TUPLE__9022005002030002::0": "high_coverage",
+    "__TUPLE__9022005002946001::0": "high_coverage",
+    "__TUPLE__9022005002946002::1": "high_coverage",
+    "__TUPLE__9022005002949001::0": "high_coverage",
+    "__TUPLE__9022005002949002::1": "high_coverage",
+    "__TUPLE__9022005002953001::0": "high_coverage",
+    "__TUPLE__9022005002953002::1": "high_coverage",
+    "__TUPLE__9022005002954001::0": "high_coverage",
+    "__TUPLE__9022005002954002::1": "high_coverage",
+    "__TUPLE__9022005003595001::1": "varying_coverage",
+    "__TUPLE__9022005003595002::0": "high_coverage",
+    "__TUPLE__9022005080005001::0": "high_coverage",
+    "__TUPLE__9022005080005002::1": "high_coverage"
+  },
+  "direction_violations": {
+    "direction_0": {
+      "violation_type": "multiple_patterns",
+      "severity": "medium",
+      "description": "Direction 0 has multiple stop patterns",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "0",
+      "pattern_summary": {
+        "unique_pattern_count": 4578,
+        "most_common_pattern_freq": 8,
+        "top_patterns": {
+          "9022005000153001->9022005002024002->9022005002025002->9022005002026002->9022005003595002->9022005002028002->9022005002030002->9022005000155002->9022005002014002->9022005002015002->9022005000440002->9022005001458002->9022005000423001->9022005000050007->9022005001243001->9022005000046003->9022005000042001->9022005001222001->9022005001252001->9022005001392001->9022005001332001->9022005000448001->9022005000439001->9022005002946001->9022005002949001->9022005000320001->9022005080005001->9022005002953001->9022005002954001": 8,
+          "9022005000153001->9022005002024002->9022005002025002->9022005002026002->9022005003595002->9022005002028002->9022005002030002->9022005000155002->9022005002014002->9022005002015002->9022005000440002->9022005001458002->9022005000423001->9022005000050007->9022005001243001->9022005000046003->9022005000042001->9022005001222001->9022005001252001->9022005001392001->9022005001332001->9022005000448001->9022005000439001->9022005002946001->9022005002949001->9022005000320001->9022005080005001->9022005002954001->9022005002953001": 5,
+          "9022005000153001->9022005002024002->9022005002025002->9022005002026002->9022005003595002->9022005002028002->9022005002030002->9022005000155002->9022005002014002->9022005002015002->9022005000440002->9022005001458002->9022005000423001->9022005000050007->9022005001243001->9022005000046003->9022005000042001->9022005001222001->9022005001252001->9022005001392001->9022005001332001->9022005000448001->9022005000439001->9022005002946001->9022005002954001->9022005002953001->9022005080005001->9022005000320001->9022005002949001": 5
+        }
+      }
+    },
+    "direction_1": {
+      "violation_type": "multiple_patterns",
+      "severity": "medium",
+      "description": "Direction 1 has multiple stop patterns",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "pattern_summary": {
+        "unique_pattern_count": 4915,
+        "most_common_pattern_freq": 14,
+        "top_patterns": {
+          "9022005002954002->9022005002953002->9022005080005002->9022005000320002->9022005002949002->9022005002946002->9022005000439002->9022005000448002->9022005001332002->9022005001392002->9022005001252002->9022005001447002->9022005001221002->9022005000042002->9022005000046006->9022005001243002->9022005000050028": 14,
+          "9022005002954002->9022005002953002->9022005080005002->9022005000320002->9022005002949002->9022005002946002->9022005000439002->9022005000448002->9022005001332002->9022005001392002->9022005001252002->9022005001447002->9022005001221002->9022005000042002->9022005000046006->9022005000050028->9022005001243002": 10,
+          "9022005002954002->9022005002953002->9022005080005002->9022005000320002->9022005002949002->9022005002946002->9022005000439002->9022005000448002->9022005001332002->9022005001392002->9022005001252002->9022005001447002->9022005001221002->9022005000042002->9022005000046006->9022005001243002->9022005000050028->9022005001458001->9022005000440001->9022005002015001->9022005002014001->9022005000153001->9022005002024001->9022005002025001->9022005002026001->9022005003595001->9022005002028001->9022005002030001->9022005000155001": 7
+        }
+      }
+    }
+  },
+  "stop_id_violations": {
+    "stop_id_0": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005000153001 is missing from 312 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005000153001",
+      "details": {
+        "missing_count": 312,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_1": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005000155001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005000155001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_2": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005000440001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005000440001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_3": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005001243001 is missing from 791 out of 4850 trips in direction 0",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "0",
+      "stop_id": "9022005001243001",
+      "details": {
+        "missing_count": 791,
+        "total_trips": 4850,
+        "missing_percentage": 16.3,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_4": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005001243002 is missing from 750 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005001243002",
+      "details": {
+        "missing_count": 750,
+        "total_trips": 5040,
+        "missing_percentage": 14.9,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_5": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005001458001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005001458001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_6": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002014001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002014001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_7": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002015001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002015001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_8": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002024001 is missing from 312 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002024001",
+      "details": {
+        "missing_count": 312,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_9": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002025001 is missing from 312 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002025001",
+      "details": {
+        "missing_count": 312,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_10": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002026001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002026001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_11": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002028001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002028001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_12": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005002030001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005002030001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    },
+    "stop_id_13": {
+      "violation_type": "missing_stop_in_direction",
+      "severity": "low",
+      "description": "Stop 9022005003595001 is missing from 313 out of 5040 trips in direction 1",
+      "route_id": "9011005021000000",
+      "route_name": "210",
+      "route_short_name": "10",
+      "direction_id": "1",
+      "stop_id": "9022005003595001",
+      "details": {
+        "missing_count": 313,
+        "total_trips": 5040,
+        "missing_percentage": 6.2,
+        "missing_by_time_type": {}
+      }
+    }
+  }
+}

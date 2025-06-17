@@ -1,0 +1,4560 @@
+[
+  {
+    "201": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000043001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000043002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000044001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000044001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000045001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000045002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046004",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000048001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000048001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050003",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000417001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000417003",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001219001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001219002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001221002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001222001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001223001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001223002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001227001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001227002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001229001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001229002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001230001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001230002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001231001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001231002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001232001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001232002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001233001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001233002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001234001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001234002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001235001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001235002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001236001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001236003",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001411001",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001411002",
+        "label": "high_coverage",
+        "route_id": "9011005020100000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "202": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046004",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050006",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050006",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000404001",
+        "label": "varying_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000404002",
+        "label": "varying_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000469002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000469003",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001249001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001249002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004076001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004076002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004084001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004084002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004230001",
+        "label": "varying_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004230002",
+        "label": "varying_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004236001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004236002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004250001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004250002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004251001",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004251002",
+        "label": "high_coverage",
+        "route_id": "9011005020200000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "203": [
+      {
+        "stop_id": "9022005000050005",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050005",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000214001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000214002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000215001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000215002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000219001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000219001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001253001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001253002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001254001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001254002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001259001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001259002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001268001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001268002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001315001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001315002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001338001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001338002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001339001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001339002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001341001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001341002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001343001",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001343002",
+        "label": "high_coverage",
+        "route_id": "9011005020300000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "204": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046004",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050006",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050006",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000213001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000213002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000223001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000223002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000234001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000234002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000404001",
+        "label": "varying_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000404002",
+        "label": "varying_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000418001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000418002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001249001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001249002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001273001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001273002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001274001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001274002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001275001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001275002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004230001",
+        "label": "varying_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004230002",
+        "label": "varying_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004236001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004236002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080004001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005080004002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080182001",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005080182002",
+        "label": "high_coverage",
+        "route_id": "9011005020400000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "205": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046004",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000048001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000048001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000049001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000049002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050004",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050010",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000054001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000054002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000329001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000329002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000419001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000419002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000429001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000429002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000444001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000444002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001221002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001222001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001236002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001236003",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001238001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001238002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001239001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001239002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001240001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001240002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001241001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001241002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001252001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001252002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001318001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001318002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001324001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001324002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001325001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001325002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001332001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001332002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001392001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001392002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001411001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001411002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001447002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003559001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003559002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003974001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003974002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004171001",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004171002",
+        "label": "high_coverage",
+        "route_id": "9011005020500000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "206": [
+      {
+        "stop_id": "9022005000050029",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050029",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000215001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000215002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000221001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000221002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000222001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000222002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001253001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001253002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001254001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001254002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001259001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001259002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001268001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001268002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001443001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001443002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001444001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001444002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001446001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001446002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001450001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001450002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001452001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001452002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001453001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001453002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001551001",
+        "label": "varying_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001551002",
+        "label": "varying_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004138001",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004138002",
+        "label": "high_coverage",
+        "route_id": "9011005020600000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "210": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050007",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050028",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000153001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000153001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000155001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000155002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000320001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000320002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000423001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000439001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000439002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000440001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000440002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000448001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000448002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001221002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001222001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001252001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001252002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001332001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001332002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001392001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001392002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001447002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001458001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001458002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002014001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002014002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002015001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002015002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002024001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002024002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002025001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002025002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002026001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002026002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002028001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002028002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002030001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002030002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002946001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002946002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002949001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002949002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002953001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002953002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005002954001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005002954002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003595001",
+        "label": "varying_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003595002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080005001",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080005002",
+        "label": "high_coverage",
+        "route_id": "9011005021000000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "211": [
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050008",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050008",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000216001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000216002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000230001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000230002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000231001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000231001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001261001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001261002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001262001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001262002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001319001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001319002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001320001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001320002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001321001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001321002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001323001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001323003",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003854001",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003854002",
+        "label": "high_coverage",
+        "route_id": "9011005021100000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "212": [
+      {
+        "stop_id": "9022005000050013",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050013",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000213001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000213002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000215001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000215002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000417001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000417002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000418003",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000418003",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001223001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001223002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001253001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001253002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001254001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001254002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001256001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001256002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001257001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001257002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001273001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001273002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001274001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001274002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001275001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001275002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003847001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003847002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003848001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003848002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003870001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003870002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004232001",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004232002",
+        "label": "high_coverage",
+        "route_id": "9011005021200000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "213": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050008",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050011",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000095001",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000095002",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000096001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000096002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000216001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000216002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000217003",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000217003",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000351001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000351002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000423001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000423002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001221002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001222001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001252001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001252002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001261001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001261002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001262001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001262002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001322001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001322002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001327001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001327002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001346001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001346002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001348001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001348002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001447002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001460001",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001460002",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001460003",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001460004",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001604001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001604002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001605001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001605002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001607001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001607002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001609001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001609002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001610001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001610002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004078001",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004078002",
+        "label": "high_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080007001",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005080007002",
+        "label": "varying_coverage",
+        "route_id": "9011005021300000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "214": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000043001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000043002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000045002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050012",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000054001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000054002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000215003",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000215004",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000226001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000226002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000416002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000416002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000437001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000437002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001221002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001222001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001224001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001227001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001227002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001231001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001231002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001309001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001309002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001318001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001318002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001329001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001329002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001330001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001330002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001394001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001394002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001398001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001398002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001400001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001400002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001401001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001401002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001405001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001405002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003559001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003559002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003748001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003748002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003849001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003849002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003850001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003850002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003908001",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003908002",
+        "label": "high_coverage",
+        "route_id": "9011005021400000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "215": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000043001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000043002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000045001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000045002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000507001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000507002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000508001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000508002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001221002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001222001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001227001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001227002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001231001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001231002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001232001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001232002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001233001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001233002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001598001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001598002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003838001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003838002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004087001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004087002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004088001",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004088002",
+        "label": "high_coverage",
+        "route_id": "9011005021500000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "216": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050018",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000050019",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000198001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000198002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000226001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000226002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000412001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000412002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000416001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000416001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000421001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000421002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000422001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000422002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000437001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000437002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001249001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001249002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001323001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001323002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001394001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001394002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001396001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001396002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001418001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001418002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001419001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001419002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001421001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001421002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001422001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001422002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001424001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001424002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001426001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001426002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001430001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001430002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001431001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001431002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001433001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001433002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001435001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001435002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001437001",
+        "label": "varying_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001437001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001437002",
+        "label": "varying_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001445001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001445002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004186001",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004186002",
+        "label": "high_coverage",
+        "route_id": "9011005021600000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "217": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000043001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000044002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000044003",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050019",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050019",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000412001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000412002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000416001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000416001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001229001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001229002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001230001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001230002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001249001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001249002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001300001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001300002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001301001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001301002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001302001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001302002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001303001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001303002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001430001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001430002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001431001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001431002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001596001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001596002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001598001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001598002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003838001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003838002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004186001",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004186002",
+        "label": "high_coverage",
+        "route_id": "9011005021700000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "218": [
+      {
+        "stop_id": "9022005000042001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000042002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000046003",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000046006",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050012",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050012",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000198002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000215003",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000215004",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000229001",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000229002",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000430001",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000430002",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001243001",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001243002",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001248001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001248002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001249001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001249002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001307001",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001307002",
+        "label": "varying_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003580001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003580002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004067001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004067002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004091001",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004091002",
+        "label": "high_coverage",
+        "route_id": "9011005021800000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "220": [
+      {
+        "stop_id": "9022005000050020",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050020",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001256001",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001256002",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001257001",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001257002",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003847001",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003847002",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004139001",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004139002",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004232001",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004232003",
+        "label": "high_coverage",
+        "route_id": "9011005022000000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "221": [
+      {
+        "stop_id": "9022005000050018",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000050018",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000435001",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000435002",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001418001",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001418002",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001419001",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001419002",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001421001",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001421002",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001422001",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001422002",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001424001",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001424002",
+        "label": "high_coverage",
+        "route_id": "9011005022100000",
+        "direction_id": "1"
+      }
+    ]
+  },
+  {
+    "222": [
+      {
+        "stop_id": "9022005000043001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000045001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000045002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000054001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000054002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000226001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000226002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000412001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000412002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000416001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000416002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000437001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000437002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001231001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001231002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001232001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001232002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001233001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001233002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001318001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001318002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001394001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001394002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001398001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001398002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001400001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001400002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001401001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001401002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001430001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001430002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001431001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001431002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001598001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001598002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003559001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003559002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003838001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003838002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003847001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003847002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003850001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003850002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004139001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004139002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004232001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004232003",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004236001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004236002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004253001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004253002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080004001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005080004002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080182001",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005080182002",
+        "label": "high_coverage",
+        "route_id": "9011005022200000",
+        "direction_id": "0"
+      }
+    ]
+  },
+  {
+    "226": [
+      {
+        "stop_id": "9022005000048001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000048001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000213001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000213002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000214001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000214002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000223001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000223002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000228001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000228001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000418001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005000418002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000429001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005000429002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001236001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001236003",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001237001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001237002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001273001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001273002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001274001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001274002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001275001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001275002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001315001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001315002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001343001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005001343002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001411001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005001411002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003839001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003839001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003839002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003839002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003840001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003840001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003840002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005003840002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003847001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005003847002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004139001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004139002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004171001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004171002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004189001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005004189001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004232001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      },
+      {
+        "stop_id": "9022005004232003",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080182001",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "0"
+      },
+      {
+        "stop_id": "9022005080182002",
+        "label": "high_coverage",
+        "route_id": "9011005022600000",
+        "direction_id": "1"
+      }
+    ]
+  }
+]

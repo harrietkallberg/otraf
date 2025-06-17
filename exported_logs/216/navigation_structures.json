@@ -1,0 +1,637 @@
+{
+  "stop_hierarchies": {
+    "by_stop_name": {},
+    "by_stop_id": {}
+  },
+  "direction_hierarchies": {
+    "by_direction": {
+      "0": {
+        "canonical_stop_ids": [
+          "9022005000050019",
+          "9022005001243001",
+          "9022005000046003",
+          "9022005000042001",
+          "9022005000198001",
+          "9022005001249001",
+          "9022005004186001",
+          "9022005000412001",
+          "9022005001431001",
+          "9022005001430001",
+          "9022005000416001",
+          "9022005000226002",
+          "9022005001394002",
+          "9022005000437002",
+          "9022005001396001",
+          "9022005001433001",
+          "9022005000422001",
+          "9022005001435001",
+          "9022005001445001",
+          "9022005001437002",
+          "9022005001421002",
+          "9022005001419001",
+          "9022005001418001",
+          "9022005001323001",
+          "9022005001426001",
+          "9022005000421001",
+          "9022005001424001",
+          "9022005001422001",
+          "9022005001437001"
+        ],
+        "label": "Multi-Pattern",
+        "num_trips": 470,
+        "has_violation": true
+      },
+      "1": {
+        "canonical_stop_ids": [
+          "9022005001430002",
+          "9022005001431002",
+          "9022005000412002",
+          "9022005004186002",
+          "9022005001249002",
+          "9022005000198002",
+          "9022005000042002",
+          "9022005000046006",
+          "9022005001243002",
+          "9022005000050018",
+          "9022005001422002",
+          "9022005001424002",
+          "9022005000421002",
+          "9022005001426002",
+          "9022005001323002",
+          "9022005001418002",
+          "9022005001419002",
+          "9022005001421001",
+          "9022005001437001",
+          "9022005001445002",
+          "9022005001435002",
+          "9022005000422002",
+          "9022005001433002",
+          "9022005001396002",
+          "9022005000437001",
+          "9022005001394001",
+          "9022005000226001",
+          "9022005000416001"
+        ],
+        "label": "Multi-Pattern",
+        "num_trips": 249,
+        "has_violation": true
+      }
+    },
+    "by_stop_id": {
+      "9022005000042001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000042002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000046003": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000046006": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000050018": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000050019": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000198001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000198002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000226001": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000226002": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000412001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000412002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000416001": {
+        "directions": [
+          "0",
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern",
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000421001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000421002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000422001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000422002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000437001": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005000437002": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001243001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": true
+      },
+      "9022005001243002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": true
+      },
+      "9022005001249001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001249002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001323001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001323002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001394001": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001394002": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001396001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001396002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001418001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001418002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001419001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001419002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001421001": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001421002": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001422001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001422002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001424001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001424002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001426001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001426002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001430001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001430002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001431001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001431002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001433001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001433002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001435001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001435002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001437001": {
+        "directions": [
+          "1",
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern",
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": true
+      },
+      "9022005001437002": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": true
+      },
+      "9022005001445001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005001445002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005004186001": {
+        "directions": [
+          "0"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005004186002": {
+        "directions": [
+          "1"
+        ],
+        "direction_labels": [
+          "Multi-Pattern"
+        ],
+        "label": "Unknown",
+        "has_violation": false
+      }
+    }
+  }
+}
