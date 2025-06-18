@@ -1,0 +1,283 @@
+{
+  "direction_labels": {
+    "0": "Multiple Patterns Detected",
+    "1": "Multiple Patterns Detected"
+  },
+  "direction_violations": {
+    "direction_0": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 0 has 11 alternative patterns.",
+      "route_id": "9011005020600000",
+      "route_name": "206",
+      "route_short_name": "6",
+      "direction_id": "0",
+      "details": {
+        "canonical_pattern": {
+          "1-17": 5654
+        },
+        "alternative_patterns": {
+          "1-15_17": 1018,
+          "9-17": 2,
+          "12-17": 1,
+          "2-17": 1,
+          "13-17": 1,
+          "3-17": 1,
+          "6-17": 1,
+          "10-17": 1,
+          "1-8_10-17": 889,
+          "11-17": 1,
+          "16-17": 1
+        }
+      }
+    },
+    "direction_1": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 1 has 5 alternative patterns.",
+      "route_id": "9011005020600000",
+      "route_name": "206",
+      "route_short_name": "6",
+      "direction_id": "1",
+      "details": {
+        "canonical_pattern": {
+          "1-17": 5482
+        },
+        "alternative_patterns": {
+          "1_3-17": 987,
+          "8-17": 3,
+          "3-17": 2,
+          "1-8_10-17": 858,
+          "7-8_10-17": 1
+        }
+      }
+    }
+  },
+  "stop_id_labels": {
+    "9022005001443002": {
+      "0": "high_coverage"
+    },
+    "9022005001444002": {
+      "0": "high_coverage"
+    },
+    "9022005000221002": {
+      "0": "high_coverage"
+    },
+    "9022005001446002": {
+      "0": "high_coverage"
+    },
+    "9022005001450002": {
+      "0": "high_coverage"
+    },
+    "9022005001452001": {
+      "0": "high_coverage"
+    },
+    "9022005001453001": {
+      "0": "high_coverage"
+    },
+    "9022005000222001": {
+      "0": "high_coverage"
+    },
+    "9022005001551001": {
+      "0": "varying_coverage"
+    },
+    "9022005004138001": {
+      "0": "high_coverage"
+    },
+    "9022005000215001": {
+      "0": "high_coverage"
+    },
+    "9022005001254001": {
+      "0": "high_coverage"
+    },
+    "9022005001253001": {
+      "0": "high_coverage"
+    },
+    "9022005001259002": {
+      "0": "high_coverage"
+    },
+    "9022005001268002": {
+      "0": "high_coverage"
+    },
+    "9022005001243002": {
+      "0": "varying_coverage"
+    },
+    "9022005000050029": {
+      "1": "high_coverage"
+    },
+    "9022005001243001": {
+      "1": "varying_coverage"
+    },
+    "9022005001268001": {
+      "1": "high_coverage"
+    },
+    "9022005001259001": {
+      "1": "high_coverage"
+    },
+    "9022005001253002": {
+      "1": "high_coverage"
+    },
+    "9022005001254002": {
+      "1": "high_coverage"
+    },
+    "9022005000215002": {
+      "1": "high_coverage"
+    },
+    "9022005004138002": {
+      "1": "high_coverage"
+    },
+    "9022005001551002": {
+      "1": "varying_coverage"
+    },
+    "9022005000222002": {
+      "1": "high_coverage"
+    },
+    "9022005001453002": {
+      "1": "high_coverage"
+    },
+    "9022005001452002": {
+      "1": "high_coverage"
+    },
+    "9022005001450001": {
+      "1": "high_coverage"
+    },
+    "9022005001446001": {
+      "1": "high_coverage"
+    },
+    "9022005000221001": {
+      "1": "high_coverage"
+    },
+    "9022005001444001": {
+      "1": "high_coverage"
+    },
+    "9022005001443001": {
+      "1": "high_coverage"
+    }
+  },
+  "stop_id_violations": {
+    "stop_id_0": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Carl Cederströms gata, with stop_id 9022005001551001 in canonical position 9 is missing from 11.8% of trips in direction 0",
+      "route_id": "9011005020600000",
+      "route_name": "206",
+      "route_short_name": "6",
+      "stop_id": "9022005001551001",
+      "stop_name": "Carl Cederströms gata",
+      "direction_id": "0",
+      "details": {
+        "canonical_position": 9,
+        "missing_count": 894,
+        "total_trips": 7571,
+        "missing_percentage": 11.8
+      }
+    },
+    "stop_id_1": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Kungsgatan, with stop_id 9022005001243002 in canonical position 16 is missing from 13.4% of trips in direction 0",
+      "route_id": "9011005020600000",
+      "route_name": "206",
+      "route_short_name": "6",
+      "stop_id": "9022005001243002",
+      "stop_name": "Kungsgatan",
+      "direction_id": "0",
+      "details": {
+        "canonical_position": 16,
+        "missing_count": 1018,
+        "total_trips": 7571,
+        "missing_percentage": 13.4
+      }
+    },
+    "stop_id_2": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Kungsgatan, with stop_id 9022005001243001 in canonical position 2 is missing from 13.5% of trips in direction 1",
+      "route_id": "9011005020600000",
+      "route_name": "206",
+      "route_short_name": "6",
+      "stop_id": "9022005001243001",
+      "stop_name": "Kungsgatan",
+      "direction_id": "1",
+      "details": {
+        "canonical_position": 2,
+        "missing_count": 993,
+        "total_trips": 7333,
+        "missing_percentage": 13.5
+      }
+    },
+    "stop_id_3": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Carl Cederströms gata, with stop_id 9022005001551002 in canonical position 9 is missing from 11.7% of trips in direction 1",
+      "route_id": "9011005020600000",
+      "route_name": "206",
+      "route_short_name": "6",
+      "stop_id": "9022005001551002",
+      "stop_name": "Carl Cederströms gata",
+      "direction_id": "1",
+      "details": {
+        "canonical_position": 9,
+        "missing_count": 859,
+        "total_trips": 7333,
+        "missing_percentage": 11.7
+      }
+    }
+  },
+  "metadata": {
+    "canonical_patterns": {
+      "0": [
+        "9022005001443002",
+        "9022005001444002",
+        "9022005000221002",
+        "9022005001446002",
+        "9022005001450002",
+        "9022005001452001",
+        "9022005001453001",
+        "9022005000222001",
+        "9022005001551001",
+        "9022005004138001",
+        "9022005000215001",
+        "9022005001254001",
+        "9022005001253001",
+        "9022005001259002",
+        "9022005001268002",
+        "9022005001243002",
+        "9022005000050029"
+      ],
+      "1": [
+        "9022005000050029",
+        "9022005001243001",
+        "9022005001268001",
+        "9022005001259001",
+        "9022005001253002",
+        "9022005001254002",
+        "9022005000215002",
+        "9022005004138002",
+        "9022005001551002",
+        "9022005000222002",
+        "9022005001453002",
+        "9022005001452002",
+        "9022005001450001",
+        "9022005001446001",
+        "9022005000221001",
+        "9022005001444001",
+        "9022005001443001"
+      ]
+    },
+    "total_violations": 6,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 4
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "direction": 2,
+      "stop_id": 34
+    },
+    "total_labels": 36
+  }
+}

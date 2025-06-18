@@ -1,0 +1,734 @@
+{
+  "stop_hierarchies": {
+    "by_stop_name": {
+      "Rydsvägens ändhållplats": {
+        "9021005000219000": {
+          "stop_ids": [
+            "9022005000219001"
+          ],
+          "has_violation": false,
+          "label": "Shared"
+        }
+      },
+      "Björnkärrsskolan": {
+        "9021005001339000": {
+          "stop_ids": [
+            "9022005001339001",
+            "9022005001339002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Alsättersgatan": {
+        "9021005001338000": {
+          "stop_ids": [
+            "9022005001338001",
+            "9022005001338002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Hangaren": {
+        "9021005001341000": {
+          "stop_ids": [
+            "9022005001341001",
+            "9022005001341002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Mårdtorpsgatan": {
+        "9021005001343000": {
+          "stop_ids": [
+            "9022005001343001",
+            "9022005001343002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Linköpings resecentrum": {
+        "9021005000050000": {
+          "stop_ids": [
+            "9022005000050005"
+          ],
+          "has_violation": false,
+          "label": "Shared"
+        }
+      },
+      "Ryd centrum": {
+        "9021005000214000": {
+          "stop_ids": [
+            "9022005000214001",
+            "9022005000214002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Kungsgatan": {
+        "9021005001243000": {
+          "stop_ids": [
+            "9022005001243001",
+            "9022005001243002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Stora Torget": {
+        "9021005001268000": {
+          "stop_ids": [
+            "9022005001268001",
+            "9022005001268002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Solhaga": {
+        "9021005001315000": {
+          "stop_ids": [
+            "9022005001315001",
+            "9022005001315002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Barnhemsgatan": {
+        "9021005001259000": {
+          "stop_ids": [
+            "9022005001259002",
+            "9022005001259001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Parkgatan": {
+        "9021005001253000": {
+          "stop_ids": [
+            "9022005001253001",
+            "9022005001253002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Gamla Linköping": {
+        "9021005000215000": {
+          "stop_ids": [
+            "9022005000215001",
+            "9022005000215002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Vallaplan": {
+        "9021005001254000": {
+          "stop_ids": [
+            "9022005001254001",
+            "9022005001254002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      }
+    },
+    "by_stop_id": {
+      "9022005000219001": {
+        "parent_station": "9021005000219000",
+        "stop_name": "Rydsvägens ändhållplats",
+        "label": "multi_directional",
+        "has_violation": false
+      },
+      "9022005001339001": {
+        "parent_station": "9021005001339000",
+        "stop_name": "Björnkärrsskolan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001338001": {
+        "parent_station": "9021005001338000",
+        "stop_name": "Alsättersgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001341001": {
+        "parent_station": "9021005001341000",
+        "stop_name": "Hangaren",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001343001": {
+        "parent_station": "9021005001343000",
+        "stop_name": "Mårdtorpsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000050005": {
+        "parent_station": "9021005000050000",
+        "stop_name": "Linköpings resecentrum",
+        "label": "multi_directional",
+        "has_violation": false
+      },
+      "9022005000214001": {
+        "parent_station": "9021005000214000",
+        "stop_name": "Ryd centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001243001": {
+        "parent_station": "9021005001243000",
+        "stop_name": "Kungsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001268001": {
+        "parent_station": "9021005001268000",
+        "stop_name": "Stora Torget",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001315001": {
+        "parent_station": "9021005001315000",
+        "stop_name": "Solhaga",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001268002": {
+        "parent_station": "9021005001268000",
+        "stop_name": "Stora Torget",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001259002": {
+        "parent_station": "9021005001259000",
+        "stop_name": "Barnhemsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001243002": {
+        "parent_station": "9021005001243000",
+        "stop_name": "Kungsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001253001": {
+        "parent_station": "9021005001253000",
+        "stop_name": "Parkgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000215001": {
+        "parent_station": "9021005000215000",
+        "stop_name": "Gamla Linköping",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001254001": {
+        "parent_station": "9021005001254000",
+        "stop_name": "Vallaplan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001259001": {
+        "parent_station": "9021005001259000",
+        "stop_name": "Barnhemsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001253002": {
+        "parent_station": "9021005001253000",
+        "stop_name": "Parkgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001254002": {
+        "parent_station": "9021005001254000",
+        "stop_name": "Vallaplan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001341002": {
+        "parent_station": "9021005001341000",
+        "stop_name": "Hangaren",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000215002": {
+        "parent_station": "9021005000215000",
+        "stop_name": "Gamla Linköping",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001343002": {
+        "parent_station": "9021005001343000",
+        "stop_name": "Mårdtorpsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001338002": {
+        "parent_station": "9021005001338000",
+        "stop_name": "Alsättersgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001339002": {
+        "parent_station": "9021005001339000",
+        "stop_name": "Björnkärrsskolan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000214002": {
+        "parent_station": "9021005000214000",
+        "stop_name": "Ryd centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001315002": {
+        "parent_station": "9021005001315000",
+        "stop_name": "Solhaga",
+        "label": "single_directional",
+        "has_violation": false
+      }
+    }
+  },
+  "direction_hierarchies": {
+    "by_direction": {
+      "0": {
+        "label": "Multiple Patterns Detected",
+        "canonical_pattern_string_description": "1-14",
+        "stop_ids": [
+          {
+            "1": {
+              "stop_id": "9022005000219001",
+              "label": "Unknown"
+            }
+          },
+          {
+            "2": {
+              "stop_id": "9022005001339001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "3": {
+              "stop_id": "9022005001338001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "4": {
+              "stop_id": "9022005001341001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "5": {
+              "stop_id": "9022005001343001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "6": {
+              "stop_id": "9022005000214001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "7": {
+              "stop_id": "9022005001315001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "8": {
+              "stop_id": "9022005000215001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "9": {
+              "stop_id": "9022005001254001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "10": {
+              "stop_id": "9022005001253001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "11": {
+              "stop_id": "9022005001259002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "12": {
+              "stop_id": "9022005001268002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "13": {
+              "stop_id": "9022005001243002",
+              "label": "varying_coverage"
+            }
+          },
+          {
+            "14": {
+              "stop_id": "9022005000050005",
+              "label": "Unknown"
+            }
+          }
+        ],
+        "has_violation": true,
+        "violation_types": [
+          "topology"
+        ]
+      },
+      "1": {
+        "label": "Multiple Patterns Detected",
+        "canonical_pattern_string_description": "1-14",
+        "stop_ids": [
+          {
+            "1": {
+              "stop_id": "9022005000050005",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "2": {
+              "stop_id": "9022005001243001",
+              "label": "varying_coverage"
+            }
+          },
+          {
+            "3": {
+              "stop_id": "9022005001268001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "4": {
+              "stop_id": "9022005001259001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "5": {
+              "stop_id": "9022005001253002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "6": {
+              "stop_id": "9022005001254002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "7": {
+              "stop_id": "9022005000215002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "8": {
+              "stop_id": "9022005001315002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "9": {
+              "stop_id": "9022005000214002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "10": {
+              "stop_id": "9022005001343002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "11": {
+              "stop_id": "9022005001341002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "12": {
+              "stop_id": "9022005001338002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "13": {
+              "stop_id": "9022005001339002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "14": {
+              "stop_id": "9022005000219001",
+              "label": "high_coverage"
+            }
+          }
+        ],
+        "has_violation": true,
+        "violation_types": [
+          "topology"
+        ]
+      }
+    },
+    "by_stop_id": {
+      "9022005000219001": {
+        "label": {
+          "0": "Unknown",
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "0",
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001339001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001338001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001341001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001343001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000214001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001315001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000215001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001254001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001253001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001259002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001268002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001243002": {
+        "label": {
+          "0": "varying_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000050005": {
+        "label": {
+          "0": "Unknown",
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "0",
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001243001": {
+        "label": {
+          "1": "varying_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001268001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001259001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001253002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001254002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000215002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001315002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000214002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001343002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001341002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001338002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001339002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      }
+    }
+  }
+}

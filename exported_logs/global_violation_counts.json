@@ -1,0 +1,11 @@
+{
+  "stop": {
+    "stop_id_from_invalid_parent_topology": 6,
+    "two_stop_misassigned_directions": 3
+  },
+  "direction": {
+    "missing_stop_coverage": 57,
+    "diverse_patterns_in_direction": 36
+  },
+  "performance": {}
+}

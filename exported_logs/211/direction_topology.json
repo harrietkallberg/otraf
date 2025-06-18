@@ -1,0 +1,204 @@
+{
+  "direction_labels": {
+    "0": "Multiple Patterns Detected",
+    "1": "Multiple Patterns Detected"
+  },
+  "direction_violations": {
+    "direction_0": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 0 has 3 alternative patterns.",
+      "route_id": "9011005021100000",
+      "route_name": "211",
+      "route_short_name": "11",
+      "direction_id": "0",
+      "details": {
+        "canonical_pattern": {
+          "1-13": 5386
+        },
+        "alternative_patterns": {
+          "1-11_13": 838,
+          "9-13": 1,
+          "3-13": 1
+        }
+      }
+    },
+    "direction_1": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 1 has 3 alternative patterns.",
+      "route_id": "9011005021100000",
+      "route_name": "211",
+      "route_short_name": "11",
+      "direction_id": "1",
+      "details": {
+        "canonical_pattern": {
+          "1-13": 5225
+        },
+        "alternative_patterns": {
+          "1_3-13": 815,
+          "7-13": 1,
+          "4-13": 1
+        }
+      }
+    }
+  },
+  "stop_id_labels": {
+    "9022005000231001": {
+      "1": "high_coverage"
+    },
+    "9022005003854002": {
+      "0": "high_coverage"
+    },
+    "9022005000216001": {
+      "0": "high_coverage"
+    },
+    "9022005001262002": {
+      "0": "high_coverage"
+    },
+    "9022005001261002": {
+      "0": "high_coverage"
+    },
+    "9022005001323001": {
+      "0": "high_coverage"
+    },
+    "9022005000230002": {
+      "0": "high_coverage"
+    },
+    "9022005001321002": {
+      "0": "high_coverage"
+    },
+    "9022005001320002": {
+      "0": "high_coverage"
+    },
+    "9022005001319002": {
+      "0": "high_coverage"
+    },
+    "9022005000046006": {
+      "0": "high_coverage"
+    },
+    "9022005001243002": {
+      "0": "varying_coverage"
+    },
+    "9022005000050008": {
+      "1": "high_coverage"
+    },
+    "9022005001243001": {
+      "1": "varying_coverage"
+    },
+    "9022005000046003": {
+      "1": "high_coverage"
+    },
+    "9022005001319001": {
+      "1": "high_coverage"
+    },
+    "9022005001320001": {
+      "1": "high_coverage"
+    },
+    "9022005001321001": {
+      "1": "high_coverage"
+    },
+    "9022005000230001": {
+      "1": "high_coverage"
+    },
+    "9022005001323003": {
+      "1": "high_coverage"
+    },
+    "9022005001261001": {
+      "1": "high_coverage"
+    },
+    "9022005001262001": {
+      "1": "high_coverage"
+    },
+    "9022005000216002": {
+      "1": "high_coverage"
+    },
+    "9022005003854001": {
+      "1": "high_coverage"
+    }
+  },
+  "stop_id_violations": {
+    "stop_id_0": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Kungsgatan, with stop_id 9022005001243002 in canonical position 12 is missing from 13.5% of trips in direction 0",
+      "route_id": "9011005021100000",
+      "route_name": "211",
+      "route_short_name": "11",
+      "stop_id": "9022005001243002",
+      "stop_name": "Kungsgatan",
+      "direction_id": "0",
+      "details": {
+        "canonical_position": 12,
+        "missing_count": 838,
+        "total_trips": 6226,
+        "missing_percentage": 13.5
+      }
+    },
+    "stop_id_1": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Kungsgatan, with stop_id 9022005001243001 in canonical position 2 is missing from 13.5% of trips in direction 1",
+      "route_id": "9011005021100000",
+      "route_name": "211",
+      "route_short_name": "11",
+      "stop_id": "9022005001243001",
+      "stop_name": "Kungsgatan",
+      "direction_id": "1",
+      "details": {
+        "canonical_position": 2,
+        "missing_count": 817,
+        "total_trips": 6042,
+        "missing_percentage": 13.5
+      }
+    }
+  },
+  "metadata": {
+    "canonical_patterns": {
+      "0": [
+        "9022005000231001",
+        "9022005003854002",
+        "9022005000216001",
+        "9022005001262002",
+        "9022005001261002",
+        "9022005001323001",
+        "9022005000230002",
+        "9022005001321002",
+        "9022005001320002",
+        "9022005001319002",
+        "9022005000046006",
+        "9022005001243002",
+        "9022005000050008"
+      ],
+      "1": [
+        "9022005000050008",
+        "9022005001243001",
+        "9022005000046003",
+        "9022005001319001",
+        "9022005001320001",
+        "9022005001321001",
+        "9022005000230001",
+        "9022005001323003",
+        "9022005001261001",
+        "9022005001262001",
+        "9022005000216002",
+        "9022005003854001",
+        "9022005000231001"
+      ]
+    },
+    "total_violations": 4,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 2
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "direction": 2,
+      "stop_id": 26
+    },
+    "total_labels": 28
+  }
+}

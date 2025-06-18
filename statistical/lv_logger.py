@@ -62,6 +62,7 @@ class LVLogger:
             'punctuality_barcharts': {},   
             'stops_regulatory_labels': {},
             'regulatory_violations' : {},
+            'regulatory_performance_violations':{},
             'histograms_stops': {}, 
             'travel_times':{},        
             'metadata': {

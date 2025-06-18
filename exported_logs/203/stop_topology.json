@@ -1,0 +1,65 @@
+{
+  "parent_station_labels": {
+    "9021005000219000": "Shared",
+    "9021005001339000": "Bidirectional",
+    "9021005001338000": "Bidirectional",
+    "9021005001341000": "Bidirectional",
+    "9021005001343000": "Bidirectional",
+    "9021005000050000": "Shared",
+    "9021005000214000": "Bidirectional",
+    "9021005001243000": "Bidirectional",
+    "9021005001268000": "Bidirectional",
+    "9021005001315000": "Bidirectional",
+    "9021005001259000": "Bidirectional",
+    "9021005001253000": "Bidirectional",
+    "9021005000215000": "Bidirectional",
+    "9021005001254000": "Bidirectional"
+  },
+  "parent_station_violations": {},
+  "stop_id_labels": {
+    "9022005000219001": "multi_directional",
+    "9022005001339001": "single_directional",
+    "9022005001338001": "single_directional",
+    "9022005001341001": "single_directional",
+    "9022005001343001": "single_directional",
+    "9022005000050005": "multi_directional",
+    "9022005000214001": "single_directional",
+    "9022005001243001": "single_directional",
+    "9022005001268001": "single_directional",
+    "9022005001315001": "single_directional",
+    "9022005001268002": "single_directional",
+    "9022005001259002": "single_directional",
+    "9022005001243002": "single_directional",
+    "9022005001253001": "single_directional",
+    "9022005000215001": "single_directional",
+    "9022005001254001": "single_directional",
+    "9022005001259001": "single_directional",
+    "9022005001253002": "single_directional",
+    "9022005001254002": "single_directional",
+    "9022005001341002": "single_directional",
+    "9022005000215002": "single_directional",
+    "9022005001343002": "single_directional",
+    "9022005001338002": "single_directional",
+    "9022005001339002": "single_directional",
+    "9022005000214002": "single_directional",
+    "9022005001315002": "single_directional"
+  },
+  "stop_id_violations": {},
+  "metadata": {
+    "total_violations": 0,
+    "violation_counts_by_type": {
+      "parent_station": 0,
+      "stop_id": 0
+    },
+    "route_summary": {
+      "total_stops": 0,
+      "total_parent_stations": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "parent_station": 14,
+      "stop_id": 26
+    },
+    "total_labels": 40
+  }
+}

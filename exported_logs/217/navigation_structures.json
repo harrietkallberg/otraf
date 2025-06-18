@@ -1,0 +1,1128 @@
+{
+  "stop_hierarchies": {
+    "by_stop_name": {
+      "Aspnäset": {
+        "9021005000416000": {
+          "stop_ids": [
+            "9022005000416001"
+          ],
+          "has_violation": false,
+          "label": "Shared"
+        }
+      },
+      "Ullstämma by": {
+        "9021005001598000": {
+          "stop_ids": [
+            "9022005001598002",
+            "9022005001598001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Morgongatan": {
+        "9021005003838000": {
+          "stop_ids": [
+            "9022005003838001",
+            "9022005003838002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Middagsgatan": {
+        "9021005001230000": {
+          "stop_ids": [
+            "9022005001230001",
+            "9022005001230002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Strågatan": {
+        "9021005001229000": {
+          "stop_ids": [
+            "9022005001229001",
+            "9022005001229002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Hässlegatan": {
+        "9021005000044000": {
+          "stop_ids": [
+            "9022005000044003",
+            "9022005000044002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Ortgatan": {
+        "9021005001596000": {
+          "stop_ids": [
+            "9022005001596002",
+            "9022005001596001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Poleraregatan": {
+        "9021005001303000": {
+          "stop_ids": [
+            "9022005001303002",
+            "9022005001303001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Galoppgatan": {
+        "9021005001302000": {
+          "stop_ids": [
+            "9022005001302002",
+            "9022005001302001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Yrkesvägen": {
+        "9021005001301000": {
+          "stop_ids": [
+            "9022005001301002",
+            "9022005001301001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Lillgårdsgatan": {
+        "9021005001300000": {
+          "stop_ids": [
+            "9022005001300002",
+            "9022005001300001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Berga centrum": {
+        "9021005001430000": {
+          "stop_ids": [
+            "9022005001430002",
+            "9022005001430001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Rotegatan": {
+        "9021005000412000": {
+          "stop_ids": [
+            "9022005000412002",
+            "9022005000412001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Pionjärgatan": {
+        "9021005001431000": {
+          "stop_ids": [
+            "9022005001431002",
+            "9022005001431001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Kungsgatan": {
+        "9021005001243000": {
+          "stop_ids": [
+            "9022005001243002",
+            "9022005001243001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Linköpings resecentrum": {
+        "9021005000050000": {
+          "stop_ids": [
+            "9022005000050019"
+          ],
+          "has_violation": false,
+          "label": "Shared"
+        }
+      },
+      "Tinnerbäcksbadet": {
+        "9021005000042000": {
+          "stop_ids": [
+            "9022005000042002",
+            "9022005000042001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Trädgårdstorget": {
+        "9021005000046000": {
+          "stop_ids": [
+            "9022005000046006",
+            "9022005000046003"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "US Norra entrén": {
+        "9021005000198000": {
+          "stop_ids": [
+            "9022005000198002",
+            "9022005000198001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Tinnerbäcksgränd": {
+        "9021005004186000": {
+          "stop_ids": [
+            "9022005004186002",
+            "9022005004186001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "US Södra entrén": {
+        "9021005001249000": {
+          "stop_ids": [
+            "9022005001249002",
+            "9022005001249001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Berga Söderleden": {
+        "9021005000043000": {
+          "stop_ids": [
+            "9022005000043001"
+          ],
+          "has_violation": false,
+          "label": "Unidirectional"
+        }
+      }
+    },
+    "by_stop_id": {
+      "9022005000416001": {
+        "parent_station": "9021005000416000",
+        "stop_name": "Aspnäset",
+        "label": "multi_directional",
+        "has_violation": false
+      },
+      "9022005001598002": {
+        "parent_station": "9021005001598000",
+        "stop_name": "Ullstämma by",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003838001": {
+        "parent_station": "9021005003838000",
+        "stop_name": "Morgongatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001230001": {
+        "parent_station": "9021005001230000",
+        "stop_name": "Middagsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001229001": {
+        "parent_station": "9021005001229000",
+        "stop_name": "Strågatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000044003": {
+        "parent_station": "9021005000044000",
+        "stop_name": "Hässlegatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001596002": {
+        "parent_station": "9021005001596000",
+        "stop_name": "Ortgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001303002": {
+        "parent_station": "9021005001303000",
+        "stop_name": "Poleraregatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001302002": {
+        "parent_station": "9021005001302000",
+        "stop_name": "Galoppgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001301002": {
+        "parent_station": "9021005001301000",
+        "stop_name": "Yrkesvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001300002": {
+        "parent_station": "9021005001300000",
+        "stop_name": "Lillgårdsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001430002": {
+        "parent_station": "9021005001430000",
+        "stop_name": "Berga centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000412002": {
+        "parent_station": "9021005000412000",
+        "stop_name": "Rotegatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001431002": {
+        "parent_station": "9021005001431000",
+        "stop_name": "Pionjärgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001243002": {
+        "parent_station": "9021005001243000",
+        "stop_name": "Kungsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000050019": {
+        "parent_station": "9021005000050000",
+        "stop_name": "Linköpings resecentrum",
+        "label": "multi_directional",
+        "has_violation": false
+      },
+      "9022005000042002": {
+        "parent_station": "9021005000042000",
+        "stop_name": "Tinnerbäcksbadet",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000046006": {
+        "parent_station": "9021005000046000",
+        "stop_name": "Trädgårdstorget",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000198002": {
+        "parent_station": "9021005000198000",
+        "stop_name": "US Norra entrén",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004186002": {
+        "parent_station": "9021005004186000",
+        "stop_name": "Tinnerbäcksgränd",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001249002": {
+        "parent_station": "9021005001249000",
+        "stop_name": "US Södra entrén",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001243001": {
+        "parent_station": "9021005001243000",
+        "stop_name": "Kungsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000046003": {
+        "parent_station": "9021005000046000",
+        "stop_name": "Trädgårdstorget",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000042001": {
+        "parent_station": "9021005000042000",
+        "stop_name": "Tinnerbäcksbadet",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000198001": {
+        "parent_station": "9021005000198000",
+        "stop_name": "US Norra entrén",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001249001": {
+        "parent_station": "9021005001249000",
+        "stop_name": "US Södra entrén",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004186001": {
+        "parent_station": "9021005004186000",
+        "stop_name": "Tinnerbäcksgränd",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000412001": {
+        "parent_station": "9021005000412000",
+        "stop_name": "Rotegatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001431001": {
+        "parent_station": "9021005001431000",
+        "stop_name": "Pionjärgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001430001": {
+        "parent_station": "9021005001430000",
+        "stop_name": "Berga centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000043001": {
+        "parent_station": "9021005000043000",
+        "stop_name": "Berga Söderleden",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001301001": {
+        "parent_station": "9021005001301000",
+        "stop_name": "Yrkesvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001596001": {
+        "parent_station": "9021005001596000",
+        "stop_name": "Ortgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001303001": {
+        "parent_station": "9021005001303000",
+        "stop_name": "Poleraregatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001302001": {
+        "parent_station": "9021005001302000",
+        "stop_name": "Galoppgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001230002": {
+        "parent_station": "9021005001230000",
+        "stop_name": "Middagsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003838002": {
+        "parent_station": "9021005003838000",
+        "stop_name": "Morgongatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001229002": {
+        "parent_station": "9021005001229000",
+        "stop_name": "Strågatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001300001": {
+        "parent_station": "9021005001300000",
+        "stop_name": "Lillgårdsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000044002": {
+        "parent_station": "9021005000044000",
+        "stop_name": "Hässlegatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001598001": {
+        "parent_station": "9021005001598000",
+        "stop_name": "Ullstämma by",
+        "label": "single_directional",
+        "has_violation": false
+      }
+    }
+  },
+  "direction_hierarchies": {
+    "by_direction": {
+      "0": {
+        "label": "Multiple Patterns Detected",
+        "canonical_pattern_string_description": "1-21",
+        "stop_ids": [
+          {
+            "1": {
+              "stop_id": "9022005000416001",
+              "label": "Unknown"
+            }
+          },
+          {
+            "2": {
+              "stop_id": "9022005001598002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "3": {
+              "stop_id": "9022005003838001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "4": {
+              "stop_id": "9022005001230001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "5": {
+              "stop_id": "9022005001229001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "6": {
+              "stop_id": "9022005000044003",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "7": {
+              "stop_id": "9022005001596002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "8": {
+              "stop_id": "9022005001303002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "9": {
+              "stop_id": "9022005001302002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "10": {
+              "stop_id": "9022005001301002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "11": {
+              "stop_id": "9022005001300002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "12": {
+              "stop_id": "9022005001430002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "13": {
+              "stop_id": "9022005001431002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "14": {
+              "stop_id": "9022005000412002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "15": {
+              "stop_id": "9022005004186002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "16": {
+              "stop_id": "9022005001249002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "17": {
+              "stop_id": "9022005000198002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "18": {
+              "stop_id": "9022005000042002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "19": {
+              "stop_id": "9022005000046006",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "20": {
+              "stop_id": "9022005001243002",
+              "label": "varying_coverage"
+            }
+          },
+          {
+            "21": {
+              "stop_id": "9022005000050019",
+              "label": "Unknown"
+            }
+          }
+        ],
+        "has_violation": true,
+        "violation_types": [
+          "topology"
+        ]
+      },
+      "1": {
+        "label": "Multiple Patterns Detected",
+        "canonical_pattern_string_description": "1-22",
+        "stop_ids": [
+          {
+            "1": {
+              "stop_id": "9022005000050019",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "2": {
+              "stop_id": "9022005001243001",
+              "label": "varying_coverage"
+            }
+          },
+          {
+            "3": {
+              "stop_id": "9022005000046003",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "4": {
+              "stop_id": "9022005000042001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "5": {
+              "stop_id": "9022005000198001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "6": {
+              "stop_id": "9022005001249001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "7": {
+              "stop_id": "9022005004186001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "8": {
+              "stop_id": "9022005000412001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "9": {
+              "stop_id": "9022005001431001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "10": {
+              "stop_id": "9022005001430001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "11": {
+              "stop_id": "9022005000043001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "12": {
+              "stop_id": "9022005001300001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "13": {
+              "stop_id": "9022005001301001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "14": {
+              "stop_id": "9022005001302001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "15": {
+              "stop_id": "9022005001303001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "16": {
+              "stop_id": "9022005001596001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "17": {
+              "stop_id": "9022005000044002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "18": {
+              "stop_id": "9022005001229002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "19": {
+              "stop_id": "9022005001230002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "20": {
+              "stop_id": "9022005003838002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "21": {
+              "stop_id": "9022005001598001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "22": {
+              "stop_id": "9022005000416001",
+              "label": "high_coverage"
+            }
+          }
+        ],
+        "has_violation": true,
+        "violation_types": [
+          "topology"
+        ]
+      }
+    },
+    "by_stop_id": {
+      "9022005000416001": {
+        "label": {
+          "0": "Unknown",
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "0",
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001598002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005003838001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001230001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001229001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000044003": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001596002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001303002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001302002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001301002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001300002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001430002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001431002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000412002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005004186002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001249002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000198002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000042002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000046006": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001243002": {
+        "label": {
+          "0": "varying_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000050019": {
+        "label": {
+          "0": "Unknown",
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "0",
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001243001": {
+        "label": {
+          "1": "varying_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000046003": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000042001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000198001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001249001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005004186001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000412001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001431001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001430001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000043001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001300001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001301001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001302001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001303001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001596001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000044002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001229002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001230002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005003838002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001598001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      }
+    }
+  }
+}

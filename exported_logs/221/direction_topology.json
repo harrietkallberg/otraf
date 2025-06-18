@@ -1,0 +1,120 @@
+{
+  "direction_labels": {
+    "0": "Multiple Patterns Detected",
+    "1": "Multiple Patterns Detected"
+  },
+  "direction_violations": {
+    "direction_0": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 0 has 1 alternative patterns.",
+      "route_id": "9011005022100000",
+      "route_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "details": {
+        "canonical_pattern": {
+          "1-7": 725
+        },
+        "alternative_patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_1": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 1 has 1 alternative patterns.",
+      "route_id": "9011005022100000",
+      "route_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "details": {
+        "canonical_pattern": {
+          "1-7": 703
+        },
+        "alternative_patterns": {
+          "2-7": 1
+        }
+      }
+    }
+  },
+  "stop_id_labels": {
+    "9022005001421002": {
+      "0": "high_coverage"
+    },
+    "9022005001419001": {
+      "0": "high_coverage"
+    },
+    "9022005001418001": {
+      "0": "high_coverage"
+    },
+    "9022005000435002": {
+      "0": "high_coverage"
+    },
+    "9022005001424001": {
+      "0": "high_coverage"
+    },
+    "9022005001422001": {
+      "0": "high_coverage"
+    },
+    "9022005000050018": {
+      "1": "high_coverage"
+    },
+    "9022005001422002": {
+      "1": "high_coverage"
+    },
+    "9022005001424002": {
+      "1": "high_coverage"
+    },
+    "9022005000435001": {
+      "1": "high_coverage"
+    },
+    "9022005001418002": {
+      "1": "high_coverage"
+    },
+    "9022005001419002": {
+      "1": "high_coverage"
+    },
+    "9022005001421001": {
+      "1": "high_coverage"
+    }
+  },
+  "stop_id_violations": {},
+  "metadata": {
+    "canonical_patterns": {
+      "0": [
+        "9022005001421002",
+        "9022005001419001",
+        "9022005001418001",
+        "9022005000435002",
+        "9022005001424001",
+        "9022005001422001",
+        "9022005000050018"
+      ],
+      "1": [
+        "9022005000050018",
+        "9022005001422002",
+        "9022005001424002",
+        "9022005000435001",
+        "9022005001418002",
+        "9022005001419002",
+        "9022005001421001"
+      ]
+    },
+    "total_violations": 2,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 0
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "direction": 2,
+      "stop_id": 14
+    },
+    "total_labels": 16
+  }
+}

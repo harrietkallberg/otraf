@@ -1,0 +1,349 @@
+{
+  "direction_labels": {
+    "0": "Multiple Patterns Detected",
+    "1": "Multiple Patterns Detected"
+  },
+  "direction_violations": {
+    "direction_0": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 0 has 13 alternative patterns.",
+      "route_id": "9011005020500000",
+      "route_name": "205",
+      "route_short_name": "5",
+      "direction_id": "0",
+      "details": {
+        "canonical_pattern": {
+          "1-28": 8190
+        },
+        "alternative_patterns": {
+          "1-13_15-28": 1277,
+          "13_15-28": 1,
+          "5-13_15-28": 1,
+          "16-28": 4,
+          "7-28": 2,
+          "3-28": 1,
+          "5-28": 2,
+          "8-28": 5,
+          "13-28": 4,
+          "6-28": 2,
+          "11-28": 1,
+          "21-28": 1,
+          "17-28": 1
+        }
+      }
+    },
+    "direction_1": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 1 has 19 alternative patterns.",
+      "route_id": "9011005020500000",
+      "route_name": "205",
+      "route_short_name": "5",
+      "direction_id": "1",
+      "details": {
+        "canonical_pattern": {
+          "1-27": 8108
+        },
+        "alternative_patterns": {
+          "1-14_16-27": 1259,
+          "8-14_16-27": 1,
+          "17-27": 2,
+          "16-27": 2,
+          "14_16-27": 1,
+          "9-27": 2,
+          "20-27": 2,
+          "7-27": 1,
+          "12-27": 1,
+          "6-27": 1,
+          "15-27": 3,
+          "10-27": 1,
+          "3-27": 1,
+          "14-27": 1,
+          "4-27": 1,
+          "13-27": 2,
+          "11-27": 3,
+          "21-27": 1,
+          "5-27": 1
+        }
+      }
+    }
+  },
+  "stop_id_labels": {
+    "9022005000419001": {
+      "0": "high_coverage"
+    },
+    "9022005001325002": {
+      "0": "high_coverage"
+    },
+    "9022005001324002": {
+      "0": "high_coverage"
+    },
+    "9022005000054002": {
+      "0": "high_coverage"
+    },
+    "9022005003559002": {
+      "0": "high_coverage"
+    },
+    "9022005001318002": {
+      "0": "high_coverage"
+    },
+    "9022005001332002": {
+      "0": "high_coverage"
+    },
+    "9022005001392002": {
+      "0": "high_coverage"
+    },
+    "9022005001252002": {
+      "0": "high_coverage"
+    },
+    "9022005001447002": {
+      "0": "high_coverage"
+    },
+    "9022005001221002": {
+      "0": "high_coverage"
+    },
+    "9022005000042002": {
+      "0": "high_coverage"
+    },
+    "9022005000046004": {
+      "0": "high_coverage"
+    },
+    "9022005001243002": {
+      "0": "varying_coverage"
+    },
+    "9022005000050004": {
+      "0": "high_coverage"
+    },
+    "9022005000444002": {
+      "0": "high_coverage"
+    },
+    "9022005003974002": {
+      "0": "high_coverage"
+    },
+    "9022005000329001": {
+      "0": "high_coverage"
+    },
+    "9022005004171001": {
+      "0": "high_coverage"
+    },
+    "9022005000429001": {
+      "0": "high_coverage"
+    },
+    "9022005001238001": {
+      "0": "high_coverage"
+    },
+    "9022005001239001": {
+      "0": "high_coverage"
+    },
+    "9022005001240001": {
+      "0": "high_coverage"
+    },
+    "9022005000049001": {
+      "0": "high_coverage"
+    },
+    "9022005001241001": {
+      "0": "high_coverage"
+    },
+    "9022005001236003": {
+      "0": "high_coverage"
+    },
+    "9022005001411002": {
+      "0": "high_coverage"
+    },
+    "9022005000048001": {
+      "1": "high_coverage"
+    },
+    "9022005001411001": {
+      "1": "high_coverage"
+    },
+    "9022005001236002": {
+      "1": "high_coverage"
+    },
+    "9022005001241002": {
+      "1": "high_coverage"
+    },
+    "9022005000049002": {
+      "1": "high_coverage"
+    },
+    "9022005001240002": {
+      "1": "high_coverage"
+    },
+    "9022005001239002": {
+      "1": "high_coverage"
+    },
+    "9022005001238002": {
+      "1": "high_coverage"
+    },
+    "9022005000429002": {
+      "1": "high_coverage"
+    },
+    "9022005004171002": {
+      "1": "high_coverage"
+    },
+    "9022005000329002": {
+      "1": "high_coverage"
+    },
+    "9022005003974001": {
+      "1": "high_coverage"
+    },
+    "9022005000444001": {
+      "1": "high_coverage"
+    },
+    "9022005000050010": {
+      "1": "high_coverage"
+    },
+    "9022005001243001": {
+      "1": "varying_coverage"
+    },
+    "9022005000046003": {
+      "1": "high_coverage"
+    },
+    "9022005000042001": {
+      "1": "high_coverage"
+    },
+    "9022005001222001": {
+      "1": "high_coverage"
+    },
+    "9022005001252001": {
+      "1": "high_coverage"
+    },
+    "9022005001392001": {
+      "1": "high_coverage"
+    },
+    "9022005001332001": {
+      "1": "high_coverage"
+    },
+    "9022005001318001": {
+      "1": "high_coverage"
+    },
+    "9022005003559001": {
+      "1": "high_coverage"
+    },
+    "9022005000054001": {
+      "1": "high_coverage"
+    },
+    "9022005001324001": {
+      "1": "high_coverage"
+    },
+    "9022005001325001": {
+      "1": "high_coverage"
+    },
+    "9022005000419002": {
+      "1": "high_coverage"
+    }
+  },
+  "stop_id_violations": {
+    "stop_id_0": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Kungsgatan, with stop_id 9022005001243002 in canonical position 14 is missing from 13.5% of trips in direction 0",
+      "route_id": "9011005020500000",
+      "route_name": "205",
+      "route_short_name": "5",
+      "stop_id": "9022005001243002",
+      "stop_name": "Kungsgatan",
+      "direction_id": "0",
+      "details": {
+        "canonical_position": 14,
+        "missing_count": 1285,
+        "total_trips": 9492,
+        "missing_percentage": 13.5
+      }
+    },
+    "stop_id_1": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop Kungsgatan, with stop_id 9022005001243001 in canonical position 15 is missing from 13.5% of trips in direction 1",
+      "route_id": "9011005020500000",
+      "route_name": "205",
+      "route_short_name": "5",
+      "stop_id": "9022005001243001",
+      "stop_name": "Kungsgatan",
+      "direction_id": "1",
+      "details": {
+        "canonical_position": 15,
+        "missing_count": 1268,
+        "total_trips": 9394,
+        "missing_percentage": 13.5
+      }
+    }
+  },
+  "metadata": {
+    "canonical_patterns": {
+      "0": [
+        "9022005000419001",
+        "9022005001325002",
+        "9022005001324002",
+        "9022005000054002",
+        "9022005003559002",
+        "9022005001318002",
+        "9022005001332002",
+        "9022005001392002",
+        "9022005001252002",
+        "9022005001447002",
+        "9022005001221002",
+        "9022005000042002",
+        "9022005000046004",
+        "9022005001243002",
+        "9022005000050004",
+        "9022005000444002",
+        "9022005003974002",
+        "9022005000329001",
+        "9022005004171001",
+        "9022005000429001",
+        "9022005001238001",
+        "9022005001239001",
+        "9022005001240001",
+        "9022005000049001",
+        "9022005001241001",
+        "9022005001236003",
+        "9022005001411002",
+        "9022005000048001"
+      ],
+      "1": [
+        "9022005000048001",
+        "9022005001411001",
+        "9022005001236002",
+        "9022005001241002",
+        "9022005000049002",
+        "9022005001240002",
+        "9022005001239002",
+        "9022005001238002",
+        "9022005000429002",
+        "9022005004171002",
+        "9022005000329002",
+        "9022005003974001",
+        "9022005000444001",
+        "9022005000050010",
+        "9022005001243001",
+        "9022005000046003",
+        "9022005000042001",
+        "9022005001222001",
+        "9022005001252001",
+        "9022005001392001",
+        "9022005001332001",
+        "9022005001318001",
+        "9022005003559001",
+        "9022005000054001",
+        "9022005001324001",
+        "9022005001325001",
+        "9022005000419002"
+      ]
+    },
+    "total_violations": 4,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 2
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "direction": 2,
+      "stop_id": 55
+    },
+    "total_labels": 57
+  }
+}
