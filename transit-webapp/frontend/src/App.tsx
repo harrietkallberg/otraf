@@ -1,38 +1,31 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+// src/App.tsx
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
-import StopCentric from './pages/StopCentric';
-import RouteCentric from './pages/RouteCentric';
-import NotFound from './pages/NotFound';
+import Search from './pages/Search.tsx';
+import RouteDetail from './pages/RouteDetail';
+import StopDetail from './pages/StopDetail';
+import Violations from './pages/Violations';
+import Analytics from './pages/Analytics';
 
-function App() {
-  const [routes, setRoutes] = useState<string[]>([]);
-  const [globalFiles, setGlobalFiles] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Fetch available route folders
-    fetch('/api/routes')
-      .then((res) => res.json())
-      .then((data) => setRoutes(data))
-      .catch((err) => console.error('Failed to fetch routes', err));
-
-    // Fetch available global files
-    fetch('/api/global')
-      .then((res) => res.json())
-      .then((data) => setGlobalFiles(data))
-      .catch((err) => console.error('Failed to fetch global files', err));
-  }, []);
-
+const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard routes={routes} globalFiles={globalFiles} />} />
-        <Route path="/stop/:stopId" element={<StopCentric />} />
-        <Route path="/route/:routeName" element={<RouteCentric />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1 overflow-auto p-4">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/routes/:routeId" element={<RouteDetail />} />
+          <Route path="/stops/:stopId" element={<StopDetail />} />
+          <Route path="/violations" element={<Violations />} />
+          <Route path="/analytics" element={<Analytics />} />
+        </Routes>
+      </div>
+    </div>
   );
-}
+};
 
 export default App;

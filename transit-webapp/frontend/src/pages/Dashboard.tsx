@@ -1,13 +1,13 @@
+// src/pages/Dashboard.tsx
 import React from 'react';
 
-export default function Dashboard() {
+const Dashboard: React.FC = () => {
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold mb-4">Transit System Overview</h1>
-      {/* You can fetch and display system stats here */}
-      <p>Total Routes: [placeholder]</p>
-      <p>Total Stops: [placeholder]</p>
-      <p>Total Violations: [placeholder]</p>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">System Dashboard</h1>
+      <p>This is where system-wide stats and overview will appear.</p>
     </div>
   );
-}
+};
+
+export default Dashboard;
