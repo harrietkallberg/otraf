@@ -1,0 +1,88 @@
+[
+  {
+    "216": {
+      "medium": [
+        {
+          "violation_type": "stop_id_from_invalid_parent_topology",
+          "severity": "medium",
+          "description": "Stop is part of parent_station with invalid topology",
+          "route_id": "9011005021600000",
+          "route_name": "216",
+          "route_short_name": "16",
+          "parent_station": "9021005001437000",
+          "stop_id": "9022005001437002",
+          "details": {
+            "directions": [
+              0
+            ],
+            "direction_counts": {
+              "0": 4175
+            },
+            "is_multi_directional": false
+          }
+        },
+        {
+          "violation_type": "stop_id_from_invalid_parent_topology",
+          "severity": "medium",
+          "description": "Stop is part of parent_station with invalid topology",
+          "route_id": "9011005021600000",
+          "route_name": "216",
+          "route_short_name": "16",
+          "parent_station": "9021005001437000",
+          "stop_id": "9022005001437001",
+          "details": {
+            "directions": [
+              1,
+              0
+            ],
+            "direction_counts": {
+              "1": 4743,
+              "0": 555
+            },
+            "is_multi_directional": true
+          }
+        }
+      ],
+      "high": [
+        {
+          "violation_type": "two_stop_misassigned_directions",
+          "severity": "high",
+          "description": "2-stop station with wrong configuration: 1 single + 1 multi (expected: 2 single + 0 multi)",
+          "route_id": "9011005021600000",
+          "route_name": "216",
+          "route_short_name": "16",
+          "parent_station": "9021005001437000",
+          "stop_names": [
+            "Hackefors"
+          ],
+          "details": {
+            "expected": "2 single-directional, 0 multi-directional",
+            "actual": "1 single-directional, 1 multi-directional",
+            "directional_analysis": {
+              "9022005001437002": {
+                "directions": [
+                  0
+                ],
+                "direction_counts": {
+                  "0": 4175
+                },
+                "is_multi_directional": false
+              },
+              "9022005001437001": {
+                "directions": [
+                  1,
+                  0
+                ],
+                "direction_counts": {
+                  "1": 4743,
+                  "0": 555
+                },
+                "is_multi_directional": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+]

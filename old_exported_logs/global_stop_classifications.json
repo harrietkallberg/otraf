@@ -1,0 +1,556 @@
+[
+  {
+    "216": [
+      {
+        "stop_id": "9022005001394002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000226002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000416001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "multi_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000437002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001396001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001433001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000422001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001435001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001445001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001437002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "varying_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001421002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001418001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001419001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001323001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001426001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000421001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001424001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001422001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000198002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005004186002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000412002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001249002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001431002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001430002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000042002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000050019",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001243001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "varying_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000046003",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000046006",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001431001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000412001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001430001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005004186001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000042001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000198001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001249001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "0": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001243002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "varying_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000050018",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001422002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001424002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000421002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001426002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001323002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001418002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001419002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000437001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000422002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001445002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001435002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001421001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001396002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001433002",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001394001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005001437001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "multi_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      },
+      {
+        "stop_id": "9022005000226001",
+        "route_id": "9011005021600000",
+        "labels": {
+          "stop_topology": "single_directional",
+          "direction_topology": {
+            "1": "high_coverage"
+          }
+        }
+      }
+    ]
+  }
+]

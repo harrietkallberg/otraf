@@ -1,0 +1,291 @@
+{
+  "direction_classifications": {
+    "0": "Multiple Patterns Detected",
+    "1": "Multiple Patterns Detected"
+  },
+  "direction_violations": {
+    "direction_0": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 0 has 4 alternative patterns.",
+      "route_id": "9011005021600000",
+      "route_name": "216",
+      "route_short_name": "16",
+      "direction_id": "0",
+      "details": {
+        "canonical_pattern": {
+          "1-28": 3539
+        },
+        "alternative_patterns": {
+          "19-28": 67,
+          "1-19_21-28": 635,
+          "19_21-28": 11,
+          "1-9*11-28": 555
+        }
+      }
+    },
+    "direction_1": {
+      "violation_type": "diverse_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 1 has 1 alternative patterns.",
+      "route_id": "9011005021600000",
+      "route_name": "216",
+      "route_short_name": "16",
+      "direction_id": "1",
+      "details": {
+        "canonical_pattern": {
+          "1-28": 4100
+        },
+        "alternative_patterns": {
+          "1-8_10-28": 635
+        }
+      }
+    }
+  },
+  "stop_id_violations": {
+    "stop_id_0": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop {'parent_station': '9021005001437000', 'stop_name': 'Hackefors', 'label': 'single_directional', 'has_violation': True}, with stop_id 9022005001437002 in canonical position 10 is missing from 13.2% of trips in direction 0",
+      "route_id": "9011005021600000",
+      "route_name": "216",
+      "route_short_name": "16",
+      "stop_id": "9022005001437002",
+      "stop_name": {
+        "parent_station": "9021005001437000",
+        "stop_name": "Hackefors",
+        "label": "single_directional",
+        "has_violation": true
+      },
+      "direction_id": "0",
+      "details": {
+        "canonical_position": 10,
+        "missing_count": 633,
+        "total_trips": 4807,
+        "missing_percentage": 13.2
+      }
+    },
+    "stop_id_1": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop {'parent_station': '9021005001243000', 'stop_name': 'Kungsgatan', 'label': 'single_directional', 'has_violation': False}, with stop_id 9022005001243001 in canonical position 20 is missing from 13.4% of trips in direction 0",
+      "route_id": "9011005021600000",
+      "route_name": "216",
+      "route_short_name": "16",
+      "stop_id": "9022005001243001",
+      "stop_name": {
+        "parent_station": "9021005001243000",
+        "stop_name": "Kungsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "direction_id": "0",
+      "details": {
+        "canonical_position": 20,
+        "missing_count": 646,
+        "total_trips": 4807,
+        "missing_percentage": 13.4
+      }
+    },
+    "stop_id_2": {
+      "violation_type": "missing_stop_coverage",
+      "severity": "medium",
+      "description": "Stop {'parent_station': '9021005001243000', 'stop_name': 'Kungsgatan', 'label': 'single_directional', 'has_violation': False}, with stop_id 9022005001243002 in canonical position 9 is missing from 13.4% of trips in direction 1",
+      "route_id": "9011005021600000",
+      "route_name": "216",
+      "route_short_name": "16",
+      "stop_id": "9022005001243002",
+      "stop_name": {
+        "parent_station": "9021005001243000",
+        "stop_name": "Kungsgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "direction_id": "1",
+      "details": {
+        "canonical_position": 9,
+        "missing_count": 635,
+        "total_trips": 4735,
+        "missing_percentage": 13.4
+      }
+    }
+  },
+  "metadata": {
+    "total_violations": 5,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 3
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    }
+  },
+  "stop_id_classifications": {
+    "9022005000416001": {
+      "1": "high_coverage"
+    },
+    "9022005000226002": {
+      "0": "high_coverage"
+    },
+    "9022005001394002": {
+      "0": "high_coverage"
+    },
+    "9022005000437002": {
+      "0": "high_coverage"
+    },
+    "9022005001396001": {
+      "0": "high_coverage"
+    },
+    "9022005001433001": {
+      "0": "high_coverage"
+    },
+    "9022005000422001": {
+      "0": "high_coverage"
+    },
+    "9022005001435001": {
+      "0": "high_coverage"
+    },
+    "9022005001445001": {
+      "0": "high_coverage"
+    },
+    "9022005001437002": {
+      "0": "varying_coverage"
+    },
+    "9022005001421002": {
+      "0": "high_coverage"
+    },
+    "9022005001419001": {
+      "0": "high_coverage"
+    },
+    "9022005001418001": {
+      "0": "high_coverage"
+    },
+    "9022005001323001": {
+      "0": "high_coverage"
+    },
+    "9022005001426001": {
+      "0": "high_coverage"
+    },
+    "9022005000421001": {
+      "0": "high_coverage"
+    },
+    "9022005001424001": {
+      "0": "high_coverage"
+    },
+    "9022005001422001": {
+      "0": "high_coverage"
+    },
+    "9022005000050019": {
+      "0": "high_coverage"
+    },
+    "9022005001243001": {
+      "0": "varying_coverage"
+    },
+    "9022005000046003": {
+      "0": "high_coverage"
+    },
+    "9022005000042001": {
+      "0": "high_coverage"
+    },
+    "9022005000198001": {
+      "0": "high_coverage"
+    },
+    "9022005001249001": {
+      "0": "high_coverage"
+    },
+    "9022005004186001": {
+      "0": "high_coverage"
+    },
+    "9022005000412001": {
+      "0": "high_coverage"
+    },
+    "9022005001431001": {
+      "0": "high_coverage"
+    },
+    "9022005001430001": {
+      "0": "high_coverage"
+    },
+    "9022005001430002": {
+      "1": "high_coverage"
+    },
+    "9022005001431002": {
+      "1": "high_coverage"
+    },
+    "9022005000412002": {
+      "1": "high_coverage"
+    },
+    "9022005004186002": {
+      "1": "high_coverage"
+    },
+    "9022005001249002": {
+      "1": "high_coverage"
+    },
+    "9022005000198002": {
+      "1": "high_coverage"
+    },
+    "9022005000042002": {
+      "1": "high_coverage"
+    },
+    "9022005000046006": {
+      "1": "high_coverage"
+    },
+    "9022005001243002": {
+      "1": "varying_coverage"
+    },
+    "9022005000050018": {
+      "1": "high_coverage"
+    },
+    "9022005001422002": {
+      "1": "high_coverage"
+    },
+    "9022005001424002": {
+      "1": "high_coverage"
+    },
+    "9022005000421002": {
+      "1": "high_coverage"
+    },
+    "9022005001426002": {
+      "1": "high_coverage"
+    },
+    "9022005001323002": {
+      "1": "high_coverage"
+    },
+    "9022005001418002": {
+      "1": "high_coverage"
+    },
+    "9022005001419002": {
+      "1": "high_coverage"
+    },
+    "9022005001421001": {
+      "1": "high_coverage"
+    },
+    "9022005001437001": {
+      "1": "high_coverage"
+    },
+    "9022005001445002": {
+      "1": "high_coverage"
+    },
+    "9022005001435002": {
+      "1": "high_coverage"
+    },
+    "9022005000422002": {
+      "1": "high_coverage"
+    },
+    "9022005001433002": {
+      "1": "high_coverage"
+    },
+    "9022005001396002": {
+      "1": "high_coverage"
+    },
+    "9022005000437001": {
+      "1": "high_coverage"
+    },
+    "9022005001394001": {
+      "1": "high_coverage"
+    },
+    "9022005000226001": {
+      "1": "high_coverage"
+    }
+  }
+}
