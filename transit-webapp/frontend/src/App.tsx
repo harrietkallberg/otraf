@@ -1,9 +1,8 @@
-// src/App.tsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
-import Search from './pages/Search.tsx';
+import Search from './pages/Search';
 import RouteDetail from './pages/RouteDetail';
 import StopDetail from './pages/StopDetail';
 import Violations from './pages/Violations';

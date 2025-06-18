@@ -1,5 +1,5 @@
 {
-  "parent_station_classifications": {
+  "parent_station_labels": {
     "9021005000044000": "Shared",
     "9021005001232000": "Bidirectional",
     "9021005001233000": "Bidirectional",
@@ -24,20 +24,8 @@
     "9021005000050000": "Bidirectional",
     "9021005001222000": "Unidirectional"
   },
-  "stop_id_direction_assignment_violations": {},
-  "metadata": {
-    "total_violations": 0,
-    "violation_counts_by_type": {
-      "parent_station": 0,
-      "stop_id": 0
-    },
-    "route_summary": {
-      "total_stops": 0,
-      "total_parent_stations": 0,
-      "topology_types": {}
-    }
-  },
-  "stop_id_classifications": {
+  "parent_station_violations": {},
+  "stop_id_labels": {
     "9022005000044001": "multi_directional",
     "9022005001232002": "single_directional",
     "9022005001233002": "single_directional",
@@ -81,6 +69,22 @@
     "9022005001231001": "single_directional",
     "9022005001230001": "single_directional"
   },
-  "parent_station_violations": {},
-  "stop_id_violations": {}
+  "stop_id_violations": {},
+  "metadata": {
+    "total_violations": 0,
+    "violation_counts_by_type": {
+      "parent_station": 0,
+      "stop_id": 0
+    },
+    "route_summary": {
+      "total_stops": 0,
+      "total_parent_stations": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "parent_station": 23,
+      "stop_id": 42
+    },
+    "total_labels": 65
+  }
 }

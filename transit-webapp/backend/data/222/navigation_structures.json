@@ -1,629 +1,1463 @@
 {
   "stop_hierarchies": {
-    "by_stop_name": {},
-    "by_stop_id": {}
+    "by_stop_name": {
+      "Ekhaga": {
+        "9021005001318000": {
+          "stop_ids": [
+            "9022005001318001",
+            "9022005001318002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Järdalavägen 50": {
+        "9021005003559000": {
+          "stop_ids": [
+            "9022005003559001",
+            "9022005003559002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Ekholmens centrum": {
+        "9021005000054000": {
+          "stop_ids": [
+            "9022005000054001",
+            "9022005000054002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Ektunavägen": {
+        "9021005003850000": {
+          "stop_ids": [
+            "9022005003850001",
+            "9022005003850002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Kvinnebystigen": {
+        "9021005001401000": {
+          "stop_ids": [
+            "9022005001401001",
+            "9022005001401002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Aspeliden": {
+        "9021005001400000": {
+          "stop_ids": [
+            "9022005001400001",
+            "9022005001400002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Strandängsvägen": {
+        "9021005001398000": {
+          "stop_ids": [
+            "9022005001398001",
+            "9022005001398002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Vårdsbergsvägen": {
+        "9021005000437000": {
+          "stop_ids": [
+            "9022005000437001",
+            "9022005000437002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Ekdalsvägen": {
+        "9021005001394000": {
+          "stop_ids": [
+            "9022005001394001",
+            "9022005001394002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Lövsbergsvägen": {
+        "9021005000226000": {
+          "stop_ids": [
+            "9022005000226001",
+            "9022005000226002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Aspnäset": {
+        "9021005000416000": {
+          "stop_ids": [
+            "9022005000416002",
+            "9022005000416001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Ullstämma by": {
+        "9021005001598000": {
+          "stop_ids": [
+            "9022005001598002",
+            "9022005001598001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Morgongatan": {
+        "9021005003838000": {
+          "stop_ids": [
+            "9022005003838001",
+            "9022005003838002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Grindgatan": {
+        "9021005001233000": {
+          "stop_ids": [
+            "9022005001233002",
+            "9022005001233001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Myntgatan": {
+        "9021005001232000": {
+          "stop_ids": [
+            "9022005001232002",
+            "9022005001232001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Resedan": {
+        "9021005000045000": {
+          "stop_ids": [
+            "9022005000045002",
+            "9022005000045001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Ridhusgatan": {
+        "9021005001231000": {
+          "stop_ids": [
+            "9022005001231002",
+            "9022005001231001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Berga centrum": {
+        "9021005001430000": {
+          "stop_ids": [
+            "9022005001430002",
+            "9022005001430001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Pionjärgatan": {
+        "9021005001431000": {
+          "stop_ids": [
+            "9022005001431002",
+            "9022005001431001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Nobeltorget": {
+        "9021005080182000": {
+          "stop_ids": [
+            "9022005080182001",
+            "9022005080182002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Forskningsbyn": {
+        "9021005003847000": {
+          "stop_ids": [
+            "9022005003847002",
+            "9022005003847001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Mjärdevi Center": {
+        "9021005004232000": {
+          "stop_ids": [
+            "9022005004232003",
+            "9022005004232001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Rotegatan": {
+        "9021005000412000": {
+          "stop_ids": [
+            "9022005000412002",
+            "9022005000412001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Mjärdevi": {
+        "9021005004139000": {
+          "stop_ids": [
+            "9022005004139002",
+            "9022005004139001"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Djurgården": {
+        "9021005004236000": {
+          "stop_ids": [
+            "9022005004236001",
+            "9022005004236002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Garnisonen södra": {
+        "9021005004253000": {
+          "stop_ids": [
+            "9022005004253001",
+            "9022005004253002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Vallastadens skola": {
+        "9021005080004000": {
+          "stop_ids": [
+            "9022005080004001",
+            "9022005080004002"
+          ],
+          "has_violation": false,
+          "label": "Bidirectional"
+        }
+      },
+      "Berga Söderleden": {
+        "9021005000043000": {
+          "stop_ids": [
+            "9022005000043001"
+          ],
+          "has_violation": false,
+          "label": "Unidirectional"
+        }
+      }
+    },
+    "by_stop_id": {
+      "9022005001318001": {
+        "parent_station": "9021005001318000",
+        "stop_name": "Ekhaga",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003559001": {
+        "parent_station": "9021005003559000",
+        "stop_name": "Järdalavägen 50",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000054001": {
+        "parent_station": "9021005000054000",
+        "stop_name": "Ekholmens centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003850001": {
+        "parent_station": "9021005003850000",
+        "stop_name": "Ektunavägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001401001": {
+        "parent_station": "9021005001401000",
+        "stop_name": "Kvinnebystigen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001400001": {
+        "parent_station": "9021005001400000",
+        "stop_name": "Aspeliden",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001398001": {
+        "parent_station": "9021005001398000",
+        "stop_name": "Strandängsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000437001": {
+        "parent_station": "9021005000437000",
+        "stop_name": "Vårdsbergsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001394001": {
+        "parent_station": "9021005001394000",
+        "stop_name": "Ekdalsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000226001": {
+        "parent_station": "9021005000226000",
+        "stop_name": "Lövsbergsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000416002": {
+        "parent_station": "9021005000416000",
+        "stop_name": "Aspnäset",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001598002": {
+        "parent_station": "9021005001598000",
+        "stop_name": "Ullstämma by",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003838001": {
+        "parent_station": "9021005003838000",
+        "stop_name": "Morgongatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001233002": {
+        "parent_station": "9021005001233000",
+        "stop_name": "Grindgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001232002": {
+        "parent_station": "9021005001232000",
+        "stop_name": "Myntgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000045002": {
+        "parent_station": "9021005000045000",
+        "stop_name": "Resedan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001231002": {
+        "parent_station": "9021005001231000",
+        "stop_name": "Ridhusgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001430002": {
+        "parent_station": "9021005001430000",
+        "stop_name": "Berga centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001431002": {
+        "parent_station": "9021005001431000",
+        "stop_name": "Pionjärgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005080182001": {
+        "parent_station": "9021005080182000",
+        "stop_name": "Nobeltorget",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003847002": {
+        "parent_station": "9021005003847000",
+        "stop_name": "Forskningsbyn",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004232003": {
+        "parent_station": "9021005004232000",
+        "stop_name": "Mjärdevi Center",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000412002": {
+        "parent_station": "9021005000412000",
+        "stop_name": "Rotegatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004139002": {
+        "parent_station": "9021005004139000",
+        "stop_name": "Mjärdevi",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004236001": {
+        "parent_station": "9021005004236000",
+        "stop_name": "Djurgården",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004253001": {
+        "parent_station": "9021005004253000",
+        "stop_name": "Garnisonen södra",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005080004001": {
+        "parent_station": "9021005080004000",
+        "stop_name": "Vallastadens skola",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004139001": {
+        "parent_station": "9021005004139000",
+        "stop_name": "Mjärdevi",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004232001": {
+        "parent_station": "9021005004232000",
+        "stop_name": "Mjärdevi Center",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003847001": {
+        "parent_station": "9021005003847000",
+        "stop_name": "Forskningsbyn",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005080182002": {
+        "parent_station": "9021005080182000",
+        "stop_name": "Nobeltorget",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005080004002": {
+        "parent_station": "9021005080004000",
+        "stop_name": "Vallastadens skola",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004236002": {
+        "parent_station": "9021005004236000",
+        "stop_name": "Djurgården",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005004253002": {
+        "parent_station": "9021005004253000",
+        "stop_name": "Garnisonen södra",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000412001": {
+        "parent_station": "9021005000412000",
+        "stop_name": "Rotegatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001431001": {
+        "parent_station": "9021005001431000",
+        "stop_name": "Pionjärgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001430001": {
+        "parent_station": "9021005001430000",
+        "stop_name": "Berga centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000043001": {
+        "parent_station": "9021005000043000",
+        "stop_name": "Berga Söderleden",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001231001": {
+        "parent_station": "9021005001231000",
+        "stop_name": "Ridhusgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000045001": {
+        "parent_station": "9021005000045000",
+        "stop_name": "Resedan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001232001": {
+        "parent_station": "9021005001232000",
+        "stop_name": "Myntgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001233001": {
+        "parent_station": "9021005001233000",
+        "stop_name": "Grindgatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003838002": {
+        "parent_station": "9021005003838000",
+        "stop_name": "Morgongatan",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000054002": {
+        "parent_station": "9021005000054000",
+        "stop_name": "Ekholmens centrum",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000437002": {
+        "parent_station": "9021005000437000",
+        "stop_name": "Vårdsbergsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001318002": {
+        "parent_station": "9021005001318000",
+        "stop_name": "Ekhaga",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003559002": {
+        "parent_station": "9021005003559000",
+        "stop_name": "Järdalavägen 50",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001401002": {
+        "parent_station": "9021005001401000",
+        "stop_name": "Kvinnebystigen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005003850002": {
+        "parent_station": "9021005003850000",
+        "stop_name": "Ektunavägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000226002": {
+        "parent_station": "9021005000226000",
+        "stop_name": "Lövsbergsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001394002": {
+        "parent_station": "9021005001394000",
+        "stop_name": "Ekdalsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001398002": {
+        "parent_station": "9021005001398000",
+        "stop_name": "Strandängsvägen",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001400002": {
+        "parent_station": "9021005001400000",
+        "stop_name": "Aspeliden",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005001598001": {
+        "parent_station": "9021005001598000",
+        "stop_name": "Ullstämma by",
+        "label": "single_directional",
+        "has_violation": false
+      },
+      "9022005000416001": {
+        "parent_station": "9021005000416000",
+        "stop_name": "Aspnäset",
+        "label": "single_directional",
+        "has_violation": false
+      }
+    }
   },
   "direction_hierarchies": {
     "by_direction": {
       "0": {
-        "canonical_stop_ids": [
-          "9022005004139001",
-          "9022005004232001",
-          "9022005003847001",
-          "9022005080182002",
-          "9022005080004002",
-          "9022005004236002",
-          "9022005004253002",
-          "9022005000412001",
-          "9022005001431001",
-          "9022005001430001",
-          "9022005000043001",
-          "9022005001231001",
-          "9022005000045001",
-          "9022005001232001",
-          "9022005001233001",
-          "9022005003838002",
-          "9022005001598001",
-          "9022005000416001",
-          "9022005000226002",
-          "9022005001394002",
-          "9022005000437002",
-          "9022005001398002",
-          "9022005001400002",
-          "9022005001401002",
-          "9022005003850002",
-          "9022005000054002",
-          "9022005003559002",
-          "9022005001318002"
+        "label": "Full Route Only",
+        "canonical_pattern_string_description": "1-28",
+        "stop_ids": [
+          {
+            "1": {
+              "stop_id": "9022005004139001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "2": {
+              "stop_id": "9022005004232001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "3": {
+              "stop_id": "9022005003847001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "4": {
+              "stop_id": "9022005080182002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "5": {
+              "stop_id": "9022005080004002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "6": {
+              "stop_id": "9022005004236002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "7": {
+              "stop_id": "9022005004253002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "8": {
+              "stop_id": "9022005000412001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "9": {
+              "stop_id": "9022005001431001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "10": {
+              "stop_id": "9022005001430001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "11": {
+              "stop_id": "9022005000043001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "12": {
+              "stop_id": "9022005001231001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "13": {
+              "stop_id": "9022005000045001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "14": {
+              "stop_id": "9022005001232001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "15": {
+              "stop_id": "9022005001233001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "16": {
+              "stop_id": "9022005003838002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "17": {
+              "stop_id": "9022005001598001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "18": {
+              "stop_id": "9022005000416001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "19": {
+              "stop_id": "9022005000226002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "20": {
+              "stop_id": "9022005001394002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "21": {
+              "stop_id": "9022005000437002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "22": {
+              "stop_id": "9022005001398002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "23": {
+              "stop_id": "9022005001400002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "24": {
+              "stop_id": "9022005001401002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "25": {
+              "stop_id": "9022005003850002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "26": {
+              "stop_id": "9022005000054002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "27": {
+              "stop_id": "9022005003559002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "28": {
+              "stop_id": "9022005001318002",
+              "label": "high_coverage"
+            }
+          }
         ],
-        "label": "Multi-Pattern",
-        "num_trips": 8,
-        "has_violation": true
+        "has_violation": false
       },
       "1": {
-        "canonical_stop_ids": [
-          "9022005001318001",
-          "9022005003559001",
-          "9022005000054001",
-          "9022005003850001",
-          "9022005001401001",
-          "9022005001400001",
-          "9022005001398001",
-          "9022005000437001",
-          "9022005001394001",
-          "9022005000226001",
-          "9022005000416002",
-          "9022005001598002",
-          "9022005003838001",
-          "9022005001233002",
-          "9022005001232002",
-          "9022005000045002",
-          "9022005001231002",
-          "9022005001430002",
-          "9022005001431002",
-          "9022005000412002",
-          "9022005004253001",
-          "9022005004236001",
-          "9022005080004001",
-          "9022005080182001",
-          "9022005003847002",
-          "9022005004232003",
-          "9022005004139002"
+        "label": "Multiple Patterns Detected",
+        "canonical_pattern_string_description": "1-27",
+        "stop_ids": [
+          {
+            "1": {
+              "stop_id": "9022005001318001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "2": {
+              "stop_id": "9022005003559001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "3": {
+              "stop_id": "9022005000054001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "4": {
+              "stop_id": "9022005003850001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "5": {
+              "stop_id": "9022005001401001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "6": {
+              "stop_id": "9022005001400001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "7": {
+              "stop_id": "9022005001398001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "8": {
+              "stop_id": "9022005000437001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "9": {
+              "stop_id": "9022005001394001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "10": {
+              "stop_id": "9022005000226001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "11": {
+              "stop_id": "9022005000416002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "12": {
+              "stop_id": "9022005001598002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "13": {
+              "stop_id": "9022005003838001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "14": {
+              "stop_id": "9022005001233002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "15": {
+              "stop_id": "9022005001232002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "16": {
+              "stop_id": "9022005000045002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "17": {
+              "stop_id": "9022005001231002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "18": {
+              "stop_id": "9022005001430002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "19": {
+              "stop_id": "9022005001431002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "20": {
+              "stop_id": "9022005000412002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "21": {
+              "stop_id": "9022005004253001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "22": {
+              "stop_id": "9022005004236001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "23": {
+              "stop_id": "9022005080004001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "24": {
+              "stop_id": "9022005080182001",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "25": {
+              "stop_id": "9022005003847002",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "26": {
+              "stop_id": "9022005004232003",
+              "label": "high_coverage"
+            }
+          },
+          {
+            "27": {
+              "stop_id": "9022005004139002",
+              "label": "high_coverage"
+            }
+          }
         ],
-        "label": "Multi-Pattern",
-        "num_trips": 10,
-        "has_violation": true
+        "has_violation": true,
+        "violation_types": [
+          "topology"
+        ]
       }
     },
     "by_stop_id": {
-      "9022005000043001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000045001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000045002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000054001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000054002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000226001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000226002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000412001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000412002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000416001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000416002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000437001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005000437002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001231001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001231002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001232001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001232002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001233001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001233002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001318001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001318002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001394001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001394002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001398001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001398002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001400001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001400002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001401001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001401002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001430001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001430002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001431001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001431002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001598001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005001598002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003559001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003559002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003838001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003838002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003847001": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003847002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003850001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005003850002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
       "9022005004139001": {
-        "directions": [
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
           "0"
         ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005004139002": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
         "has_violation": false
       },
       "9022005004232001": {
-        "directions": [
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
           "0"
         ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
         "has_violation": false
       },
-      "9022005004232003": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005004236001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005004236002": {
-        "directions": [
+      "9022005003847001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
           "0"
         ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005004253001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005004253002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005080004001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005080004002": {
-        "directions": [
-          "0"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
-        "has_violation": false
-      },
-      "9022005080182001": {
-        "directions": [
-          "1"
-        ],
-        "direction_labels": [
-          "Multi-Pattern"
-        ],
-        "label": "Unknown",
         "has_violation": false
       },
       "9022005080182002": {
-        "directions": [
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
           "0"
         ],
-        "direction_labels": [
-          "Multi-Pattern"
+        "has_violation": false
+      },
+      "9022005080004002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
         ],
-        "label": "Unknown",
+        "has_violation": false
+      },
+      "9022005004236002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005004253002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000412001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001431001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001430001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000043001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001231001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000045001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001232001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001233001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005003838002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001598001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000416001": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000226002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001394002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000437002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001398002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001400002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001401002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005003850002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005000054002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005003559002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001318002": {
+        "label": {
+          "0": "high_coverage"
+        },
+        "direction_ids": [
+          "0"
+        ],
+        "has_violation": false
+      },
+      "9022005001318001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005003559001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000054001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005003850001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001401001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001400001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001398001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000437001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001394001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000226001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000416002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001598002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005003838001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001233002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001232002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000045002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001231002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001430002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005001431002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005000412002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005004253001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005004236001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005080004001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005080182001": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005003847002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005004232003": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
+        "has_violation": false
+      },
+      "9022005004139002": {
+        "label": {
+          "1": "high_coverage"
+        },
+        "direction_ids": [
+          "1"
+        ],
         "has_violation": false
       }
     }
