@@ -1,14 +1,18 @@
 from flask import Flask, send_from_directory
 from pathlib import Path
 
+# ✅ Add this
+from search_backend import search_bp
+
 app = Flask(__name__, static_folder='data', static_url_path='/data')
 
-# Serve any file in data/ or its subfolders
+# ✅ Register the blueprint
+app.register_blueprint(search_bp)
+
 @app.route('/data/<path:filename>')
 def serve_data(filename):
     return send_from_directory('data', filename)
 
-# Optional: shortcut API aliases if needed
 @app.route('/api/routes-summary')
 def api_routes_summary():
     return send_from_directory('data', 'routes_summary.json')

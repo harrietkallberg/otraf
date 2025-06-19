@@ -59,11 +59,10 @@ class LVLogger:
         
         # ===== PERFORMANCE & RELIABILITY ANALYSIS LOGS =====
         self.performance_logs = {
+            'histograms_stops': {}, 
             'punctuality_barcharts': {},   
             'stops_regulatory_labels': {},
-            'regulatory_violations' : {},
             'regulatory_performance_violations':{},
-            'histograms_stops': {}, 
             'travel_times':{},        
             'metadata': {
                 'analysis_period': {
@@ -97,7 +96,8 @@ class LVLogger:
         """
         logs = {
             'stop_topology': self.stop_topology_logs,
-            'direction_topology': self.direction_topology_logs
+            'direction_topology': self.direction_topology_logs,
+            'performance':self.performance_logs
         }[domain]
 
         for label_type, label_data in labels.items():
@@ -144,15 +144,16 @@ class LVLogger:
         Add a single violation entry to the specified domain and type.
         """
         # Input validation
-        if domain not in ['stop_topology', 'direction_topology']:
-            raise ValueError(f"Invalid domain: {domain}. Must be 'stop_topology' or 'direction_topology'")
+        if domain not in ['stop_topology', 'direction_topology', 'performance']:
+            raise ValueError(f"Invalid domain: {domain}. Must be 'stop_topology' or 'direction_topology' or 'performance")
         
         if not isinstance(violation_entry, dict):
             raise TypeError("violation_entry must be a dictionary")
             
         logs = {
             'stop_topology': self.stop_topology_logs,
-            'direction_topology': self.direction_topology_logs
+            'direction_topology': self.direction_topology_logs,
+            'performance':self.performance_logs
         }[domain]
 
         # Ensure violation type exists in logs
@@ -174,12 +175,13 @@ class LVLogger:
         Add a single label entry to the specified domain and type.
         """
         # Input validation
-        if domain not in ['stop_topology', 'direction_topology']:
-            raise ValueError(f"Invalid domain: {domain}. Must be 'stop_topology' or 'direction_topology'")
+        if domain not in ['stop_topology', 'direction_topology', 'performance']:
+            raise ValueError(f"Invalid domain: {domain}. Must be 'stop_topology' or 'direction_topology' or 'performance'")
             
         logs = {
             'stop_topology': self.stop_topology_logs,
-            'direction_topology': self.direction_topology_logs
+            'direction_topology': self.direction_topology_logs,
+            'performance':self.performance_logs
         }[domain]
 
         labels_key = f"{label_type}_labels"
