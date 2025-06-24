@@ -1,111 +1,37 @@
 import pandas as pd
 import json as json 
-from pathlib import Path
-from hashlib import md5
 import numpy as np
 from collections import defaultdict, Counter
 from statistical.lv_logger import LVLogger
 import matplotlib.pyplot as plt
-import os
-
-def sanitize_keys(obj):
-    """Recursively convert tuple keys to strings to make the structure JSON-safe."""
-    if isinstance(obj, dict):
-        new_obj = {}
-        for k, v in obj.items():
-            if isinstance(k, tuple):
-                key = "__TUPLE__" + "::".join(map(str, k))
-            else:
-                key = k
-            new_obj[key] = sanitize_keys(v)
-        return new_obj
-    elif isinstance(obj, list):
-        return [sanitize_keys(item) for item in obj]
-    else:
-        return obj
-    
-def sanitize_values(obj):
-    """Recursively convert NumPy/Pandas types to native Python types."""
-    if isinstance(obj, dict):
-        return {sanitize_values(k): sanitize_values(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [sanitize_values(item) for item in obj]
-    elif isinstance(obj, (np.integer, pd.Int64Dtype)):
-        return int(obj)
-    elif isinstance(obj, (np.floating, pd.Float64Dtype)):
-        return float(obj)
-    elif isinstance(obj, (pd.Timestamp, np.datetime64)):
-        return str(obj)
-    elif isinstance(obj, (np.bool_, bool)):
-        return bool(obj)
-    else:
-        return obj
-
-def save_json_safe(data, path):
-    """Safely save sanitized data to a JSON file."""
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(sanitize_values(sanitize_keys(data)), f, indent=2, ensure_ascii=False)
-
-def load_json_array(file_path):
-    if Path(file_path).exists():
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    return []
-
-def save_json_array(data, file_path):
-    with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-def append_unique(existing_list, new_entries):
-    seen_hashes = {md5(json.dumps(e, sort_keys=True).encode()).hexdigest() for e in existing_list}
-    additions = []
-    for entry in new_entries:
-        h = md5(json.dumps(entry, sort_keys=True).encode()).hexdigest()
-        if h not in seen_hashes:
-            additions.append(entry)
-    return existing_list + additions
+from statistical.exporter import Exporter
+import datetime as datetime
 
 class DataFormer:
     def __init__(self, raw_data):
         self.raw_data = raw_data
-        self.route_id = self.raw_data['route_id'].iloc[0]
-        self.route_short_name = self.raw_data['route_short_name'].iloc[0]
+        self.route_id = raw_data["route_id"].iloc[0]
         self.route_long_name = self.get_route_long_name()
-        self.route_info = {
-            "route_id": str(self.route_id),
-            "route_name": self.route_long_name,
+        self.route_short_name = raw_data["route_short_name"].iloc[0]
+
+        # Initialize logger with extracted route metadata
+        self.log = LVLogger({
+            "route_id": self.route_id,
+            "route_long_name": self.route_long_name,
             "route_short_name": self.route_short_name
-        }
-
-        self.log = LVLogger(self.route_info)
-
+        })
+        
         # STEP 0: Preprocessing
         self.df_before = self.prepare_columns(raw_data)
 
-        # STEP 1: Stop topology validation
-        print("STEP 1: Stop topology validation...")
+        # Run full validation pipeline
         self.create_and_validate_stop_topology(self.df_before)
-
-        # STEP 2: Direction topology validation
-        print("STEP 2: Direction topology validation...")
         self.create_and_validate_direction_topology(self.df_before)
+        self.create_and_validate_regulatory_behavior(self.df_before)
+        self.generate_performance_logs(self.df_before)
 
-        # STEP 3: Regulatory stop detection
-        print("STEP 3: Regulatory stop detection...")
-        self.df_with_regulatory = self.identify_and_classify_stops(self.df_before)
-
-        # STEP 4: Performance metrics
-        print("STEP 4: Performance analysis...")
-        self.df_final = self.df_with_regulatory.copy()
-        self.generate_performance_logs()
-        self.generate_travel_time_log()
-
-        # STEP 6: Export everything
-        export_dir = "exported_logs"
-        self.export_all_logs_frontend_friendly(export_dir=export_dir)
-        self.export_summary_dashboard_files(export_dir=export_dir)
-
-        print("✅ DataFormer initialization complete!")
+        self.build_routewise_navigation_structure()
+        print('NAVIGATIONAL STRUCTURE DONE')
 
 #   ================================ Preparation =====================================
 
@@ -183,6 +109,12 @@ class DataFormer:
             print(f'Removing {duplicate_count} duplicates.')
             df = df.drop_duplicates(subset=['trip_id', 'stop_id', 'stop_name', 'direction_id', 'start_date'])
 
+        # In DataFormer.__init__, after self.df_before = df.copy():
+        for col in ["direction_id", "stop_id", "time_type"]:
+            if col in df.columns:
+                df[col] = df[col].astype(str)
+
+
         return df
     
 #   ================ CLEARLY SEPARATED VALIDATION METHODS =====================
@@ -196,9 +128,6 @@ class DataFormer:
 
         # STEP 2: Validate and log stop ID direction behavior
         self._validate_stop_id_directions(df)
-
-        # Build navigational hierarchies based on logged labels and violations
-        self.build_topology_hierarchy("stop", df)
 
         print("✅ Topology validation complete and logs stored.")
 
@@ -239,52 +168,65 @@ class DataFormer:
         multi_count = sum(1 for analysis in stop_id_analysis.values() if analysis['is_multi_directional'])
         single_count = total_stops - multi_count
 
-        def log_and_return(label, parent_violation=None):
-            self.log.add_label('stop_topology', 'parent_station', parent_station, label)
+        parent_key = self.log.build_entity_key('stop_topology', parent_station = parent_station)
+
+        def log_and_return(description, parent_violation=None):
+            label_entry = self.log.create_label_entry(
+                label_type='parent_station_stop_topology',
+                description=description,
+                entity_key=parent_key,
+                stop_ids=stop_ids,
+                stop_names=stop_names,
+                directional_analysis=stop_id_analysis
+            )
+            self.log.add_label('stop_topology', 'parent_station', parent_key, label_entry)
 
             if parent_violation:
-                self.log.add_violation('stop_topology', 'parent_station', parent_violation)
-                print(f"🚩 Parent station {parent_station} [{label}]: {parent_violation['description']}")
+                self.log.add_violation('stop_topology', 'parent_station', parent_key, parent_violation)
+                print(f"🚩 Parent station {parent_station} [{description}]: {parent_violation['description']}")
 
                 for sid in stop_ids:
+                    sid_key = self.log.build_entity_key('stop_topology', parent_station = parent_station, stop_id = sid)
                     stop_violation = self.log.create_violation_entry(
-                        'stop_id_from_invalid_parent_topology',
-                        'medium',
-                        'Stop is part of parent_station with invalid topology',
+                        violation_type='stop_id_from_invalid_parent_topology',
+                        severity='medium',
+                        description='Stop is part of parent_station with invalid topology',
+                        entity_key=sid_key,
                         parent_station=parent_station,
                         stop_id=sid,
-                        details=stop_id_analysis[sid]
+                        details=stop_id_analysis.get(str(sid), {})
                     )
-                    self.log.add_violation('stop_topology', 'stop_id', stop_violation)
+                    self.log.add_violation('stop_topology', 'stop_id', sid_key, stop_violation)
             else:
-                print(f"✅ Parent station {parent_station} [{label}]: Valid topology")
+                print(f"✅ Parent station {parent_station} [{description}]: Valid topology")
 
-            return label
+            return description
 
-        # ⚠️ Incomplete data check
         if missing_data_stop_ids:
             warning = self.log.create_violation_entry(
-                'stop_id_missing_direction_data',
-                'medium',
-                f'Some stop_ids in parent_station {parent_station} have no direction data',
+                violation_type='stop_id_missing_direction_data',
+                severity='medium',
+                description=f'Some stop_ids in parent_station {parent_station} have no direction data',
+                entity_key=parent_key,
                 parent_station=parent_station,
                 stop_ids=missing_data_stop_ids,
                 details=stop_id_analysis
             )
             return log_and_return('Undefined', warning)
 
-        # Classification logic
         if total_stops == 1:
-            return log_and_return('Shared' if multi_count == 1 else 'Unidirectional')
+            label = 'Shared' if multi_count == 1 else 'Unidirectional'
+            return log_and_return(label)
 
         if total_stops == 2:
             if single_count == 2 and multi_count == 0:
                 return log_and_return('Bidirectional')
             else:
                 violation = self.log.create_violation_entry(
-                    'two_stop_misassigned_directions',
-                    'high',
-                    f'2-stop station with wrong configuration: {single_count} single + {multi_count} multi (expected: 2 single + 0 multi)',
+                    violation_type='two_stop_misassigned_directions',
+                    severity='high',
+                    description=f'2-stop station with wrong configuration: {single_count} single + {multi_count} multi (expected: 2 single + 0 multi)',
+                    entity_key=parent_key,
                     parent_station=parent_station,
                     details={
                         'expected': '2 single-directional, 0 multi-directional',
@@ -301,9 +243,10 @@ class DataFormer:
                 return log_and_return('Hybrid')
             else:
                 violation = self.log.create_violation_entry(
-                    'unpaired_directional_stops',
-                    'medium',
-                    f'Even-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+                    violation_type='unpaired_even_directional_stops',
+                    severity='medium',
+                    description=f'Even-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+                    entity_key=parent_key,
                     parent_station=parent_station,
                     stop_names=stop_names,
                     details={
@@ -314,13 +257,15 @@ class DataFormer:
                 )
                 return log_and_return('Undefined', violation)
 
+        # Odd count
         if single_count % 2 == 0 and multi_count % 2 == 1:
             return log_and_return('Hybrid')
         else:
             violation = self.log.create_violation_entry(
-                'unpaired_directional_stops',
-                'medium',
-                f'Odd-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+                violation_type='unpaired_odd_directional_stops',
+                severity='medium',
+                description=f'Odd-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+                entity_key=parent_key,
                 parent_station=parent_station,
                 stop_names=stop_names,
                 details={
@@ -332,7 +277,6 @@ class DataFormer:
             return log_and_return('Undefined', violation)
 
     def _validate_stop_id_directions(self, df):
-        """STEP 2: Validate and log individual stop ID direction behavior."""
         print("Validating individual stop ID directions...")
 
         stop_id_data = df[['stop_id', 'stop_name', 'parent_station']].drop_duplicates()
@@ -342,25 +286,33 @@ class DataFormer:
             stop_name = row['stop_name']
             parent_station = row['parent_station']
 
-            # Analyze this specific stop_id
-            directions, direction_counts = self._get_stop_id_directions(df, stop_id, parent_station)
+            entity_key = self.log.build_entity_key("stop_topology", parent_station=parent_station, stop_id=stop_id)
+            directions, direction_counts = self._get_stop_id_directions(df, stop_id, parent_station, entity_key=entity_key)
 
-            # Assign label based on direction count
             if len(directions) > 1:
-                label = 'multi_directional'
+                description = 'multi_directional'
             elif len(directions) == 1:
-                label = 'single_directional'
+                description = 'single_directional'
             else:
-                label = 'no_data'
+                description = 'no_data'
 
-            self.log.add_label('stop_topology', 'stop_id', stop_id, label)
+            label_entry = self.log.create_label_entry(
+                label_type='stop_id_stop_topology',
+                description=description,
+                entity_key=entity_key,
+                stop_name=stop_name,
+                parent_station=parent_station,
+                directions=directions,
+                direction_counts=direction_counts
+            )
+            self.log.add_label('stop_topology', 'stop_id', entity_key, label_entry)
 
-            # Always check for violation if no directions
             if len(directions) == 0:
                 violation = self.log.create_violation_entry(
-                    'stop_id_without_direction_data',
-                    'high',
-                    f'Stop id: {stop_id} has no direction data',
+                    violation_type='stop_id_without_direction_data',
+                    severity='high',
+                    description=f'Stop id: {stop_id} has no direction data',
+                    entity_key=entity_key,
                     stop_id=stop_id,
                     stop_name=stop_name,
                     parent_station=parent_station,
@@ -372,27 +324,29 @@ class DataFormer:
                         }
                     }
                 )
-                self.log.add_violation('stop_topology', 'stop_id', violation)
+                self.log.add_violation('stop_topology', 'stop_id', entity_key, violation)
                 print(f"🚩 Stop ID {stop_id}: No direction data")
 
         print("✅ Stop ID validation complete.")
 
-    def _get_stop_id_directions(self, df, stop_id, parent_station) -> tuple[list, dict]:
-        """Helper: Get direction information for a specific stop_id within a parent station"""
+    def _get_stop_id_directions(self, df, stop_id, parent_station, entity_key=None) -> tuple[list, dict]:
         stop_data = df[
-            (df['stop_id'].astype(str) == str(stop_id)) & 
+            (df['stop_id'].astype(str) == str(stop_id)) &
             (df['parent_station'].astype(str) == str(parent_station))
         ]
 
         if stop_data.empty:
+            if entity_key is None:
+                entity_key = self.log.build_entity_key('stop_topology', parent_station = parent_station, stop_id=stop_id)
             violation = self.log.create_violation_entry(
-                'stop_id_missing_from_schedule',
-                'medium',
-                f"No data found for stop_id {stop_id} in parent_station {parent_station}",
+                violation_type='stop_id_missing_from_schedule',
+                severity='medium',
+                description=f"No data found for stop_id {stop_id} in parent_station {parent_station}",
+                entity_key=entity_key,
                 stop_id=stop_id,
                 parent_station=parent_station
             )
-            self.log.add_violation('stop_topology', 'stop_id', violation)
+            self.log.add_violation('stop_topology', 'stop_id', entity_key, violation)
             print(f"⚠️ {violation['description']}")
             return [], {}
 
@@ -405,116 +359,155 @@ class DataFormer:
 
     def create_and_validate_direction_topology(self, df):
         print("\n=== COMPLETE DIRECTION VALIDATION WORKFLOW ===")
-
-        # STEP 1: Analyze all directions and extract pattern/coverage issues, now logged directly
         self._analyze_all_directions(df)
-
-        # STEP 2: Build final hierarchies using logs + cached canonical patterns
-        self.build_topology_hierarchy("direction", df)
-
         print(f"✅ Direction validation complete")
 
     def _analyze_all_directions(self, df):
         grouped = df.groupby("direction_id")
         for direction_id, group in grouped:
             direction_id = str(direction_id)
-            self._analyze_single_direction(group, direction_id)
+            self._analyze_single_direction_topology(group, direction_id)
 
-    def _analyze_single_direction(self, df, direction_id):
+    def _analyze_single_direction_topology(self, df, direction_id):
         trip_groups = df.groupby(['trip_id', 'start_date'])
         pattern_instance_counter = Counter()
-        pattern_map = {}  # Maps pattern tuple to raw DataFrame
-
-        # Step 1: Collect all patterns
+        
         for _, trip_df in trip_groups:
             sorted_trip = trip_df.sort_values("stop_sequence")
             pattern = tuple(sorted_trip['stop_id'])
             pattern_instance_counter[pattern] += 1
-            pattern_map[pattern] = sorted_trip
+
+        entity_key = self.log.build_entity_key('direction_topology', direction_id=direction_id)
+
+        def log_and_return(description, direction_violation=None):
+            label_entry = self.log.create_label_entry(
+                label_type="direction_id_direction_topology",
+                description=description,
+                entity_key=entity_key,
+                direction_id=direction_id
+            )
+            self.log.add_label("direction_topology", "direction", entity_key, label_entry)
+
+            if direction_violation:
+                self.log.add_violation("direction_topology", "direction", entity_key, direction_violation)
+                print(f"\ud83d\udea9 Direction {direction_id} [{description}]: {direction_violation['description']}")
+            else:
+                print(f"\u2705 Direction {direction_id} [{description}]: Valid topology")
+
+            return description
 
         if not pattern_instance_counter:
-            self.log.add_label("direction_topology", "direction", direction_id, "no_data")
-            return
+            v = self.log.create_violation_entry(
+                violation_type="missing_data_for_direction",
+                description="no_data",
+                severity="high",
+                entity_key=entity_key,
+                direction_id=direction_id
+            )
+            return log_and_return("Undefined", v)
 
-        # Step 2: Find canonical from longest strictly valid pattern (start from 1, diff == 1)
-        valid_candidates = []
-        for pattern in pattern_instance_counter:
-            trip_df = pattern_map[pattern]
-            stop_seqs = trip_df['stop_sequence'].tolist()
-            if stop_seqs and stop_seqs[0] == 1 and np.all(np.diff(stop_seqs) == 1):
-                valid_candidates.append((pattern, len(pattern)))
+        valid_candidates = [
+            (pattern, len(pattern))
+            for pattern in pattern_instance_counter
+            if pattern and pattern[0] and np.all(np.diff([1] + list(range(2, len(pattern) + 1))) == 1)
+        ]
 
         if not valid_candidates:
-            self.log.add_label("direction_topology", "direction", direction_id, "no_valid_canonical")
-            return
+            v = self.log.create_violation_entry(
+                violation_type="missing_valid_canonical_for_direction",
+                severity="high",
+                description="no_valid_canonical",
+                entity_key=entity_key,
+                direction_id=direction_id
+            )
+            return log_and_return("Undefined", v)
 
         canonical = max(valid_candidates, key=lambda x: x[1])[0]
+        canonical_set = set(canonical)
         canonical_str = self.convert_pattern_to_position_string(list(canonical), list(canonical))
         canonical_count = pattern_instance_counter[canonical]
 
-        # Cache canonical
-        self.log.direction_topology_logs['metadata']['canonical_patterns'][direction_id] = list(canonical)
+        self.log.direction_topology_logs.setdefault('metadata', {}).setdefault('canonical_patterns', {})[direction_id] = list(canonical)
 
-        # Step 3: Compare other patterns to canonical
+        label_entry = self.log.create_label_entry(
+            label_type="direction_canonical_pattern",
+            description=canonical_str,
+            entity_key=entity_key,
+            direction_id=direction_id,
+            count=canonical_count
+        )
+        self.log.add_label("direction_topology", "direction", entity_key, label_entry)
+
         alt_counter = Counter()
+        alt_detailed = {}
+        missing_counter = Counter()
+        unexpected_counter = Counter()
+
         for pattern, count in pattern_instance_counter.items():
             if pattern == canonical:
                 continue
             alt_str = self.convert_pattern_to_position_string(list(pattern), list(canonical))
             alt_counter[alt_str] += count
 
-        # Step 4: Label and log direction
-        label = "Multiple Patterns Detected" if alt_counter else "Full Route Only"
-        self.log.add_label("direction_topology", "direction", direction_id, label)
+            pattern_set = set(pattern)
+            missing = sorted(canonical_set - pattern_set)
+            unexpected = sorted(pattern_set - canonical_set)
+
+            for sid in missing:
+                missing_counter[sid] += count
+
+            for sid in unexpected:
+                unexpected_counter[sid] += count
+
+            alt_detailed[alt_str] = {
+                "count": count,
+                "missing_stop_ids": [str(sid) for sid in missing],
+                "unexpected_stop_ids": [str(sid) for sid in unexpected]
+            }
 
         if alt_counter:
             v = self.log.create_violation_entry(
-                "diverse_patterns_in_direction", "low",
-                f"Direction {direction_id} has {len(alt_counter)} alternative patterns.",
+                violation_type="multiple_patterns_in_direction",
+                severity="low",
+                description=f"Direction {direction_id} has {len(alt_counter)} alternative patterns.",
+                entity_key=entity_key,
                 direction_id=direction_id,
                 details={
                     "canonical_pattern": {canonical_str: canonical_count},
-                    "alternative_patterns": dict(alt_counter)
+                    "alternative_patterns": alt_detailed
                 }
             )
-            self.log.add_violation("direction_topology", "direction", v)
+            self.log.add_violation("direction_topology", "direction", entity_key, v)
 
-        # Step 5: Compute stop coverage for canonical
-        total_trips = sum(pattern_instance_counter.values())
-        stop_counts = defaultdict(int)
-        for pattern, count in pattern_instance_counter.items():
-            for sid in pattern:
-                stop_counts[sid] += count
+        for sid, count in missing_counter.items():
+            stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
+            violation = self.log.create_violation_entry(
+                violation_type="missing_stop_id_in_pattern",
+                severity="medium",
+                description=f"Stop ID {sid} is missing from {count} trips despite being in the canonical pattern.",
+                entity_key=stop_key,
+                direction_id=direction_id,
+                stop_id=str(sid),
+                details={"missing_count": count}
+            )
+            self.log.add_violation("direction_topology", "stop_id", stop_key, violation)
 
-        stop_name_map = self.log.navigation_structures['stop_hierarchies']['by_stop_id']
-        stop_index_map = {sid: idx + 1 for idx, sid in enumerate(canonical)}
+        for sid, count in unexpected_counter.items():
+            stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
+            violation = self.log.create_violation_entry(
+                violation_type="unexpected_stop_id_in_pattern",
+                severity="low",
+                description=f"Stop ID {sid} appeared in {count} trips but is not in the canonical pattern.",
+                entity_key=stop_key,
+                direction_id=direction_id,
+                stop_id=str(sid),
+                details={"occurrence_count": count}
+            )
+            self.log.add_violation("direction_topology", "stop_id", stop_key, violation)
 
-        for sid in canonical:
-            sid_str = str(sid)
-            count = stop_counts.get(sid, 0)
-            percent_missing = round(100 - (count / total_trips * 100), 1) if total_trips > 0 else 0.0
+        pattern_label_desc = "Multiple Patterns Detected" if alt_counter else "Full Route Only"
 
-            label = "varying_coverage" if percent_missing > 5 else "high_coverage"
-            self.log.add_label("direction_topology", "stop_id", sid_str, {direction_id: label})
-
-            if percent_missing > 5:
-                stop_name = stop_name_map.get(sid_str, {}).get("stop_name", "Unknown")
-                position = stop_index_map.get(sid, "?")
-                v = self.log.create_violation_entry(
-                    "missing_stop_coverage", "medium",
-                    f"Stop {stop_name}, with stop_id {sid_str} in canonical position {position} "
-                    f"is missing from {percent_missing:.1f}% of trips in direction {direction_id}",
-                    stop_id=sid_str,
-                    stop_name=stop_name,
-                    direction_id=direction_id,
-                    details={
-                        'canonical_position': position,
-                        'missing_count': total_trips - count,
-                        'total_trips': total_trips,
-                        'missing_percentage': percent_missing
-                    }
-                )
-                self.log.add_violation("direction_topology", "stop_id", v)
+        return log_and_return(pattern_label_desc)
 
     def convert_pattern_to_position_string(self, pattern, canonical):
         canonical_index = {stop_id: idx + 1 for idx, stop_id in enumerate(canonical)}
@@ -524,8 +517,10 @@ class DataFormer:
         i = 0
         while i < len(pattern):
             stop_id = pattern[i]
+
             if stop_id not in canonical_index:
-                segments.append("*")
+                # Explicitly mark anomalous stop IDs with asterisks
+                segments.append(f"_*{stop_id}*_")
                 i += 1
                 continue
 
@@ -544,217 +539,191 @@ class DataFormer:
 
             segments.append(f"{start}" if start == end else f"{start}-{end}")
             i += 1
+
+            # Add separator "_" if next stop exists and is canonical
             if i < len(pattern) and pattern[i] in canonical_index:
                 segments.append("_")
 
         return "".join(segments)
 
-#   ============================== NAVIGATIONAL HIERARCHIES ===================================
-
-    def build_topology_hierarchy(self, entity_type: str, df: pd.DataFrame = None):
+#   ================ REGULATORY STOPS IDENTIFICATION (following stop pattern) =====================
+   
+    def create_and_validate_regulatory_behavior(self, df, threshold: float = 0.95):
         """
-        Generalized builder for stop or direction topology hierarchies.
-        
-        Parameters:
-        - entity_type: either 'stop' or 'direction'
-        - df: Required for stop topology (to extract stop_name and parent_station)
+        Identify regulatory stops: if ≥ `threshold` proportion of scheduled departures have `.second == 0`.
+        Works with datetime.datetime or pandas.Timestamp.
         """
-        assert entity_type in {"stop", "direction"}
+        df = df.copy()
+        print(f"🔎 Analyzing regulatory stops using threshold {threshold*100:.1f}% zero-second scheduled times...")
 
-        if entity_type == "stop":
-            stop_hier = self.log.stop_topology_logs
-            stop_id_labels = stop_hier.get("stop_id_labels", {})
-            parent_labels = stop_hier.get("parent_station_labels", {})
-            stop_violations = stop_hier.get("stop_id_violations", {}).values()
-            parent_violations = stop_hier.get("parent_station_violations", {}).values()
+        regulatory_count = 0
 
-            # Extract violating stop_ids
-            violating_stop_ids = {
-                str(v["stop_id"]) for v in list(stop_violations) + list(parent_violations) if "stop_id" in v
-            }
+        for (direction_id, stop_id), group in df.groupby(["direction_id", "stop_id"]):
+            times = group["scheduled_departure_time"].dropna()
+            if times.empty:
+                continue
 
-            stop_name_hierarchy = {}
-            stop_id_hierarchy = {}
-            stop_to_parent = {}
-            parent_to_stops = defaultdict(list)
-            parent_has_violation = defaultdict(bool)
+            zero_second_count = sum(
+                1 for t in times
+                if (isinstance(t, (pd.Timestamp, datetime.datetime)) and t.second == 0)
+                or (not isinstance(t, (pd.Timestamp, datetime.datetime)) and pd.to_datetime(t, errors='coerce').second == 0)
+            )
 
-            def normalize_parent(stop_name, parent_station):
-                if pd.isna(parent_station) or str(parent_station).lower() in {"none", "nan"}:
-                    return str(stop_name)
-                return str(parent_station)
+            proportion = zero_second_count / len(times)
+            if proportion >= threshold:
+                entity_key = self.log.build_entity_key("regulatory_stops", direction_id=direction_id, stop_id=stop_id)
+                label = self.log.create_label_entry(
+                    label_type="stop_id_regulatory",
+                    description="regulatory",
+                    entity_key=entity_key,
+                    direction_id=direction_id,
+                    stop_id=stop_id,
+                    threshold=threshold,
+                    proportion_zero_seconds=round(proportion, 3)
+                )
+                self.log.add_label("regulatory_stops", "stop_id_regulatory", entity_key, label)
+                regulatory_count += 1
 
-            for _, row in df.drop_duplicates(["stop_id", "stop_name", "parent_station"]).iterrows():
-                stop_id = str(row["stop_id"])
-                stop_name = str(row["stop_name"]) if pd.notna(row["stop_name"]) else "UNKNOWN_STOP"
-                parent_station = str(row["parent_station"]) if pd.notna(row["parent_station"]) else ""
+        print(f"✅ {regulatory_count} stops labeled as regulatory (≥ {threshold*100:.1f}% zero-second departures).")
 
-                normalized_parent = normalize_parent(stop_name, parent_station)
-                stop_to_parent[stop_id] = (stop_name, normalized_parent)
-                parent_to_stops[(stop_name, normalized_parent)].append(stop_id)
+#   ======================== HISTOGRAMS AND PUNCTUALITY DIAGRAMS ==================
+    def generate_performance_logs(self, df, min_ratio: float = 0.80):
+        print("\n=== GENERATING PERFORMANCE HISTOGRAMS, PUNCTUALITY METRICS, AND TRAVEL TIME STATISTICS ===")
 
-                label = stop_id_labels.get(stop_id, "Unknown")
-                stop_has_violation = stop_id in violating_stop_ids
+        # 1) Compute travel times & delays
+        df = self.calculate_travel_times_and_delays(df.copy())
 
-                stop_id_hierarchy[stop_id] = {
-                    "parent_station": normalized_parent,
-                    "stop_name": stop_name,
-                    "label": label,
-                    "has_violation": stop_has_violation,
-                }
+        # 2) Prepare empty logs
+        histograms_log    = {}
+        punctuality_log   = {}
+        travel_time_log   = {}
 
-                if stop_has_violation:
-                    parent_has_violation[(stop_name, normalized_parent)] = True
+        # 3) Grab your precomputed regulatory‐stop labels
+        reg_labels = self.log.regulatory_stops_logs.get("stop_id_regulatory_labels", {})
 
-            for (stop_name, normalized_parent), stop_ids in parent_to_stops.items():
-                inherited_violation = parent_has_violation.get((stop_name, normalized_parent), False)
-                label = parent_labels.get(normalized_parent, "Unknown")
-
-                for sid in stop_ids:
-                    stop_id_hierarchy[sid]["has_violation"] |= inherited_violation
-
-                stop_name_hierarchy.setdefault(stop_name, {})[normalized_parent] = {
-                    "stop_ids": stop_ids,
-                    "label": label,
-                    "has_violation": inherited_violation
-                }
-
-            self.log.navigation_structures["stop_hierarchies"] = {
-                "by_stop_name": stop_name_hierarchy,
-                "by_stop_id": stop_id_hierarchy
-            }
-
-        elif entity_type == "direction":  # direction
-            dir_logs = self.log.direction_topology_logs
-            dir_labels = dir_logs.get("direction_labels", {})
-            stop_labels = dir_logs.get("stop_id_labels", {})
-            canonical_patterns = dir_logs.get("metadata", {}).get("canonical_patterns", {})
-            dir_violations = dir_logs.get("direction_violations", {}).values()
-            stop_violations = dir_logs.get("stop_id_violations", {}).values()
-
-            violating_directions = {str(v["direction_id"]) for v in dir_violations if "direction_id" in v}
-            violating_stops = {str(v["stop_id"]) for v in stop_violations if "stop_id" in v}
-
-            by_direction = {}
-            by_stop_id = {}
-
-            for direction_id, canonical in canonical_patterns.items():
-                direction_id = str(direction_id)
-                canonical_pattern_str = self.convert_pattern_to_position_string(canonical, canonical)
-
-                stop_ids = []
-                has_violation = direction_id in violating_directions
-
-                for idx, sid in enumerate(canonical):
-                    sid = str(sid)
-                    label = stop_labels.get(sid, {}).get(direction_id, "Unknown")
-                    stop_ids.append({idx + 1: {"stop_id": sid, "label": label}})
-
-                    by_stop_id.setdefault(sid, {
-                        "label": {},
-                        "direction_ids": [],
-                        "has_violation": False
-                    })
-
-                    by_stop_id[sid]["label"][direction_id] = label
-                    by_stop_id[sid]["direction_ids"].append(direction_id)
-                    by_stop_id[sid]["has_violation"] |= sid in violating_stops
-
-                by_direction[direction_id] = {
-                    "label": dir_labels.get(direction_id, "Unknown"),
-                    "canonical_pattern_string_description": canonical_pattern_str,
-                    "stop_ids": stop_ids,
-                    "has_violation": has_violation
-                }
-
-            self.log.navigation_structures["direction_hierarchies"] = {
-                "by_direction": by_direction,
-                "by_stop_id": by_stop_id
-            }
-        else:
-            return None
-
-#   ======================== REGULATORY LABELS AND VIOLATIONS, HISTOGRAMS AND PUNCTUALITY DIAGRAMS ================================
-    def generate_performance_logs(self):
-        """Generate histograms (total + incremental), punctuality metrics, and evaluate regulatory stop performance."""
-        print("\n=== GENERATING PERFORMANCE HISTOGRAMS AND PUNCTUALITY METRICS ===")
-
-        df = self.calculate_travel_times_and_delays(self.df_final.copy())
-
-        histograms_log = {}
-        punctuality_log = {}
-
-        group_cols = ['direction_id', 'stop_id', 'stop_name', 'time_type']
-
-        for (direction_id, stop_id, stop_name, time_type), group in df[df['valid_segment']].groupby(group_cols):
+        # 4) Build per‐stop histograms and punctuality
+        for (direction_id, stop_id, stop_name, time_type), group in df[df['valid_segment']].groupby(
+                ['direction_id', 'stop_id', 'stop_name', 'time_type']
+        ):
+            # Extract delays
             delay_data = group['departure_delay'].dropna()
-            incr_data = group['incremental_delay'].dropna()
+            incr_data  = group['incremental_delay'].dropna()
 
-            if len(delay_data) >= 5:
-                combined_data = pd.concat([delay_data, incr_data])
-                bin_edges = np.histogram_bin_edges(combined_data, bins='fd')
+            # Skip if too little data
+            if len(delay_data) < 5:
+                continue
 
-                total_histogram = self._create_normalized_histogram(delay_data, bin_edges)
-                incr_histogram = self._create_normalized_histogram(incr_data, bin_edges)
+            # Build the entity key
+            entity_key = self.log.build_entity_key(
+                domain="performance",
+                direction_id=direction_id,
+                stop_id=stop_id,
+                time_type=time_type
+            )
 
-                if total_histogram or incr_histogram:
-                    key = f"stop_id_{stop_id}_direction_{direction_id}_time_{time_type}"
-                    histograms_log[key] = {
-                        'route_id': self.route_id,
-                        'direction_id': direction_id,
-                        'stop_id': stop_id,
-                        'stop_name': stop_name,
-                        'time_type': time_type,
-                        'total_delay_histogram': total_histogram,
-                        'incremental_delay_histogram': incr_histogram
-                    }
+            # — Histogram construction —
+            # Combine both delay streams to get consistent bins
+            combined_data = pd.concat([delay_data, incr_data])
+            bin_edges     = np.histogram_bin_edges(combined_data, bins='fd')
+            total_hist    = self._create_normalized_histogram(delay_data, bin_edges)
+            incr_hist     = self._create_normalized_histogram(incr_data,  bin_edges)
 
-            if len(delay_data) >= 5:
-                punctuality = self._calculate_punctuality_metrics(delay_data)
-                if punctuality:
-                    key = f"stop_id_{stop_id}_direction_{direction_id}_time_{time_type}"
-                    punctuality_log[key] = {
-                        'route_id': self.route_id,
-                        'stop_id': stop_id,
-                        'stop_name': stop_name,
-                        'direction_id': direction_id,
-                        'time_type': time_type,
-                        'punctuality': punctuality
-                    }
+            # Store when at least one histogram exists
+            if total_hist or incr_hist:
+                histograms_log[entity_key] = {
+                    'route_id':                  self.route_id,
+                    'direction_id':              direction_id,
+                    'stop_id':                   stop_id,
+                    'stop_name':                 stop_name,
+                    'time_type':                 time_type,
+                    'total_delay_histogram':     total_hist,
+                    'incremental_delay_histogram': incr_hist
+                }
 
-        self.log.performance_logs['histograms_stops'] = histograms_log
+            # — Punctuality metrics —
+            punctuality = self._calculate_punctuality_metrics(delay_data)
+            if punctuality:
+                # Detect regulatory stops
+                reg_key = self.log.build_entity_key(
+                    "regulatory_stops",
+                    direction_id=direction_id,
+                    stop_id=stop_id
+                )
+                is_reg = bool(reg_labels.get(reg_key))
+
+                punctuality_log[entity_key] = {
+                    'route_id':            self.route_id,
+                    'direction_id':        direction_id,
+                    'stop_id':             stop_id,
+                    'stop_name':           stop_name,
+                    'time_type':           time_type,
+                    'punctuality':         punctuality,
+                    'is_regulatory_stop':  is_reg
+                }
+
+        # 5) Travel-time segment analysis
+        df_valid = (
+            df[df['valid_segment'] & df['observed_travel_time'].notna()]
+            .copy()
+        )
+        df_valid['from_stop_id']   = df_valid.groupby(
+            ['trip_id', 'direction_id', 'start_date']
+        )['stop_id'].shift(1)
+        df_valid['from_stop_name'] = df_valid.groupby(
+            ['trip_id', 'direction_id', 'start_date']
+        )['stop_name'].shift(1)
+        df_valid['to_stop_id']     = df_valid['stop_id']
+        df_valid['to_stop_name']   = df_valid['stop_name']
+        df_valid = df_valid.dropna(subset=['from_stop_id', 'observed_travel_time'])
+
+        if 'route_id' not in df_valid.columns:
+            df_valid['route_id'] = self.route_id
+
+        segment_cols = ['route_id', 'direction_id', 'time_type', 'from_stop_id', 'to_stop_id']
+        for (route_id, direction_id, time_type, from_stop_id, to_stop_id), group in df_valid.groupby(segment_cols):
+            travel_times = group['observed_travel_time'].dt.total_seconds().dropna()
+            if len(travel_times) < 5:
+                continue
+
+            seg_key = self.log.build_entity_key(
+                domain="performance",
+                direction_id=direction_id,
+                from_stop_id=from_stop_id,
+                to_stop_id=to_stop_id,
+                time_type=time_type
+            )
+
+            travel_time_log[seg_key] = {
+                'route_id':        route_id,
+                'direction_id':    direction_id,
+                'time_type':       time_type,
+                'from_stop_id':    from_stop_id,
+                'from_stop_name':  group['from_stop_name'].iloc[0],
+                'to_stop_id':      to_stop_id,
+                'to_stop_name':    group['to_stop_name'].iloc[0],
+                'sample_size':     len(travel_times),
+                'statistics': {
+                    'mean':            round(travel_times.mean(), 2),
+                    'median':          round(travel_times.median(), 2),
+                    'std':             round(travel_times.std(), 2),
+                    'min':             int(travel_times.min()),
+                    'max':             int(travel_times.max()),
+                    'percentile_25':   int(np.percentile(travel_times, 25)),
+                    'percentile_75':   int(np.percentile(travel_times, 75)),
+                    'percentile_95':   int(np.percentile(travel_times, 95))
+                }
+            }
+
+        # 6) Write back to LVLogger
+        self.log.performance_logs['histograms_stops']      = histograms_log
         self.log.performance_logs['punctuality_barcharts'] = punctuality_log
+        self.log.performance_logs['travel_times']          = travel_time_log
 
-        print(f"  ✅ {len(histograms_log)} histograms and {len(punctuality_log)} punctuality entries created.")
-
-        # === Evaluate performance of stops labeled as regulatory ===
-        print("  🧪 Evaluating regulatory stop performance...")
-        self.analyze_and_classify_regulatory_behavior()
-
-        reg_labels = self.log.performance_logs.get("labels", {}).get("stops_regulatory", {})
-        all_punctuality = self.log.performance_logs.get('punctuality_barcharts', {})
-        underperforming = 0
-        for stop_id, directions in reg_labels.items():
-            for direction_id in directions:
-                key = f"stop_id_{stop_id}_direction_{direction_id}_time_all_day"
-                punctuality_entry = all_punctuality.get(key)
-
-                if punctuality_entry:
-                    ratio = punctuality_entry['punctuality'].get('on_time_ratio', 1.0)
-                    if ratio < 0.80:
-                        underperforming +=1
-                        violation = self.log.create_violation_entry(
-                            violation_type='regulatory_stop_underperforming',
-                            severity='medium',
-                            description=f"Regulatory stop {stop_id} in direction {direction_id} has only {ratio:.1%} on-time departures.",
-                            stop_id=stop_id,
-                            stop_name=punctuality_entry.get('stop_name'),
-                            direction_id=direction_id,
-                            on_time_ratio=round(ratio, 3)
-                        )
-                        self.log.add_violation("performance", "regulatory_performance", violation)
-
-        print(f"  ⚠️  Underperforming regulatory stops: {underperforming}")
+        print(
+            f"  ✅ {len(histograms_log)} histograms, "
+            f"{len(punctuality_log)} punctuality entries, "
+            f"{len(travel_time_log)} travel time segments logged."
+        )
 
     def calculate_travel_times_and_delays(self, df):
         """Calculate incremental travel times and delays between consecutive stops."""
@@ -820,7 +789,7 @@ class DataFormer:
             thresholds = {
                 'too_early': delays < -30,
                 'on_time': (delays >= -30) & (delays <= 179),
-                'too__late': delays > 179
+                'too_late': delays > 179
             }
             counts = {k: int(v.sum()) for k, v in thresholds.items()}
             percentages = {k: round(c / total * 100, 2) for k, c in counts.items()}
@@ -843,92 +812,6 @@ class DataFormer:
             print(f"Error in punctuality metric calculation: {e}")
             return None
 
-    def get_punctuality_flow(self, direction_id: str, time_type: str = "all_day"):
-        """
-        Return a list of punctuality metrics for each stop in canonical order for given direction.
-        """
-        flow = []
-
-        # Get canonical stop sequence
-        pattern_dict = self.log.direction_topology_logs['metadata']['canonical_patterns']
-        stop_sequence = pattern_dict.get(direction_id, [])
-
-        for stop_id in stop_sequence:
-            key = f"stop_id_{stop_id}_direction_{direction_id}_time_{time_type}"
-            entry = self.log.performance_logs['punctuality_barcharts'].get(key)
-            if entry:
-                flow.append({
-                    'stop_id': stop_id,
-                    'stop_name': entry['stop_name'],
-                    'on_time_pct': entry['punctuality']['punctuality_distribution']['percentages']['on_time'],
-                    'too_early_pct': entry['punctuality']['punctuality_distribution']['percentages']['too_early'],
-                    'too_late_pct': entry['punctuality']['punctuality_distribution']['percentages']['too__late'],
-                    'sample_size': entry['punctuality']['sample_size']
-                })
-        return flow
-
-    def analyze_and_classify_regulatory_behavior(self, threshold: float = 0.95):
-        """
-        Identify regulatory stops: if ≥ `threshold` proportion of scheduled departures have `.second == 0`.
-        Works with datetime.datetime or pandas.Timestamp.
-        """
-        df = self.df_final.copy()
-        print(f"🔎 Analyzing regulatory stops using threshold {threshold*100:.1f}% zero-second scheduled times...")
-
-        regulatory_count = 0
-
-        for (direction_id, stop_id), group in df.groupby(["direction_id", "stop_id"]):
-            times = group["scheduled_departure_time"].dropna()
-
-            if times.empty:
-                continue
-
-            # Robustly extract seconds component
-            zero_second_count = 0
-            for t in times:
-                try:
-                    second = t.second  # works for datetime, pd.Timestamp
-                except AttributeError:
-                    try:
-                        second = pd.to_datetime(t).second
-                    except Exception:
-                        continue
-                if second == 0:
-                    zero_second_count += 1
-
-            proportion = zero_second_count / len(times)
-
-            if proportion >= threshold:
-                self.log.add_label("performance", "stops_regulatory", stop_id, direction_id)
-                regulatory_count += 1
-
-        print(f"✅ {regulatory_count} stops labeled as regulatory (≥ {threshold*100:.1f}% zero-second departures).")
-
-
-    def get_punctuality_flow(self, direction_id: str, time_type: str = "all_day"):
-        """
-        Return a list of punctuality metrics for each stop in canonical order for given direction.
-        """
-        flow = []
-
-        # Get canonical stop sequence
-        pattern_dict = self.log.direction_topology_logs['metadata']['canonical_patterns']
-        stop_sequence = pattern_dict.get(direction_id, [])
-
-        for stop_id in stop_sequence:
-            key = f"stop_id_{stop_id}_direction_{direction_id}_time_{time_type}"
-            entry = self.log.performance_logs['punctuality_barcharts'].get(key)
-            if entry:
-                flow.append({
-                    'stop_id': stop_id,
-                    'stop_name': entry['stop_name'],
-                    'on_time_pct': entry['punctuality']['punctuality_distribution']['percentages']['on_time'],
-                    'too_early_pct': entry['punctuality']['punctuality_distribution']['percentages']['too_early'],
-                    'too_late_pct': entry['punctuality']['punctuality_distribution']['percentages']['too__late'],
-                    'sample_size': entry['punctuality']['sample_size']
-                })
-        return flow
-
     def plot_performance_entry(self, key: str):
         """
         Plots a histogram or punctuality bar chart stored under the given key.
@@ -937,7 +820,7 @@ class DataFormer:
         # Try histogram first
         hist_entry = self.log.performance_logs['histograms_stops'].get(key)
         if hist_entry:
-            h = hist_entry['histogram']
+            h = hist_entry['total_delay_histogram'] # or h = hist_entry['incremental_delay_histogram']
             plt.figure(figsize=(10, 4))
             plt.bar(h['bin_labels'], h['probabilities'], color='skyblue')
             plt.xticks(rotation=90)
@@ -962,371 +845,352 @@ class DataFormer:
 
         print(f"❌ No histogram or punctuality data found for key: {key}")
 
-    def generate_travel_time_log(self):
+    def get_punctuality_flow(self, direction_id: str, time_type: str = "all_day"):
         """
-        Summarize travel times between consecutive stops for each direction and time_type.
-        The result is stored in: self.log.performance_logs['travel_times']
+        Return a list of punctuality metrics for each stop in canonical order for given direction.
+        Now includes a True/False `is_regulatory_stop` flag.
         """
-        print("\n=== GENERATING TRAVEL TIME STATISTICS ===")
+        flow = []
 
-        df = self.calculate_travel_times_and_delays(self.df_final.copy())
-        travel_time_log = {}
+        pattern_dict = self.log.direction_topology_logs.get('metadata', {}) \
+                                   .get('canonical_patterns', {})
+        stop_sequence = pattern_dict.get(direction_id, [])
 
-        # Keep only valid travel segments
-        df_valid = df[df['valid_segment'] & df['observed_travel_time'].notna()].copy()
+        punctuality_barcharts = self.log.performance_logs.get('punctuality_barcharts', {})
 
-        # Add from/to stop info
-        df_valid.loc[:, 'from_stop_id'] = df_valid.groupby(['trip_id', 'direction_id', 'start_date'])['stop_id'].shift(1)
-        df_valid.loc[:, 'from_stop_name'] = df_valid.groupby(['trip_id', 'direction_id', 'start_date'])['stop_name'].shift(1)
-        df_valid.loc[:, 'to_stop_id'] = df_valid['stop_id']
-        df_valid.loc[:, 'to_stop_name'] = df_valid['stop_name']
-
-        # Drop rows where shift() produced NaN
-        df_valid = df_valid.dropna(subset=['from_stop_id', 'observed_travel_time'])
-
-        group_cols = ['route_id', 'direction_id', 'time_type', 'from_stop_id', 'to_stop_id']
-
-        if 'route_id' not in df_valid.columns:
-            df_valid['route_id'] = self.route_id
-
-        for (route_id, direction_id, time_type, from_stop_id, to_stop_id), group in df_valid.groupby(group_cols):
-            travel_times = group['observed_travel_time'].dt.total_seconds().dropna()
-
-            if len(travel_times) >= 5:
-                entry = {
-                    'route_id': route_id,
-                    'direction_id': direction_id,
-                    'time_type': time_type,
-                    'from_stop_id': from_stop_id,
-                    'from_stop_name': group['from_stop_name'].iloc[0],
-                    'to_stop_id': to_stop_id,
-                    'to_stop_name': group['to_stop_name'].iloc[0],
-                    'sample_size': len(travel_times),
-                    'statistics': {
-                        'mean': round(travel_times.mean(), 2),
-                        'median': round(travel_times.median(), 2),
-                        'std': round(travel_times.std(), 2),
-                        'min': int(travel_times.min()),
-                        'max': int(travel_times.max()),
-                        'percentile_25': int(np.percentile(travel_times, 25)),
-                        'percentile_75': int(np.percentile(travel_times, 75)),
-                        'percentile_95': int(np.percentile(travel_times, 95))
-                    }
-                }
-
-                key = f"{route_id}_dir{direction_id}_{from_stop_id}_to_{to_stop_id}_time_{time_type}"
-                travel_time_log[key] = entry
-
-        self.log.performance_logs['travel_times'] = travel_time_log
-        print(f"  ✅ {len(travel_time_log)} travel time segments logged.")
-
-#======================================= EXPORT ==========================================
-    
-    def add_log_references_to_hierarchies(self):
-        """Propagate violation flags and types to stop and direction hierarchies for frontend rendering."""
-        stop_hier = self.log.navigation_structures.get("stop_hierarchies", {})
-        dir_hier = self.log.navigation_structures.get("direction_hierarchies", {})
-
-        # === STOP-LEVEL VIOLATIONS (from multiple sources) ===
-        stop_violation_sources = [
-            self.log.stop_topology_logs.get("stop_id_violations", {}).values(),
-            self.log.direction_topology_logs.get("stop_id_violations", {}).values(),
-            self.log.performance_logs.get("regulatory_performance_violations", {}).values()
-        ]
-
-        for source in stop_violation_sources:
-            for v in source:
-                stop_id = str(v.get("stop_id", ""))
-                if not stop_id:
-                    continue
-                label = v.get("label") or v.get("violation_type") or "unknown"
-
-                # Stop hierarchies
-                if stop_id in stop_hier.get("by_stop_id", {}):
-                    entry = stop_hier["by_stop_id"][stop_id]
-                    entry.setdefault("violation_types", []).append(label)
-                    entry["has_violation"] = True
-
-                # Direction hierarchies (by_stop_id layer)
-                if stop_id in dir_hier.get("by_stop_id", {}):
-                    entry = dir_hier["by_stop_id"][stop_id]
-                    entry.setdefault("violation_types", []).append(label)
-                    entry["has_violation"] = True
-
-        # === DIRECTION-LEVEL VIOLATIONS ===
-        for v in self.log.direction_topology_logs.get("direction_violations", {}).values():
-            direction_id = str(v.get("direction_id", ""))
-            if not direction_id:
+        for stop_id in stop_sequence:
+            key = f"stop_id_{stop_id}_direction_{direction_id}_time_{time_type}"
+            entry = punctuality_barcharts.get(key)
+            if not entry:
                 continue
-            label = v.get("label") or v.get("violation_type") or "unknown"
 
-            if direction_id in dir_hier.get("by_direction", {}):
-                entry = dir_hier["by_direction"][direction_id]
-                entry.setdefault("violation_types", []).append(label)
-                entry["has_violation"] = True
-
-        # === STOP-LEVEL LABELS (from multiple sources) ===
-        label_sources = [
-            self.log.stop_topology_logs.get("stop_id_labels", {}),
-            self.log.direction_topology_logs.get("stop_id_labels", {}),
-            self.log.performance_logs.get("labels", {}).get("stops_regulatory", {})
-        ]
-
-        for label_source in label_sources:
-            for stop_id, label in label_source.items():
-                stop_id = str(stop_id)
-                if stop_id in stop_hier.get("by_stop_id", {}):
-                    stop_hier["by_stop_id"][stop_id].setdefault("labels", []).append(label)
-                if stop_id in dir_hier.get("by_stop_id", {}):
-                    dir_hier["by_stop_id"][stop_id].setdefault("labels", []).append(label)
-        
-        
-
-
-        print("✅ Violation flags and types added to navigation hierarchies.") 
-
-    def export_all_logs_frontend_friendly(self, export_dir="exported_logs"):
-        route_info = {
-            "route_id": self.route_id,
-            "route_short_name": self.route_short_name,
-            "route_long_name": self.route_long_name
-        }
-
-        route_folder = Path(export_dir) / self.route_long_name
-        route_folder.mkdir(parents=True, exist_ok=True)
-
-        # === 1. Save all per-route logs ===
-        save_json_safe(self.log.stop_topology_logs, route_folder / "stop_topology.json")
-        save_json_safe(self.log.direction_topology_logs, route_folder / "direction_topology.json")
-        save_json_safe(self.log.navigation_structures, route_folder / "navigation_structures.json")
-        save_json_safe(self.log.performance_logs, route_folder / "performance_logs.json")
-
-        print(f"📤 Exported full per-route logs for {self.route_long_name}")
-
-        # === 2. Export global flat violations with route context ===
-        def flatten_logs(log_dict, kind):
-            return [
-                {**v, **route_info, "source": kind}
-                for v in log_dict.values()
-                if isinstance(v, dict)
-            ]
-
-        global_folder = Path(export_dir)
-        global_folder.mkdir(parents=True, exist_ok=True)
-
-        flat_stop = flatten_logs(self.log.stop_topology_logs.get("stop_id_violations", {}), "stop_topology") + \
-                    flatten_logs(self.log.stop_topology_logs.get("parent_station_violations", {}), "stop_topology") + \
-                    flatten_logs(self.log.performance_logs.get("regulatory_violations", {}), "performance") + \
-                    flatten_logs(self.log.performance_logs.get("regulatory_performance_violations", {}), "performance")
-
-        flat_direction = flatten_logs(self.log.direction_topology_logs.get("stop_id_violations", {}), "direction_topology") + \
-                        flatten_logs(self.log.direction_topology_logs.get("direction_violations", {}), "direction_topology")
-
-        save_json_array(
-            append_unique(load_json_array(global_folder / "global_stop_violations.json"), flat_stop),
-            global_folder / "global_stop_violations.json"
-        )
-        save_json_array(
-            append_unique(load_json_array(global_folder / "global_direction_violations.json"), flat_direction),
-            global_folder / "global_direction_violations.json"
-        )
-
-        print("✅ Global flat violations updated.")
-
-
-    def export_summary_dashboard_files(self, export_dir="exported_logs"):
-        export_dir = Path(export_dir)
-        export_dir.mkdir(parents=True, exist_ok=True)
-
-        def load_json_as_flat_df(path):
-            if not path.exists():
-                return pd.DataFrame()
-            with open(path, encoding="utf-8") as f:
-                return pd.DataFrame(json.load(f))
-
-        stop_json = export_dir / "global_stop_violations.json"
-        direction_json = export_dir / "global_direction_violations.json"
-        performance_json = export_dir / "global_performance_violations.json"
-
-        df_stop = load_json_as_flat_df(stop_json)
-        df_dir = load_json_as_flat_df(direction_json)
-        df_perf = load_json_as_flat_df(performance_json)
-
-        if not df_stop.empty:
-            df_stop.to_csv(export_dir / "global_stop_violations.csv", index=False)
-        if not df_dir.empty:
-            df_dir.to_csv(export_dir / "global_direction_violations.csv", index=False)
-        if not df_perf.empty:
-            df_perf.to_csv(export_dir / "global_performance_violations.csv", index=False)
-
-        print("✅ CSVs exported for flat global violations.")
-
-        def count_by_violation_type(df):
-            return dict(df['violation_type'].value_counts()) if 'violation_type' in df else {}
-
-        violation_counts = {
-            "stop": count_by_violation_type(df_stop),
-            "direction": count_by_violation_type(df_dir),
-            "performance": count_by_violation_type(df_perf)
-        }
-
-        save_json_safe(violation_counts, export_dir / "global_violation_counts.json")
-
-        summary_path = export_dir / "routes_summary.json"
-        existing = []
-
-        if summary_path.exists():
-            with open(summary_path, encoding="utf-8") as f:
-                existing = json.load(f)
-
-        this_summary = {
-            "route_id": self.route_id,
-            "route_short_name": self.route_short_name,
-            "route_long_name": self.route_long_name,
-            "violation_counts": {
-                "stop_topology": len(self.log.stop_topology_logs.get("stop_id_violations", {})),
-                "direction_topology": len(self.log.direction_topology_logs.get("direction_violations", {})),
-                "regulatory": len(self.log.performance_logs.get("regulatory_violations", {})) +
-                            len(self.log.performance_logs.get("regulatory_performance_violations", {}))
-            }
-        }
-
-        existing = [r for r in existing if r["route_long_name"] != self.route_long_name]
-        existing.append(this_summary)
-
-        save_json_safe(existing, summary_path)
-
-        print("✅ Summary dashboard files updated.")
-
-    def _load_global_json(self, filename):
-        path = self.global_dir / filename
-        if path.exists():
-            with open(path, encoding="utf-8") as f:
-                return json.load(f)
-        return {}
-
-    def export_global_navigation_maps(self):
-        # 1. stop_name → stop_id
-        stopname_to_stopid = self._load_global_json("global_stopname_to_stopid.json")
-        for stop_id, meta in self.log.navigation_structures.get("stop_hierarchies", {}).items():
-            stop_name = meta.get("stop_name")
-            if stop_name:
-                stopname_to_stopid.setdefault(stop_name, [])
-                if stop_id not in stopname_to_stopid[stop_name]:
-                    stopname_to_stopid[stop_name].append(stop_id)
-        self._save_global_json("global_stopname_to_stopid.json", stopname_to_stopid)
-
-        # 2. stop-level navigation structure (aggregated across routes)
-        stop_nav = self._load_global_json("global_stop_navigation.json")
-        for stop_id, meta in self.log.navigation_structures.get("stop_hierarchies", {}).items():
-            if stop_id not in stop_nav:
-                stop_nav[stop_id] = {
-                    "stop_name": meta.get("stop_name"),
-                    "parent_station": meta.get("parent_station"),
-                    "routes": [],
-                    "labels": meta.get("labels", []),
-                    "flags": meta.get("flags", [])
-                }
-            if self.route_id not in stop_nav[stop_id]["routes"]:
-                stop_nav[stop_id]["routes"].append(self.route_id)
-
-        self._save_global_json("global_stop_navigation.json", stop_nav)
-
-        # 3. route_name → route_id
-        route_name_to_id = self._load_global_json("global_route_name_to_id.json")
-        for dir_key, meta in self.log.navigation_structures.get("direction_hierarchies", {}).items():
-            route_id = meta.get("route_id")
-            long_name = meta.get("route_long_name")
-            short_name = meta.get("route_short_name")
-            for key in [route_id, long_name, short_name]:
-                if key:
-                    route_name_to_id.setdefault(key, [])
-                    if route_id not in route_name_to_id[key]:
-                        route_name_to_id[key].append(route_id)
-
-        self._save_global_json("global_route_name_to_id.json", route_name_to_id)
-
-    def export_global_stop_index(self, output_path="data/global/global_stop_index.json"):
-        """
-        Exports a global stop index mapping stop_id → metadata and stop_name → parent_station → metadata.
-        Includes labels, violation types, routes, and directions.
-        """
-
-        stop_index_by_id = {}
-        stop_index_by_name = defaultdict(lambda: defaultdict(dict))
-
-        # Gather from stop hierarchy
-        stop_hier = self.log.navigation_structures.get("stop_hierarchies", {}).get("by_stop_id", {})
-        df = self.df_final
-
-        for stop_id, stop_entry in stop_hier.items():
-            stop_id = str(stop_id)
-            stop_name = stop_entry.get("stop_name", "UNKNOWN_STOP")
-            parent_station = stop_entry.get("parent_station", stop_name)
-
-            stop_data = stop_index_by_id.setdefault(stop_id, {
-                "stop_name": stop_name,
-                "parent_station": parent_station,
-                "labels": set(),
-                "violation_types": set(),
-                "routes": set(),
-                "direction_ids": set()
+            dist = entry['punctuality']['punctuality_distribution']['percentages']
+            flow.append({
+                'stop_id':              stop_id,
+                'stop_name':            entry['stop_name'],
+                'on_time_pct':          dist['on_time'],
+                'too_early_pct':        dist['too_early'],
+                'too_late_pct':         dist['too_late'],
+                'sample_size':          entry['punctuality']['sample_size'],
+                'is_regulatory_stop':   entry.get('is_regulatory_stop', False)
             })
 
-            # Labels
-            label = stop_entry.get("label")
-            if isinstance(label, dict):
-                stop_data["labels"].update(label.values())
-            elif label:
-                stop_data["labels"].add(label)
+        return flow
 
-            # Violations
-            if stop_entry.get("has_violation"):
-                for source in ["stop_topology_logs", "direction_topology_logs", "performance_logs"]:
-                    logs = getattr(self.log, source, {})
-                    for key in logs:
-                        if "violation" in key:
-                            for v in logs.get(key, {}).values():
-                                if str(v.get("stop_id")) == stop_id:
-                                    v_type = v.get("violation_type")
-                                    if v_type:
-                                        stop_data["violation_types"].add(v_type)
+#   ============================== ROUTEWISE NAVIGATIONAL MAP ===================================
+    def build_routewise_navigation_structure(self):
+        """
+        Build a lightweight, pointer-only navigation map:
+        {
+          "route_id": ...,
+          "route_name": ...,
+          "directions": [
+            {
+              "direction_id": ...,
+              "direction_label": ...,
+              "has_direction_violations": ...,
+              "direction_label_keys": [...],
+              "direction_violation_keys": [...],
+              "contains_violations": ...,
+              "canonical_pattern": { pattern_str, pattern_ids, count, label_key },
+              "alternative_patterns": [
+                  { pattern_str, pattern_ids, count, violation_key, anomalies: [...] },
+                  ...
+              ],
+              "travel_time_segments": [ { from_stop_id, to_stop_id, availability: {...} }, ... ],
+              "stops": [
+                {
+                  position, stop_id, stop_name,
+                  labels: {...}, has_violations, violations: {...},
+                  performance_availability: { histograms: {...}, punctuality: {...} }
+                },
+                ...
+              ]
+            },
+            ...
+          ]
+        }
+        """
+        dir_logs      = self.log.direction_topology_logs
+        stop_logs     = self.log.stop_topology_logs
+        reg_logs      = self.log.regulatory_stops_logs
+        perf_logs     = self.log.performance_logs
 
-            # Route & direction info
-            matching_rows = df[df["stop_id"] == int(stop_id) if stop_id.isdigit() else stop_id]
-            stop_data["routes"].update(matching_rows["route_id"].astype(str).unique())
-            stop_data["direction_ids"].update(matching_rows["direction_id"].astype(str).unique())
+        # Metadata & pointers
+        canonical_patterns   = dir_logs.get("metadata", {}).get("canonical_patterns", {})
+        direction_labels     = dir_logs.get("direction_labels", {})
+        direction_violations = dir_logs.get("direction_violations", {})
 
-        # Format and store in by_stop_name
-        for stop_id, meta in stop_index_by_id.items():
-            stop_name = meta["stop_name"]
-            parent_station = meta["parent_station"]
-            stop_index_by_name[stop_name][parent_station] = {
-                "stop_ids": stop_index_by_name[stop_name][parent_station].get("stop_ids", []) + [stop_id],
-                "labels": sorted(meta["labels"]),
-                "violation_types": sorted(meta["violation_types"]),
-                "routes": sorted(meta["routes"]),
-                "direction_ids": sorted(meta["direction_ids"])
+        histograms   = perf_logs.get("histograms_stops", {})
+        punctuality  = perf_logs.get("punctuality_barcharts", {})
+        travel_times = perf_logs.get("travel_times", {})
+
+        # Pre‐aggregate stop‐level violations
+        all_stop_violations = self._collect_all_stop_id_violations()
+
+        nav = {
+            "route_id":   self.route_id,
+            "route_name": self.route_long_name,
+            "directions": []
+        }
+
+        # Determine all time_types
+        all_tts = {
+            e.get("time_type")
+            for e in list(histograms.values()) + list(punctuality.values()) + list(travel_times.values())
+            if e.get("time_type") is not None
+        }
+
+        # Iterate each direction
+        for direction_id, pattern_ids in canonical_patterns.items():
+            direction_id = str(direction_id)
+            dir_key = self.log.build_entity_key("direction_topology", direction_id=direction_id)
+
+            # Human‐readable label
+            dir_lbl = direction_labels.get(dir_key)
+            if isinstance(dir_lbl, dict):
+                direction_label = dir_lbl.get("description", "Unknown")
+            else:
+                direction_label = dir_lbl or "Unknown"
+
+            # Flags
+            has_dir_viol = any(v.get("entity_key") == dir_key
+                               for v in direction_violations.values())
+
+            contains_dir_viol = any(
+                any(all_stop_violations.get(str(sid), {}).get(domain, []))
+                for sid in pattern_ids
+                for domain in ("stop_topology", "direction_topology", "regulatory", "parent_station")
+            )
+
+            # --- Canonical Pattern ---
+            # Find its label entry to get count & description
+            canonical_label_key = next(
+                (k for k, le in direction_labels.items()
+                 if isinstance(le, dict)
+                    and le.get("entity_key") == dir_key
+                    and le.get("label_type") == "direction_canonical_pattern"),
+                None
+            )
+            # Fallback compute if not found
+            canonical_str = self.convert_pattern_to_position_string(list(pattern_ids), list(pattern_ids))
+            canonical_count = None
+            if canonical_label_key:
+                lbl = direction_labels[canonical_label_key]
+                canonical_str = lbl.get("description", canonical_str)
+                canonical_count = lbl.get("count")
+
+            canonical = {
+                "pattern_str": canonical_str,
+                "pattern_ids": [str(sid) for sid in pattern_ids],
+                "count":       canonical_count,
+                "label_key":   canonical_label_key
             }
 
-        # Convert sets to sorted lists
-        stop_index_by_id = {
-            sid: {
-                **v,
-                "labels": sorted(v["labels"]),
-                "violation_types": sorted(v["violation_types"]),
-                "routes": sorted(v["routes"]),
-                "direction_ids": sorted(v["direction_ids"])
-            } for sid, v in stop_index_by_id.items()
+            # --- Alternative Patterns ---
+            alts = []
+
+            # Explicitly retrieve the multiple_patterns_in_direction violation entry
+            multiple_patterns_violation = next(
+                (v for v in direction_violations.values()
+                if v.get("entity_key") == dir_key
+                and v.get("violation_type") == "multiple_patterns_in_direction"),
+                None
+            )
+
+            if multiple_patterns_violation:
+                alt_patterns = multiple_patterns_violation.get("details", {}).get("alternative_patterns", {})
+                for alt_str, alt_info in alt_patterns.items():
+                    count = alt_info.get("count", 0)
+
+                    missing_sids = alt_info.get("missing_stop_ids", [])
+                    unexpected_sids = alt_info.get("unexpected_stop_ids", [])
+
+                    missing_keys = []
+                    unexpected_keys = []
+
+                    for sid in missing_sids:
+                        stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
+                        if stop_key in dir_logs.get("stop_id_violations", {}):
+                            missing_keys.append(stop_key)
+
+                    for sid in unexpected_sids:
+                        stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
+                        if stop_key in dir_logs.get("stop_id_violations", {}):
+                            unexpected_keys.append(stop_key)
+
+                    alt_entry = {
+                        "pattern_str": alt_str,
+                        "count": count,
+                        "missing_stop_id_violation_keys": missing_keys,
+                        "unexpected_stop_id_violation_keys": unexpected_keys
+                    }
+
+                    alts.append(alt_entry)
+
+            # --- Travel‐time Segments ---
+            seg_map = {}
+            for key, entry in travel_times.items():
+                if entry.get("direction_id") != direction_id:
+                    continue
+                seg = (str(entry.get("from_stop_id")), str(entry.get("to_stop_id")))
+                seg_map.setdefault(seg, []).append((entry.get("time_type"), key))
+
+            travel_time_segments = []
+            for (from_id, to_id), pairs in seg_map.items():
+                availability = {tt: None for tt in sorted(all_tts)}
+                for tt, k in pairs:
+                    availability[tt] = k
+                travel_time_segments.append({
+                    "from_stop_id":  from_id,
+                    "to_stop_id":    to_id,
+                    "availability": availability
+                })
+
+            # --- Stops List ---
+            stops = []
+            for pos, stop_id in enumerate(pattern_ids, start=1):
+                sid = str(stop_id)
+                meta = self._get_stop_metadata(self.df_before, sid)
+
+                # Prepare label/violation lists per domain
+                labels = {d: [] for d in ("stop_topology","direction_topology","regulatory","parent_station")}
+                viols  = {d: [] for d in ("stop_topology","direction_topology","regulatory","parent_station")}
+
+                # stop_topology
+                for k, e in stop_logs.get("stop_id_labels", {}).items():
+                    if str(e.get("stop_id")) == sid:
+                        labels["stop_topology"].append(k)
+                for k, e in stop_logs.get("stop_id_violations", {}).items():
+                    if str(e.get("stop_id")) == sid:
+                        viols["stop_topology"].append(k)
+                # direction_topology
+                for k, e in dir_logs.get("stop_id_labels", {}).items():
+                    if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
+                        labels["direction_topology"].append(k)
+                for k, e in dir_logs.get("stop_id_violations", {}).items():
+                    if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
+                        viols["direction_topology"].append(k)
+                # regulatory
+                for k, e in reg_logs.get("stop_id_regulatory_labels", {}).items():
+                    if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
+                        labels["regulatory"].append(k)
+                # parent_station
+                for k, e in stop_logs.get("parent_station_labels", {}).items():
+                    if str(e.get("stop_id")) == sid:
+                        labels["parent_station"].append(k)
+                for k, e in stop_logs.get("parent_station_violations", {}).items():
+                    if str(e.get("stop_id")) == sid:
+                        viols["parent_station"].append(k)
+
+                # Performance availability
+                tts_for_stop = {
+                    e.get("time_type") for e in histograms.values()
+                    if e.get("direction_id")==direction_id and str(e.get("stop_id"))==sid
+                } | {
+                    e.get("time_type") for e in punctuality.values()
+                    if e.get("direction_id")==direction_id and str(e.get("stop_id"))==sid
+                }
+                perf_avail = {"histograms": {}, "punctuality": {}}
+                for tt in sorted(tts_for_stop):
+                    hkey = next((k for k, e in histograms.items()
+                                if e.get("direction_id")==direction_id
+                                and str(e.get("stop_id"))==sid
+                                and e.get("time_type")==tt), None)
+                    pkey = next((k for k, e in punctuality.items()
+                                if e.get("direction_id")==direction_id
+                                and str(e.get("stop_id"))==sid
+                                and e.get("time_type")==tt), None)
+                    perf_avail["histograms"][tt]  = hkey
+                    perf_avail["punctuality"][tt] = pkey
+
+                stops.append({
+                    "position": pos,
+                    "stop_id": sid,
+                    "stop_name": meta.get("stop_name"),
+                    "labels": labels,
+                    "has_violations": any(viols[d] for d in viols),
+                    "violations": viols,
+                    "performance_availability": perf_avail
+                })
+
+            # Direction label/violation keys
+            direction_label_keys = [
+                k for k, le in direction_labels.items()
+                if (isinstance(le, dict) and le.get("entity_key")==dir_key) or k==dir_key
+            ]
+            direction_violation_keys = [
+                k for k, v in direction_violations.items()
+                if v.get("entity_key")==dir_key or k==dir_key
+            ]
+
+            # Append this direction
+            nav["directions"].append({
+                "direction_id": direction_id,
+                "direction_label": direction_label,
+                "has_direction_violations": has_dir_viol,
+                "direction_label_keys":     direction_label_keys,
+                "direction_violation_keys": direction_violation_keys,
+                "contains_violations":      contains_dir_viol,
+                "canonical_pattern":        canonical,
+                "alternative_patterns":     alts,
+                "travel_time_segments":     travel_time_segments,
+                "stops":                    stops
+            })
+
+        # Write back
+        self.log.navigation_structures["routewise_navigation"] = nav
+
+
+    def _get_stop_metadata(self, df, stop_id: str) -> dict:
+        """
+        Retrieve metadata for a given stop_id from the final DataFrame.
+        Returns stop_name and parent_station, or defaults if not found.
+        """
+        df = df.copy()
+        match = df[df['stop_id'].astype(str) == str(stop_id)]
+
+        if not match.empty:
+            first_row = match.iloc[0]
+            return {
+                "stop_name": first_row.get("stop_name", "UNKNOWN"),
+                "parent_station": first_row.get("parent_station") or first_row.get("stop_name", "UNKNOWN")
+            }
+        return {
+            "stop_name": "UNKNOWN",
+            "parent_station": "UNKNOWN"
         }
 
-        output_data = {
-            "by_stop_id": stop_index_by_id,
-            "by_stop_name": stop_index_by_name
+    def _collect_all_stop_id_violations(self):
+        """
+        Collect all stop-level violations across domains and return:
+        {
+            stop_id: {
+                "stop_topology": [...],
+                "direction_topology": [...],
+                "regulatory": [...]
+            }
+        }
+        """
+        stop_violations = defaultdict(lambda: defaultdict(list))
+
+        domain_map = {
+            "stop_topology":      self.log.stop_topology_logs.get("stop_id_violations", {}).values(),
+            "direction_topology": self.log.direction_topology_logs.get("stop_id_violations", {}).values(),
+            "regulatory":         self.log.regulatory_stops_logs.get("stop_id_regulatory_violations", {}).values(),
+            "parent_station":     self.log.stop_topology_logs.get("parent_station_violations", {}).values()
         }
 
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(output_data, f, indent=2, ensure_ascii=False)
+        for domain, source in domain_map.items():
+            for v in source:
+                stop_id = v.get("stop_id")
+                if not stop_id:
+                    entity_key = v.get("entity_key", "")
+                    parts = entity_key.split("__")
+                    if len(parts) == 3 and parts[1] == "stop_id":
+                        stop_id = parts[2]
+                if stop_id:
+                    label = v.get("label") or v.get("violation_type") or "unknown"
+                    stop_violations[str(stop_id)][domain].append(label)
 
-        print(f"✅ Global stop index exported to {output_path}")
+        return dict(stop_violations)
