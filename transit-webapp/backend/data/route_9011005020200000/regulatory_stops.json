@@ -1,0 +1,82 @@
+{
+  "stop_id_regulatory_labels": {
+    "regulatory_stops_9011005020200000_direction_id_stop_id_0_9022005000050006": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020200000_direction_id_stop_id_0_9022005000050006",
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "direction_id": "0",
+      "stop_id": "9022005000050006",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020200000_direction_id_stop_id_0_9022005000469002": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020200000_direction_id_stop_id_0_9022005000469002",
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "direction_id": "0",
+      "stop_id": "9022005000469002",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020200000_direction_id_stop_id_0_9022005001249002": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020200000_direction_id_stop_id_0_9022005001249002",
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "direction_id": "0",
+      "stop_id": "9022005001249002",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020200000_direction_id_stop_id_1_9022005000050006": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020200000_direction_id_stop_id_1_9022005000050006",
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "direction_id": "1",
+      "stop_id": "9022005000050006",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020200000_direction_id_stop_id_1_9022005000469003": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020200000_direction_id_stop_id_1_9022005000469003",
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "direction_id": "1",
+      "stop_id": "9022005000469003",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020200000_direction_id_stop_id_1_9022005001249001": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020200000_direction_id_stop_id_1_9022005001249001",
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "direction_id": "1",
+      "stop_id": "9022005001249001",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    }
+  },
+  "metadata": {
+    "labels_counts_by_type": {
+      "stop_id_regulatory": 6
+    },
+    "total_labels": 6
+  }
+}

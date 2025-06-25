@@ -1,0 +1,106 @@
+{
+  "stop_id_regulatory_labels": {
+    "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000050005": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000050005",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "0",
+      "stop_id": "9022005000050005",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000214001": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000214001",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "0",
+      "stop_id": "9022005000214001",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000215001": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000215001",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "0",
+      "stop_id": "9022005000215001",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000219001": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_0_9022005000219001",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "0",
+      "stop_id": "9022005000219001",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000050005": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000050005",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "1",
+      "stop_id": "9022005000050005",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000214002": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000214002",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "1",
+      "stop_id": "9022005000214002",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000215002": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000215002",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "1",
+      "stop_id": "9022005000215002",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    },
+    "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000219001": {
+      "label_type": "stop_id_regulatory",
+      "description": "regulatory",
+      "entity_key": "regulatory_stops_9011005020300000_direction_id_stop_id_1_9022005000219001",
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "direction_id": "1",
+      "stop_id": "9022005000219001",
+      "threshold": 0.95,
+      "proportion_zero_seconds": 1.0
+    }
+  },
+  "metadata": {
+    "labels_counts_by_type": {
+      "stop_id_regulatory": 8
+    },
+    "total_labels": 8
+  }
+}

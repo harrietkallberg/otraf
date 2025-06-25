@@ -152,7 +152,6 @@ class LVLogger:
 
         return f"{domain}_{self.route_id}_{kind}_{identifier}"
 
-
     def create_violation_entry(self, violation_type, severity, description, entity_key, **details):
         """
         Create standardized violation entry with searchable and descriptive fields.
@@ -186,31 +185,33 @@ class LVLogger:
             **details
         }
 
-    def add_violation(self, domain: str, violation_type: str, entity_key:str, violation_entry: dict):
+    def add_violation(self, domain: str, violation_type: str, entity_key: str, violation_entry: dict):
         """
-        Add a single violation entry to the specified domain and type.
+        Add a single violation entry to the specified domain and type, using entity_key as the key.
         """
-        # Input validation
-        if domain not in ['stop_topology', 'direction_topology','regulatory_stops','performance']:
-            raise ValueError(f"Invalid domain: {domain}. Must be 'stop_topology' or 'direction_topology' or 'regulatory_stops' or 'performance")
-        
+        if domain not in ['stop_topology', 'direction_topology', 'regulatory_stops', 'performance']:
+            raise ValueError(f"Invalid domain: {domain}. Must be one of the supported domains.")
+
         if not isinstance(violation_entry, dict):
-            raise TypeError("violation_entry must be a dictionary")
-            
+            raise TypeError("violation_entry must be a dictionary.")
+
+        if not isinstance(entity_key, str):
+            entity_key = str(entity_key)
+
         logs = self.get_logs(domain)
 
-        # Ensure violation type exists in logs
         violations_key = f"{violation_type}_violations"
         if violations_key not in logs:
             logs[violations_key] = {}
-            # Initialize count if not exists
-            if violation_type not in logs['metadata']['violation_counts_by_type']:
-                logs['metadata']['violation_counts_by_type'][violation_type] = 0
 
-        key = f"{violation_type}_{len(logs[violations_key])}"
-        logs[violations_key][key] = violation_entry
-        logs['metadata']['violation_counts_by_type'][violation_type] += 1
-        logs['metadata']['total_violations'] += 1
+        logs[violations_key][entity_key] = violation_entry
+
+        # Update metadata
+        logs.setdefault('metadata', {})
+        logs['metadata'].setdefault('violation_counts_by_type', {})
+        logs['metadata']['violation_counts_by_type'][violation_type] = logs['metadata']['violation_counts_by_type'].get(violation_type, 0) + 1
+        logs['metadata']['total_violations'] = sum(logs['metadata']['violation_counts_by_type'].values())
+
         return violation_entry
 
     def add_label(self, domain: str, label_type: str, entity_key: str, label_entry: dict):

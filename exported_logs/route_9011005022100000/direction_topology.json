@@ -1,0 +1,395 @@
+{
+  "direction_labels": {
+    "direction_topology_9011005022100000_direction_id_0": {
+      "label_type": "direction_id_direction_topology",
+      "description": "Multiple Patterns Detected",
+      "entity_key": "direction_topology_9011005022100000_direction_id_0",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0"
+    },
+    "direction_topology_9011005022100000_direction_id_1": {
+      "label_type": "direction_id_direction_topology",
+      "description": "Multiple Patterns Detected",
+      "entity_key": "direction_topology_9011005022100000_direction_id_1",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1"
+    }
+  },
+  "direction_violations": {
+    "direction_topology_9011005022100000_direction_id_0": {
+      "violation_type": "multiple_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 0 has 1 alternative patterns.",
+      "entity_key": "direction_topology_9011005022100000_direction_id_0",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "details": {
+        "canonical_pattern": {
+          "1-7": 725
+        },
+        "alternative_patterns": {
+          "4-7": {
+            "count": 2,
+            "missing_stop_ids": [
+              "9022005001418001",
+              "9022005001419001",
+              "9022005001421002"
+            ],
+            "unexpected_stop_ids": []
+          }
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_1": {
+      "violation_type": "multiple_patterns_in_direction",
+      "severity": "low",
+      "description": "Direction 1 has 1 alternative patterns.",
+      "entity_key": "direction_topology_9011005022100000_direction_id_1",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "details": {
+        "canonical_pattern": {
+          "1-7": 703
+        },
+        "alternative_patterns": {
+          "2-7": {
+            "count": 1,
+            "missing_stop_ids": [
+              "9022005000050018"
+            ],
+            "unexpected_stop_ids": []
+          }
+        }
+      }
+    }
+  },
+  "stop_id_labels": {
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002": {
+      "label_type": "missing_in_patterns",
+      "description": "Stop ID 9022005001421002 missing in 2 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001421002",
+      "details": {
+        "patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001": {
+      "label_type": "missing_in_patterns",
+      "description": "Stop ID 9022005001419001 missing in 2 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001419001",
+      "details": {
+        "patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001": {
+      "label_type": "missing_in_patterns",
+      "description": "Stop ID 9022005001418001 missing in 2 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001418001",
+      "details": {
+        "patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005000435002": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005000435002 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005000435002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005000435002",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001424001": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001424001 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001424001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001424001",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001422001": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001422001 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001422001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001422001",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005000050018": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005000050018 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005000050018",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005000050018",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018": {
+      "label_type": "missing_in_patterns",
+      "description": "Stop ID 9022005000050018 missing in 1 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005000050018",
+      "details": {
+        "patterns": {
+          "2-7": 1
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001422002": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001422002 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001422002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005001422002",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001424002": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001424002 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001424002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005001424002",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000435001": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005000435001 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000435001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005000435001",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001418002": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001418002 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001418002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005001418002",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001419002": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001419002 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001419002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005001419002",
+      "details": {
+        "total_patterns": 2
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001421001": {
+      "label_type": "present_in_all_patterns",
+      "description": "Stop ID 9022005001421001 present in all 2 patterns",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005001421001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005001421001",
+      "details": {
+        "total_patterns": 2
+      }
+    }
+  },
+  "stop_id_violations": {
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002": {
+      "violation_type": "missing_stop_id_in_pattern",
+      "severity": "medium",
+      "description": "Stop ID 9022005001421002 is missing from 2 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001421002",
+      "details": {
+        "total_missing_count": 2,
+        "patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001": {
+      "violation_type": "missing_stop_id_in_pattern",
+      "severity": "medium",
+      "description": "Stop ID 9022005001419001 is missing from 2 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001419001",
+      "details": {
+        "total_missing_count": 2,
+        "patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001": {
+      "violation_type": "missing_stop_id_in_pattern",
+      "severity": "medium",
+      "description": "Stop ID 9022005001418001 is missing from 2 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "stop_id": "9022005001418001",
+      "details": {
+        "total_missing_count": 2,
+        "patterns": {
+          "4-7": 2
+        }
+      }
+    },
+    "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018": {
+      "violation_type": "missing_stop_id_in_pattern",
+      "severity": "medium",
+      "description": "Stop ID 9022005000050018 is missing from 1 trips",
+      "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "stop_id": "9022005000050018",
+      "details": {
+        "total_missing_count": 1,
+        "patterns": {
+          "2-7": 1
+        }
+      }
+    }
+  },
+  "metadata": {
+    "canonical_patterns": {
+      "0": [
+        "9022005001421002",
+        "9022005001419001",
+        "9022005001418001",
+        "9022005000435002",
+        "9022005001424001",
+        "9022005001422001",
+        "9022005000050018"
+      ],
+      "1": [
+        "9022005000050018",
+        "9022005001422002",
+        "9022005001424002",
+        "9022005000435001",
+        "9022005001418002",
+        "9022005001419002",
+        "9022005001421001"
+      ]
+    },
+    "total_violations": 6,
+    "violation_counts_by_type": {
+      "direction": 2,
+      "stop_id": 4
+    },
+    "route_summary": {
+      "total_directions": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "direction_canonical_pattern": 2,
+      "stop_id": 14,
+      "direction": 2
+    },
+    "total_labels": 18
+  },
+  "direction_canonical_pattern_labels": {
+    "direction_topology_9011005022100000_direction_id_0": {
+      "label_type": "direction_canonical_pattern",
+      "description": "1-7",
+      "entity_key": "direction_topology_9011005022100000_direction_id_0",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "0",
+      "count": 725
+    },
+    "direction_topology_9011005022100000_direction_id_1": {
+      "label_type": "direction_canonical_pattern",
+      "description": "1-7",
+      "entity_key": "direction_topology_9011005022100000_direction_id_1",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "direction_id": "1",
+      "count": 703
+    }
+  }
+}

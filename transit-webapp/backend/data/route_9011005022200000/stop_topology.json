@@ -1,0 +1,1930 @@
+{
+  "parent_station_labels": {
+    "stop_topology_9011005022200000_parent_station_9021005001318000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001318000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001318001",
+        "9022005001318002"
+      ],
+      "stop_names": [
+        "Ekhaga"
+      ],
+      "directional_analysis": {
+        "9022005001318001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001318002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005003559000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005003559000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005003559001",
+        "9022005003559002"
+      ],
+      "stop_names": [
+        "Järdalavägen 50"
+      ],
+      "directional_analysis": {
+        "9022005003559001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005003559002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000054000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000054000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000054001",
+        "9022005000054002"
+      ],
+      "stop_names": [
+        "Ekholmens centrum"
+      ],
+      "directional_analysis": {
+        "9022005000054001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005000054002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005003850000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005003850000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005003850001",
+        "9022005003850002"
+      ],
+      "stop_names": [
+        "Ektunavägen"
+      ],
+      "directional_analysis": {
+        "9022005003850001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005003850002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001401000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001401000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001401001",
+        "9022005001401002"
+      ],
+      "stop_names": [
+        "Kvinnebystigen"
+      ],
+      "directional_analysis": {
+        "9022005001401001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001401002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001400000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001400000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001400001",
+        "9022005001400002"
+      ],
+      "stop_names": [
+        "Aspeliden"
+      ],
+      "directional_analysis": {
+        "9022005001400001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001400002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001398000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001398000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001398001",
+        "9022005001398002"
+      ],
+      "stop_names": [
+        "Strandängsvägen"
+      ],
+      "directional_analysis": {
+        "9022005001398001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001398002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000437000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000437000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000437001",
+        "9022005000437002"
+      ],
+      "stop_names": [
+        "Vårdsbergsvägen"
+      ],
+      "directional_analysis": {
+        "9022005000437001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005000437002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001394000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001394000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001394001",
+        "9022005001394002"
+      ],
+      "stop_names": [
+        "Ekdalsvägen"
+      ],
+      "directional_analysis": {
+        "9022005001394001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001394002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000226000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000226000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000226001",
+        "9022005000226002"
+      ],
+      "stop_names": [
+        "Lövsbergsvägen"
+      ],
+      "directional_analysis": {
+        "9022005000226001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005000226002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000416000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000416000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000416002",
+        "9022005000416001"
+      ],
+      "stop_names": [
+        "Aspnäset"
+      ],
+      "directional_analysis": {
+        "9022005000416002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005000416001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001598000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001598000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001598002",
+        "9022005001598001"
+      ],
+      "stop_names": [
+        "Ullstämma by"
+      ],
+      "directional_analysis": {
+        "9022005001598002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001598001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005003838000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005003838000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005003838001",
+        "9022005003838002"
+      ],
+      "stop_names": [
+        "Morgongatan"
+      ],
+      "directional_analysis": {
+        "9022005003838001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005003838002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001233000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001233000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001233002",
+        "9022005001233001"
+      ],
+      "stop_names": [
+        "Grindgatan"
+      ],
+      "directional_analysis": {
+        "9022005001233002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001233001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001232000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001232000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001232002",
+        "9022005001232001"
+      ],
+      "stop_names": [
+        "Myntgatan"
+      ],
+      "directional_analysis": {
+        "9022005001232002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001232001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000045000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000045000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000045002",
+        "9022005000045001"
+      ],
+      "stop_names": [
+        "Resedan"
+      ],
+      "directional_analysis": {
+        "9022005000045002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005000045001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001231000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001231000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001231002",
+        "9022005001231001"
+      ],
+      "stop_names": [
+        "Ridhusgatan"
+      ],
+      "directional_analysis": {
+        "9022005001231002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001231001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001430000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001430000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001430002",
+        "9022005001430001"
+      ],
+      "stop_names": [
+        "Berga centrum"
+      ],
+      "directional_analysis": {
+        "9022005001430002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 391
+          },
+          "is_multi_directional": false
+        },
+        "9022005001430001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005001431000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005001431000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005001431002",
+        "9022005001431001"
+      ],
+      "stop_names": [
+        "Pionjärgatan"
+      ],
+      "directional_analysis": {
+        "9022005001431002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005001431001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005080182000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005080182000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005080182001",
+        "9022005080182002"
+      ],
+      "stop_names": [
+        "Nobeltorget"
+      ],
+      "directional_analysis": {
+        "9022005080182001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005080182002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005003847000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005003847000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005003847002",
+        "9022005003847001"
+      ],
+      "stop_names": [
+        "Forskningsbyn"
+      ],
+      "directional_analysis": {
+        "9022005003847002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005003847001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005004232000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005004232000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005004232003",
+        "9022005004232001"
+      ],
+      "stop_names": [
+        "Mjärdevi Center"
+      ],
+      "directional_analysis": {
+        "9022005004232003": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005004232001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000412000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000412000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000412002",
+        "9022005000412001"
+      ],
+      "stop_names": [
+        "Rotegatan"
+      ],
+      "directional_analysis": {
+        "9022005000412002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005000412001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005004139000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005004139000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005004139002",
+        "9022005004139001"
+      ],
+      "stop_names": [
+        "Mjärdevi"
+      ],
+      "directional_analysis": {
+        "9022005004139002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005004139001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005004236000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005004236000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005004236001",
+        "9022005004236002"
+      ],
+      "stop_names": [
+        "Djurgården"
+      ],
+      "directional_analysis": {
+        "9022005004236001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005004236002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005004253000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005004253000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005004253001",
+        "9022005004253002"
+      ],
+      "stop_names": [
+        "Garnisonen södra"
+      ],
+      "directional_analysis": {
+        "9022005004253001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005004253002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005080004000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005080004000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005080004001",
+        "9022005080004002"
+      ],
+      "stop_names": [
+        "Vallastadens skola"
+      ],
+      "directional_analysis": {
+        "9022005080004001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 392
+          },
+          "is_multi_directional": false
+        },
+        "9022005080004002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_9021005000043000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Unidirectional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_9021005000043000",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_ids": [
+        "9022005000043001"
+      ],
+      "stop_names": [
+        "Berga Söderleden"
+      ],
+      "directional_analysis": {
+        "9022005000043001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 323
+          },
+          "is_multi_directional": false
+        }
+      }
+    }
+  },
+  "parent_station_violations": {},
+  "stop_id_labels": {
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001318000_9022005001318001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001318000_9022005001318001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ekhaga",
+      "stop_id": "9022005001318001",
+      "parent_station": "9021005001318000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003559000_9022005003559001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003559000_9022005003559001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Järdalavägen 50",
+      "stop_id": "9022005003559001",
+      "parent_station": "9021005003559000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000054000_9022005000054001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000054000_9022005000054001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ekholmens centrum",
+      "stop_id": "9022005000054001",
+      "parent_station": "9021005000054000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003850000_9022005003850001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003850000_9022005003850001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ektunavägen",
+      "stop_id": "9022005003850001",
+      "parent_station": "9021005003850000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001401000_9022005001401001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001401000_9022005001401001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Kvinnebystigen",
+      "stop_id": "9022005001401001",
+      "parent_station": "9021005001401000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001400000_9022005001400001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001400000_9022005001400001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Aspeliden",
+      "stop_id": "9022005001400001",
+      "parent_station": "9021005001400000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001398000_9022005001398001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001398000_9022005001398001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Strandängsvägen",
+      "stop_id": "9022005001398001",
+      "parent_station": "9021005001398000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000437000_9022005000437001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000437000_9022005000437001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Vårdsbergsvägen",
+      "stop_id": "9022005000437001",
+      "parent_station": "9021005000437000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001394000_9022005001394001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001394000_9022005001394001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ekdalsvägen",
+      "stop_id": "9022005001394001",
+      "parent_station": "9021005001394000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000226000_9022005000226001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000226000_9022005000226001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Lövsbergsvägen",
+      "stop_id": "9022005000226001",
+      "parent_station": "9021005000226000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000416000_9022005000416002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000416000_9022005000416002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Aspnäset",
+      "stop_id": "9022005000416002",
+      "parent_station": "9021005000416000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001598000_9022005001598002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001598000_9022005001598002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ullstämma by",
+      "stop_id": "9022005001598002",
+      "parent_station": "9021005001598000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003838000_9022005003838001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003838000_9022005003838001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Morgongatan",
+      "stop_id": "9022005003838001",
+      "parent_station": "9021005003838000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001233000_9022005001233002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001233000_9022005001233002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Grindgatan",
+      "stop_id": "9022005001233002",
+      "parent_station": "9021005001233000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001232000_9022005001232002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001232000_9022005001232002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Myntgatan",
+      "stop_id": "9022005001232002",
+      "parent_station": "9021005001232000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000045000_9022005000045002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000045000_9022005000045002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Resedan",
+      "stop_id": "9022005000045002",
+      "parent_station": "9021005000045000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001231000_9022005001231002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001231000_9022005001231002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ridhusgatan",
+      "stop_id": "9022005001231002",
+      "parent_station": "9021005001231000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001430000_9022005001430002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001430000_9022005001430002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Berga centrum",
+      "stop_id": "9022005001430002",
+      "parent_station": "9021005001430000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 391
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001431000_9022005001431002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001431000_9022005001431002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Pionjärgatan",
+      "stop_id": "9022005001431002",
+      "parent_station": "9021005001431000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005080182000_9022005080182001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005080182000_9022005080182001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Nobeltorget",
+      "stop_id": "9022005080182001",
+      "parent_station": "9021005080182000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003847000_9022005003847002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003847000_9022005003847002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Forskningsbyn",
+      "stop_id": "9022005003847002",
+      "parent_station": "9021005003847000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004232000_9022005004232003": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004232000_9022005004232003",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Mjärdevi Center",
+      "stop_id": "9022005004232003",
+      "parent_station": "9021005004232000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000412000_9022005000412002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000412000_9022005000412002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Rotegatan",
+      "stop_id": "9022005000412002",
+      "parent_station": "9021005000412000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004139000_9022005004139002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004139000_9022005004139002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Mjärdevi",
+      "stop_id": "9022005004139002",
+      "parent_station": "9021005004139000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004236000_9022005004236001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004236000_9022005004236001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Djurgården",
+      "stop_id": "9022005004236001",
+      "parent_station": "9021005004236000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004253000_9022005004253001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004253000_9022005004253001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Garnisonen södra",
+      "stop_id": "9022005004253001",
+      "parent_station": "9021005004253000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Vallastadens skola",
+      "stop_id": "9022005080004001",
+      "parent_station": "9021005080004000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 392
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004139000_9022005004139001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004139000_9022005004139001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Mjärdevi",
+      "stop_id": "9022005004139001",
+      "parent_station": "9021005004139000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004232000_9022005004232001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004232000_9022005004232001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Mjärdevi Center",
+      "stop_id": "9022005004232001",
+      "parent_station": "9021005004232000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003847000_9022005003847001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003847000_9022005003847001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Forskningsbyn",
+      "stop_id": "9022005003847001",
+      "parent_station": "9021005003847000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005080182000_9022005080182002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005080182000_9022005080182002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Nobeltorget",
+      "stop_id": "9022005080182002",
+      "parent_station": "9021005080182000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Vallastadens skola",
+      "stop_id": "9022005080004002",
+      "parent_station": "9021005080004000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004236000_9022005004236002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004236000_9022005004236002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Djurgården",
+      "stop_id": "9022005004236002",
+      "parent_station": "9021005004236000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005004253000_9022005004253002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005004253000_9022005004253002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Garnisonen södra",
+      "stop_id": "9022005004253002",
+      "parent_station": "9021005004253000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000412000_9022005000412001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000412000_9022005000412001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Rotegatan",
+      "stop_id": "9022005000412001",
+      "parent_station": "9021005000412000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001431000_9022005001431001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001431000_9022005001431001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Pionjärgatan",
+      "stop_id": "9022005001431001",
+      "parent_station": "9021005001431000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001430000_9022005001430001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001430000_9022005001430001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Berga centrum",
+      "stop_id": "9022005001430001",
+      "parent_station": "9021005001430000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000043000_9022005000043001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000043000_9022005000043001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Berga Söderleden",
+      "stop_id": "9022005000043001",
+      "parent_station": "9021005000043000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001231000_9022005001231001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001231000_9022005001231001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ridhusgatan",
+      "stop_id": "9022005001231001",
+      "parent_station": "9021005001231000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000045000_9022005000045001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000045000_9022005000045001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Resedan",
+      "stop_id": "9022005000045001",
+      "parent_station": "9021005000045000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001232000_9022005001232001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001232000_9022005001232001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Myntgatan",
+      "stop_id": "9022005001232001",
+      "parent_station": "9021005001232000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001233000_9022005001233001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001233000_9022005001233001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Grindgatan",
+      "stop_id": "9022005001233001",
+      "parent_station": "9021005001233000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003838000_9022005003838002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003838000_9022005003838002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Morgongatan",
+      "stop_id": "9022005003838002",
+      "parent_station": "9021005003838000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000054000_9022005000054002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000054000_9022005000054002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ekholmens centrum",
+      "stop_id": "9022005000054002",
+      "parent_station": "9021005000054000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000437000_9022005000437002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000437000_9022005000437002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Vårdsbergsvägen",
+      "stop_id": "9022005000437002",
+      "parent_station": "9021005000437000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001318000_9022005001318002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001318000_9022005001318002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ekhaga",
+      "stop_id": "9022005001318002",
+      "parent_station": "9021005001318000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003559000_9022005003559002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003559000_9022005003559002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Järdalavägen 50",
+      "stop_id": "9022005003559002",
+      "parent_station": "9021005003559000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001401000_9022005001401002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001401000_9022005001401002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Kvinnebystigen",
+      "stop_id": "9022005001401002",
+      "parent_station": "9021005001401000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005003850000_9022005003850002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005003850000_9022005003850002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ektunavägen",
+      "stop_id": "9022005003850002",
+      "parent_station": "9021005003850000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000226000_9022005000226002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000226000_9022005000226002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Lövsbergsvägen",
+      "stop_id": "9022005000226002",
+      "parent_station": "9021005000226000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001394000_9022005001394002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001394000_9022005001394002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ekdalsvägen",
+      "stop_id": "9022005001394002",
+      "parent_station": "9021005001394000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001398000_9022005001398002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001398000_9022005001398002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Strandängsvägen",
+      "stop_id": "9022005001398002",
+      "parent_station": "9021005001398000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001400000_9022005001400002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001400000_9022005001400002",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Aspeliden",
+      "stop_id": "9022005001400002",
+      "parent_station": "9021005001400000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005001598000_9022005001598001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005001598000_9022005001598001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Ullstämma by",
+      "stop_id": "9022005001598001",
+      "parent_station": "9021005001598000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    },
+    "stop_topology_9011005022200000_parent_station_stop_id_9021005000416000_9022005000416001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022200000_parent_station_stop_id_9021005000416000_9022005000416001",
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "stop_name": "Aspnäset",
+      "stop_id": "9022005000416001",
+      "parent_station": "9021005000416000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 323
+      }
+    }
+  },
+  "stop_id_violations": {},
+  "metadata": {
+    "total_violations": 0,
+    "violation_counts_by_type": {
+      "parent_station": 0,
+      "stop_id": 0
+    },
+    "route_summary": {
+      "total_stops": 0,
+      "total_parent_stations": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "parent_station": 28,
+      "stop_id": 55
+    },
+    "total_labels": 83
+  }
+}

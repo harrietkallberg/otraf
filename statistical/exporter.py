@@ -60,6 +60,7 @@ class Exporter:
         self._export_global_stop_index(export_root)
         self._export_global_time_types(export_root)
         self._export_global_violations(export_root)
+        self._export_global_labels(export_root)
 
     def _export_global_route_index(self, export_root: Path):
         """
@@ -193,13 +194,44 @@ class Exporter:
         Flatten all violation entries across routes into a single list JSON.
         """
         flat = []
-        for log in self.logs.values():
-            flat.extend(list(log.stop_topology_logs.get("stop_id_violations", {}).values()))
-            flat.extend(list(log.direction_topology_logs.get("direction_violations", {}).values()))
-            flat.extend(list(log.regulatory_stops_logs.get("stop_id_regulatory_violations", {}).values()))
 
+        for log in self.logs.values():
+            # STOP TOPOLOGY violations
+            st_logs = log.stop_topology_logs
+            for key in ("parent_station_violations", "stop_id_violations"):
+                for entry in st_logs.get(key, {}).values():
+                    flat.append(entry)
+
+            # DIRECTION TOPOLOGY violations
+            dt_logs = log.direction_topology_logs
+            for key in ("direction_violations", "stop_id_violations"):
+                for entry in dt_logs.get(key, {}).values():
+                    flat.append(entry)
+
+        # Write out the combined list
         self._dump_safe(flat, export_root / "global_violations.json")
         print(f"🔄 Exported global violations to {export_root / 'global_violations.json'}")
+
+    def _export_global_labels(self, export_root: Path):
+        """
+        Flatten all label entries across routes into a single list JSON.
+        """
+        flat = []
+
+        for log in self.logs.values():
+            # STOP TOPOLOGY labels
+            st_logs = log.stop_topology_logs
+            for key in ("parent_station_labels", "stop_id_labels"):
+                flat.extend(st_logs.get(key, {}).values())
+
+            # DIRECTION TOPOLOGY labels
+            dt_logs = log.direction_topology_logs
+            for key in ("direction_labels",):
+                flat.extend(dt_logs.get(key, {}).values())
+
+        # Write out the combined list
+        self._dump_safe(flat, export_root / "global_labels.json")
+        print(f"🔄 Exported global labels to {export_root / 'global_labels.json'}")
 
     def _dump_safe(self, obj: any, path: Path):
         """

@@ -1,0 +1,485 @@
+{
+  "parent_station_labels": {
+    "stop_topology_9011005022100000_parent_station_9021005001419000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005001419000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005001419002",
+        "9022005001419001"
+      ],
+      "stop_names": [
+        "Saab Civila"
+      ],
+      "directional_analysis": {
+        "9022005001419002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 704
+          },
+          "is_multi_directional": false
+        },
+        "9022005001419001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 725
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_9021005001418000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005001418000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005001418002",
+        "9022005001418001"
+      ],
+      "stop_names": [
+        "Saab Södra"
+      ],
+      "directional_analysis": {
+        "9022005001418002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 704
+          },
+          "is_multi_directional": false
+        },
+        "9022005001418001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 725
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_9021005000435000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005000435000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005000435001",
+        "9022005000435002"
+      ],
+      "stop_names": [
+        "Saab Norra porten"
+      ],
+      "directional_analysis": {
+        "9022005000435001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 704
+          },
+          "is_multi_directional": false
+        },
+        "9022005000435002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 727
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_9021005001424000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005001424000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005001424002",
+        "9022005001424001"
+      ],
+      "stop_names": [
+        "Korngatan"
+      ],
+      "directional_analysis": {
+        "9022005001424002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 704
+          },
+          "is_multi_directional": false
+        },
+        "9022005001424001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 727
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_9021005001422000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005001422000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005001422002",
+        "9022005001422001"
+      ],
+      "stop_names": [
+        "Humlegatan"
+      ],
+      "directional_analysis": {
+        "9022005001422002": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 704
+          },
+          "is_multi_directional": false
+        },
+        "9022005001422001": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 727
+          },
+          "is_multi_directional": false
+        }
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_9021005000050000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Shared",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005000050000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005000050018"
+      ],
+      "stop_names": [
+        "Linköpings resecentrum"
+      ],
+      "directional_analysis": {
+        "9022005000050018": {
+          "directions": [
+            "1",
+            "0"
+          ],
+          "direction_counts": {
+            "0": 727,
+            "1": 703
+          },
+          "is_multi_directional": true
+        }
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_9021005001421000": {
+      "label_type": "parent_station_stop_topology",
+      "description": "Bidirectional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_9021005001421000",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_ids": [
+        "9022005001421001",
+        "9022005001421002"
+      ],
+      "stop_names": [
+        "Landerydsvägen"
+      ],
+      "directional_analysis": {
+        "9022005001421001": {
+          "directions": [
+            "1"
+          ],
+          "direction_counts": {
+            "1": 704
+          },
+          "is_multi_directional": false
+        },
+        "9022005001421002": {
+          "directions": [
+            "0"
+          ],
+          "direction_counts": {
+            "0": 725
+          },
+          "is_multi_directional": false
+        }
+      }
+    }
+  },
+  "parent_station_violations": {},
+  "stop_id_labels": {
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001419000_9022005001419002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001419000_9022005001419002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Saab Civila",
+      "stop_id": "9022005001419002",
+      "parent_station": "9021005001419000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 704
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001418000_9022005001418002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001418000_9022005001418002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Saab Södra",
+      "stop_id": "9022005001418002",
+      "parent_station": "9021005001418000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 704
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005000435000_9022005000435001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005000435000_9022005000435001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Saab Norra porten",
+      "stop_id": "9022005000435001",
+      "parent_station": "9021005000435000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 704
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001424000_9022005001424002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001424000_9022005001424002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Korngatan",
+      "stop_id": "9022005001424002",
+      "parent_station": "9021005001424000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 704
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001422000_9022005001422002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001422000_9022005001422002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Humlegatan",
+      "stop_id": "9022005001422002",
+      "parent_station": "9021005001422000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 704
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005000050000_9022005000050018": {
+      "label_type": "stop_id_stop_topology",
+      "description": "multi_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005000050000_9022005000050018",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Linköpings resecentrum",
+      "stop_id": "9022005000050018",
+      "parent_station": "9021005000050000",
+      "directions": [
+        "1",
+        "0"
+      ],
+      "direction_counts": {
+        "0": 727,
+        "1": 703
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001421000_9022005001421001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001421000_9022005001421001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Landerydsvägen",
+      "stop_id": "9022005001421001",
+      "parent_station": "9021005001421000",
+      "directions": [
+        "1"
+      ],
+      "direction_counts": {
+        "1": 704
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001421000_9022005001421002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001421000_9022005001421002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Landerydsvägen",
+      "stop_id": "9022005001421002",
+      "parent_station": "9021005001421000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 725
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001422000_9022005001422001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001422000_9022005001422001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Humlegatan",
+      "stop_id": "9022005001422001",
+      "parent_station": "9021005001422000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 727
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001419000_9022005001419001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001419000_9022005001419001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Saab Civila",
+      "stop_id": "9022005001419001",
+      "parent_station": "9021005001419000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 725
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001418000_9022005001418001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001418000_9022005001418001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Saab Södra",
+      "stop_id": "9022005001418001",
+      "parent_station": "9021005001418000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 725
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005000435000_9022005000435002": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005000435000_9022005000435002",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Saab Norra porten",
+      "stop_id": "9022005000435002",
+      "parent_station": "9021005000435000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 727
+      }
+    },
+    "stop_topology_9011005022100000_parent_station_stop_id_9021005001424000_9022005001424001": {
+      "label_type": "stop_id_stop_topology",
+      "description": "single_directional",
+      "entity_key": "stop_topology_9011005022100000_parent_station_stop_id_9021005001424000_9022005001424001",
+      "route_id": "9011005022100000",
+      "route_long_name": "221",
+      "route_short_name": "21",
+      "stop_name": "Korngatan",
+      "stop_id": "9022005001424001",
+      "parent_station": "9021005001424000",
+      "directions": [
+        "0"
+      ],
+      "direction_counts": {
+        "0": 727
+      }
+    }
+  },
+  "stop_id_violations": {},
+  "metadata": {
+    "total_violations": 0,
+    "violation_counts_by_type": {
+      "parent_station": 0,
+      "stop_id": 0
+    },
+    "route_summary": {
+      "total_stops": 0,
+      "total_parent_stations": 0,
+      "topology_types": {}
+    },
+    "labels_counts_by_type": {
+      "parent_station": 7,
+      "stop_id": 13
+    },
+    "total_labels": 20
+  }
+}

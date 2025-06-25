@@ -4,7 +4,6 @@ import numpy as np
 from collections import defaultdict, Counter
 from statistical.lv_logger import LVLogger
 import matplotlib.pyplot as plt
-from statistical.exporter import Exporter
 import datetime as datetime
 
 class DataFormer:
@@ -146,214 +145,185 @@ class DataFormer:
 
     def _analyze_single_parent_station_topology(self, df, parent_station, parent_col='parent_station'):
         parent_data = df[df[parent_col].astype(str) == parent_station]
-
-        stop_ids = parent_data['stop_id'].unique().tolist()
+        stop_ids   = parent_data['stop_id'].unique().tolist()
         stop_names = parent_data['stop_name'].unique().tolist()
 
+        # 1) Gather per-stop directional analysis
         stop_id_analysis = {}
-        missing_data_stop_ids = []
-
-        for stop_id in stop_ids:
-            directions, direction_counts = self._get_stop_id_directions(df, stop_id, parent_station)
-            is_multi = len(directions) > 1
-            stop_id_analysis[str(stop_id)] = {
-                'directions': directions,
-                'direction_counts': direction_counts,
+        missing_data = []
+        for sid in stop_ids:
+            dirs, counts = self._get_stop_id_directions(df, sid, parent_station)
+            is_multi = len(dirs) > 1
+            stop_id_analysis[str(sid)] = {
+                'directions':         dirs,
+                'direction_counts':   counts,
                 'is_multi_directional': is_multi
             }
-            if len(directions) == 0:
-                missing_data_stop_ids.append(stop_id)
+            if not dirs:
+                missing_data.append(sid)
 
-        total_stops = len(stop_ids)
-        multi_count = sum(1 for analysis in stop_id_analysis.values() if analysis['is_multi_directional'])
-        single_count = total_stops - multi_count
+        total = len(stop_ids)
+        multi = sum(a['is_multi_directional'] for a in stop_id_analysis.values())
+        single = total - multi
 
-        parent_key = self.log.build_entity_key('stop_topology', parent_station = parent_station)
+        parent_key = self.log.build_entity_key('stop_topology', parent_station=parent_station)
 
-        def log_and_return(description, parent_violation=None):
-            label_entry = self.log.create_label_entry(
+        def log_and_return(label_desc, parent_violation=None):
+            # — single label on the parent station entity —
+            label = self.log.create_label_entry(
                 label_type='parent_station_stop_topology',
-                description=description,
+                description=label_desc,
                 entity_key=parent_key,
                 stop_ids=stop_ids,
                 stop_names=stop_names,
                 directional_analysis=stop_id_analysis
             )
-            self.log.add_label('stop_topology', 'parent_station', parent_key, label_entry)
+            self.log.add_label('stop_topology', 'parent_station', parent_key, label)
 
+            # — if invalid, one parent violation + propagate per-stop violations —
             if parent_violation:
                 self.log.add_violation('stop_topology', 'parent_station', parent_key, parent_violation)
-                print(f"🚩 Parent station {parent_station} [{description}]: {parent_violation['description']}")
-
+                print(f"🚩 Parent station {parent_station} [{label_desc}]: {parent_violation['description']}")
                 for sid in stop_ids:
-                    sid_key = self.log.build_entity_key('stop_topology', parent_station = parent_station, stop_id = sid)
-                    stop_violation = self.log.create_violation_entry(
+                    sk = self.log.build_entity_key(
+                        'stop_topology', parent_station=parent_station, stop_id=sid
+                    )
+                    sv = self.log.create_violation_entry(
                         violation_type='stop_id_from_invalid_parent_topology',
                         severity='medium',
-                        description='Stop is part of parent_station with invalid topology',
-                        entity_key=sid_key,
+                        description='Inherited invalid-parent-station topology',
+                        entity_key=sk,
                         parent_station=parent_station,
-                        stop_id=sid,
-                        details=stop_id_analysis.get(str(sid), {})
+                        stop_id=str(sid),
+                        details=stop_id_analysis[str(sid)]
                     )
-                    self.log.add_violation('stop_topology', 'stop_id', sid_key, stop_violation)
+                    self.log.add_violation('stop_topology', 'stop_id', sk, sv)
             else:
-                print(f"✅ Parent station {parent_station} [{description}]: Valid topology")
+                print(f"✅ Parent station {parent_station} [{label_desc}]: Valid topology")
 
-            return description
+            return label_desc
 
-        if missing_data_stop_ids:
-            warning = self.log.create_violation_entry(
+        # 2) Missing-data
+        if missing_data:
+            v = self.log.create_violation_entry(
                 violation_type='stop_id_missing_direction_data',
                 severity='medium',
-                description=f'Some stop_ids in parent_station {parent_station} have no direction data',
+                description=f"Missing direction data for stops: {missing_data}",
                 entity_key=parent_key,
                 parent_station=parent_station,
-                stop_ids=missing_data_stop_ids,
+                stop_ids=missing_data,
                 details=stop_id_analysis
             )
-            return log_and_return('Undefined', warning)
+            return log_and_return('Undefined', v)
 
-        if total_stops == 1:
-            label = 'Shared' if multi_count == 1 else 'Unidirectional'
-            return log_and_return(label)
+        # 3) Single-stop
+        if total == 1:
+            return log_and_return('Shared' if multi else 'Unidirectional')
 
-        if total_stops == 2:
-            if single_count == 2 and multi_count == 0:
+        # 4) Two-stop
+        if total == 2:
+            if single == 2 and multi == 0:
                 return log_and_return('Bidirectional')
-            else:
-                violation = self.log.create_violation_entry(
-                    violation_type='two_stop_misassigned_directions',
-                    severity='high',
-                    description=f'2-stop station with wrong configuration: {single_count} single + {multi_count} multi (expected: 2 single + 0 multi)',
-                    entity_key=parent_key,
-                    parent_station=parent_station,
-                    details={
-                        'expected': '2 single-directional, 0 multi-directional',
-                        'actual': f'{single_count} single-directional, {multi_count} multi-directional',
-                        'directional_analysis': stop_id_analysis
-                    }
-                )
-                return log_and_return('Undefined', violation)
-
-        if total_stops % 2 == 0:
-            if single_count == total_stops and multi_count == 0:
-                return log_and_return('Bidirectional')
-            elif single_count % 2 == 0 and multi_count % 2 == 0:
-                return log_and_return('Hybrid')
-            else:
-                violation = self.log.create_violation_entry(
-                    violation_type='unpaired_even_directional_stops',
-                    severity='medium',
-                    description=f'Even-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
-                    entity_key=parent_key,
-                    parent_station=parent_station,
-                    stop_names=stop_names,
-                    details={
-                        'expected': 'even single-directional, even multi-directional',
-                        'actual': f'{single_count} single-directional, {multi_count} multi-directional',
-                        'directional_analysis': stop_id_analysis
-                    }
-                )
-                return log_and_return('Undefined', violation)
-
-        # Odd count
-        if single_count % 2 == 0 and multi_count % 2 == 1:
-            return log_and_return('Hybrid')
-        else:
-            violation = self.log.create_violation_entry(
-                violation_type='unpaired_odd_directional_stops',
-                severity='medium',
-                description=f'Odd-stop station with unpaired configuration: {single_count} single + {multi_count} multi',
+            v = self.log.create_violation_entry(
+                violation_type='two_stop_misassigned_directions',
+                severity='high',
+                description=f"2-stop station misassigned: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
-                stop_names=stop_names,
-                details={
-                    'expected': 'even single-directional, odd multi-directional',
-                    'actual': f'{single_count} single-directional, {multi_count} multi-directional',
-                    'directional_analysis': stop_id_analysis
-                }
+                details={'analysis': stop_id_analysis}
             )
-            return log_and_return('Undefined', violation)
+            return log_and_return('Undefined', v)
+
+        # 5) Even >2
+        if total % 2 == 0:
+            if single == total and multi == 0:
+                return log_and_return('Bidirectional')
+            if single % 2 == 0 and multi % 2 == 0:
+                return log_and_return('Hybrid')
+            v = self.log.create_violation_entry(
+                violation_type='unpaired_even_directional_stops',
+                severity='medium',
+                description=f"Even-stop unpaired: {single} single, {multi} multi",
+                entity_key=parent_key,
+                parent_station=parent_station,
+                details={'analysis': stop_id_analysis}
+            )
+            return log_and_return('Undefined', v)
+
+        # 6) Odd >2
+        if single % 2 == 0 and multi % 2 == 1:
+            return log_and_return('Hybrid')
+
+        v = self.log.create_violation_entry(
+            violation_type='unpaired_odd_directional_stops',
+            severity='medium',
+            description=f"Odd-stop unpaired: {single} single, {multi} multi",
+            entity_key=parent_key,
+            parent_station=parent_station,
+            details={'analysis': stop_id_analysis}
+        )
+        return log_and_return('Undefined', v)
 
     def _validate_stop_id_directions(self, df):
         print("Validating individual stop ID directions...")
-
         stop_id_data = df[['stop_id', 'stop_name', 'parent_station']].drop_duplicates()
-
         for _, row in stop_id_data.iterrows():
-            stop_id = row['stop_id']
-            stop_name = row['stop_name']
-            parent_station = row['parent_station']
-
-            entity_key = self.log.build_entity_key("stop_topology", parent_station=parent_station, stop_id=stop_id)
-            directions, direction_counts = self._get_stop_id_directions(df, stop_id, parent_station, entity_key=entity_key)
-
-            if len(directions) > 1:
-                description = 'multi_directional'
-            elif len(directions) == 1:
-                description = 'single_directional'
-            else:
-                description = 'no_data'
-
-            label_entry = self.log.create_label_entry(
+            sid = row['stop_id']
+            name = row['stop_name']
+            ps  = row['parent_station']
+            key = self.log.build_entity_key("stop_topology", parent_station=ps, stop_id=sid)
+            dirs, counts = self._get_stop_id_directions(df, sid, ps, entity_key=key)
+            desc = 'multi_directional' if len(dirs)>1 else 'single_directional' if dirs else 'no_data'
+            le = self.log.create_label_entry(
                 label_type='stop_id_stop_topology',
-                description=description,
-                entity_key=entity_key,
-                stop_name=stop_name,
-                parent_station=parent_station,
-                directions=directions,
-                direction_counts=direction_counts
+                description=desc,
+                entity_key=key,
+                stop_name=name,
+                stop_id=sid,
+                parent_station=ps,
+                directions=dirs,
+                direction_counts=counts
             )
-            self.log.add_label('stop_topology', 'stop_id', entity_key, label_entry)
-
-            if len(directions) == 0:
-                violation = self.log.create_violation_entry(
+            self.log.add_label('stop_topology', 'stop_id', key, le)
+            if not dirs:
+                ve = self.log.create_violation_entry(
                     violation_type='stop_id_without_direction_data',
                     severity='high',
-                    description=f'Stop id: {stop_id} has no direction data',
-                    entity_key=entity_key,
-                    stop_id=stop_id,
-                    stop_name=stop_name,
-                    parent_station=parent_station,
-                    details={
-                        'direction_details': {
-                            'directions': [],
-                            'direction_counts': {},
-                            'is_multi_directional': False
-                        }
-                    }
+                    description=f"Stop {sid} has no direction data",
+                    entity_key=key,
+                    stop_id=sid,
+                    stop_name=name,
+                    parent_station=ps,
+                    details={'directions':[], 'direction_counts':{}}
                 )
-                self.log.add_violation('stop_topology', 'stop_id', entity_key, violation)
-                print(f"🚩 Stop ID {stop_id}: No direction data")
-
+                self.log.add_violation('stop_topology', 'stop_id', key, ve)
+                print(f"🚩 Stop ID {sid}: No direction data")
         print("✅ Stop ID validation complete.")
 
-    def _get_stop_id_directions(self, df, stop_id, parent_station, entity_key=None) -> tuple[list, dict]:
-        stop_data = df[
-            (df['stop_id'].astype(str) == str(stop_id)) &
-            (df['parent_station'].astype(str) == str(parent_station))
+    def _get_stop_id_directions(self, df, stop_id, parent_station, entity_key=None):
+        subset = df[
+            (df['stop_id'].astype(str)==str(stop_id)) &
+            (df['parent_station'].astype(str)==str(parent_station))
         ]
-
-        if stop_data.empty:
+        if subset.empty:
             if entity_key is None:
-                entity_key = self.log.build_entity_key('stop_topology', parent_station = parent_station, stop_id=stop_id)
-            violation = self.log.create_violation_entry(
+                entity_key = self.log.build_entity_key('stop_topology',
+                                                    parent_station=parent_station,
+                                                    stop_id=stop_id)
+            ve = self.log.create_violation_entry(
                 violation_type='stop_id_missing_from_schedule',
                 severity='medium',
-                description=f"No data found for stop_id {stop_id} in parent_station {parent_station}",
+                description=f"No data for stop {stop_id} in parent_station {parent_station}",
                 entity_key=entity_key,
                 stop_id=stop_id,
                 parent_station=parent_station
             )
-            self.log.add_violation('stop_topology', 'stop_id', entity_key, violation)
-            print(f"⚠️ {violation['description']}")
+            self.log.add_violation('stop_topology','stop_id',entity_key,ve)
+            print(f"⚠️ {ve['description']}")
             return [], {}
-
-        directions = stop_data['direction_id'].unique().tolist()
-        direction_counts = stop_data['direction_id'].value_counts().to_dict()
-
-        return directions, direction_counts
+        dirs = subset['direction_id'].unique().tolist()
+        counts = subset['direction_id'].value_counts().to_dict()
+        return dirs, counts
 
 #   ================ DIRECTION TOPOLOGY VALIDATION (following stop pattern) =====================
 
@@ -369,16 +339,16 @@ class DataFormer:
             self._analyze_single_direction_topology(group, direction_id)
 
     def _analyze_single_direction_topology(self, df, direction_id):
+        # 1) Count each unique stop‐sequence pattern per trip
         trip_groups = df.groupby(['trip_id', 'start_date'])
         pattern_instance_counter = Counter()
-        
         for _, trip_df in trip_groups:
             sorted_trip = trip_df.sort_values("stop_sequence")
             pattern = tuple(sorted_trip['stop_id'])
             pattern_instance_counter[pattern] += 1
 
+        # 2) Prepare logging helper
         entity_key = self.log.build_entity_key('direction_topology', direction_id=direction_id)
-
         def log_and_return(description, direction_violation=None):
             label_entry = self.log.create_label_entry(
                 label_type="direction_id_direction_topology",
@@ -387,15 +357,14 @@ class DataFormer:
                 direction_id=direction_id
             )
             self.log.add_label("direction_topology", "direction", entity_key, label_entry)
-
             if direction_violation:
                 self.log.add_violation("direction_topology", "direction", entity_key, direction_violation)
-                print(f"\ud83d\udea9 Direction {direction_id} [{description}]: {direction_violation['description']}")
+                print(f"🚩 Direction {direction_id} [{description}]: {direction_violation['description']}")
             else:
-                print(f"\u2705 Direction {direction_id} [{description}]: Valid topology")
-
+                print(f"✅ Direction {direction_id} [{description}]: Valid topology")
             return description
 
+        # 3) No data?
         if not pattern_instance_counter:
             v = self.log.create_violation_entry(
                 violation_type="missing_data_for_direction",
@@ -406,28 +375,30 @@ class DataFormer:
             )
             return log_and_return("Undefined", v)
 
+        # 4) Valid candidates = strictly sequential patterns (1..N)
         valid_candidates = [
-            (pattern, len(pattern))
-            for pattern in pattern_instance_counter
-            if pattern and pattern[0] and np.all(np.diff([1] + list(range(2, len(pattern) + 1))) == 1)
+            (p, len(p))
+            for p in pattern_instance_counter
+            if p and p[0] and np.all(np.diff([1] + list(range(2, len(p)+1))) == 1)
         ]
-
         if not valid_candidates:
             v = self.log.create_violation_entry(
                 violation_type="missing_valid_canonical_for_direction",
-                severity="high",
                 description="no_valid_canonical",
+                severity="high",
                 entity_key=entity_key,
                 direction_id=direction_id
             )
             return log_and_return("Undefined", v)
 
+        # 5) Pick the canonical (longest) pattern
         canonical = max(valid_candidates, key=lambda x: x[1])[0]
         canonical_set = set(canonical)
         canonical_str = self.convert_pattern_to_position_string(list(canonical), list(canonical))
         canonical_count = pattern_instance_counter[canonical]
-
-        self.log.direction_topology_logs.setdefault('metadata', {}).setdefault('canonical_patterns', {})[direction_id] = list(canonical)
+        self.log.direction_topology_logs \
+            .setdefault('metadata', {}) \
+            .setdefault('canonical_patterns', {})[direction_id] = list(canonical)
 
         label_entry = self.log.create_label_entry(
             label_type="direction_canonical_pattern",
@@ -436,35 +407,42 @@ class DataFormer:
             direction_id=direction_id,
             count=canonical_count
         )
-        self.log.add_label("direction_topology", "direction", entity_key, label_entry)
+        self.log.add_label("direction_topology", "direction_canonical_pattern", entity_key, label_entry)
 
+        # 6) Prepare structures for alternatives & per-stop tallies
         alt_counter = Counter()
         alt_detailed = {}
         missing_counter = Counter()
         unexpected_counter = Counter()
+        missing_by_pattern = defaultdict(Counter)
+        unexpected_by_pattern = defaultdict(Counter)
 
-        for pattern, count in pattern_instance_counter.items():
+        # 7) Analyze non-canonical patterns
+        for pattern, cnt in pattern_instance_counter.items():
             if pattern == canonical:
                 continue
-            alt_str = self.convert_pattern_to_position_string(list(pattern), list(canonical))
-            alt_counter[alt_str] += count
 
-            pattern_set = set(pattern)
-            missing = sorted(canonical_set - pattern_set)
-            unexpected = sorted(pattern_set - canonical_set)
+            alt_str = self.convert_pattern_to_position_string(list(pattern), list(canonical))
+            alt_counter[alt_str] += cnt
+
+            p_set = set(pattern)
+            missing   = sorted(canonical_set - p_set)
+            unexpected= sorted(p_set - canonical_set)
 
             for sid in missing:
-                missing_counter[sid] += count
-
+                missing_counter[sid] += cnt
+                missing_by_pattern[sid][alt_str] += cnt
             for sid in unexpected:
-                unexpected_counter[sid] += count
+                unexpected_counter[sid] += cnt
+                unexpected_by_pattern[sid][alt_str] += cnt
 
             alt_detailed[alt_str] = {
-                "count": count,
-                "missing_stop_ids": [str(sid) for sid in missing],
-                "unexpected_stop_ids": [str(sid) for sid in unexpected]
+                "count": cnt,
+                "missing_stop_ids": [str(s) for s in missing],
+                "unexpected_stop_ids": [str(s) for s in unexpected]
             }
 
+        # 8) Multiple-patterns violation?
         if alt_counter:
             v = self.log.create_violation_entry(
                 violation_type="multiple_patterns_in_direction",
@@ -473,40 +451,85 @@ class DataFormer:
                 entity_key=entity_key,
                 direction_id=direction_id,
                 details={
-                    "canonical_pattern": {canonical_str: canonical_count},
+                    "canonical_pattern":    {canonical_str: canonical_count},
                     "alternative_patterns": alt_detailed
                 }
             )
             self.log.add_violation("direction_topology", "direction", entity_key, v)
 
-        for sid, count in missing_counter.items():
-            stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
-            violation = self.log.create_violation_entry(
-                violation_type="missing_stop_id_in_pattern",
-                severity="medium",
-                description=f"Stop ID {sid} is missing from {count} trips despite being in the canonical pattern.",
-                entity_key=stop_key,
-                direction_id=direction_id,
-                stop_id=str(sid),
-                details={"missing_count": count}
+        # 9) Per-stop labels, violations & prints, in canonical order
+        for sid in canonical:
+            stop_key = self.log.build_entity_key(
+                "direction_topology", direction_id=direction_id, stop_id=sid
             )
-            self.log.add_violation("direction_topology", "stop_id", stop_key, violation)
 
-        for sid, count in unexpected_counter.items():
-            stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
-            violation = self.log.create_violation_entry(
-                violation_type="unexpected_stop_id_in_pattern",
-                severity="low",
-                description=f"Stop ID {sid} appeared in {count} trips but is not in the canonical pattern.",
-                entity_key=stop_key,
-                direction_id=direction_id,
-                stop_id=str(sid),
-                details={"occurrence_count": count}
-            )
-            self.log.add_violation("direction_topology", "stop_id", stop_key, violation)
+            # a) Missing-stop?
+            miss_cnt = missing_counter.get(sid, 0)
+            if miss_cnt:
+                # create label "missing_in_patterns"
+                label_entry = self.log.create_label_entry(
+                    label_type="missing_in_patterns",
+                    description=f"Stop ID {sid} missing in {miss_cnt} trips",
+                    entity_key=stop_key,
+                    direction_id=direction_id,
+                    stop_id=str(sid),
+                    details={"patterns": dict(missing_by_pattern[sid])}
+                )
+                self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
 
+                # existing violation
+                desc = f"Stop ID {sid} is missing from {miss_cnt} trips"
+                v = self.log.create_violation_entry(
+                    violation_type="missing_stop_id_in_pattern",
+                    severity="medium",
+                    description=desc,
+                    entity_key=stop_key,
+                    direction_id=direction_id,
+                    stop_id=str(sid),
+                    details={
+                        "total_missing_count": miss_cnt,
+                        "patterns": dict(missing_by_pattern[sid])
+                    }
+                )
+                self.log.add_violation("direction_topology", "stop_id", stop_key, v)
+                print(f"🚩 Stop {sid} [missing_stop_id_in_pattern]: {desc}")
+
+            # b) Unexpected-stop?
+            unexp_cnt = unexpected_counter.get(sid, 0)
+            if unexp_cnt:
+                desc = f"Stop ID {sid} unexpectedly appears in {unexp_cnt} trips"
+                v = self.log.create_violation_entry(
+                    violation_type="unexpected_stop_id_in_pattern",
+                    severity="low",
+                    description=desc,
+                    entity_key=stop_key,
+                    direction_id=direction_id,
+                    stop_id=str(sid),
+                    details={
+                        "total_unexpected_count": unexp_cnt,
+                        "patterns": dict(unexpected_by_pattern[sid])
+                    }
+                )
+                self.log.add_violation("direction_topology", "stop_id", stop_key, v)
+                print(f"🚩 Stop {sid} [unexpected_stop_id_in_pattern]: {desc}")
+
+            # c) Present in all patterns?
+            if miss_cnt == 0 and unexp_cnt == 0:
+                # create label "present_in_all_patterns"
+                label_entry = self.log.create_label_entry(
+                    label_type="present_in_all_patterns",
+                    description=f"Stop ID {sid} present in all {1 + len(alt_counter)} patterns",
+                    entity_key=stop_key,
+                    direction_id=direction_id,
+                    stop_id=str(sid),
+                    details={"total_patterns": 1 + len(alt_counter)}
+                )
+                self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
+
+                print(f"✅ Stop {sid}: present in all patterns")
+
+        # 10) Final label & return
         pattern_label_desc = "Multiple Patterns Detected" if alt_counter else "Full Route Only"
-
         return log_and_return(pattern_label_desc)
 
     def convert_pattern_to_position_string(self, pattern, canonical):
@@ -600,6 +623,53 @@ class DataFormer:
 
         # 3) Grab your precomputed regulatory‐stop labels
         reg_labels = self.log.regulatory_stops_logs.get("stop_id_regulatory_labels", {})
+
+        first_stop_grp = df[df['stop_sequence'] == 1]
+        for (direction_id, stop_id, stop_name, time_type), group in first_stop_grp.groupby(
+                ['direction_id', 'stop_id', 'stop_name', 'time_type']
+        ):
+            delay_data = group['departure_delay'].dropna()
+            if len(delay_data) < 5:
+                continue
+
+            key = self.log.build_entity_key(
+                domain="performance",
+                direction_id=direction_id,
+                stop_id=stop_id,
+                time_type=time_type
+            )
+
+            # Total-delay histogram only
+            total_hist = self._create_normalized_histogram(delay_data)
+            histograms_log[key] = {
+                'route_id': self.route_id,
+                'direction_id': direction_id,
+                'stop_id': stop_id,
+                'stop_name': stop_name,
+                'time_type': time_type,
+                'total_delay_histogram': total_hist,
+                'incremental_delay_histogram': None
+            }
+
+            # Punctuality
+            punctuality = self._calculate_punctuality_metrics(delay_data)
+            if punctuality:
+                is_reg = bool(reg_labels.get(
+                    self.log.build_entity_key(
+                        "regulatory_stops",
+                        direction_id=direction_id,
+                        stop_id=stop_id
+                    )
+                ))
+                punctuality_log[key] = {
+                    'route_id': self.route_id,
+                    'direction_id': direction_id,
+                    'stop_id': stop_id,
+                    'stop_name': stop_name,
+                    'time_type': time_type,
+                    'punctuality': punctuality,
+                    'is_regulatory_stop': is_reg
+                }
 
         # 4) Build per‐stop histograms and punctuality
         for (direction_id, stop_id, stop_name, time_type), group in df[df['valid_segment']].groupby(
@@ -918,7 +988,12 @@ class DataFormer:
 
         # Metadata & pointers
         canonical_patterns   = dir_logs.get("metadata", {}).get("canonical_patterns", {})
-        direction_labels     = dir_logs.get("direction_labels", {})
+        
+        direction_labels = {
+            **dir_logs.get("direction_labels", {}),
+            **dir_logs.get("direction_canonical_pattern_labels", {})
+        }
+
         direction_violations = dir_logs.get("direction_violations", {})
 
         histograms   = perf_logs.get("histograms_stops", {})
@@ -1075,13 +1150,13 @@ class DataFormer:
                 for k, e in reg_logs.get("stop_id_regulatory_labels", {}).items():
                     if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
                         labels["regulatory"].append(k)
-                # parent_station
-                for k, e in stop_logs.get("parent_station_labels", {}).items():
-                    if str(e.get("stop_id")) == sid:
-                        labels["parent_station"].append(k)
-                for k, e in stop_logs.get("parent_station_violations", {}).items():
-                    if str(e.get("stop_id")) == sid:
-                        viols["parent_station"].append(k)
+                # parent_station (propagate the single parent‐station label to every child)
+                for key, entry in stop_logs.get("parent_station_labels", {}).items():
+                    if sid in entry.get("stop_ids", []):
+                        labels["parent_station"].append(key)
+                for key, entry in stop_logs.get("parent_station_violations", {}).items():
+                    if sid in entry.get("stop_ids", []):
+                        viols["parent_station"].append(key)
 
                 # Performance availability
                 tts_for_stop = {
