@@ -80,14 +80,14 @@ class Exporter:
         """
         Build and export a detailed global stop index JSON by scanning each
         route's navigation structures. Each stop entry includes:
-          - stop_name
-          - routes list
-          - directions per route
-          - label_stats per domain (routes, occurrences)
-          - violation_stats per domain
-          - label_keys per domain
-          - violation_keys per domain
-          - performance_keys availability
+        - stop_name
+        - routes list
+        - directions per route
+        - label_stats per domain (routes, occurrences)
+        - violation_stats per domain
+        - label_keys per domain
+        - violation_keys per domain
+        - performance_keys availability (lists of all seen keys)
         """
         domains = ["stop_topology", "direction_topology", "regulatory", "parent_station"]
         stop_index: dict[str, dict] = {}
@@ -109,7 +109,8 @@ class Exporter:
                         "violation_stats":  {d: {"routes": set(), "occurrences": 0} for d in domains},
                         "label_keys":       {d: [] for d in domains},
                         "violation_keys":   {d: [] for d in domains},
-                        "performance_keys": defaultdict(lambda: {"histogram": None, "punctuality": None})
+                        # now keep lists of all histogram and punctuality keys
+                        "performance_keys": defaultdict(lambda: {"histograms": [], "punctualities": []})
                     })
 
                     entry["routes"].add(rid)
@@ -133,14 +134,14 @@ class Exporter:
                             entry["violation_stats"][domain]["occurrences"] += 1
                             entry["violation_keys"][domain].append(k)
 
-                    # Performance availability
+                    # Performance availability — now append rather than overwrite
                     p_avail = stop.get("performance_availability") or {}
                     for tt, hkey in (p_avail.get("histograms") or {}).items():
                         if hkey:
-                            entry["performance_keys"][tt]["histogram"] = hkey
+                            entry["performance_keys"][tt]["histograms"].append(hkey)
                     for tt, pkey in (p_avail.get("punctuality") or {}).items():
                         if pkey:
-                            entry["performance_keys"][tt]["punctuality"] = pkey
+                            entry["performance_keys"][tt]["punctualities"].append(pkey)
 
         # Sanitize for JSON: convert sets to lists
         final_index = {}
@@ -153,20 +154,24 @@ class Exporter:
                     dom: {"routes": sorted(list(data["routes"])), "occurrences": data["occurrences"]}
                     for dom, data in e["label_stats"].items()
                 },
-                "label_keys":    {dom: list(keys) for dom, keys in e["label_keys"].items()},
+                "label_keys":      {dom: list(keys) for dom, keys in e["label_keys"].items()},
                 "violation_stats": {
                     dom: {"routes": sorted(list(data["routes"])), "occurrences": data["occurrences"]}
                     for dom, data in e["violation_stats"].items()
                 },
-                "violation_keys": {dom: list(keys) for dom, keys in e["violation_keys"].items()},
+                "violation_keys":  {dom: list(keys) for dom, keys in e["violation_keys"].items()},
                 "performance_keys": {
-                    tt: {"histogram": data["histogram"], "punctuality": data["punctuality"]}
+                    tt: {
+                        "histograms":    list(data["histograms"]),
+                        "punctualities": list(data["punctualities"])
+                    }
                     for tt, data in e["performance_keys"].items()
                 }
             }
 
         self._dump_safe(final_index, export_root / "global_stop_index.json")
         print(f"🔄 Exported detailed global stop index to {export_root / 'global_stop_index.json'}")
+
 
     def _export_global_time_types(self, export_root: Path):
         """

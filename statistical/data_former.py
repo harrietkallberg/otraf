@@ -1216,7 +1216,6 @@ class DataFormer:
         # Write back
         self.log.navigation_structures["routewise_navigation"] = nav
 
-
     def _get_stop_metadata(self, df, stop_id: str) -> dict:
         """
         Retrieve metadata for a given stop_id from the final DataFrame.
