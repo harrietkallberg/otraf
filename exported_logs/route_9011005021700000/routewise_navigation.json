@@ -4,14 +4,13 @@
   "directions": [
     {
       "direction_id": "0",
-      "direction_label": "1-21",
-      "has_direction_violations": true,
       "direction_label_keys": [
         "direction_topology_9011005021700000_direction_id_0"
       ],
       "direction_violation_keys": [
         "direction_topology_9011005021700000_direction_id_0"
       ],
+      "has_direction_violations": true,
       "contains_violations": true,
       "canonical_pattern": {
         "pattern_str": "1-21",
@@ -356,7 +355,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000416000_9022005000416001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000416001"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000416001",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005000416001"
@@ -400,7 +401,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001598000_9022005001598002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001598002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001598002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -442,7 +445,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005003838000_9022005003838001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005003838001"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005003838001",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -484,7 +489,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001230000_9022005001230001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001230001"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001230001",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -526,7 +533,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001229000_9022005001229001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001229001"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001229001",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -568,7 +577,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000044000_9022005000044003"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000044003"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000044003",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005000044003"
@@ -612,7 +623,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001596000_9022005001596002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001596002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001596002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -654,7 +667,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001303000_9022005001303002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001303002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001303002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -696,7 +711,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001302000_9022005001302002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001302002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001302002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -738,7 +755,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001301000_9022005001301002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001301002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001301002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -780,7 +799,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001300000_9022005001300002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001300002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001300002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -822,7 +843,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001430000_9022005001430002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001430002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001430002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005001430002"
@@ -866,7 +889,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001431000_9022005001431002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001431002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001431002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -908,7 +933,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000412000_9022005000412002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000412002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000412002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -950,7 +977,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005004186000_9022005004186002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005004186002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005004186002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -992,7 +1021,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001249000_9022005001249002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001249002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001249002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005001249002"
@@ -1036,7 +1067,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000198000_9022005000198002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000198002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000198002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1076,7 +1109,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000042000_9022005000042002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000042002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000042002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1116,7 +1151,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000046000_9022005000046006"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000046006"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000046006",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1156,7 +1193,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001243000_9022005001243002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001243002"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001243002",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1198,7 +1237,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000050000_9022005000050019"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000050019"
+              "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000050019",
+              "direction_topology_9011005021700000_direction_id_0",
+              "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005000050019"
@@ -1235,14 +1276,13 @@
     },
     {
       "direction_id": "1",
-      "direction_label": "1-22",
-      "has_direction_violations": true,
       "direction_label_keys": [
         "direction_topology_9011005021700000_direction_id_1"
       ],
       "direction_violation_keys": [
         "direction_topology_9011005021700000_direction_id_1"
       ],
+      "has_direction_violations": true,
       "contains_violations": true,
       "canonical_pattern": {
         "pattern_str": "1-22",
@@ -1564,7 +1604,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000050000_9022005000050019"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000050019"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000050019",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005000050019"
@@ -1608,7 +1650,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001243000_9022005001243001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001243001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001243001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1650,7 +1694,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000046000_9022005000046003"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000046003"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000046003",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1692,7 +1738,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000042000_9022005000042001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000042001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000042001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1734,7 +1782,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000198000_9022005000198001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000198001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000198001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1776,7 +1826,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001249000_9022005001249001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001249001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001249001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005001249001"
@@ -1820,7 +1872,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005004186000_9022005004186001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005004186001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005004186001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1862,7 +1916,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000412000_9022005000412001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000412001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000412001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1904,7 +1960,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001431000_9022005001431001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001431001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001431001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -1946,7 +2004,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001430000_9022005001430001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001430001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001430001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005001430001"
@@ -1988,7 +2048,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000043000_9022005000043001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000043001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000043001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2028,7 +2090,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001300000_9022005001300001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001300001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001300001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2068,7 +2132,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001301000_9022005001301001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001301001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001301001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2108,7 +2174,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001302000_9022005001302001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001302001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001302001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2148,7 +2216,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001303000_9022005001303001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001303001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001303001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2188,7 +2258,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001596000_9022005001596001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001596001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001596001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2228,7 +2300,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000044000_9022005000044002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000044002"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000044002",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005000044002"
@@ -2270,7 +2344,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001229000_9022005001229002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001229002"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001229002",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2310,7 +2386,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001230000_9022005001230002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001230002"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001230002",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2350,7 +2428,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005003838000_9022005003838002"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005003838002"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005003838002",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2390,7 +2470,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001598000_9022005001598001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001598001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001598001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
             "parent_station": [
@@ -2430,7 +2512,9 @@
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000416000_9022005000416001"
             ],
             "direction_topology": [
-              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000416001"
+              "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000416001",
+              "direction_topology_9011005021700000_direction_id_1",
+              "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005000416001"

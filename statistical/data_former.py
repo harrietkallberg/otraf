@@ -948,37 +948,27 @@ class DataFormer:
         return flow
 
 #   ============================== ROUTEWISE NAVIGATIONAL MAP ===================================
+
     def build_routewise_navigation_structure(self):
         """
         Build a lightweight, pointer-only navigation map:
         {
-          "route_id": ...,
-          "route_name": ...,
-          "directions": [
+        "route_id": ...,
+        "route_name": ...,
+        "directions": [
             {
-              "direction_id": ...,
-              "direction_label": ...,
-              "has_direction_violations": ...,
-              "direction_label_keys": [...],
-              "direction_violation_keys": [...],
-              "contains_violations": ...,
-              "canonical_pattern": { pattern_str, pattern_ids, count, label_key },
-              "alternative_patterns": [
-                  { pattern_str, pattern_ids, count, violation_key, anomalies: [...] },
-                  ...
-              ],
-              "travel_time_segments": [ { from_stop_id, to_stop_id, availability: {...} }, ... ],
-              "stops": [
-                {
-                  position, stop_id, stop_name,
-                  labels: {...}, has_violations, violations: {...},
-                  performance_availability: { histograms: {...}, punctuality: {...} }
-                },
-                ...
-              ]
+            "direction_id": ...,
+            "direction_label_keys": [...],
+            "direction_violation_keys": [...],
+            "has_direction_violations": ...,
+            "contains_violations": ...,
+            "canonical_pattern": { pattern_str, pattern_ids, count, label_key },
+            "alternative_patterns": [ … ],
+            "travel_time_segments": [ … ],
+            "stops": [ … ],
             },
-            ...
-          ]
+            …
+        ]
         }
         """
         dir_logs      = self.log.direction_topology_logs
@@ -986,21 +976,16 @@ class DataFormer:
         reg_logs      = self.log.regulatory_stops_logs
         perf_logs     = self.log.performance_logs
 
-        # Metadata & pointers
-        canonical_patterns   = dir_logs.get("metadata", {}).get("canonical_patterns", {})
-        
-        direction_labels = {
-            **dir_logs.get("direction_labels", {}),
-            **dir_logs.get("direction_canonical_pattern_labels", {})
-        }
+        # Top-level pointers & metadata
+        canonical_patterns                  = dir_logs.get("metadata", {}).get("canonical_patterns", {})
+        classification_labels               = dir_logs.get("direction_labels", {})
+        canonical_pattern_label_entries     = dir_logs.get("direction_canonical_pattern_labels", {})
+        direction_violations                = dir_logs.get("direction_violations", {})
+        histograms                          = perf_logs.get("histograms_stops", {})
+        punctuality                         = perf_logs.get("punctuality_barcharts", {})
+        travel_times                        = perf_logs.get("travel_times", {})
 
-        direction_violations = dir_logs.get("direction_violations", {})
-
-        histograms   = perf_logs.get("histograms_stops", {})
-        punctuality  = perf_logs.get("punctuality_barcharts", {})
-        travel_times = perf_logs.get("travel_times", {})
-
-        # Pre‐aggregate stop‐level violations
+        # Pre-aggregate stop-level violations
         all_stop_violations = self._collect_all_stop_id_violations()
 
         nav = {
@@ -1016,45 +1001,41 @@ class DataFormer:
             if e.get("time_type") is not None
         }
 
-        # Iterate each direction
         for direction_id, pattern_ids in canonical_patterns.items():
-            direction_id = str(direction_id)
-            dir_key = self.log.build_entity_key("direction_topology", direction_id=direction_id)
+            dir_id_str = str(direction_id)
+            dir_key = self.log.build_entity_key("direction_topology", direction_id=dir_id_str)
 
-            # Human‐readable label
-            dir_lbl = direction_labels.get(dir_key)
-            if isinstance(dir_lbl, dict):
-                direction_label = dir_lbl.get("description", "Unknown")
-            else:
-                direction_label = dir_lbl or "Unknown"
+            # --- Gather direction-level keys ---
+            # classification label keys for this direction
+            direction_label_keys = [
+                k for k, le in classification_labels.items()
+                if (isinstance(le, dict) and le.get("entity_key") == dir_key) or k == dir_key
+            ]
+            # canonical-pattern label key, if any
+            canonical_label_key = next(
+                (k for k, le in canonical_pattern_label_entries.items()
+                if isinstance(le, dict)
+                    and le.get("entity_key") == dir_key
+                    and le.get("label_type") == "direction_canonical_pattern"),
+                None
+            )
 
             # Flags
             has_dir_viol = any(v.get("entity_key") == dir_key
-                               for v in direction_violations.values())
-
+                            for v in direction_violations.values())
             contains_dir_viol = any(
                 any(all_stop_violations.get(str(sid), {}).get(domain, []))
                 for sid in pattern_ids
                 for domain in ("stop_topology", "direction_topology", "regulatory", "parent_station")
             )
 
-            # --- Canonical Pattern ---
-            # Find its label entry to get count & description
-            canonical_label_key = next(
-                (k for k, le in direction_labels.items()
-                 if isinstance(le, dict)
-                    and le.get("entity_key") == dir_key
-                    and le.get("label_type") == "direction_canonical_pattern"),
-                None
-            )
-            # Fallback compute if not found
+            # --- Canonical Pattern detail ---
             canonical_str = self.convert_pattern_to_position_string(list(pattern_ids), list(pattern_ids))
             canonical_count = None
             if canonical_label_key:
-                lbl = direction_labels[canonical_label_key]
+                lbl = canonical_pattern_label_entries[canonical_label_key]
                 canonical_str = lbl.get("description", canonical_str)
                 canonical_count = lbl.get("count")
-
             canonical = {
                 "pattern_str": canonical_str,
                 "pattern_ids": [str(sid) for sid in pattern_ids],
@@ -1062,55 +1043,49 @@ class DataFormer:
                 "label_key":   canonical_label_key
             }
 
-            # --- Alternative Patterns ---
+            # --- Alternative Patterns (unchanged) ---
             alts = []
-
-            # Explicitly retrieve the multiple_patterns_in_direction violation entry
             multiple_patterns_violation = next(
                 (v for v in direction_violations.values()
                 if v.get("entity_key") == dir_key
                 and v.get("violation_type") == "multiple_patterns_in_direction"),
                 None
             )
-
             if multiple_patterns_violation:
-                alt_patterns = multiple_patterns_violation.get("details", {}).get("alternative_patterns", {})
-                for alt_str, alt_info in alt_patterns.items():
+                for alt_str, alt_info in multiple_patterns_violation.get("details", {}).get("alternative_patterns", {}).items():
                     count = alt_info.get("count", 0)
-
-                    missing_sids = alt_info.get("missing_stop_ids", [])
+                    missing_sids    = alt_info.get("missing_stop_ids", [])
                     unexpected_sids = alt_info.get("unexpected_stop_ids", [])
-
-                    missing_keys = []
-                    unexpected_keys = []
-
-                    for sid in missing_sids:
-                        stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
-                        if stop_key in dir_logs.get("stop_id_violations", {}):
-                            missing_keys.append(stop_key)
-
-                    for sid in unexpected_sids:
-                        stop_key = self.log.build_entity_key("direction_topology", direction_id=direction_id, stop_id=sid)
-                        if stop_key in dir_logs.get("stop_id_violations", {}):
-                            unexpected_keys.append(stop_key)
-
-                    alt_entry = {
+                    missing_keys = [
+                        self.log.build_entity_key("direction_topology",
+                                                direction_id=dir_id_str, stop_id=sid)
+                        for sid in missing_sids
+                        if self.log.build_entity_key("direction_topology",
+                                                    direction_id=dir_id_str, stop_id=sid)
+                        in dir_logs.get("stop_id_violations", {})
+                    ]
+                    unexpected_keys = [
+                        self.log.build_entity_key("direction_topology",
+                                                direction_id=dir_id_str, stop_id=sid)
+                        for sid in unexpected_sids
+                        if self.log.build_entity_key("direction_topology",
+                                                    direction_id=dir_id_str, stop_id=sid)
+                        in dir_logs.get("stop_id_violations", {})
+                    ]
+                    alts.append({
                         "pattern_str": alt_str,
                         "count": count,
                         "missing_stop_id_violation_keys": missing_keys,
                         "unexpected_stop_id_violation_keys": unexpected_keys
-                    }
+                    })
 
-                    alts.append(alt_entry)
-
-            # --- Travel‐time Segments ---
+            # --- Travel-time Segments (unchanged) ---
             seg_map = {}
             for key, entry in travel_times.items():
-                if entry.get("direction_id") != direction_id:
+                if entry.get("direction_id") != dir_id_str:
                     continue
                 seg = (str(entry.get("from_stop_id")), str(entry.get("to_stop_id")))
                 seg_map.setdefault(seg, []).append((entry.get("time_type"), key))
-
             travel_time_segments = []
             for (from_id, to_id), pairs in seg_map.items():
                 availability = {tt: None for tt in sorted(all_tts)}
@@ -1119,16 +1094,16 @@ class DataFormer:
                 travel_time_segments.append({
                     "from_stop_id":  from_id,
                     "to_stop_id":    to_id,
-                    "availability": availability
+                    "availability":  availability
                 })
 
-            # --- Stops List ---
+            # --- Stops List, now including direction-level keys per stop ---
             stops = []
             for pos, stop_id in enumerate(pattern_ids, start=1):
                 sid = str(stop_id)
                 meta = self._get_stop_metadata(self.df_before, sid)
 
-                # Prepare label/violation lists per domain
+                # collect labels & violations per domain
                 labels = {d: [] for d in ("stop_topology","direction_topology","regulatory","parent_station")}
                 viols  = {d: [] for d in ("stop_topology","direction_topology","regulatory","parent_station")}
 
@@ -1139,18 +1114,25 @@ class DataFormer:
                 for k, e in stop_logs.get("stop_id_violations", {}).items():
                     if str(e.get("stop_id")) == sid:
                         viols["stop_topology"].append(k)
-                # direction_topology
+
+                # direction_topology: include stop-id labels + direction-level keys
                 for k, e in dir_logs.get("stop_id_labels", {}).items():
-                    if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
+                    if str(e.get("stop_id")) == sid and e.get("direction_id") == dir_id_str:
                         labels["direction_topology"].append(k)
                 for k, e in dir_logs.get("stop_id_violations", {}).items():
-                    if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
+                    if str(e.get("stop_id")) == sid and e.get("direction_id") == dir_id_str:
                         viols["direction_topology"].append(k)
+                # **new**: also inject classification & canonical direction labels here
+                for k in direction_label_keys:
+                    labels["direction_topology"].append(k)
+                if canonical_label_key:
+                    labels["direction_topology"].append(canonical_label_key)
+
                 # regulatory
                 for k, e in reg_logs.get("stop_id_regulatory_labels", {}).items():
-                    if str(e.get("stop_id")) == sid and e.get("direction_id") == direction_id:
+                    if str(e.get("stop_id")) == sid and e.get("direction_id") == dir_id_str:
                         labels["regulatory"].append(k)
-                # parent_station (propagate the single parent‐station label to every child)
+                # parent_station
                 for key, entry in stop_logs.get("parent_station_labels", {}).items():
                     if sid in entry.get("stop_ids", []):
                         labels["parent_station"].append(key)
@@ -1158,22 +1140,22 @@ class DataFormer:
                     if sid in entry.get("stop_ids", []):
                         viols["parent_station"].append(key)
 
-                # Performance availability
+                # Performance availability (unchanged) …
                 tts_for_stop = {
                     e.get("time_type") for e in histograms.values()
-                    if e.get("direction_id")==direction_id and str(e.get("stop_id"))==sid
+                    if e.get("direction_id")==dir_id_str and str(e.get("stop_id"))==sid
                 } | {
                     e.get("time_type") for e in punctuality.values()
-                    if e.get("direction_id")==direction_id and str(e.get("stop_id"))==sid
+                    if e.get("direction_id")==dir_id_str and str(e.get("stop_id"))==sid
                 }
                 perf_avail = {"histograms": {}, "punctuality": {}}
                 for tt in sorted(tts_for_stop):
                     hkey = next((k for k, e in histograms.items()
-                                if e.get("direction_id")==direction_id
+                                if e.get("direction_id")==dir_id_str
                                 and str(e.get("stop_id"))==sid
                                 and e.get("time_type")==tt), None)
                     pkey = next((k for k, e in punctuality.items()
-                                if e.get("direction_id")==direction_id
+                                if e.get("direction_id")==dir_id_str
                                 and str(e.get("stop_id"))==sid
                                 and e.get("time_type")==tt), None)
                     perf_avail["histograms"][tt]  = hkey
@@ -1184,28 +1166,23 @@ class DataFormer:
                     "stop_id": sid,
                     "stop_name": meta.get("stop_name"),
                     "labels": labels,
-                    "has_violations": any(viols[d] for d in viols),
+                    "has_violations": any(viols.values()),
                     "violations": viols,
                     "performance_availability": perf_avail
                 })
 
-            # Direction label/violation keys
-            direction_label_keys = [
-                k for k, le in direction_labels.items()
-                if (isinstance(le, dict) and le.get("entity_key")==dir_key) or k==dir_key
-            ]
+            # Direction violation keys (unchanged)
             direction_violation_keys = [
                 k for k, v in direction_violations.items()
-                if v.get("entity_key")==dir_key or k==dir_key
+                if v.get("entity_key") == dir_key or k == dir_key
             ]
 
-            # Append this direction
+            # Append direction entry
             nav["directions"].append({
-                "direction_id": direction_id,
-                "direction_label": direction_label,
-                "has_direction_violations": has_dir_viol,
+                "direction_id":             dir_id_str,
                 "direction_label_keys":     direction_label_keys,
                 "direction_violation_keys": direction_violation_keys,
+                "has_direction_violations": has_dir_viol,
                 "contains_violations":      contains_dir_viol,
                 "canonical_pattern":        canonical,
                 "alternative_patterns":     alts,
@@ -1215,6 +1192,8 @@ class DataFormer:
 
         # Write back
         self.log.navigation_structures["routewise_navigation"] = nav
+
+
 
     def _get_stop_metadata(self, df, stop_id: str) -> dict:
         """
