@@ -190,7 +190,7 @@ class DataFormer:
                     )
                     sv = self.log.create_violation_entry(
                         violation_type='stop_id_from_invalid_parent_topology',
-                        severity='medium',
+                        severity='medium-high',
                         description='Inherited invalid-parent-station topology',
                         entity_key=sk,
                         parent_station=parent_station,
@@ -207,7 +207,7 @@ class DataFormer:
         if missing_data:
             v = self.log.create_violation_entry(
                 violation_type='stop_id_missing_direction_data',
-                severity='medium',
+                severity='high',
                 description=f"Missing direction data for stops: {missing_data}",
                 entity_key=parent_key,
                 parent_station=parent_station,
@@ -226,7 +226,7 @@ class DataFormer:
                 return log_and_return('Bidirectional')
             v = self.log.create_violation_entry(
                 violation_type='two_stop_misassigned_directions',
-                severity='high',
+                severity='medium-high',
                 description=f"2-stop station misassigned: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
@@ -242,7 +242,7 @@ class DataFormer:
                 return log_and_return('Hybrid')
             v = self.log.create_violation_entry(
                 violation_type='unpaired_even_directional_stops',
-                severity='medium',
+                severity='medium-high',
                 description=f"Even-stop unpaired: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
@@ -256,7 +256,7 @@ class DataFormer:
 
         v = self.log.create_violation_entry(
             violation_type='unpaired_odd_directional_stops',
-            severity='medium',
+            severity='medium-high',
             description=f"Odd-stop unpaired: {single} single, {multi} multi",
             entity_key=parent_key,
             parent_station=parent_station,
@@ -337,6 +337,26 @@ class DataFormer:
         for direction_id, group in grouped:
             direction_id = str(direction_id)
             self._analyze_single_direction_topology(group, direction_id)
+
+    def _pct_to_severity(self, pct: float) -> str:
+        """
+        Five level severity:
+        0   <= pct <  5 →  “low”
+        5   <= pct < 10 → “medium-low”
+        10  <= pct < 15 → “medium”
+        15  <= pct < 25 → “medium-high”
+        pct ≥ 25       → “high”
+        """
+        if pct < 5:
+            return "low"
+        if pct < 10:
+            return "medium-low"
+        if pct < 15:
+            return "medium"
+        if pct < 25:
+            return "medium-high"
+        return "high"
+
 
     def _analyze_single_direction_topology(self, df, direction_id):
         # 1) Count each unique stop‐sequence pattern per trip
@@ -442,6 +462,8 @@ class DataFormer:
                 "unexpected_stop_ids": [str(s) for s in unexpected]
             }
 
+        total_trips = sum(pattern_instance_counter.values())
+
         # 8) Multiple-patterns violation?
         if alt_counter:
             v = self.log.create_violation_entry(
@@ -478,16 +500,19 @@ class DataFormer:
                 self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
 
                 # existing violation
-                desc = f"Stop ID {sid} is missing from {miss_cnt} trips"
+                miss_perc = miss_cnt/total_trips *100
+                desc = f"Stop ID {sid} is missing from {miss_cnt} trips, {miss_perc} %."
+                severity = self._pct_to_severity(miss_perc)
                 v = self.log.create_violation_entry(
                     violation_type="missing_stop_id_in_pattern",
-                    severity="medium",
+                    severity = severity,
                     description=desc,
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
                     details={
                         "total_missing_count": miss_cnt,
+                        "total_missing_perc": miss_perc,
                         "patterns": dict(missing_by_pattern[sid])
                     }
                 )
@@ -497,16 +522,29 @@ class DataFormer:
             # b) Unexpected-stop?
             unexp_cnt = unexpected_counter.get(sid, 0)
             if unexp_cnt:
-                desc = f"Stop ID {sid} unexpectedly appears in {unexp_cnt} trips"
+                # create label "missing_in_patterns"
+                label_entry = self.log.create_label_entry(
+                    label_type="unexpected_in_patterns",
+                    description=f"Stop ID {sid} unexpected in {unexp_cnt} trips",
+                    entity_key=stop_key,
+                    direction_id=direction_id,
+                    stop_id=str(sid),
+                    details={"patterns": dict(unexpected_by_pattern[sid])}
+                )
+                self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
+
+                unexp_perc = unexp_cnt/total_trips *100
+                desc = f"Stop ID {sid} unexpectedly appears in {unexp_cnt} trips, {unexp_perc} %."
                 v = self.log.create_violation_entry(
                     violation_type="unexpected_stop_id_in_pattern",
-                    severity="low",
+                    severity="high",
                     description=desc,
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
                     details={
                         "total_unexpected_count": unexp_cnt,
+                        "total_unexpected_perc": unexp_perc,
                         "patterns": dict(unexpected_by_pattern[sid])
                     }
                 )

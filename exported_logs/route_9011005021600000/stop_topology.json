@@ -978,7 +978,7 @@
   "parent_station_violations": {
     "stop_topology_9011005021600000_parent_station_9021005001437000": {
       "violation_type": "two_stop_misassigned_directions",
-      "severity": "high",
+      "severity": "medium-high",
       "description": "2-stop station misassigned: 1 single, 1 multi",
       "entity_key": "stop_topology_9011005021600000_parent_station_9021005001437000",
       "route_id": "9011005021600000",
@@ -1955,7 +1955,7 @@
   "stop_id_violations": {
     "stop_topology_9011005021600000_parent_station_stop_id_9021005001437000_9022005001437002": {
       "violation_type": "stop_id_from_invalid_parent_topology",
-      "severity": "medium",
+      "severity": "medium-high",
       "description": "Inherited invalid-parent-station topology",
       "entity_key": "stop_topology_9011005021600000_parent_station_stop_id_9021005001437000_9022005001437002",
       "route_id": "9011005021600000",
@@ -1975,7 +1975,7 @@
     },
     "stop_topology_9011005021600000_parent_station_stop_id_9021005001437000_9022005001437001": {
       "violation_type": "stop_id_from_invalid_parent_topology",
-      "severity": "medium",
+      "severity": "medium-high",
       "description": "Inherited invalid-parent-station topology",
       "entity_key": "stop_topology_9011005021600000_parent_station_stop_id_9021005001437000_9022005001437001",
       "route_id": "9011005021600000",

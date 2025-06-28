@@ -662,8 +662,8 @@
   "stop_id_violations": {
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000215004": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000215004 is missing from 7 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000215004 is missing from 7 trips, 0.14814814814814814 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000215004",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -672,6 +672,7 @@
       "stop_id": "9022005000215004",
       "details": {
         "total_missing_count": 7,
+        "total_missing_perc": 0.14814814814814814,
         "patterns": {
           "9-14": 3,
           "13-14": 1,
@@ -683,8 +684,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001307002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005001307002 is missing from 3288 trips",
+      "severity": "high",
+      "description": "Stop ID 9022005001307002 is missing from 3288 trips, 69.58730158730158 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001307002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -693,6 +694,7 @@
       "stop_id": "9022005001307002",
       "details": {
         "total_missing_count": 3288,
+        "total_missing_perc": 69.58730158730158,
         "patterns": {
           "1_5-14": 3281,
           "9-14": 3,
@@ -705,8 +707,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000430002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000430002 is missing from 3288 trips",
+      "severity": "high",
+      "description": "Stop ID 9022005000430002 is missing from 3288 trips, 69.58730158730158 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000430002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -715,6 +717,7 @@
       "stop_id": "9022005000430002",
       "details": {
         "total_missing_count": 3288,
+        "total_missing_perc": 69.58730158730158,
         "patterns": {
           "1_5-14": 3281,
           "9-14": 3,
@@ -727,8 +730,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000229002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000229002 is missing from 3288 trips",
+      "severity": "high",
+      "description": "Stop ID 9022005000229002 is missing from 3288 trips, 69.58730158730158 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000229002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -737,6 +740,7 @@
       "stop_id": "9022005000229002",
       "details": {
         "total_missing_count": 3288,
+        "total_missing_perc": 69.58730158730158,
         "patterns": {
           "1_5-14": 3281,
           "9-14": 3,
@@ -749,8 +753,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005004091002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005004091002 is missing from 7 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005004091002 is missing from 7 trips, 0.14814814814814814 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005004091002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -759,6 +763,7 @@
       "stop_id": "9022005004091002",
       "details": {
         "total_missing_count": 7,
+        "total_missing_perc": 0.14814814814814814,
         "patterns": {
           "9-14": 3,
           "13-14": 1,
@@ -770,8 +775,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005004067002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005004067002 is missing from 7 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005004067002 is missing from 7 trips, 0.14814814814814814 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005004067002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -780,6 +785,7 @@
       "stop_id": "9022005004067002",
       "details": {
         "total_missing_count": 7,
+        "total_missing_perc": 0.14814814814814814,
         "patterns": {
           "9-14": 3,
           "13-14": 1,
@@ -791,8 +797,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005003580002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005003580002 is missing from 7 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005003580002 is missing from 7 trips, 0.14814814814814814 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005003580002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -801,6 +807,7 @@
       "stop_id": "9022005003580002",
       "details": {
         "total_missing_count": 7,
+        "total_missing_perc": 0.14814814814814814,
         "patterns": {
           "9-14": 3,
           "13-14": 1,
@@ -812,8 +819,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001248002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005001248002 is missing from 6 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005001248002 is missing from 6 trips, 0.12698412698412698 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001248002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -822,6 +829,7 @@
       "stop_id": "9022005001248002",
       "details": {
         "total_missing_count": 6,
+        "total_missing_perc": 0.12698412698412698,
         "patterns": {
           "9-14": 3,
           "13-14": 1,
@@ -832,8 +840,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001249002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005001249002 is missing from 3 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005001249002 is missing from 3 trips, 0.06349206349206349 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001249002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -842,6 +850,7 @@
       "stop_id": "9022005001249002",
       "details": {
         "total_missing_count": 3,
+        "total_missing_perc": 0.06349206349206349,
         "patterns": {
           "13-14": 1,
           "11-14": 1,
@@ -851,8 +860,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000198002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000198002 is missing from 2 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000198002 is missing from 2 trips, 0.04232804232804233 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000198002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -861,6 +870,7 @@
       "stop_id": "9022005000198002",
       "details": {
         "total_missing_count": 2,
+        "total_missing_perc": 0.04232804232804233,
         "patterns": {
           "13-14": 1,
           "11-14": 1
@@ -869,8 +879,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000042002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000042002 is missing from 1 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000042002 is missing from 1 trips, 0.021164021164021166 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000042002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -879,6 +889,7 @@
       "stop_id": "9022005000042002",
       "details": {
         "total_missing_count": 1,
+        "total_missing_perc": 0.021164021164021166,
         "patterns": {
           "13-14": 1
         }
@@ -886,8 +897,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000046006": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000046006 is missing from 1 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000046006 is missing from 1 trips, 0.021164021164021166 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005000046006",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -896,6 +907,7 @@
       "stop_id": "9022005000046006",
       "details": {
         "total_missing_count": 1,
+        "total_missing_perc": 0.021164021164021166,
         "patterns": {
           "13-14": 1
         }
@@ -904,7 +916,7 @@
     "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001243002": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": "medium",
-      "description": "Stop ID 9022005001243002 is missing from 637 trips",
+      "description": "Stop ID 9022005001243002 is missing from 637 trips, 13.481481481481481 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_0_9022005001243002",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -913,6 +925,7 @@
       "stop_id": "9022005001243002",
       "details": {
         "total_missing_count": 637,
+        "total_missing_perc": 13.481481481481481,
         "patterns": {
           "1-12_14": 637
         }
@@ -920,8 +933,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000050012": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000050012 is missing from 3 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000050012 is missing from 3 trips, 0.06482281763180639 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000050012",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -930,6 +943,7 @@
       "stop_id": "9022005000050012",
       "details": {
         "total_missing_count": 3,
+        "total_missing_perc": 0.06482281763180639,
         "patterns": {
           "2-10_14": 1,
           "7-10_14": 1,
@@ -940,7 +954,7 @@
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005001243001": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": "medium",
-      "description": "Stop ID 9022005001243001 is missing from 625 trips",
+      "description": "Stop ID 9022005001243001 is missing from 625 trips, 13.504753673293 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005001243001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -949,6 +963,7 @@
       "stop_id": "9022005001243001",
       "details": {
         "total_missing_count": 625,
+        "total_missing_perc": 13.504753673293,
         "patterns": {
           "1_3-14": 623,
           "7-10_14": 1,
@@ -958,8 +973,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000046003": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000046003 is missing from 1 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000046003 is missing from 1 trips, 0.021607605877268798 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000046003",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -968,6 +983,7 @@
       "stop_id": "9022005000046003",
       "details": {
         "total_missing_count": 1,
+        "total_missing_perc": 0.021607605877268798,
         "patterns": {
           "7-10_14": 1
         }
@@ -975,8 +991,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000042001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000042001 is missing from 1 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000042001 is missing from 1 trips, 0.021607605877268798 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000042001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -985,6 +1001,7 @@
       "stop_id": "9022005000042001",
       "details": {
         "total_missing_count": 1,
+        "total_missing_perc": 0.021607605877268798,
         "patterns": {
           "7-10_14": 1
         }
@@ -992,8 +1009,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000198001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000198001 is missing from 1 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005000198001 is missing from 1 trips, 0.021607605877268798 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000198001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -1002,6 +1019,7 @@
       "stop_id": "9022005000198001",
       "details": {
         "total_missing_count": 1,
+        "total_missing_perc": 0.021607605877268798,
         "patterns": {
           "7-10_14": 1
         }
@@ -1009,8 +1027,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005001249001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005001249001 is missing from 1 trips",
+      "severity": "low",
+      "description": "Stop ID 9022005001249001 is missing from 1 trips, 0.021607605877268798 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005001249001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -1019,6 +1037,7 @@
       "stop_id": "9022005001249001",
       "details": {
         "total_missing_count": 1,
+        "total_missing_perc": 0.021607605877268798,
         "patterns": {
           "7-10_14": 1
         }
@@ -1026,8 +1045,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000229001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000229001 is missing from 3222 trips",
+      "severity": "high",
+      "description": "Stop ID 9022005000229001 is missing from 3222 trips, 69.61970613656007 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000229001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -1036,6 +1055,7 @@
       "stop_id": "9022005000229001",
       "details": {
         "total_missing_count": 3222,
+        "total_missing_perc": 69.61970613656007,
         "patterns": {
           "1-10_14": 3219,
           "2-10_14": 1,
@@ -1046,8 +1066,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000430001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005000430001 is missing from 3222 trips",
+      "severity": "high",
+      "description": "Stop ID 9022005000430001 is missing from 3222 trips, 69.61970613656007 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005000430001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -1056,6 +1076,7 @@
       "stop_id": "9022005000430001",
       "details": {
         "total_missing_count": 3222,
+        "total_missing_perc": 69.61970613656007,
         "patterns": {
           "1-10_14": 3219,
           "2-10_14": 1,
@@ -1066,8 +1087,8 @@
     },
     "direction_topology_9011005021800000_direction_id_stop_id_1_9022005001307001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": "medium",
-      "description": "Stop ID 9022005001307001 is missing from 3222 trips",
+      "severity": "high",
+      "description": "Stop ID 9022005001307001 is missing from 3222 trips, 69.61970613656007 %.",
       "entity_key": "direction_topology_9011005021800000_direction_id_stop_id_1_9022005001307001",
       "route_id": "9011005021800000",
       "route_long_name": "218",
@@ -1076,6 +1097,7 @@
       "stop_id": "9022005001307001",
       "details": {
         "total_missing_count": 3222,
+        "total_missing_perc": 69.61970613656007,
         "patterns": {
           "1-10_14": 3219,
           "2-10_14": 1,
