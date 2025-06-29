@@ -138,6 +138,9 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_1_9022005000044001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001229002": {
@@ -279,6 +282,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001229002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001230002": {
@@ -420,6 +426,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001230002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001233002": {
@@ -579,6 +588,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005001233002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001232002": {
@@ -738,6 +750,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005001232002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000045002": {
@@ -919,6 +934,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005000045002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001231002": {
@@ -1100,6 +1118,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005001231002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000043002": {
@@ -1273,6 +1294,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005000043002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001227002": {
@@ -1438,6 +1462,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005001227002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001221002": {
@@ -1675,6 +1702,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005001221002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 5
     }
   },
   "9022005000042002": {
@@ -2026,6 +2056,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005000042002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 7
     }
   },
   "9022005000046004": {
@@ -2213,6 +2246,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005000046004_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001243002": {
@@ -2644,6 +2680,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005001243002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 14
     }
   },
   "9022005000050003": {
@@ -2767,6 +2806,9 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_0_9022005000050003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001223002": {
@@ -2910,6 +2952,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005001223002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000417003": {
@@ -3025,7 +3070,8 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_0_9022005000417003_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001219002": {
     "stop_name": "Abisko",
@@ -3140,7 +3186,8 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_0_9022005001219002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001234002": {
     "stop_name": "Åbylund",
@@ -3255,7 +3302,8 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_0_9022005001234002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001235002": {
     "stop_name": "Blomgatan",
@@ -3370,7 +3418,8 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_0_9022005001235002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001236003": {
     "stop_name": "Rusthållaregården",
@@ -3527,7 +3576,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001236003_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001411002": {
     "stop_name": "Mellangården",
@@ -3684,7 +3734,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001411002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000048001": {
     "stop_name": "Skäggetorp centrum",
@@ -3908,6 +3959,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000048001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001411001": {
@@ -4075,6 +4129,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001411001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001236001": {
@@ -4218,6 +4275,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001236001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001235001": {
@@ -4337,6 +4397,9 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_1_9022005001235001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001234001": {
@@ -4456,6 +4519,9 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_1_9022005001234001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001219001": {
@@ -4575,6 +4641,9 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_1_9022005001219001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000417001": {
@@ -4716,6 +4785,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005000417001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001223001": {
@@ -4857,6 +4929,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005001223001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050002": {
@@ -4980,6 +5055,9 @@
           "performance_9011005020100000_direction_id_stop_id_time_type_1_9022005000050002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001243001": {
@@ -5411,6 +5489,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005001243001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 14
     }
   },
   "9022005000046003": {
@@ -5792,6 +5873,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000046003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 11
     }
   },
   "9022005000042001": {
@@ -6149,6 +6233,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000042001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 10
     }
   },
   "9022005001222001": {
@@ -6388,6 +6475,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005001222001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 6
     }
   },
   "9022005001227001": {
@@ -6555,6 +6645,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005001227001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000043001": {
@@ -6766,6 +6859,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005000043001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001231001": {
@@ -6947,6 +7043,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005001231001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000045001": {
@@ -7104,6 +7203,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005000045001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001232001": {
@@ -7261,6 +7363,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005001232001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001233001": {
@@ -7418,6 +7523,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005001233001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001230001": {
@@ -7561,6 +7669,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001230001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001229001": {
@@ -7704,6 +7815,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001229001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000469002": {
@@ -7827,6 +7941,9 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004084001": {
@@ -7946,6 +8063,9 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004076001": {
@@ -8065,6 +8185,9 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004250001": {
@@ -8184,6 +8307,9 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004251001": {
@@ -8303,6 +8429,9 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004236002": {
@@ -8462,6 +8591,9 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005004236002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000404002": {
@@ -8605,6 +8737,9 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000404002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001249002": {
@@ -8830,6 +8965,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005001249002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 4
     }
   },
   "9022005000198002": {
@@ -9041,6 +9179,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005000198002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000050006": {
@@ -9224,6 +9365,9 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000050006_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000198001": {
@@ -9435,6 +9579,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000198001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001249001": {
@@ -9658,6 +9805,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005001249001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000404001": {
@@ -9801,6 +9951,9 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000404001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005004236001": {
@@ -9952,7 +10105,8 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005004236001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004251002": {
     "stop_name": "Djurgården centrum",
@@ -10067,7 +10221,8 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004250002": {
     "stop_name": "Hemmansgatan",
@@ -10182,7 +10337,8 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004076002": {
     "stop_name": "Bygdegatan",
@@ -10297,7 +10453,8 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004084002": {
     "stop_name": "Odalgatan",
@@ -10412,7 +10569,8 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000469003": {
     "stop_name": "Tegskiftesgatan",
@@ -10531,7 +10689,8 @@
           "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000219001": {
     "stop_name": "Rydsvägens ändhållplats",
@@ -10671,6 +10830,9 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005000219001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001339001": {
@@ -10790,6 +10952,9 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001339001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001338001": {
@@ -10909,6 +11074,9 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001338001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001341001": {
@@ -11028,6 +11196,9 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001341001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001343001": {
@@ -11169,6 +11340,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001343001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000214001": {
@@ -11316,6 +11490,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005000214001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001315001": {
@@ -11457,6 +11634,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001315001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000215001": {
@@ -11630,6 +11810,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005000215001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001254001": {
@@ -11795,6 +11978,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005001254001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001253001": {
@@ -11960,6 +12146,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005001253001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001259002": {
@@ -12103,6 +12292,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001259002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001268002": {
@@ -12246,6 +12438,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001268002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000050005": {
@@ -12386,6 +12581,9 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005000050005_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001268001": {
@@ -12529,6 +12727,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001268001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001259001": {
@@ -12672,6 +12873,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001259001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001253002": {
@@ -12839,6 +13043,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005001253002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001254002": {
@@ -13006,6 +13213,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005001254002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000215002": {
@@ -13179,6 +13389,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005000215002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001315002": {
@@ -13316,7 +13529,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001315002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000214002": {
     "stop_name": "Ryd centrum",
@@ -13459,7 +13673,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000214002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001343002": {
     "stop_name": "Mårdtorpsgatan",
@@ -13596,7 +13811,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001343002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001341002": {
     "stop_name": "Hangaren",
@@ -13711,7 +13927,8 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001341002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001338002": {
     "stop_name": "Alsättersgatan",
@@ -13826,7 +14043,8 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001338002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001339002": {
     "stop_name": "Björnkärrsskolan",
@@ -13941,7 +14159,8 @@
           "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001339002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000223001": {
     "stop_name": "Landbogatan",
@@ -14088,6 +14307,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005000223001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000418001": {
@@ -14229,6 +14451,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005000418001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001275001": {
@@ -14394,6 +14619,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001275001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001274001": {
@@ -14559,6 +14787,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001274001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001273001": {
@@ -14724,6 +14955,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001273001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000213001": {
@@ -14893,6 +15127,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005000213001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000234002": {
@@ -15012,6 +15249,9 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000234002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005080182002": {
@@ -15175,6 +15415,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005080182002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005080004002": {
@@ -15310,6 +15553,9 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005080004001": {
@@ -15439,7 +15685,8 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005080182001": {
     "stop_name": "Nobeltorget",
@@ -15596,6 +15843,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005080182001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000234001": {
@@ -15711,7 +15961,8 @@
           "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000234001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000213002": {
     "stop_name": "Isberget",
@@ -15874,7 +16125,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000213002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001273002": {
     "stop_name": "Rättaregatan",
@@ -16033,7 +16285,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001273002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001274002": {
     "stop_name": "Slestadsskolan",
@@ -16192,7 +16445,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001274002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001275002": {
     "stop_name": "Boställsgatan",
@@ -16351,7 +16605,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001275002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000418002": {
     "stop_name": "Änggårdsskolan",
@@ -16488,7 +16743,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000418002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000223002": {
     "stop_name": "Landbogatan",
@@ -16631,7 +16887,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000223002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000419001": {
     "stop_name": "Räknestickan",
@@ -16754,6 +17011,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005000419001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001325002": {
@@ -16873,6 +17133,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005001325002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001324002": {
@@ -16992,6 +17255,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005001324002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000054002": {
@@ -17159,6 +17425,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005000054002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005003559002": {
@@ -17318,6 +17587,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005003559002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001318002": {
@@ -17481,6 +17753,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001318002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001332002": {
@@ -17624,6 +17899,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005001332002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001392002": {
@@ -17767,6 +18045,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005001392002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001252002": {
@@ -17934,6 +18215,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001252002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001447002": {
@@ -18101,6 +18385,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001447002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005000050004": {
@@ -18224,6 +18511,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005000050004_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000444002": {
@@ -18343,6 +18633,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005000444002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003974002": {
@@ -18462,6 +18755,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005003974002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000329001": {
@@ -18581,6 +18877,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005000329001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004171001": {
@@ -18724,6 +19023,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005004171001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000429001": {
@@ -18871,6 +19173,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000429001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001238001": {
@@ -18986,7 +19291,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005001238001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001239001": {
     "stop_name": "Skrivaregatan",
@@ -19101,7 +19407,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005001239001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001240001": {
     "stop_name": "Fogdegatan",
@@ -19216,7 +19523,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005001240001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000049001": {
     "stop_name": "Stiglötsgatan",
@@ -19331,7 +19639,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005000049001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001241001": {
     "stop_name": "Sörgårdsgatan",
@@ -19450,7 +19759,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_0_9022005001241001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001236002": {
     "stop_name": "Rusthållaregården",
@@ -19569,6 +19879,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001236002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001241002": {
@@ -19692,6 +20005,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001241002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000049002": {
@@ -19811,6 +20127,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005000049002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001240002": {
@@ -19930,6 +20249,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001240002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001239002": {
@@ -20049,6 +20371,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001239002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001238002": {
@@ -20168,6 +20493,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001238002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000429002": {
@@ -20311,6 +20639,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005000429002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004171002": {
@@ -20450,6 +20781,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005004171002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000329002": {
@@ -20569,6 +20903,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005000329002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003974001": {
@@ -20688,6 +21025,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005003974001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000444001": {
@@ -20807,6 +21147,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005000444001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050010": {
@@ -20930,6 +21273,9 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005000050010_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001252001": {
@@ -21095,6 +21441,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001252001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001392001": {
@@ -21238,6 +21587,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005001392001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001332001": {
@@ -21379,6 +21731,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005001332001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001318001": {
@@ -21538,6 +21893,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001318001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003559001": {
@@ -21693,6 +22051,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005003559001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000054001": {
@@ -21856,6 +22217,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005000054001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001324001": {
@@ -21971,7 +22335,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001324001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001325001": {
     "stop_name": "Ekholmsskolan",
@@ -22086,7 +22451,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005001325001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000419002": {
     "stop_name": "Räknestickan",
@@ -22205,7 +22571,8 @@
           "performance_9011005020500000_direction_id_stop_id_time_type_1_9022005000419002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001443002": {
     "stop_name": "Fårullsvägen",
@@ -22328,6 +22695,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001443002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001444002": {
@@ -22447,6 +22817,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001444002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000221002": {
@@ -22566,6 +22939,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005000221002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001446002": {
@@ -22685,6 +23061,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001446002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001450002": {
@@ -22804,6 +23183,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001450002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001452001": {
@@ -22923,6 +23305,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001452001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001453001": {
@@ -23042,6 +23427,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001453001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000222001": {
@@ -23165,6 +23553,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005000222001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001551001": {
@@ -23284,6 +23675,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005001551001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004138001": {
@@ -23403,6 +23797,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_0_9022005004138001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050029": {
@@ -23543,6 +23940,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005000050029_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004138002": {
@@ -23658,7 +24058,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005004138002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001551002": {
     "stop_name": "Carl Cederströms gata",
@@ -23777,6 +24178,9 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001551002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000222002": {
@@ -23896,7 +24300,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005000222002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001453002": {
     "stop_name": "Kärna skola",
@@ -24011,7 +24416,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001453002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001452002": {
     "stop_name": "Kärnabrunnsgatan",
@@ -24126,7 +24532,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001452002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001450001": {
     "stop_name": "Fårbetesvägen",
@@ -24241,7 +24648,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001450001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001446001": {
     "stop_name": "Fårhagsvägen",
@@ -24356,7 +24764,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001446001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000221001": {
     "stop_name": "Tokarps skola",
@@ -24471,7 +24880,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005000221001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001444001": {
     "stop_name": "Vinkännaren",
@@ -24586,7 +24996,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001444001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001443001": {
     "stop_name": "Fårullsvägen",
@@ -24705,7 +25116,8 @@
           "performance_9011005020600000_direction_id_stop_id_time_type_1_9022005001443001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000153001": {
     "stop_name": "Roxtuna",
@@ -24846,6 +25258,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000153001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005002024002": {
@@ -24965,6 +25380,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002024002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002025002": {
@@ -25084,6 +25502,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002025002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002026002": {
@@ -25203,6 +25624,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002026002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003595002": {
@@ -25326,6 +25750,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005003595002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002028002": {
@@ -25445,6 +25872,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002028002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002030002": {
@@ -25564,6 +25994,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002030002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000155002": {
@@ -25683,6 +26116,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005000155002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002014002": {
@@ -25802,6 +26238,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002014002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002015002": {
@@ -25925,6 +26364,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002015002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000440002": {
@@ -26044,6 +26486,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005000440002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001458002": {
@@ -26163,6 +26608,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005001458002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000423001": {
@@ -26306,6 +26754,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000423001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000050007": {
@@ -26429,6 +26880,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005000050007_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000448001": {
@@ -26548,6 +27002,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005000448001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000439001": {
@@ -26667,6 +27124,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005000439001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002946001": {
@@ -26786,6 +27246,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002946001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002949001": {
@@ -26905,6 +27368,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002949001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000320001": {
@@ -27028,6 +27494,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005000320001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005080005001": {
@@ -27147,6 +27616,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005080005001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002953001": {
@@ -27266,6 +27738,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002953001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002954001": {
@@ -27389,6 +27864,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_0_9022005002954001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002954002": {
@@ -27512,6 +27990,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002954002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002953002": {
@@ -27631,6 +28112,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002953002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005080005002": {
@@ -27750,6 +28234,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005080005002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000320002": {
@@ -27873,6 +28360,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000320002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002949002": {
@@ -27992,6 +28482,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002949002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002946002": {
@@ -28111,6 +28604,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002946002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000439002": {
@@ -28230,6 +28726,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000439002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000448002": {
@@ -28349,6 +28848,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000448002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000046006": {
@@ -28630,6 +29132,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005000046006_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 5
     }
   },
   "9022005000050028": {
@@ -28753,6 +29258,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000050028_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001458001": {
@@ -28872,6 +29380,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005001458001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000440001": {
@@ -28991,6 +29502,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000440001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002015001": {
@@ -29114,6 +29628,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002015001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002014001": {
@@ -29233,6 +29750,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002014001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000155001": {
@@ -29352,6 +29872,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005000155001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002030001": {
@@ -29471,6 +29994,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002030001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002028001": {
@@ -29590,6 +30116,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002028001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003595001": {
@@ -29713,6 +30242,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005003595001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002026001": {
@@ -29832,6 +30364,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002026001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002025001": {
@@ -29951,6 +30486,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002025001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005002024001": {
@@ -30070,6 +30608,9 @@
           "performance_9011005021000000_direction_id_stop_id_time_type_1_9022005002024001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000231001": {
@@ -30210,6 +30751,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005000231001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003854002": {
@@ -30329,6 +30873,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_0_9022005003854002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000216001": {
@@ -30478,6 +31025,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005000216001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001262002": {
@@ -30621,6 +31171,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001262002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001261002": {
@@ -30764,6 +31317,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001261002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001323001": {
@@ -30907,6 +31463,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001323001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000230002": {
@@ -31030,6 +31589,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_0_9022005000230002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001321002": {
@@ -31149,6 +31711,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_0_9022005001321002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001320002": {
@@ -31264,7 +31829,8 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_0_9022005001320002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001319002": {
     "stop_name": "Drottningtorget",
@@ -31379,7 +31945,8 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_0_9022005001319002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000050008": {
     "stop_name": "Linköpings resecentrum",
@@ -31545,6 +32112,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000050008_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001319001": {
@@ -31668,6 +32238,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005001319001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001320001": {
@@ -31787,6 +32360,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005001320001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001321001": {
@@ -31906,6 +32482,9 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005001321001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000230001": {
@@ -32021,7 +32600,8 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005000230001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001323003": {
     "stop_name": "Stationsgatan",
@@ -32136,7 +32716,8 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005001323003_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001261001": {
     "stop_name": "Ödegårdsgatan 11",
@@ -32273,7 +32854,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001261001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001262001": {
     "stop_name": "Ödegårdsgatan 24",
@@ -32410,7 +32992,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001262001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000216002": {
     "stop_name": "Johannelunds centrum",
@@ -32551,7 +33134,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000216002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003854001": {
     "stop_name": "Tenndosan",
@@ -32666,7 +33250,8 @@
           "performance_9011005021100000_direction_id_stop_id_time_type_1_9022005003854001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000418003": {
     "stop_name": "Änggårdsskolan",
@@ -32806,6 +33391,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005000418003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003870001": {
@@ -32925,6 +33513,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005003870001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004232001": {
@@ -33104,6 +33695,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005004232001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003847001": {
@@ -33279,6 +33873,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005003847001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001257002": {
@@ -33412,7 +34009,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005001257002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001256002": {
     "stop_name": "Universitetet",
@@ -33549,7 +34147,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005001256002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003848001": {
     "stop_name": "Länsstyrelsen",
@@ -33664,7 +34263,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_0_9022005003848001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000050013": {
     "stop_name": "Linköpings resecentrum",
@@ -33804,6 +34404,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005000050013_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000417002": {
@@ -33923,6 +34526,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005000417002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003848002": {
@@ -34042,6 +34648,9 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005003848002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001256001": {
@@ -34177,7 +34786,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005001256001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001257001": {
     "stop_name": "Mäster Mattias väg",
@@ -34308,7 +34918,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005001257001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003847002": {
     "stop_name": "Forskningsbyn",
@@ -34477,6 +35088,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005003847002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004232002": {
@@ -34596,7 +35210,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005004232002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003870002": {
     "stop_name": "Bygärdesgatan",
@@ -34711,7 +35326,8 @@
           "performance_9011005021200000_direction_id_stop_id_time_type_1_9022005003870002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000217003": {
     "stop_name": "Nedre Johannelund",
@@ -34851,6 +35467,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000217003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001348002": {
@@ -34970,6 +35589,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001348002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001346002": {
@@ -35089,6 +35711,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001346002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050011": {
@@ -35212,6 +35837,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005000050011_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000423002": {
@@ -35331,6 +35959,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005000423002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000351002": {
@@ -35450,6 +36081,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005000351002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001610002": {
@@ -35569,6 +36203,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001610002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001609002": {
@@ -35688,6 +36325,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001609002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001607002": {
@@ -35807,6 +36447,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001607002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001605002": {
@@ -35926,6 +36569,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001605002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001460002": {
@@ -36049,6 +36695,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001460002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000095002": {
@@ -36168,6 +36817,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005000095002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001604002": {
@@ -36283,7 +36935,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001604002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000096002": {
     "stop_name": "Staby bro",
@@ -36398,7 +37051,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005000096002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004078002": {
     "stop_name": "Sidvindsvägen",
@@ -36513,7 +37167,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005004078002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001322002": {
     "stop_name": "Fönvindsvägen västra",
@@ -36628,7 +37283,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001322002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001327002": {
     "stop_name": "Fönvindsvägen östra",
@@ -36747,7 +37403,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_0_9022005001327002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001327001": {
     "stop_name": "Fönvindsvägen östra",
@@ -36870,6 +37527,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001327001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001322001": {
@@ -36989,6 +37649,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001322001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004078001": {
@@ -37108,6 +37771,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005004078001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000096001": {
@@ -37227,6 +37893,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000096001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001604001": {
@@ -37346,6 +38015,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001604001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000095001": {
@@ -37465,6 +38137,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000095001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001460001": {
@@ -37588,6 +38263,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001460001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001605001": {
@@ -37707,6 +38385,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001605001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001607001": {
@@ -37826,6 +38507,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001607001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001609001": {
@@ -37945,6 +38629,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001609001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001610001": {
@@ -38064,6 +38751,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001610001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000351001": {
@@ -38187,6 +38877,9 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005000351001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001346001": {
@@ -38302,7 +38995,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001346001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001348001": {
     "stop_name": "Spångerum",
@@ -38417,7 +39111,8 @@
           "performance_9011005021300000_direction_id_stop_id_time_type_1_9022005001348001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000416002": {
     "stop_name": "Aspnäset",
@@ -38575,6 +39270,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005000416002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000226002": {
@@ -38734,6 +39432,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005000226002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001394002": {
@@ -38893,6 +39594,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001394002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000437002": {
@@ -39052,6 +39756,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005000437002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001398002": {
@@ -39187,6 +39894,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001398002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001400002": {
@@ -39322,6 +40032,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001400002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001401002": {
@@ -39457,6 +40170,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001401002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003850002": {
@@ -39592,6 +40308,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005003850002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001330002": {
@@ -39711,6 +40430,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001330002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001329002": {
@@ -39830,6 +40552,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001329002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050012": {
@@ -39994,6 +40719,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000050012_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001405002": {
@@ -40113,6 +40841,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001405002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003849002": {
@@ -40236,6 +40967,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005003849002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003748002": {
@@ -40355,6 +41089,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005003748002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003908002": {
@@ -40474,6 +41211,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005003908002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001309002": {
@@ -40593,6 +41333,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_0_9022005001309002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000215004": {
@@ -40742,6 +41485,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005000215004_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000215003": {
@@ -40889,6 +41635,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000215003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001309001": {
@@ -41008,6 +41757,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001309001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003908001": {
@@ -41127,6 +41879,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005003908001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003748001": {
@@ -41246,6 +42001,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005003748001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003849001": {
@@ -41369,6 +42127,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005003849001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001405001": {
@@ -41488,6 +42249,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001405001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050001": {
@@ -41654,6 +42418,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005000050001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001224001": {
@@ -41773,6 +42540,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001224001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001329001": {
@@ -41888,7 +42658,8 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001329001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001330001": {
     "stop_name": "Kattfotstigen",
@@ -42003,7 +42774,8 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001330001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003850001": {
     "stop_name": "Ektunavägen",
@@ -42136,6 +42908,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005003850001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001401001": {
@@ -42269,6 +43044,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001401001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001400001": {
@@ -42402,6 +43180,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001400001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001398001": {
@@ -42535,6 +43316,9 @@
           "performance_9011005021400000_direction_id_stop_id_time_type_1_9022005001398001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000437001": {
@@ -42690,6 +43474,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005000437001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001394001": {
@@ -42845,6 +43632,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001394001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000226001": {
@@ -43000,6 +43790,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005000226001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000508002": {
@@ -43123,6 +43916,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005000508002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000507002": {
@@ -43242,6 +44038,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005000507002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004088002": {
@@ -43361,6 +44160,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005004088002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004087002": {
@@ -43480,6 +44282,9 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_0_9022005004087002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001598002": {
@@ -43639,6 +44444,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001598002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005003838001": {
@@ -43802,6 +44610,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005003838001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005003838002": {
@@ -43959,7 +44770,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005003838002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001598001": {
     "stop_name": "Ullstämma by",
@@ -44112,7 +44924,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001598001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004087001": {
     "stop_name": "Ullstämmavägen",
@@ -44227,7 +45040,8 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005004087001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004088001": {
     "stop_name": "Fornvägen",
@@ -44342,7 +45156,8 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005004088001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000507001": {
     "stop_name": "Fagottgatan",
@@ -44457,7 +45272,8 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005000507001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000508001": {
     "stop_name": "Klarinettgatan",
@@ -44576,7 +45392,8 @@
           "performance_9011005021500000_direction_id_stop_id_time_type_1_9022005000508001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000416001": {
     "stop_name": "Aspnäset",
@@ -44777,6 +45594,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005000416001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001396001": {
@@ -44896,6 +45716,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001396001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001433001": {
@@ -45015,6 +45838,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001433001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000422001": {
@@ -45134,6 +45960,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005000422001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001435001": {
@@ -45253,6 +46082,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001435001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001445001": {
@@ -45372,6 +46204,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001445001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001437002": {
@@ -45495,6 +46330,10 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001437002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "3": 1,
+      "1.0": 1
     }
   },
   "9022005001421002": {
@@ -45638,6 +46477,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001421002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001419001": {
@@ -45783,6 +46625,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001419001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001418001": {
@@ -45922,6 +46767,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001418001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001426001": {
@@ -46041,6 +46889,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001426001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000421001": {
@@ -46160,6 +47011,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005000421001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001424001": {
@@ -46297,6 +47151,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001424001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001422001": {
@@ -46434,6 +47291,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005001422001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000050019": {
@@ -46600,6 +47460,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005000050019_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005004186001": {
@@ -46741,6 +47604,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005004186001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000412001": {
@@ -46898,6 +47764,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005000412001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001431001": {
@@ -47055,6 +47924,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001431001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001430001": {
@@ -47216,7 +48088,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001430001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001430002": {
     "stop_name": "Berga centrum",
@@ -47383,6 +48256,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001430002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 3
     }
   },
   "9022005001431002": {
@@ -47540,6 +48416,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001431002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000412002": {
@@ -47697,6 +48576,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005000412002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005004186002": {
@@ -47840,6 +48722,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005004186002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005000050018": {
@@ -47994,6 +48879,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005000050018_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 2
     }
   },
   "9022005001422002": {
@@ -48127,6 +49015,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001422002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001424002": {
@@ -48260,6 +49151,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001424002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000421002": {
@@ -48375,7 +49269,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005000421002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001426002": {
     "stop_name": "Vetegatan",
@@ -48490,7 +49385,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001426002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001323002": {
     "stop_name": "Stationsgatan",
@@ -48605,7 +49501,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001323002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001418002": {
     "stop_name": "Saab Södra",
@@ -48738,7 +49635,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001418002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001419002": {
     "stop_name": "Saab Civila",
@@ -48867,7 +49765,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001419002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001421001": {
     "stop_name": "Landerydsvägen",
@@ -49000,7 +49899,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001421001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001437001": {
     "stop_name": "Hackefors",
@@ -49119,6 +50019,9 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001437001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "3": 1
     }
   },
   "9022005001445002": {
@@ -49234,7 +50137,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001445002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001435002": {
     "stop_name": "Vårgård",
@@ -49349,7 +50253,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001435002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000422002": {
     "stop_name": "Ljunghagsvägen",
@@ -49464,7 +50369,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005000422002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001433002": {
     "stop_name": "Roshagsvägen",
@@ -49579,7 +50485,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001433002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001396002": {
     "stop_name": "Hjulsbro skola",
@@ -49694,7 +50601,8 @@
           "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005001396002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000044003": {
     "stop_name": "Hässlegatan",
@@ -49817,6 +50725,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005000044003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001596002": {
@@ -49936,6 +50847,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001596002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001303002": {
@@ -50055,6 +50969,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001303002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001302002": {
@@ -50174,6 +51091,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001302002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001301002": {
@@ -50293,6 +51213,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001301002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001300002": {
@@ -50412,6 +51335,9 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005001300002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001300001": {
@@ -50527,7 +51453,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001300001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001301001": {
     "stop_name": "Yrkesvägen",
@@ -50642,7 +51569,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001301001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001302001": {
     "stop_name": "Galoppgatan",
@@ -50757,7 +51685,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001302001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001303001": {
     "stop_name": "Poleraregatan",
@@ -50872,7 +51801,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001303001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001596001": {
     "stop_name": "Ortgatan",
@@ -50987,7 +51917,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005001596001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000044002": {
     "stop_name": "Hässlegatan",
@@ -51106,7 +52037,8 @@
           "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005000044002_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005001307002": {
     "stop_name": "Vickergatan",
@@ -51225,6 +52157,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005001307002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "4.0": 1
     }
   },
   "9022005000430002": {
@@ -51344,6 +52279,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005000430002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "4.0": 1
     }
   },
   "9022005000229002": {
@@ -51463,6 +52401,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005000229002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "4.0": 1
     }
   },
   "9022005004091002": {
@@ -51582,6 +52523,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005004091002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004067002": {
@@ -51701,6 +52645,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005004067002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003580002": {
@@ -51820,6 +52767,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005003580002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001248002": {
@@ -51939,6 +52889,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_0_9022005001248002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001248001": {
@@ -52054,7 +53007,8 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005001248001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003580001": {
     "stop_name": "Drabantgatan",
@@ -52169,7 +53123,8 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005003580001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004067001": {
     "stop_name": "Fanjunkaregatan",
@@ -52284,7 +53239,8 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005004067001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004091001": {
     "stop_name": "Westmansgatan 66",
@@ -52399,7 +53355,8 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005004091001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000229001": {
     "stop_name": "Skogsfrid",
@@ -52518,6 +53475,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000229001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "4.0": 1
     }
   },
   "9022005000430001": {
@@ -52637,6 +53597,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005000430001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "4.0": 1
     }
   },
   "9022005001307001": {
@@ -52756,6 +53719,9 @@
           "performance_9011005021800000_direction_id_stop_id_time_type_1_9022005001307001_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "4.0": 1
     }
   },
   "9022005004139001": {
@@ -52911,7 +53877,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005004139001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000050020": {
     "stop_name": "Linköpings resecentrum",
@@ -53035,6 +54002,9 @@
           "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005000050020_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004232003": {
@@ -53182,6 +54152,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005004232003_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005004139002": {
@@ -53335,6 +54308,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005004139002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005000435002": {
@@ -53438,7 +54414,8 @@
           "performance_9011005022100000_direction_id_stop_id_time_type_0_9022005000435002_pm_rush"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005000435001": {
     "stop_name": "Saab Norra porten",
@@ -53525,7 +54502,8 @@
           "performance_9011005022100000_direction_id_stop_id_time_type_1_9022005000435001_am_rush"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004253002": {
     "stop_name": "Garnisonen södra",
@@ -53616,7 +54594,8 @@
           "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_pm_rush"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004253001": {
     "stop_name": "Garnisonen södra",
@@ -53699,7 +54678,8 @@
           "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004253001_am_rush"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005003840001": {
     "stop_name": "Djursjukhuset",
@@ -53837,6 +54817,10 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005003840001_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "3": 2,
+      "1.0": 1
     }
   },
   "9022005003839001": {
@@ -53975,6 +54959,10 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005003839001_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "3": 2,
+      "1.0": 1
     }
   },
   "9022005000228001": {
@@ -54113,6 +55101,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005000228001_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005003839002": {
@@ -54251,6 +55242,10 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005003839002_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "3": 2,
+      "1.0": 1
     }
   },
   "9022005003840002": {
@@ -54389,6 +55384,10 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005003840002_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "3": 2,
+      "1.0": 1
     }
   },
   "9022005001237001": {
@@ -54496,7 +55495,8 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001237001_weekend"
         ]
       }
-    }
+    },
+    "severity_counts_by_severity": {}
   },
   "9022005004189001": {
     "stop_name": "MAXI",
@@ -54634,6 +55634,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005004189001_am_rush"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   },
   "9022005001237002": {
@@ -54753,6 +55756,9 @@
           "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001237002_weekend"
         ]
       }
+    },
+    "severity_counts_by_severity": {
+      "1.0": 1
     }
   }
 }

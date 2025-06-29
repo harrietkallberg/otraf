@@ -1138,10 +1138,10 @@
       "parent_station": 0,
       "stop_id": 0
     },
+    "violation_counts_by_severity": {},
     "route_summary": {
-      "total_stops": 0,
-      "total_parent_stations": 0,
-      "topology_types": {}
+      "total_parent_stations": 17,
+      "total_stop_ids": 32
     },
     "labels_counts_by_type": {
       "parent_station": 17,

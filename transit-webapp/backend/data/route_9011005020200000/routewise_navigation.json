@@ -1,6 +1,41 @@
 {
   "route_id": "9011005020200000",
   "route_name": "202",
+  "route_summary": {
+    "total_parent_stations": 14,
+    "total_stop_ids": 27,
+    "total_directions": 2,
+    "total_trip_instances": 7366,
+    "canonical_share": 0.7465381482487103,
+    "violation_counts_by_type": {
+      "stop_topology": {
+        "parent_station": 0,
+        "stop_id": 0
+      },
+      "direction_topology": {
+        "direction": 2,
+        "stop_id": 15
+      }
+    },
+    "violation_counts_by_severity": {
+      "1": 17
+    },
+    "violation_counts_by_severity_by_domain": {
+      "stop_topology": {},
+      "direction_topology": {
+        "1": 17
+      }
+    }
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 13.93,
+    "overall_on_time_rate": 74.24,
+    "overall_too_late_rate": 11.83,
+    "average_departure_delay": 65.35220931631217
+  },
+  "regulatory_summary": {
+    "total_regulatory_stops": 6
+  },
   "directions": [
     {
       "direction_id": "0",
@@ -12,6 +47,9 @@
       ],
       "has_direction_violations": true,
       "contains_violations": true,
+      "violation_severity_counts": {
+        "1": 1
+      },
       "canonical_pattern": {
         "pattern_str": "1-13",
         "pattern_ids": [
@@ -310,6 +348,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -354,6 +395,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -398,6 +442,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -442,6 +489,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -486,6 +536,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -530,6 +583,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -574,6 +630,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -620,6 +679,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -664,6 +726,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -708,6 +773,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -750,6 +816,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -792,6 +859,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -838,6 +908,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -873,6 +944,9 @@
       ],
       "has_direction_violations": true,
       "contains_violations": true,
+      "violation_severity_counts": {
+        "1": 1
+      },
       "canonical_pattern": {
         "pattern_str": "1-13",
         "pattern_ids": [
@@ -1099,6 +1173,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -1143,6 +1220,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -1187,6 +1267,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -1231,6 +1314,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -1275,6 +1361,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1319,6 +1406,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1361,6 +1449,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -1405,6 +1496,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1447,6 +1539,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1489,6 +1582,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1531,6 +1625,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1573,6 +1668,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -1617,6 +1713,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],

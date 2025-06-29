@@ -1,10 +1,10 @@
 import pandas as pd
-import json as json 
 import numpy as np
 from collections import defaultdict, Counter
 from statistical.lv_logger import LVLogger
 import matplotlib.pyplot as plt
 import datetime as datetime
+import itertools
 
 class DataFormer:
     def __init__(self, raw_data):
@@ -190,7 +190,7 @@ class DataFormer:
                     )
                     sv = self.log.create_violation_entry(
                         violation_type='stop_id_from_invalid_parent_topology',
-                        severity='medium-high',
+                        severity=3,
                         description='Inherited invalid-parent-station topology',
                         entity_key=sk,
                         parent_station=parent_station,
@@ -207,7 +207,7 @@ class DataFormer:
         if missing_data:
             v = self.log.create_violation_entry(
                 violation_type='stop_id_missing_direction_data',
-                severity='high',
+                severity=5,
                 description=f"Missing direction data for stops: {missing_data}",
                 entity_key=parent_key,
                 parent_station=parent_station,
@@ -226,7 +226,7 @@ class DataFormer:
                 return log_and_return('Bidirectional')
             v = self.log.create_violation_entry(
                 violation_type='two_stop_misassigned_directions',
-                severity='medium-high',
+                severity=4,
                 description=f"2-stop station misassigned: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
@@ -242,7 +242,7 @@ class DataFormer:
                 return log_and_return('Hybrid')
             v = self.log.create_violation_entry(
                 violation_type='unpaired_even_directional_stops',
-                severity='medium-high',
+                severity=4,
                 description=f"Even-stop unpaired: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
@@ -256,7 +256,7 @@ class DataFormer:
 
         v = self.log.create_violation_entry(
             violation_type='unpaired_odd_directional_stops',
-            severity='medium-high',
+            severity=4,
             description=f"Odd-stop unpaired: {single} single, {multi} multi",
             entity_key=parent_key,
             parent_station=parent_station,
@@ -288,7 +288,7 @@ class DataFormer:
             if not dirs:
                 ve = self.log.create_violation_entry(
                     violation_type='stop_id_without_direction_data',
-                    severity='high',
+                    severity=5,
                     description=f"Stop {sid} has no direction data",
                     entity_key=key,
                     stop_id=sid,
@@ -312,7 +312,7 @@ class DataFormer:
                                                     stop_id=stop_id)
             ve = self.log.create_violation_entry(
                 violation_type='stop_id_missing_from_schedule',
-                severity='medium',
+                severity=3,
                 description=f"No data for stop {stop_id} in parent_station {parent_station}",
                 entity_key=entity_key,
                 stop_id=stop_id,
@@ -337,26 +337,6 @@ class DataFormer:
         for direction_id, group in grouped:
             direction_id = str(direction_id)
             self._analyze_single_direction_topology(group, direction_id)
-
-    def _pct_to_severity(self, pct: float) -> str:
-        """
-        Five level severity:
-        0   <= pct <  5 →  “low”
-        5   <= pct < 10 → “medium-low”
-        10  <= pct < 15 → “medium”
-        15  <= pct < 25 → “medium-high”
-        pct ≥ 25       → “high”
-        """
-        if pct < 5:
-            return "low"
-        if pct < 10:
-            return "medium-low"
-        if pct < 15:
-            return "medium"
-        if pct < 25:
-            return "medium-high"
-        return "high"
-
 
     def _analyze_single_direction_topology(self, df, direction_id):
         # 1) Count each unique stop‐sequence pattern per trip
@@ -389,7 +369,7 @@ class DataFormer:
             v = self.log.create_violation_entry(
                 violation_type="missing_data_for_direction",
                 description="no_data",
-                severity="high",
+                severity=5,
                 entity_key=entity_key,
                 direction_id=direction_id
             )
@@ -405,7 +385,7 @@ class DataFormer:
             v = self.log.create_violation_entry(
                 violation_type="missing_valid_canonical_for_direction",
                 description="no_valid_canonical",
-                severity="high",
+                severity=5,
                 entity_key=entity_key,
                 direction_id=direction_id
             )
@@ -464,11 +444,16 @@ class DataFormer:
 
         total_trips = sum(pattern_instance_counter.values())
 
+        md = self.log.direction_topology_logs['metadata']
+        rs = md['route_summary']
+        rs['total_trip_instances'] = total_trips
+        rs['canonical_share']       = canonical_count / total_trips
+
         # 8) Multiple-patterns violation?
         if alt_counter:
             v = self.log.create_violation_entry(
                 violation_type="multiple_patterns_in_direction",
-                severity="low",
+                severity=1,
                 description=f"Direction {direction_id} has {len(alt_counter)} alternative patterns.",
                 entity_key=entity_key,
                 direction_id=direction_id,
@@ -502,7 +487,7 @@ class DataFormer:
                 # existing violation
                 miss_perc = miss_cnt/total_trips *100
                 desc = f"Stop ID {sid} is missing from {miss_cnt} trips, {miss_perc} %."
-                severity = self._pct_to_severity(miss_perc)
+                severity = np.ceil(miss_cnt/total_trips*5)
                 v = self.log.create_violation_entry(
                     violation_type="missing_stop_id_in_pattern",
                     severity = severity,
@@ -537,7 +522,7 @@ class DataFormer:
                 desc = f"Stop ID {sid} unexpectedly appears in {unexp_cnt} trips, {unexp_perc} %."
                 v = self.log.create_violation_entry(
                     violation_type="unexpected_stop_id_in_pattern",
-                    severity="high",
+                    severity=5,
                     description=desc,
                     entity_key=stop_key,
                     direction_id=direction_id,
@@ -821,6 +806,22 @@ class DataFormer:
                     'percentile_95':   int(np.percentile(travel_times, 95))
                 }
             }
+        
+        # 4) Compute route-level performance_summary
+        all_delays = df['departure_delay'].dropna()
+        if len(all_delays) >= 1:
+            # reuse your punctuality thresholds logic
+            route_metrics = self._calculate_punctuality_metrics(all_delays)
+
+            md = self.log.performance_logs['metadata']['performance_summary']
+            # percentages come as e.g. 12.34 (percent)
+            pdist = route_metrics['punctuality_distribution']['percentages']
+            md['overall_too_early_rate']  = pdist.get('too_early', 0.0)
+            md['overall_on_time_rate']    = pdist.get('on_time',    0.0)
+            md['overall_too_late_rate']   = pdist.get('too_late',   0.0)
+            # mean_delay is in seconds (or minutes), depending on your unit
+            md['average_departure_delay'] = route_metrics['basic_statistics']['mean_delay']
+       
 
         # 6) Write back to LVLogger
         self.log.performance_logs['histograms_stops']      = histograms_log
@@ -1026,12 +1027,58 @@ class DataFormer:
         # Pre-aggregate stop-level violations
         all_stop_violations = self._collect_all_stop_id_violations()
 
-        nav = {
-            "route_id":   self.route_id,
-            "route_name": self.route_long_name,
-            "directions": []
+        # 1) Grab all metadata
+        stop_meta = self.log.stop_topology_logs['metadata']
+        dir_meta  = self.log.direction_topology_logs['metadata']
+        perf_sum  = self.log.performance_logs['metadata']['performance_summary']
+        reg_meta  = self.log.regulatory_stops_logs['metadata']
+
+        # 2) Pull the violation counts by type (both domains)
+        stop_by_type = stop_meta.get('violation_counts_by_type', {})
+        dir_by_type  = dir_meta.get('violation_counts_by_type', {})
+
+        # 3) Pull the severity histograms
+        stop_sev = stop_meta.get('violation_counts_by_severity', {})
+        dir_sev  = dir_meta.get('violation_counts_by_severity', {})
+
+        # 4) Combine severities into one map
+        combined_sev = {}
+        for sev, cnt in itertools.chain(stop_sev.items(), dir_sev.items()):
+            combined_sev[sev] = combined_sev.get(sev, 0) + cnt
+
+        # 5) Build a clear, intuitive route_summary
+        route_summary = {
+            # ─────────────── totals ───────────────
+            "total_parent_stations": stop_meta['route_summary'].get('total_parent_stations', 0),
+            "total_stop_ids":       stop_meta['route_summary'].get('total_stop_ids',       0),
+            "total_directions":     dir_meta ['route_summary'].get('total_directions',     0),
+            "total_trip_instances": dir_meta.get('route_summary', {}).get('total_trip_instances', 0),
+            "canonical_share":      dir_meta.get('route_summary', {}).get('canonical_share',      0.0),
+
+            # ────── violations by type ───────
+            "violation_counts_by_type": {
+                "stop_topology":      stop_by_type,
+                "direction_topology": dir_by_type
+            },
+
+            # ────── severity (1–5) ──────────
+            "violation_counts_by_severity": combined_sev,
+            "violation_counts_by_severity_by_domain": {
+                "stop_topology":      stop_sev,
+                "direction_topology": dir_sev
+            }
         }
 
+        # 6) Assemble nav with clear siblings
+        nav = {
+            "route_id":            self.route_id,
+            "route_name":          self.route_long_name,
+            "route_summary":       route_summary,
+            "performance_summary": perf_sum,
+            "regulatory_summary":  { 'total_regulatory_stops': reg_meta.get('total_regulatory_stops', 0) },
+            "directions":          []
+        }
+        
         # Determine all time_types
         all_tts = {
             e.get("time_type")
@@ -1199,12 +1246,30 @@ class DataFormer:
                     perf_avail["histograms"][tt]  = hkey
                     perf_avail["punctuality"][tt] = pkey
 
+                stop_sev = {}
+                # stop_topology violations
+                for k in viols.get("stop_topology", []):
+                    e = stop_logs["stop_id_violations"].get(k)
+                    if e:
+                        s = e.get("severity"); stop_sev[s] = stop_sev.get(s, 0) + 1
+                # direction_topology violations
+                for k in viols.get("direction_topology", []):
+                    e = dir_logs["stop_id_violations"].get(k)
+                    if e:
+                        s = e.get("severity"); stop_sev[s] = stop_sev.get(s, 0) + 1
+                # parent_station violations (if you care)
+                for k in viols.get("parent_station", []):
+                    e = stop_logs["parent_station_violations"].get(k)
+                    if e:
+                        s = e.get("severity"); stop_sev[s] = stop_sev.get(s, 0) + 1
+                
                 stops.append({
                     "position": pos,
                     "stop_id": sid,
                     "stop_name": meta.get("stop_name"),
                     "labels": labels,
                     "has_violations": any(viols.values()),
+                    "violation_severity_counts": stop_sev,
                     "violations": viols,
                     "performance_availability": perf_avail
                 })
@@ -1215,6 +1280,12 @@ class DataFormer:
                 if v.get("entity_key") == dir_key or k == dir_key
             ]
 
+            dir_sev = {}
+            for v in direction_violations.values():
+                if v.get("direction_id") == dir_id_str:
+                    s = v.get("severity")
+                    dir_sev[s] = dir_sev.get(s, 0) + 1
+
             # Append direction entry
             nav["directions"].append({
                 "direction_id":             dir_id_str,
@@ -1222,6 +1293,7 @@ class DataFormer:
                 "direction_violation_keys": direction_violation_keys,
                 "has_direction_violations": has_dir_viol,
                 "contains_violations":      contains_dir_viol,
+                "violation_severity_counts": dir_sev,
                 "canonical_pattern":        canonical,
                 "alternative_patterns":     alts,
                 "travel_time_segments":     travel_time_segments,
@@ -1230,8 +1302,6 @@ class DataFormer:
 
         # Write back
         self.log.navigation_structures["routewise_navigation"] = nav
-
-
 
     def _get_stop_metadata(self, df, stop_id: str) -> dict:
         """

@@ -1,6 +1,41 @@
 {
   "route_id": "9011005022100000",
   "route_name": "221",
+  "route_summary": {
+    "total_parent_stations": 7,
+    "total_stop_ids": 13,
+    "total_directions": 2,
+    "total_trip_instances": 704,
+    "canonical_share": 0.9985795454545454,
+    "violation_counts_by_type": {
+      "stop_topology": {
+        "parent_station": 0,
+        "stop_id": 0
+      },
+      "direction_topology": {
+        "direction": 2,
+        "stop_id": 4
+      }
+    },
+    "violation_counts_by_severity": {
+      "1": 6
+    },
+    "violation_counts_by_severity_by_domain": {
+      "stop_topology": {},
+      "direction_topology": {
+        "1": 6
+      }
+    }
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 21.25,
+    "overall_on_time_rate": 69.0,
+    "overall_too_late_rate": 9.75,
+    "average_departure_delay": 43.131768231768234
+  },
+  "regulatory_summary": {
+    "total_regulatory_stops": 7
+  },
   "directions": [
     {
       "direction_id": "0",
@@ -12,6 +47,9 @@
       ],
       "has_direction_violations": true,
       "contains_violations": true,
+      "violation_severity_counts": {
+        "1": 1
+      },
       "canonical_pattern": {
         "pattern_str": "1-7",
         "pattern_ids": [
@@ -112,6 +150,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -154,6 +195,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -194,6 +238,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -236,6 +283,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -274,6 +322,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -312,6 +361,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -352,6 +402,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -383,6 +434,9 @@
       ],
       "has_direction_violations": true,
       "contains_violations": true,
+      "violation_severity_counts": {
+        "1": 1
+      },
       "canonical_pattern": {
         "pattern_str": "1-7",
         "pattern_ids": [
@@ -481,6 +535,9 @@
             ]
           },
           "has_violations": true,
+          "violation_severity_counts": {
+            "1.0": 1
+          },
           "violations": {
             "stop_topology": [],
             "direction_topology": [
@@ -517,6 +574,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -551,6 +609,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -587,6 +646,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -621,6 +681,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -655,6 +716,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],
@@ -691,6 +753,7 @@
             ]
           },
           "has_violations": false,
+          "violation_severity_counts": {},
           "violations": {
             "stop_topology": [],
             "direction_topology": [],

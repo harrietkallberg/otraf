@@ -43,10 +43,12 @@ class Exporter:
 
             # Performance logs
             perf_bundle = {
-                "histograms_stops":      log.performance_logs.get("histograms_stops", {}),
-                "punctuality_barcharts": log.performance_logs.get("punctuality_barcharts", {}),
-                "travel_times":          log.performance_logs.get("travel_times", {})
+            "performance_summary": log.performance_logs['metadata']['performance_summary'],
+            "histograms_stops":      log.performance_logs.get("histograms_stops", {}),
+            "punctuality_barcharts": log.performance_logs.get("punctuality_barcharts", {}),
+            "travel_times":          log.performance_logs.get("travel_times", {})
             }
+
             self._dump_safe(perf_bundle, route_dir / "performance_logs.json")
 
             # Navigation map
@@ -84,14 +86,16 @@ class Exporter:
         - routes list
         - directions per route
         - label_stats per domain (routes, occurrences)
-        - violation_stats per domain
         - label_keys per domain
+        - violation_stats per domain (routes, occurrences)
         - violation_keys per domain
         - performance_keys availability (lists of all seen keys)
+        - severity_counts_by_severity: aggregated 1–5 buckets
         """
         domains = ["stop_topology", "direction_topology", "regulatory", "parent_station"]
         stop_index: dict[str, dict] = {}
 
+        # 1️⃣ Gather per-route data
         for rid, log in self.logs.items():
             nav = log.navigation_structures.get("routewise_navigation", {}) or {}
             for direction in nav.get("directions", []):
@@ -101,40 +105,42 @@ class Exporter:
                     if sid is None:
                         continue
 
+                    # Initialize entry if first time seeing this stop
                     entry = stop_index.setdefault(sid, {
-                        "stop_name":        stop.get("stop_name", "UNKNOWN"),
-                        "routes":           set(),
-                        "directions":       defaultdict(set),
-                        "label_stats":      {d: {"routes": set(), "occurrences": 0} for d in domains},
-                        "violation_stats":  {d: {"routes": set(), "occurrences": 0} for d in domains},
-                        "label_keys":       {d: [] for d in domains},
-                        "violation_keys":   {d: [] for d in domains},
-                        # now keep lists of all histogram and punctuality keys
-                        "performance_keys": defaultdict(lambda: {"histograms": [], "punctualities": []})
+                        "stop_name":      stop.get("stop_name", "UNKNOWN"),
+                        "routes":         set(),
+                        "directions":     defaultdict(set),
+                        "label_stats":    {d: {"routes": set(), "occurrences": 0} for d in domains},
+                        "violation_stats":{d: {"routes": set(), "occurrences": 0} for d in domains},
+                        "label_keys":     {d: [] for d in domains},
+                        "violation_keys": {d: [] for d in domains},
+                        "performance_keys": defaultdict(lambda: {"histograms": [], "punctualities": []}),
+                        "severity_counts_by_severity": {}    # ← NEW histogram
                     })
 
+                    # Track which routes & directions this stop appears on
                     entry["routes"].add(rid)
                     entry["directions"][rid].add(did)
 
                     # Label stats & keys
-                    for domain, keys in (stop.get("labels") or {}).items():
-                        if domain not in domains:
+                    for dom, keys in (stop.get("labels") or {}).items():
+                        if dom not in domains:
                             continue
                         for k in (keys or []):
-                            entry["label_stats"][domain]["routes"].add(rid)
-                            entry["label_stats"][domain]["occurrences"] += 1
-                            entry["label_keys"][domain].append(k)
+                            entry["label_stats"][dom]["routes"].add(rid)
+                            entry["label_stats"][dom]["occurrences"] += 1
+                            entry["label_keys"][dom].append(k)
 
                     # Violation stats & keys
-                    for domain, keys in (stop.get("violations") or {}).items():
-                        if domain not in domains:
+                    for dom, keys in (stop.get("violations") or {}).items():
+                        if dom not in domains:
                             continue
                         for k in (keys or []):
-                            entry["violation_stats"][domain]["routes"].add(rid)
-                            entry["violation_stats"][domain]["occurrences"] += 1
-                            entry["violation_keys"][domain].append(k)
+                            entry["violation_stats"][dom]["routes"].add(rid)
+                            entry["violation_stats"][dom]["occurrences"] += 1
+                            entry["violation_keys"][dom].append(k)
 
-                    # Performance availability — now append rather than overwrite
+                    # Performance availability
                     p_avail = stop.get("performance_availability") or {}
                     for tt, hkey in (p_avail.get("histograms") or {}).items():
                         if hkey:
@@ -143,35 +149,50 @@ class Exporter:
                         if pkey:
                             entry["performance_keys"][tt]["punctualities"].append(pkey)
 
-        # Sanitize for JSON: convert sets to lists
-        final_index = {}
+                    # ──────────────────────────────────────────────────────
+                    # 2️⃣ Aggregate per-stop severity histograms
+                    for sev, cnt in (stop.get("violation_severity_counts") or {}).items():
+                        sev_str = str(sev)
+                        sc = entry["severity_counts_by_severity"]
+                        sc[sev_str] = sc.get(sev_str, 0) + cnt
+                    # ──────────────────────────────────────────────────────
+
+        # 3️⃣ Sanitize and export for JSON
+        final_index: dict[str, dict] = {}
         for sid, e in stop_index.items():
             final_index[sid] = {
                 "stop_name":      e["stop_name"],
                 "routes":         sorted(e["routes"]),
-                "directions":     {rid: sorted(list(ds)) for rid, ds in e["directions"].items()},
+                "directions":     {rid: sorted(ds) for rid, ds in e["directions"].items()},
                 "label_stats": {
-                    dom: {"routes": sorted(list(data["routes"])), "occurrences": data["occurrences"]}
+                    dom: {
+                        "routes":     sorted(data["routes"]),
+                        "occurrences": data["occurrences"]
+                    }
                     for dom, data in e["label_stats"].items()
                 },
-                "label_keys":      {dom: list(keys) for dom, keys in e["label_keys"].items()},
+                "label_keys":     {dom: list(keys) for dom, keys in e["label_keys"].items()},
                 "violation_stats": {
-                    dom: {"routes": sorted(list(data["routes"])), "occurrences": data["occurrences"]}
+                    dom: {
+                        "routes":     sorted(data["routes"]),
+                        "occurrences": data["occurrences"]
+                    }
                     for dom, data in e["violation_stats"].items()
                 },
-                "violation_keys":  {dom: list(keys) for dom, keys in e["violation_keys"].items()},
+                "violation_keys": {dom: list(keys) for dom, keys in e["violation_keys"].items()},
                 "performance_keys": {
-                    tt: {
-                        "histograms":    list(data["histograms"]),
-                        "punctualities": list(data["punctualities"])
+                    rid: {
+                        "histograms":   ks["histograms"],
+                        "punctualities": ks["punctualities"]
                     }
-                    for tt, data in e["performance_keys"].items()
-                }
+                    for rid, ks in e["performance_keys"].items()
+                },
+                "severity_counts_by_severity": e["severity_counts_by_severity"]  # ← serialized
             }
 
+        # Write out the JSON
         self._dump_safe(final_index, export_root / "global_stop_index.json")
-        print(f"🔄 Exported detailed global stop index to {export_root / 'global_stop_index.json'}")
-
+        print(f"🔄 Exported global stop index to {export_root / 'global_stop_index.json'}")
 
     def _export_global_time_types(self, export_root: Path):
         """
@@ -188,6 +209,10 @@ class Exporter:
             for entry in (log.performance_logs.get("punctuality_barcharts", {}).values()):
                 tt = entry.get("time_type")
                 if tt:
+                    time_types.add(tt)
+            # Travel times:        
+            for entry in log.performance_logs.get("travel_times",{}).values():
+                if tt := entry.get("time_type"):
                     time_types.add(tt)
 
         tt_list = sorted(time_types)
@@ -233,6 +258,8 @@ class Exporter:
             dt_logs = log.direction_topology_logs
             for key in ("direction_labels",):
                 flat.extend(dt_logs.get(key, {}).values())
+
+            flat.extend(log.regulatory_stops_logs.get("stop_id_regulatory_labels", {}).values())
 
         # Write out the combined list
         self._dump_safe(flat, export_root / "global_labels.json")

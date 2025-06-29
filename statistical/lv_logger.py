@@ -1,5 +1,3 @@
-import pandas as pd
-import json as json 
 
 class LVLogger:
     def __init__(self, route_info):
@@ -29,10 +27,10 @@ class LVLogger:
                     'parent_station': 0, 
                     'stop_id': 0
                 },
+                'violation_counts_by_severity': {},   # ← new
                 'route_summary': {
-                    'total_stops': 0,
                     'total_parent_stations': 0,
-                    'topology_types': {}  # Count of each topology type
+                    'total_stop_ids': 0
                 }
             }
         }
@@ -50,9 +48,9 @@ class LVLogger:
                     'direction': 0,
                     'stop_id': 0
                 },
+                'violation_counts_by_severity': {},   # ← new
                 'route_summary': {
-                    'total_directions': 0,
-                    'topology_types': {} # Count of each topology type
+                    'total_directions': 0
                 }
             }
         }
@@ -61,8 +59,7 @@ class LVLogger:
         self.regulatory_stops_logs = {
             'stop_id_regulatory_labels': {},
             'metadata': {
-                'labels_counts_by_type': {},
-                'total_labels': 0
+                'total_regulatory_stops': 0
             }
         }
 
@@ -212,12 +209,17 @@ class LVLogger:
         logs['metadata']['violation_counts_by_type'][violation_type] = logs['metadata']['violation_counts_by_type'].get(violation_type, 0) + 1
         logs['metadata']['total_violations'] = sum(logs['metadata']['violation_counts_by_type'].values())
 
+        md = logs['metadata']
+        sev = violation_entry.get('severity', 0)
+        md.setdefault('violation_counts_by_severity', {})
+        md['violation_counts_by_severity'][sev] = (md['violation_counts_by_severity'].get(sev, 0) + 1)
+
         return violation_entry
 
     def add_label(self, domain: str, label_type: str, entity_key: str, label_entry: dict):
         """
         Add a single label entry to the specified domain and type.
-        
+
         Args:
             domain: one of ['stop_topology', 'direction_topology', 'regulatory_stops', 'performance']
             label_type: like 'stop_id', 'parent_station', 'direction', etc.
@@ -235,17 +237,38 @@ class LVLogger:
 
         logs = self.get_logs(domain)
 
-        # Ensure labels dict exists
+        # 1) Insert the label
         labels_key = f"{label_type}_labels"
-        if labels_key not in logs:
-            logs[labels_key] = {}
-
+        logs.setdefault(labels_key, {})
         logs[labels_key][entity_key] = label_entry
 
-        # Update metadata
+        # 2) Update generic per-type counts
         logs.setdefault('metadata', {})
-        logs['metadata'].setdefault('labels_counts_by_type', {})
-        logs['metadata']['labels_counts_by_type'][label_type] = logs['metadata']['labels_counts_by_type'].get(label_type, 0) + 1
-        logs['metadata']['total_labels'] = sum(logs['metadata']['labels_counts_by_type'].values())
+        md = logs['metadata']
+        md.setdefault('labels_counts_by_type', {})
+        md['labels_counts_by_type'][label_type] = (
+            md['labels_counts_by_type'].get(label_type, 0) + 1
+        )
+
+        # 3) Maintain the correct total counter
+        if domain == 'regulatory_stops':
+            # single label-type; count each labeled stop
+            md['total_regulatory_stops'] = md.get('total_regulatory_stops', 0) + 1
+        else:
+            # generic label domains
+            md['total_labels'] = sum(md['labels_counts_by_type'].values())
+
+        # 4) Update our topology route-summary totals
+        if domain == 'stop_topology':
+            rs = md.setdefault('route_summary', {})
+            # how many unique parent_station labels
+            rs['total_parent_stations'] = len(logs.get('parent_station_labels', {}))
+            # how many unique stop_id labels
+            rs['total_stop_ids']      = len(logs.get('stop_id_labels', {}))
+
+        elif domain == 'direction_topology':
+            rs = md.setdefault('route_summary', {})
+            # how many unique direction labels
+            rs['total_directions'] = len(logs.get('direction_labels', {}))
 
         return label_entry

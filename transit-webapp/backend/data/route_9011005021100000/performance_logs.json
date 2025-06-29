@@ -1,4 +1,10 @@
 {
+  "performance_summary": {
+    "overall_too_early_rate": 21.77,
+    "overall_on_time_rate": 70.35,
+    "overall_too_late_rate": 7.88,
+    "average_departure_delay": 37.34504195077438
+  },
   "histograms_stops": {
     "performance_9011005021100000_direction_id_stop_id_time_type_0_9022005000231001_am_rush": {
       "route_id": "9011005021100000",
