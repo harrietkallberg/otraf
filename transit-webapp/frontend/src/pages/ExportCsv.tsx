@@ -25,26 +25,46 @@ const downloads = [
   },
 ]
 
-const ExportCsvPage: React.FC = () => (
-  <div className="p-6">
-    <h1 className="text-3xl font-bold mb-6">Export CSV</h1>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {downloads.map(d => (
-        <div key={d.href} className="border p-4 rounded shadow-sm">
-          <h2 className="font-semibold mb-2">{d.title}</h2>
-          <p className="text-sm mb-4">{d.description}</p>
-          {/* **Must** be a plain <a> so the browser does a full GET (and invokes your proxy) */}
-          <a
-            href={d.href}
-            download={d.fileName}
-            className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Download
-          </a>
-        </div>
-      ))}
+const ExportCsvPage: React.FC = () => {
+  const handleDownload = async (href: string, fileName: string) => {
+    try {
+      const res = await fetch(href, { method: 'GET' })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const blob = await res.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = fileName
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error('Download failed', err)
+      alert('Failed to download file.')
+    }
+  }
+
+  return (
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-6">Export CSV</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {downloads.map((d) => (
+          <div key={d.href} className="border p-4 rounded shadow-sm">
+            <h2 className="font-semibold mb-2">{d.title}</h2>
+            <p className="text-sm mb-4">{d.description}</p>
+            <button
+              onClick={() => handleDownload(d.href, d.fileName)}
+              className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Download
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default ExportCsvPage
+

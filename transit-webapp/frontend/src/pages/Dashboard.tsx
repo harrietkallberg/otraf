@@ -1,43 +1,91 @@
 // src/pages/Dashboard.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react'
+import { GlobalDataContext, ViolationEntry } from '../contexts/GlobalDataContext'
 
-interface SummaryStats {
-  totalRoutes: number;
-  totalStops: number;
-  totalViolations: number;
-  totalDirections: number;
-}
-
-// Simulate API loader (replace with real fetch call later)
-const loadRouteSummaries = async (): Promise<SummaryStats> => {
-  return {
-    totalRoutes: 34,
-    totalStops: 276,
-    totalViolations: 89,
-    totalDirections: 61
-  };
-};
+type RoutesIndex = Record<
+  string,
+  { route_long_name: string; route_short_name: string }
+>
 
 const Dashboard: React.FC = () => {
-  const [stats, setStats] = useState<SummaryStats | null>(null);
+  const globalData = useContext(GlobalDataContext)
+  const [routes, setRoutes] = useState<RoutesIndex | null>(null)
 
+  // fetch global routes
   useEffect(() => {
-    loadRouteSummaries().then(setStats);
-  }, []);
+    fetch('/api/global/routes')
+      .then((r) => r.json())
+      .then((json: RoutesIndex) => setRoutes(json))
+      .catch(console.error)
+  }, [])
 
-  if (!stats) return <div>Loading summary...</div>;
+  if (!globalData || routes === null) {
+    return <div className="p-6">Loading dashboard…</div>
+  }
+
+  const { labels, violations, time_types, stops } = globalData
+
+  const totalStops = Object.keys(stops).length
+  const totalLabels = Object.keys(labels).length
+  const totalViolations = Object.values(violations).length
+  const totalRoutes = Object.keys(routes).length
+  const totalTimeTypes = time_types.length
+
+  // breakdown of violations by severity
+  const severityCounts = Object.values(violations).reduce<Record<string, number>>((acc, v) => {
+    const sev = String(v.severity)
+    acc[sev] = (acc[sev] || 0) + 1
+    return acc
+  }, {})
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">📊 System Summary</h1>
-      <div className="dashboard-summary">
-        <div><strong>Routes:</strong> {stats.totalRoutes}</div>
-        <div><strong>Stops:</strong> {stats.totalStops}</div>
-        <div><strong>Directions:</strong> {stats.totalDirections}</div>
-        <div><strong>Violations:</strong> {stats.totalViolations}</div>
+    <div className="p-6 space-y-6">
+      <h1 className="text-3xl font-bold">Dashboard</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card title="Routes" value={totalRoutes} />
+        <Card title="Stops" value={totalStops} />
+        <Card title="Labels" value={totalLabels} />
+        <Card title="Violations" value={totalViolations} />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-2xl shadow p-5">
+          <h2 className="text-xl font-semibold mb-4">Violations by Severity</h2>
+          <ul className="space-y-1">
+            {Object.entries(severityCounts)
+              .sort((a, b) => Number(a[0]) - Number(b[0]))
+              .map(([sev, count]) => (
+                <li key={sev} className="flex justify-between">
+                  <span>Severity {sev}</span>
+                  <span className="font-semibold">{count}</span>
+                </li>
+              ))}
+          </ul>
+        </div>
+        <div className="bg-white rounded-2xl shadow p-5">
+          <h2 className="text-xl font-semibold mb-4">Other Summary</h2>
+          <p>
+            <strong>Time Types:</strong> {time_types.join(', ')}
+          </p>
+        </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+interface CardProps {
+  title: string
+  value: number
+}
+
+const Card: React.FC<CardProps> = ({ title, value }) => (
+  <div className="bg-white rounded-2xl shadow p-5 flex flex-col items-center">
+    <h2 className="text-lg font-medium">{title}</h2>
+    <p className="text-3xl font-bold mt-2">{value}</p>
+  </div>
+)
+
+export default Dashboard
+
+

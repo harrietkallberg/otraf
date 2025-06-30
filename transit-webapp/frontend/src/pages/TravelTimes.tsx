@@ -1,3 +1,4 @@
+// src/pages/TravelTimes.tsx
 import React, { useEffect, useState } from 'react'
 
 interface ByRouteEntry {
@@ -23,9 +24,13 @@ interface TravelSegment {
 const TravelTimes: React.FC = () => {
   const [segments, setSegments] = useState<TravelSegment[]>([])
   const [stopIndex, setStopIndex] = useState<Record<string, any>>({})
-  const [fromStop, setFromStop] = useState('')
-  const [toStop, setToStop] = useState('')
+  const [route, setRoute]       = useState('')
+  const [fromName, setFromName] = useState('')
+  const [toName, setToName]     = useState('')
   const [timeType, setTimeType] = useState('')
+
+  // filter out purely numeric names
+  const hasLetters = (s: string) => /\D/.test(s)
 
   useEffect(() => {
     Promise.all([
@@ -33,82 +38,118 @@ const TravelTimes: React.FC = () => {
       fetch('/api/global/travel_times').then(r => r.json())
     ]).then(([stops, times]: [Record<string, any>, Omit<TravelSegment, 'from_stop_name' | 'to_stop_name'>[]]) => {
       setStopIndex(stops)
-      // Decorate each segment with its stop names
-      const withNames: TravelSegment[] = times.map(s => ({
+      // attach names
+      const withNames = times.map(s => ({
         ...s,
         from_stop_name: stops[s.from_stop_id]?.stop_name || s.from_stop_id,
-        to_stop_name:   stops[s.to_stop_id]?.stop_name   || s.to_stop_id
+        to_stop_name:   stops[s.to_stop_id]?.stop_name   || s.to_stop_id,
       }))
       setSegments(withNames)
     })
   }, [])
 
-  const fromStopOptions = Array.from(
-    new Set(
-      segments
-        .filter(s => !toStop || s.to_stop_id === toStop)
-        .map(s => s.from_stop_id)
-    )
-  )
-    .map(id => ({ id, name: stopIndex[id]?.stop_name || id }))
-    .sort((a, b) => a.name.localeCompare(b.name))
+  // build name→IDs map
+  const nameToIds: Record<string, string[]> = {}
+  segments.forEach(s => {
+    nameToIds[s.from_stop_name] ||= []
+    nameToIds[s.to_stop_name]   ||= []
+    nameToIds[s.from_stop_name].push(s.from_stop_id)
+    nameToIds[s.to_stop_name].push(s.to_stop_id)
+  })
+  Object.keys(nameToIds)
+    .forEach(n => nameToIds[n] = Array.from(new Set(nameToIds[n])))
 
-  const toStopOptions = Array.from(
-    new Set(
-      segments
-        .filter(s => !fromStop || s.from_stop_id === fromStop)
-        .map(s => s.to_stop_id)
-    )
-  )
-    .map(id => ({ id, name: stopIndex[id]?.stop_name || id }))
-    .sort((a, b) => a.name.localeCompare(b.name))
+  // get all route IDs
+  const allRoutes = Array.from(
+    new Set(segments.flatMap(s => s.by_route.map(r => r.route_id)))
+  ).sort()
 
-  const filtered = segments.filter(s =>
-    (!fromStop || s.from_stop_id === fromStop) &&
-    (!toStop || s.to_stop_id === toStop) &&
-    (!timeType || s.time_type === timeType) &&
-    (typeof s.aggregated?.mean === 'number' || s.by_route?.some(r => typeof r.mean === 'number'))
-  )
+  // options for From/To drop-downs, filtered by route/timeType/other
+  const fromOptions = Array.from(new Set(
+    segments
+      .filter(s =>
+        (!route   || s.by_route.some(r2 => r2.route_id === route)) &&
+        (!toName  || s.to_stop_name === toName) &&
+        (!timeType|| s.time_type === timeType)
+      )
+      .map(s => s.from_stop_name)
+  ))
+    .filter(hasLetters)
+    .sort((a, b) => a.localeCompare(b))
+
+  const toOptions = Array.from(new Set(
+    segments
+      .filter(s =>
+        (!route   || s.by_route.some(r2 => r2.route_id === route)) &&
+        (!fromName|| s.from_stop_name === fromName) &&
+        (!timeType|| s.time_type === timeType)
+      )
+      .map(s => s.to_stop_name)
+  ))
+    .filter(hasLetters)
+    .sort((a, b) => a.localeCompare(b))
+
+  // finally filter which segments to display
+  const filtered = segments.filter(s => {
+    const byThisRoute = !route || s.by_route.some(r2 => r2.route_id === route)
+    const fromMatch   = !fromName || nameToIds[fromName].includes(s.from_stop_id)
+    const toMatch     = !toName   || nameToIds[toName].includes(s.to_stop_id)
+    const timeMatch   = !timeType || s.time_type === timeType
+    const hasAnyValue = 
+      (!route && typeof s.aggregated.mean === 'number') ||
+      ( route &&     s.by_route.some(r2 => r2.route_id === route && typeof r2.mean === 'number'))
+    return byThisRoute && fromMatch && toMatch && timeMatch && hasAnyValue
+  })
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">🕒 Search Travel Times</h1>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-4 gap-4 mb-6">
         <div>
-          <label>From Stop</label>
+          <label className="block mb-1">Route</label>
           <select
-            value={fromStop}
-            onChange={e => setFromStop(e.target.value)}
+            value={route}
+            onChange={e => setRoute(e.target.value)}
             className="w-full border p-2 rounded"
           >
-            <option value="">(any)</option>
-            {fromStopOptions.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name} ({id})
-              </option>
+            <option value="">(all)</option>
+            {allRoutes.map(rid => (
+              <option key={rid} value={rid}>Route {rid}</option>
             ))}
           </select>
         </div>
 
         <div>
-          <label>To Stop</label>
+          <label className="block mb-1">From Stop</label>
           <select
-            value={toStop}
-            onChange={e => setToStop(e.target.value)}
+            value={fromName}
+            onChange={e => setFromName(e.target.value)}
             className="w-full border p-2 rounded"
           >
             <option value="">(any)</option>
-            {toStopOptions.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name} ({id})
-              </option>
+            {fromOptions.map(name => (
+              <option key={name} value={name}>{name}</option>
             ))}
           </select>
         </div>
 
         <div>
-          <label>Time Type</label>
+          <label className="block mb-1">To Stop</label>
+          <select
+            value={toName}
+            onChange={e => setToName(e.target.value)}
+            className="w-full border p-2 rounded"
+          >
+            <option value="">(any)</option>
+            {toOptions.map(name => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block mb-1">Time Type</label>
           <select
             value={timeType}
             onChange={e => setTimeType(e.target.value)}
@@ -124,36 +165,51 @@ const TravelTimes: React.FC = () => {
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {filtered.map((s, idx) => (
           <div key={idx} className="border p-4 rounded shadow-sm bg-white">
-            <div className="text-sm text-gray-500 mb-1">
-              {s.time_type.toUpperCase()}
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-500">
+                {s.time_type.toUpperCase()}
+              </span>
+              {route ? (
+                <span className="text-sm text-blue-600">
+                  Route {route}
+                </span>
+              ) : null}
             </div>
-            <div className="text-lg font-semibold">
+
+            <div className="text-lg font-semibold my-1">
               {s.from_stop_name} → {s.to_stop_name}
             </div>
 
-            <div className="mt-1 text-sm text-gray-700">
-              {typeof s.aggregated?.mean === 'number' ? (
-                <div>
-                  Aggregated: <strong>{s.aggregated.mean.toFixed(1)}</strong> seconds
+            <div className="text-sm text-gray-700">
+              {route ? (
+                <div className="space-y-1">
+                  <div>
+                    Aggregated:{' '}
+                    {typeof s.aggregated.mean === 'number'
+                      ? <strong>{s.aggregated.mean.toFixed(1)} s</strong>
+                      : 'n/a'}
+                  </div>
+                  {s.by_route
+                    .filter(r2 => r2.route_id === route)
+                    .map((r2, i) => (
+                      <div key={i}>
+                        Route {r2.route_id}, dir {r2.direction_id}:{' '}
+                        {typeof r2.mean === 'number'
+                          ? `${r2.mean.toFixed(1)} s`
+                          : 'n/a'}
+                      </div>
+                    ))
+                  }
                 </div>
               ) : (
-                <div>No aggregated value available</div>
-              )}
-
-              {s.by_route?.length > 0 && (
-                <div className="mt-1">
-                  <div className="font-medium text-gray-500">Per Route:</div>
-                  <ul className="list-disc list-inside text-sm">
-                    {s.by_route.map((r, i) => (
-                      <li key={i}>
-                        Route {r.route_id}, dir {r.direction_id}:{' '}
-                        {typeof r.mean === 'number' ? `${r.mean.toFixed(1)} sec` : 'n/a'}
-                      </li>
-                    ))}
-                  </ul>
+                <div>
+                  Aggregated:{' '}
+                  {typeof s.aggregated.mean === 'number'
+                    ? <strong>{s.aggregated.mean.toFixed(1)} s</strong>
+                    : 'n/a'}
                 </div>
               )}
             </div>
@@ -161,7 +217,7 @@ const TravelTimes: React.FC = () => {
         ))}
 
         {filtered.length === 0 && (
-          <p className="text-gray-500 mt-4">No matching travel time segments found.</p>
+          <p className="text-gray-500">No matching segments found.</p>
         )}
       </div>
     </div>
