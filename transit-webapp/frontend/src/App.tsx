@@ -9,6 +9,7 @@ import StopsList  from './pages/StopsList'
 import RouteLayout from './pages/route'
 import StopLayout  from './pages/stop'
 import TravelTimes from './pages/TravelTimes'
+import ExportCsvPage from './pages/ExportCsv'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="stops/:sid/*"    element={<StopLayout />} />
           <Route path="*"               element={<Navigate to="/" replace />} />
           <Route path="travel-times" element={<TravelTimes />} />
+          <Route path="/export-csv" element={<ExportCsvPage />} />
         </Routes>
       </Layout>
     </GlobalDataProvider>

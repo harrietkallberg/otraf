@@ -67,8 +67,15 @@ class Exporter:
         self._export_global_travel_times(export_root)
         self._export_global_histograms(export_root)
         self._export_global_punctuality(export_root)
-        self._export_csv_underperforming_regulatory_stops(export_root)
-        self._export_csv_mis_tracked_stops(export_root)
+
+        # 2b) Prepare CSV folder
+        csv_dir = export_root / "csv"
+        csv_dir.mkdir(exist_ok=True)
+
+        # 3) CSV exports
+        self._export_csv_global_travel_times(csv_dir)
+        self._export_csv_underperforming_regulatory_stops(csv_dir)
+        self._export_csv_mis_tracked_stops(csv_dir)
 
     def _export_global_route_index(self, export_root: Path):
         """
@@ -287,13 +294,12 @@ class Exporter:
                     entry["from_stop_id"],
                     entry["to_stop_id"],
                     entry["time_type"],
-                    entry["direction_id"],
                 )
                 grouped[key].append(entry)
 
         # 2) build global entries
         global_entries = []
-        for (from_id, to_id, tt, did), entries in grouped.items():
+        for (from_id, to_id, tt), entries in grouped.items():
             # Sum up sample sizes from each route
             total_samples = sum(e.get("sample_size", 0) for e in entries)
             # Compute weighted mean across routes
@@ -304,7 +310,6 @@ class Exporter:
                 "from_stop_id":  from_id,
                 "to_stop_id":    to_id,
                 "time_type":     tt,
-                "direction_id":  did,
                 "aggregated": {
                     "mean":        overall_mean,
                     "sample_size": total_samples
@@ -323,7 +328,6 @@ class Exporter:
         # 3) write out
         self._dump_safe(global_entries, export_root / "global_travel_times.json")
         print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
-
 
     def _export_global_histograms(self, export_root: Path):
         """
@@ -415,7 +419,42 @@ class Exporter:
         self._dump_safe(flat, export_root / "global_punctuality_stops.json")
         print(f"🔄 Exported global punctuality to {export_root / 'global_punctuality_stops.json'}")
 
-    def _export_csv_underperforming_regulatory_stops(self, export_root: Path, threshold: float = 80.0):
+    def _export_csv_global_travel_times(self, csv_dir: Path):
+        """
+        csv_dir should be something like export_root/csv
+        """
+        import json, csv
+
+        # load JSON from export_root/global_travel_times.json
+        json_path = csv_dir.parent / "global_travel_times.json"
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        csv_path = csv_dir / "global_travel_times.csv"
+        with open(csv_path, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                "from_stop_id","to_stop_id","time_type",
+                "aggregated_mean","aggregated_sample_size",
+                "route_id","direction_id","route_mean","route_sample_size",
+            ])
+            for entry in data:
+                agg = entry["aggregated"]
+                for r in entry["by_route"]:
+                    writer.writerow([
+                        entry["from_stop_id"],
+                        entry["to_stop_id"],
+                        entry["time_type"],
+                        agg["mean"] or "",
+                        agg["sample_size"],
+                        r["route_id"],
+                        r["direction_id"],
+                        r["mean"] or "",
+                        r["sample_size"],
+                    ])
+        print(f"🔄 Exported global_travel_times.csv to {csv_path}")
+
+    def _export_csv_underperforming_regulatory_stops(self, csv_dir: Path, threshold: float = 80.0):
         """
         Export CSV of regulatory stops with aggregated on-time % below threshold.
         Reads `global_punctuality_stops.json` and pulls only the `time_type=="all"` entries
@@ -424,11 +463,11 @@ class Exporter:
         Columns: route_id, direction_id, stop_id, stop_name, on_time_pct, sample_size
         """
         # load the global punctuality file we just wrote
-        jp = export_root / "global_punctuality_stops.json"
+        jp = csv_dir.parent / "global_punctuality_stops.json"
         with jp.open("r", encoding="utf-8") as f:
             data = json.load(f)
 
-        out_path = export_root / "underperforming_regulatory_stops.csv"
+        out_path = csv_dir / "underperforming_regulatory_stops.csv"
         with out_path.open("w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([
@@ -453,8 +492,8 @@ class Exporter:
 
         print(f"🔄 Exported underperforming regulatory stops to {out_path}")
 
-    def _export_csv_mis_tracked_stops(self, export_root: Path):
-        path = export_root / "mis_tracked_stops.csv"
+    def _export_csv_mis_tracked_stops(self, csv_dir: Path):
+        path = csv_dir / "mis_tracked_stops.csv"
         # aggregate per stop_id/stop_name → list of (violation_type, severity)
         agg: dict[tuple[str,str], list[tuple[str,int]]] = {}
         for log in self.logs.values():

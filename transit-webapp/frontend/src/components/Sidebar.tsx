@@ -1,4 +1,3 @@
-// src/components/Sidebar.tsx
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -23,6 +22,7 @@ const Sidebar: React.FC = () => {
       {navItem('/travel-times', 'Travel Times')}
       {navItem('/routes', 'Routes')}
       {navItem('/stops',  'Stops')}
+      {navItem('/export-csv', 'Export CSV')}  {/* ← new */}
     </div>
   )
 }
