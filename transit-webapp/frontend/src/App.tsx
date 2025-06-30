@@ -8,6 +8,7 @@ import RoutesList from './pages/RoutesList'
 import StopsList  from './pages/StopsList'
 import RouteLayout from './pages/route'
 import StopLayout  from './pages/stop'
+import TravelTimes from './pages/TravelTimes'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="stops"           element={<StopsList />} />
           <Route path="stops/:sid/*"    element={<StopLayout />} />
           <Route path="*"               element={<Navigate to="/" replace />} />
+          <Route path="travel-times" element={<TravelTimes />} />
         </Routes>
       </Layout>
     </GlobalDataProvider>

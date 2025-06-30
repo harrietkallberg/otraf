@@ -34,3 +34,9 @@ def time_types():
 @global_bp.route('/stops', methods=['GET'])
 def stops():
     return jsonify(_load('stop_index'))
+
+@global_bp.route('/travel_times', methods=['GET'])
+def travel_times():
+    """Return global_travel_times.json"""
+    return jsonify(_load('travel_times'))
+

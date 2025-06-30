@@ -273,121 +273,57 @@ class Exporter:
 
     def _export_global_travel_times(self, export_root: Path):
         """
-        Flatten all per-route, per-direction segment travel-time summaries into
-        a single JSON where each entry corresponds to either a specific time_type
-        or the aggregated 'all' time_type for that segment.
+        Export global aggregated travel times by 
+        (from_stop_id, to_stop_id, time_type, direction_id).
+        Each entry includes overall mean and sample size, as well as per-route breakdowns.
         """
-        import json
         from collections import defaultdict
 
-        # 1) Build bucketed entries as before
-        agg: dict[tuple, dict] = {}
-        for rid, log in self.logs.items():
+        # 1) group by four fields
+        grouped = defaultdict(list)
+        for log in self.logs.values():
             for entry in log.performance_logs.get("travel_times", {}).values():
-                frm_id   = entry["from_stop_id"]
-                frm_name = entry["from_stop_name"]
-                to_id    = entry["to_stop_id"]
-                to_name  = entry["to_stop_name"]
-                tt       = entry["time_type"]
-                mean     = entry["statistics"]["mean"]
-                n        = entry["statistics"].get("sample_size", 0)
-                key      = (frm_id, to_id, tt)
+                key = (
+                    entry["from_stop_id"],
+                    entry["to_stop_id"],
+                    entry["time_type"],
+                    entry["direction_id"],
+                )
+                grouped[key].append(entry)
 
-                slot = agg.setdefault(key, {
-                    "from_stop_id":   frm_id,
-                    "from_stop_name": frm_name,
-                    "to_stop_id":     to_id,
-                    "to_stop_name":   to_name,
-                    "time_type":      tt,
-                    "aggregated": {
-                        "weighted_sum": 0.0,
-                        "sample_size":  0
-                    },
-                    "by_route": []
-                })
+        # 2) build global entries
+        global_entries = []
+        for (from_id, to_id, tt, did), entries in grouped.items():
+            # Sum up sample sizes from each route
+            total_samples = sum(e.get("sample_size", 0) for e in entries)
+            # Compute weighted mean across routes
+            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for e in entries)
+            overall_mean = round(weighted_sum / total_samples, 2) if total_samples > 0 else None
 
-                slot["aggregated"]["weighted_sum"] += mean * n
-                slot["aggregated"]["sample_size"]  += n
-                slot["by_route"].append({
-                    "route_id":     rid,
-                    "direction_id": entry["direction_id"],
-                    "mean":         mean,
-                    "sample_size":  n
-                })
-
-        # 2) Finalize the bucketed means
-        output = []
-        for (frm_id, to_id, tt), data in agg.items():
-            total_n = data["aggregated"]["sample_size"]
-            wsum    = data["aggregated"]["weighted_sum"]
-            data["aggregated"] = {
-                "mean":        (wsum / total_n) if total_n else None,
-                "sample_size": total_n
-            }
-            output.append(data)
-
-        # 3) Compute the 'all' aggregation per segment (frm_id, to_id)
-        all_buckets = defaultdict(lambda: {
-            "weighted_sum": 0.0,
-            "sample_size":  0,
-            "by_route":     defaultdict(lambda: {"weighted_sum": 0.0, "sample_size": 0})
-        })
-
-        # accumulate across every time_type entry we just finalized
-        for rec in output:
-            mean = rec["aggregated"]["mean"]
-            n    = rec["aggregated"]["sample_size"]
-            # skip empty buckets
-            if mean is None or n == 0:
-                continue
-
-            key     = (rec["from_stop_id"], rec["to_stop_id"])
-            agg_all = all_buckets[key]
-            agg_all["weighted_sum"] += mean * n
-            agg_all["sample_size"]  += n
-
-            # also accumulate per-route into this 'all' bucket
-            for br in rec["by_route"]:
-                rn = br["sample_size"]
-                rm = br["mean"]
-                if rn and rm is not None:
-                    pr = agg_all["by_route"][(br["route_id"], br["direction_id"])]
-                    pr["weighted_sum"] += rm * rn
-                    pr["sample_size"]  += rn
-
-        # append one 'all' entry per segment
-        for (frm_id, to_id), agg_all in all_buckets.items():
-            total_n = agg_all["sample_size"]
-            wsum    = agg_all["weighted_sum"]
-            # find names from any existing bucket
-            first = next(o for o in output if (o["from_stop_id"], o["to_stop_id"]) == (frm_id, to_id))
-            slot = {
-                "from_stop_id":   frm_id,
-                "from_stop_name": first["from_stop_name"],
-                "to_stop_id":     to_id,
-                "to_stop_name":   first["to_stop_name"],
-                "time_type":      "all",
+            global_entries.append({
+                "from_stop_id":  from_id,
+                "to_stop_id":    to_id,
+                "time_type":     tt,
+                "direction_id":  did,
                 "aggregated": {
-                    "mean":        (wsum / total_n) if total_n else None,
-                    "sample_size": total_n
+                    "mean":        overall_mean,
+                    "sample_size": total_samples
                 },
-                "by_route": []
-            }
-            # build per-route entries
-            for (rid, did), pr in agg_all["by_route"].items():
-                rn = pr["sample_size"]
-                rm = (pr["weighted_sum"] / rn) if rn else None
-                slot["by_route"].append({
-                    "route_id":     rid,
-                    "direction_id": did,
-                    "mean":         rm,
-                    "sample_size":  rn
-                })
-            output.append(slot)
+                "by_route": [
+                    {
+                        "route_id":     e["route_id"],
+                        "direction_id": e["direction_id"],
+                        "mean":         e["statistics"]["mean"],
+                        "sample_size":  e.get("sample_size", 0)
+                    }
+                    for e in entries
+                ]
+            })
 
-        # 4) Write out the JSON
-        self._dump_safe(output, export_root / "global_travel_times.json")
-        print(f"🔄 Exported global travel‐times (with 'all' aggregated entries) to {export_root / 'global_travel_times.json'}")
+        # 3) write out
+        self._dump_safe(global_entries, export_root / "global_travel_times.json")
+        print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
+
 
     def _export_global_histograms(self, export_root: Path):
         """

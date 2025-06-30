@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
     <div className="w-64 bg-gray-100 p-4 border-r h-full">
       <h2 className="text-xl font-bold mb-4">Transit Dashboard</h2>
       {navItem('/', 'Dashboard')}
+      {navItem('/travel-times', 'Travel Times')}
       {navItem('/routes', 'Routes')}
       {navItem('/stops',  'Stops')}
     </div>
