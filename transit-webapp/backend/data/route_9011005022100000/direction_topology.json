@@ -81,6 +81,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001421002",
+      "stop_name": "Landerydsvägen",
       "details": {
         "patterns": {
           "4-7": 2
@@ -96,6 +97,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001419001",
+      "stop_name": "Saab Civila",
       "details": {
         "patterns": {
           "4-7": 2
@@ -111,6 +113,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001418001",
+      "stop_name": "Saab Södra",
       "details": {
         "patterns": {
           "4-7": 2
@@ -126,6 +129,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005000435002",
+      "stop_name": "Saab Norra porten",
       "details": {
         "total_patterns": 2
       }
@@ -139,6 +143,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001424001",
+      "stop_name": "Korngatan",
       "details": {
         "total_patterns": 2
       }
@@ -152,6 +157,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001422001",
+      "stop_name": "Humlegatan",
       "details": {
         "total_patterns": 2
       }
@@ -165,6 +171,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005000050018",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "total_patterns": 2
       }
@@ -178,6 +185,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005000050018",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "patterns": {
           "2-7": 1
@@ -193,6 +201,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005001422002",
+      "stop_name": "Humlegatan",
       "details": {
         "total_patterns": 2
       }
@@ -206,6 +215,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005001424002",
+      "stop_name": "Korngatan",
       "details": {
         "total_patterns": 2
       }
@@ -219,6 +229,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005000435001",
+      "stop_name": "Saab Norra porten",
       "details": {
         "total_patterns": 2
       }
@@ -232,6 +243,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005001418002",
+      "stop_name": "Saab Södra",
       "details": {
         "total_patterns": 2
       }
@@ -245,6 +257,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005001419002",
+      "stop_name": "Saab Civila",
       "details": {
         "total_patterns": 2
       }
@@ -258,6 +271,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005001421001",
+      "stop_name": "Landerydsvägen",
       "details": {
         "total_patterns": 2
       }
@@ -266,7 +280,7 @@
   "stop_id_violations": {
     "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001421002 is missing from 2 trips, 0.2751031636863824 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002",
       "route_id": "9011005022100000",
@@ -274,6 +288,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001421002",
+      "stop_name": "Landerydsvägen",
       "details": {
         "total_missing_count": 2,
         "total_missing_perc": 0.2751031636863824,
@@ -284,7 +299,7 @@
     },
     "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001419001 is missing from 2 trips, 0.2751031636863824 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001",
       "route_id": "9011005022100000",
@@ -292,6 +307,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001419001",
+      "stop_name": "Saab Civila",
       "details": {
         "total_missing_count": 2,
         "total_missing_perc": 0.2751031636863824,
@@ -302,7 +318,7 @@
     },
     "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001418001 is missing from 2 trips, 0.2751031636863824 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001",
       "route_id": "9011005022100000",
@@ -310,6 +326,7 @@
       "route_short_name": "21",
       "direction_id": "0",
       "stop_id": "9022005001418001",
+      "stop_name": "Saab Södra",
       "details": {
         "total_missing_count": 2,
         "total_missing_perc": 0.2751031636863824,
@@ -320,7 +337,7 @@
     },
     "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000050018 is missing from 1 trips, 0.14204545454545456 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018",
       "route_id": "9011005022100000",
@@ -328,6 +345,7 @@
       "route_short_name": "21",
       "direction_id": "1",
       "stop_id": "9022005000050018",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "total_missing_count": 1,
         "total_missing_perc": 0.14204545454545456,

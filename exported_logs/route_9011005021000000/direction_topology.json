@@ -483,6 +483,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000153001",
+      "stop_name": "Roxtuna",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -505,6 +506,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002024002",
+      "stop_name": "Udden",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -526,6 +528,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002025002",
+      "stop_name": "Östernäs",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -547,6 +550,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002026002",
+      "stop_name": "Hallonvägen",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -568,6 +572,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005003595002",
+      "stop_name": "Bryggvägen",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -589,6 +594,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002028002",
+      "stop_name": "Stensättersvägen",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -610,6 +616,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002030002",
+      "stop_name": "Näsby allé",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -631,6 +638,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000155002",
+      "stop_name": "Gärstad",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -652,6 +660,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002014002",
+      "stop_name": "Åby",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -673,6 +682,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002015002",
+      "stop_name": "Sigbjörnsgatan",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -693,6 +703,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000440002",
+      "stop_name": "Runstensgatan",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -713,6 +724,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001458002",
+      "stop_name": "Stångebro",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -733,6 +745,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000423001",
+      "stop_name": "Anders Ljungstedts gy.",
       "details": {
         "patterns": {
           "14-29": 72,
@@ -753,6 +766,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000050007",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "patterns": {
           "17-29": 1,
@@ -771,6 +785,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001243001",
+      "stop_name": "Kungsgatan",
       "details": {
         "patterns": {
           "1-14": 156,
@@ -792,6 +807,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000046003",
+      "stop_name": "Trädgårdstorget",
       "details": {
         "patterns": {
           "1-14": 156,
@@ -810,6 +826,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000042001",
+      "stop_name": "Tinnerbäcksbadet",
       "details": {
         "patterns": {
           "1-14": 156,
@@ -827,6 +844,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001222001",
+      "stop_name": "Bergdalsgatan",
       "details": {
         "patterns": {
           "1-14": 156,
@@ -844,6 +862,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001252001",
+      "stop_name": "Risbrinksgatan",
       "details": {
         "patterns": {
           "1-14": 156,
@@ -860,6 +879,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001392001",
+      "stop_name": "Braskens bro",
       "details": {
         "patterns": {
           "1-14": 156,
@@ -876,6 +896,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001332001",
+      "stop_name": "Jakobsdal",
       "details": {
         "patterns": {
           "1-14": 156
@@ -891,6 +912,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000448001",
+      "stop_name": "Ekholmen Brokindsleden",
       "details": {
         "patterns": {
           "1-14": 156
@@ -906,6 +928,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000439001",
+      "stop_name": "Södra Ullstämma",
       "details": {
         "patterns": {
           "1-14": 156
@@ -921,6 +944,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002946001",
+      "stop_name": "Harvestad",
       "details": {
         "patterns": {
           "1-14": 156
@@ -936,6 +960,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002949001",
+      "stop_name": "Klampenborg",
       "details": {
         "patterns": {
           "1-14": 156
@@ -951,6 +976,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000320001",
+      "stop_name": "Sturefors centrum",
       "details": {
         "patterns": {
           "1-14": 156
@@ -966,6 +992,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005080005001",
+      "stop_name": "Norrbergavägen",
       "details": {
         "patterns": {
           "1-14": 156
@@ -981,6 +1008,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002953001",
+      "stop_name": "Vist skola",
       "details": {
         "patterns": {
           "1-14": 156
@@ -996,6 +1024,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002954001",
+      "stop_name": "Kråkbärsvägen",
       "details": {
         "patterns": {
           "1-14": 156
@@ -1011,6 +1040,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002954002",
+      "stop_name": "Kråkbärsvägen",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1035,6 +1065,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002953002",
+      "stop_name": "Vist skola",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1058,6 +1089,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005080005002",
+      "stop_name": "Norrbergavägen",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1080,6 +1112,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000320002",
+      "stop_name": "Sturefors centrum",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1102,6 +1135,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002949002",
+      "stop_name": "Klampenborg",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1124,6 +1158,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002946002",
+      "stop_name": "Harvestad",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1144,6 +1179,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000439002",
+      "stop_name": "Södra Ullstämma",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1164,6 +1200,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000448002",
+      "stop_name": "Ekholmen Brokindsleden",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1183,6 +1220,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001332002",
+      "stop_name": "Jakobsdal",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1202,6 +1240,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001392002",
+      "stop_name": "Braskens bro",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1221,6 +1260,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001252002",
+      "stop_name": "Risbrinksgatan",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1240,6 +1280,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001447002",
+      "stop_name": "Kristinebergsgatan",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1259,6 +1300,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001221002",
+      "stop_name": "Folkungavallen",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1278,6 +1320,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000042002",
+      "stop_name": "Tinnerbäcksbadet",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1297,6 +1340,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000046006",
+      "stop_name": "Trädgårdstorget",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1315,6 +1359,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001243002",
+      "stop_name": "Kungsgatan",
       "details": {
         "patterns": {
           "17-29": 81,
@@ -1334,6 +1379,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000050028",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "patterns": {
           "27-29": 1,
@@ -1350,6 +1396,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001458001",
+      "stop_name": "Stångebro",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1369,6 +1416,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000440001",
+      "stop_name": "Runstensgatan",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1388,6 +1436,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002015001",
+      "stop_name": "Sigbjörnsgatan",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1407,6 +1456,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002014001",
+      "stop_name": "Åby",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1426,6 +1476,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000155001",
+      "stop_name": "Gärstad",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1445,6 +1496,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002030001",
+      "stop_name": "Näsby allé",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1464,6 +1516,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002028001",
+      "stop_name": "Stensättersvägen",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1483,6 +1536,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005003595001",
+      "stop_name": "Bryggvägen",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1502,6 +1556,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002026001",
+      "stop_name": "Hallonvägen",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1521,6 +1576,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002025001",
+      "stop_name": "Östernäs",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1539,6 +1595,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002024001",
+      "stop_name": "Udden",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1557,6 +1614,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000153001",
+      "stop_name": "Roxtuna",
       "details": {
         "patterns": {
           "1-17": 266,
@@ -1570,7 +1628,7 @@
   "stop_id_violations": {
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000153001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000153001 is missing from 89 trips, 1.8350515463917527 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000153001",
       "route_id": "9011005021000000",
@@ -1578,6 +1636,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000153001",
+      "stop_name": "Roxtuna",
       "details": {
         "total_missing_count": 89,
         "total_missing_perc": 1.8350515463917527,
@@ -1595,7 +1654,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002024002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002024002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002024002",
       "route_id": "9011005021000000",
@@ -1603,6 +1662,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002024002",
+      "stop_name": "Udden",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1619,7 +1679,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002025002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002025002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002025002",
       "route_id": "9011005021000000",
@@ -1627,6 +1687,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002025002",
+      "stop_name": "Östernäs",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1643,7 +1704,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002026002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002026002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002026002",
       "route_id": "9011005021000000",
@@ -1651,6 +1712,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002026002",
+      "stop_name": "Hallonvägen",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1667,7 +1729,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005003595002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005003595002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005003595002",
       "route_id": "9011005021000000",
@@ -1675,6 +1737,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005003595002",
+      "stop_name": "Bryggvägen",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1691,7 +1754,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002028002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002028002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002028002",
       "route_id": "9011005021000000",
@@ -1699,6 +1762,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002028002",
+      "stop_name": "Stensättersvägen",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1715,7 +1779,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002030002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002030002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002030002",
       "route_id": "9011005021000000",
@@ -1723,6 +1787,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002030002",
+      "stop_name": "Näsby allé",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1739,7 +1804,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000155002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000155002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000155002",
       "route_id": "9011005021000000",
@@ -1747,6 +1812,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000155002",
+      "stop_name": "Gärstad",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1763,7 +1829,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002014002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002014002 is missing from 88 trips, 1.8144329896907216 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002014002",
       "route_id": "9011005021000000",
@@ -1771,6 +1837,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002014002",
+      "stop_name": "Åby",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.8144329896907216,
@@ -1787,7 +1854,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002015002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002015002 is missing from 87 trips, 1.7938144329896908 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002015002",
       "route_id": "9011005021000000",
@@ -1795,6 +1862,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002015002",
+      "stop_name": "Sigbjörnsgatan",
       "details": {
         "total_missing_count": 87,
         "total_missing_perc": 1.7938144329896908,
@@ -1810,7 +1878,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000440002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000440002 is missing from 87 trips, 1.7938144329896908 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000440002",
       "route_id": "9011005021000000",
@@ -1818,6 +1886,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000440002",
+      "stop_name": "Runstensgatan",
       "details": {
         "total_missing_count": 87,
         "total_missing_perc": 1.7938144329896908,
@@ -1833,7 +1902,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001458002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001458002 is missing from 87 trips, 1.7938144329896908 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001458002",
       "route_id": "9011005021000000",
@@ -1841,6 +1910,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001458002",
+      "stop_name": "Stångebro",
       "details": {
         "total_missing_count": 87,
         "total_missing_perc": 1.7938144329896908,
@@ -1856,7 +1926,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000423001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000423001 is missing from 87 trips, 1.7938144329896908 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000423001",
       "route_id": "9011005021000000",
@@ -1864,6 +1934,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000423001",
+      "stop_name": "Anders Ljungstedts gy.",
       "details": {
         "total_missing_count": 87,
         "total_missing_perc": 1.7938144329896908,
@@ -1879,7 +1950,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000050007": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000050007 is missing from 4 trips, 0.08247422680412371 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000050007",
       "route_id": "9011005021000000",
@@ -1887,6 +1958,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000050007",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "total_missing_count": 4,
         "total_missing_perc": 0.08247422680412371,
@@ -1900,7 +1972,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001243001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 4,
       "description": "Stop ID 9022005001243001 is missing from 791 trips, 16.309278350515463 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001243001",
       "route_id": "9011005021000000",
@@ -1908,6 +1980,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001243001",
+      "stop_name": "Kungsgatan",
       "details": {
         "total_missing_count": 791,
         "total_missing_perc": 16.309278350515463,
@@ -1924,7 +1997,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000046003": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000046003 is missing from 159 trips, 3.2783505154639174 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000046003",
       "route_id": "9011005021000000",
@@ -1932,6 +2005,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000046003",
+      "stop_name": "Trädgårdstorget",
       "details": {
         "total_missing_count": 159,
         "total_missing_perc": 3.2783505154639174,
@@ -1945,7 +2019,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000042001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000042001 is missing from 158 trips, 3.257731958762886 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000042001",
       "route_id": "9011005021000000",
@@ -1953,6 +2027,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000042001",
+      "stop_name": "Tinnerbäcksbadet",
       "details": {
         "total_missing_count": 158,
         "total_missing_perc": 3.257731958762886,
@@ -1965,7 +2040,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001222001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001222001 is missing from 158 trips, 3.257731958762886 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001222001",
       "route_id": "9011005021000000",
@@ -1973,6 +2048,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001222001",
+      "stop_name": "Bergdalsgatan",
       "details": {
         "total_missing_count": 158,
         "total_missing_perc": 3.257731958762886,
@@ -1985,7 +2061,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001252001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001252001 is missing from 157 trips, 3.2371134020618557 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001252001",
       "route_id": "9011005021000000",
@@ -1993,6 +2069,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001252001",
+      "stop_name": "Risbrinksgatan",
       "details": {
         "total_missing_count": 157,
         "total_missing_perc": 3.2371134020618557,
@@ -2004,7 +2081,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001392001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001392001 is missing from 157 trips, 3.2371134020618557 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001392001",
       "route_id": "9011005021000000",
@@ -2012,6 +2089,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001392001",
+      "stop_name": "Braskens bro",
       "details": {
         "total_missing_count": 157,
         "total_missing_perc": 3.2371134020618557,
@@ -2023,7 +2101,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001332001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001332001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005001332001",
       "route_id": "9011005021000000",
@@ -2031,6 +2109,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005001332001",
+      "stop_name": "Jakobsdal",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2041,7 +2120,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000448001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000448001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000448001",
       "route_id": "9011005021000000",
@@ -2049,6 +2128,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000448001",
+      "stop_name": "Ekholmen Brokindsleden",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2059,7 +2139,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000439001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000439001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000439001",
       "route_id": "9011005021000000",
@@ -2067,6 +2147,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000439001",
+      "stop_name": "Södra Ullstämma",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2077,7 +2158,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002946001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002946001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002946001",
       "route_id": "9011005021000000",
@@ -2085,6 +2166,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002946001",
+      "stop_name": "Harvestad",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2095,7 +2177,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002949001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002949001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002949001",
       "route_id": "9011005021000000",
@@ -2103,6 +2185,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002949001",
+      "stop_name": "Klampenborg",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2113,7 +2196,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000320001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000320001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005000320001",
       "route_id": "9011005021000000",
@@ -2121,6 +2204,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005000320001",
+      "stop_name": "Sturefors centrum",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2131,7 +2215,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005080005001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005080005001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005080005001",
       "route_id": "9011005021000000",
@@ -2139,6 +2223,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005080005001",
+      "stop_name": "Norrbergavägen",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2149,7 +2234,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002953001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002953001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002953001",
       "route_id": "9011005021000000",
@@ -2157,6 +2242,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002953001",
+      "stop_name": "Vist skola",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2167,7 +2253,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002954001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002954001 is missing from 156 trips, 3.216494845360825 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_0_9022005002954001",
       "route_id": "9011005021000000",
@@ -2175,6 +2261,7 @@
       "route_short_name": "10",
       "direction_id": "0",
       "stop_id": "9022005002954001",
+      "stop_name": "Kråkbärsvägen",
       "details": {
         "total_missing_count": 156,
         "total_missing_perc": 3.216494845360825,
@@ -2185,7 +2272,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002954002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002954002 is missing from 91 trips, 1.8055555555555554 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002954002",
       "route_id": "9011005021000000",
@@ -2193,6 +2280,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002954002",
+      "stop_name": "Kråkbärsvägen",
       "details": {
         "total_missing_count": 91,
         "total_missing_perc": 1.8055555555555554,
@@ -2212,7 +2300,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002953002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002953002 is missing from 89 trips, 1.7658730158730158 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002953002",
       "route_id": "9011005021000000",
@@ -2220,6 +2308,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002953002",
+      "stop_name": "Vist skola",
       "details": {
         "total_missing_count": 89,
         "total_missing_perc": 1.7658730158730158,
@@ -2238,7 +2327,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005080005002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005080005002 is missing from 88 trips, 1.746031746031746 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005080005002",
       "route_id": "9011005021000000",
@@ -2246,6 +2335,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005080005002",
+      "stop_name": "Norrbergavägen",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.746031746031746,
@@ -2263,7 +2353,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000320002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000320002 is missing from 88 trips, 1.746031746031746 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000320002",
       "route_id": "9011005021000000",
@@ -2271,6 +2361,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000320002",
+      "stop_name": "Sturefors centrum",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.746031746031746,
@@ -2288,7 +2379,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002949002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002949002 is missing from 88 trips, 1.746031746031746 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002949002",
       "route_id": "9011005021000000",
@@ -2296,6 +2387,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002949002",
+      "stop_name": "Klampenborg",
       "details": {
         "total_missing_count": 88,
         "total_missing_perc": 1.746031746031746,
@@ -2313,7 +2405,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002946002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005002946002 is missing from 86 trips, 1.7063492063492063 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002946002",
       "route_id": "9011005021000000",
@@ -2321,6 +2413,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002946002",
+      "stop_name": "Harvestad",
       "details": {
         "total_missing_count": 86,
         "total_missing_perc": 1.7063492063492063,
@@ -2336,7 +2429,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000439002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000439002 is missing from 86 trips, 1.7063492063492063 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000439002",
       "route_id": "9011005021000000",
@@ -2344,6 +2437,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000439002",
+      "stop_name": "Södra Ullstämma",
       "details": {
         "total_missing_count": 86,
         "total_missing_perc": 1.7063492063492063,
@@ -2359,7 +2453,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000448002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000448002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000448002",
       "route_id": "9011005021000000",
@@ -2367,6 +2461,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000448002",
+      "stop_name": "Ekholmen Brokindsleden",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2381,7 +2476,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001332002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001332002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001332002",
       "route_id": "9011005021000000",
@@ -2389,6 +2484,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001332002",
+      "stop_name": "Jakobsdal",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2403,7 +2499,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001392002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001392002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001392002",
       "route_id": "9011005021000000",
@@ -2411,6 +2507,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001392002",
+      "stop_name": "Braskens bro",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2425,7 +2522,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001252002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001252002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001252002",
       "route_id": "9011005021000000",
@@ -2433,6 +2530,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001252002",
+      "stop_name": "Risbrinksgatan",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2447,7 +2545,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001447002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001447002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001447002",
       "route_id": "9011005021000000",
@@ -2455,6 +2553,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001447002",
+      "stop_name": "Kristinebergsgatan",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2469,7 +2568,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001221002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005001221002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001221002",
       "route_id": "9011005021000000",
@@ -2477,6 +2576,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001221002",
+      "stop_name": "Folkungavallen",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2491,7 +2591,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000042002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000042002 is missing from 85 trips, 1.6865079365079365 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000042002",
       "route_id": "9011005021000000",
@@ -2499,6 +2599,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000042002",
+      "stop_name": "Tinnerbäcksbadet",
       "details": {
         "total_missing_count": 85,
         "total_missing_perc": 1.6865079365079365,
@@ -2513,7 +2614,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000046006": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000046006 is missing from 84 trips, 1.6666666666666667 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000046006",
       "route_id": "9011005021000000",
@@ -2521,6 +2622,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000046006",
+      "stop_name": "Trädgårdstorget",
       "details": {
         "total_missing_count": 84,
         "total_missing_perc": 1.6666666666666667,
@@ -2534,7 +2636,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001243002": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 3,
       "description": "Stop ID 9022005001243002 is missing from 750 trips, 14.880952380952381 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001243002",
       "route_id": "9011005021000000",
@@ -2542,6 +2644,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001243002",
+      "stop_name": "Kungsgatan",
       "details": {
         "total_missing_count": 750,
         "total_missing_perc": 14.880952380952381,
@@ -2556,7 +2659,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000050028": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000050028 is missing from 2 trips, 0.03968253968253968 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000050028",
       "route_id": "9011005021000000",
@@ -2564,6 +2667,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000050028",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "total_missing_count": 2,
         "total_missing_perc": 0.03968253968253968,
@@ -2575,7 +2679,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001458001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005001458001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005001458001",
       "route_id": "9011005021000000",
@@ -2583,6 +2687,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005001458001",
+      "stop_name": "Stångebro",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2597,7 +2702,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000440001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005000440001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000440001",
       "route_id": "9011005021000000",
@@ -2605,6 +2710,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000440001",
+      "stop_name": "Runstensgatan",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2619,7 +2725,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002015001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002015001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002015001",
       "route_id": "9011005021000000",
@@ -2627,6 +2733,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002015001",
+      "stop_name": "Sigbjörnsgatan",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2641,7 +2748,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002014001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002014001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002014001",
       "route_id": "9011005021000000",
@@ -2649,6 +2756,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002014001",
+      "stop_name": "Åby",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2663,7 +2771,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000155001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005000155001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000155001",
       "route_id": "9011005021000000",
@@ -2671,6 +2779,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000155001",
+      "stop_name": "Gärstad",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2685,7 +2794,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002030001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002030001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002030001",
       "route_id": "9011005021000000",
@@ -2693,6 +2802,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002030001",
+      "stop_name": "Näsby allé",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2707,7 +2817,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002028001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002028001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002028001",
       "route_id": "9011005021000000",
@@ -2715,6 +2825,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002028001",
+      "stop_name": "Stensättersvägen",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2729,7 +2840,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005003595001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005003595001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005003595001",
       "route_id": "9011005021000000",
@@ -2737,6 +2848,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005003595001",
+      "stop_name": "Bryggvägen",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2751,7 +2863,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002026001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002026001 is missing from 313 trips, 6.2103174603174605 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002026001",
       "route_id": "9011005021000000",
@@ -2759,6 +2871,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002026001",
+      "stop_name": "Hallonvägen",
       "details": {
         "total_missing_count": 313,
         "total_missing_perc": 6.2103174603174605,
@@ -2773,7 +2886,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002025001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002025001 is missing from 312 trips, 6.190476190476191 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002025001",
       "route_id": "9011005021000000",
@@ -2781,6 +2894,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002025001",
+      "stop_name": "Östernäs",
       "details": {
         "total_missing_count": 312,
         "total_missing_perc": 6.190476190476191,
@@ -2794,7 +2908,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002024001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005002024001 is missing from 312 trips, 6.190476190476191 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005002024001",
       "route_id": "9011005021000000",
@@ -2802,6 +2916,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005002024001",
+      "stop_name": "Udden",
       "details": {
         "total_missing_count": 312,
         "total_missing_perc": 6.190476190476191,
@@ -2815,7 +2930,7 @@
     },
     "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000153001": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 2,
       "description": "Stop ID 9022005000153001 is missing from 312 trips, 6.190476190476191 %.",
       "entity_key": "direction_topology_9011005021000000_direction_id_stop_id_1_9022005000153001",
       "route_id": "9011005021000000",
@@ -2823,6 +2938,7 @@
       "route_short_name": "10",
       "direction_id": "1",
       "stop_id": "9022005000153001",
+      "stop_name": "Roxtuna",
       "details": {
         "total_missing_count": 312,
         "total_missing_perc": 6.190476190476191,
@@ -2906,7 +3022,10 @@
       "stop_id": 58
     },
     "violation_counts_by_severity": {
-      "1": 60
+      "1": 46,
+      "4": 1,
+      "3": 1,
+      "2": 12
     },
     "route_summary": {
       "total_directions": 2,

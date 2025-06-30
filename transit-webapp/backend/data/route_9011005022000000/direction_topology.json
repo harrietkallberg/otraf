@@ -55,6 +55,7 @@
       "route_short_name": "20",
       "direction_id": "0",
       "stop_id": "9022005004139001",
+      "stop_name": "Mjärdevi",
       "details": {
         "total_patterns": 1
       }
@@ -68,6 +69,7 @@
       "route_short_name": "20",
       "direction_id": "0",
       "stop_id": "9022005004232001",
+      "stop_name": "Mjärdevi Center",
       "details": {
         "total_patterns": 1
       }
@@ -81,6 +83,7 @@
       "route_short_name": "20",
       "direction_id": "0",
       "stop_id": "9022005003847001",
+      "stop_name": "Forskningsbyn",
       "details": {
         "total_patterns": 1
       }
@@ -94,6 +97,7 @@
       "route_short_name": "20",
       "direction_id": "0",
       "stop_id": "9022005001257002",
+      "stop_name": "Mäster Mattias väg",
       "details": {
         "total_patterns": 1
       }
@@ -107,6 +111,7 @@
       "route_short_name": "20",
       "direction_id": "0",
       "stop_id": "9022005001256002",
+      "stop_name": "Universitetet",
       "details": {
         "total_patterns": 1
       }
@@ -120,6 +125,7 @@
       "route_short_name": "20",
       "direction_id": "0",
       "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "total_patterns": 1
       }
@@ -133,6 +139,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "patterns": {
           "2-6": 1
@@ -148,6 +155,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005001256001",
+      "stop_name": "Universitetet",
       "details": {
         "total_patterns": 2
       }
@@ -161,6 +169,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005001257001",
+      "stop_name": "Mäster Mattias väg",
       "details": {
         "total_patterns": 2
       }
@@ -174,6 +183,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005003847002",
+      "stop_name": "Forskningsbyn",
       "details": {
         "total_patterns": 2
       }
@@ -187,6 +197,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005004232003",
+      "stop_name": "Mjärdevi Center",
       "details": {
         "total_patterns": 2
       }
@@ -200,6 +211,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005004139002",
+      "stop_name": "Mjärdevi",
       "details": {
         "total_patterns": 2
       }
@@ -208,7 +220,7 @@
   "stop_id_violations": {
     "direction_topology_9011005022000000_direction_id_stop_id_1_9022005000050020": {
       "violation_type": "missing_stop_id_in_pattern",
-      "severity": 1.0,
+      "severity": 1,
       "description": "Stop ID 9022005000050020 is missing from 1 trips, 0.141643059490085 %.",
       "entity_key": "direction_topology_9011005022000000_direction_id_stop_id_1_9022005000050020",
       "route_id": "9011005022000000",
@@ -216,6 +228,7 @@
       "route_short_name": "20",
       "direction_id": "1",
       "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
       "details": {
         "total_missing_count": 1,
         "total_missing_perc": 0.141643059490085,

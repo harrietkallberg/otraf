@@ -146,13 +146,17 @@ class DataFormer:
     def _analyze_single_parent_station_topology(self, df, parent_station, parent_col='parent_station'):
         parent_data = df[df[parent_col].astype(str) == parent_station]
         stop_ids   = parent_data['stop_id'].unique().tolist()
-        stop_names = parent_data['stop_name'].unique().tolist()
+        # collect all raw names …
+        names = parent_data['stop_name'].astype(str)
+        # … then pick the most common (mode) as a single name
+        stop_name = names.mode().iloc[0] if not names.empty else str(parent_station)
+
 
         # 1) Gather per-stop directional analysis
         stop_id_analysis = {}
         missing_data = []
         for sid in stop_ids:
-            dirs, counts = self._get_stop_id_directions(df, sid, parent_station)
+            dirs, counts = self._get_stop_id_directions(df, sid, parent_station, stop_name)
             is_multi = len(dirs) > 1
             stop_id_analysis[str(sid)] = {
                 'directions':         dirs,
@@ -175,7 +179,7 @@ class DataFormer:
                 description=label_desc,
                 entity_key=parent_key,
                 stop_ids=stop_ids,
-                stop_names=stop_names,
+                stop_name=stop_name,
                 directional_analysis=stop_id_analysis
             )
             self.log.add_label('stop_topology', 'parent_station', parent_key, label)
@@ -195,6 +199,7 @@ class DataFormer:
                         entity_key=sk,
                         parent_station=parent_station,
                         stop_id=str(sid),
+                        stop_name=stop_name,
                         details=stop_id_analysis[str(sid)]
                     )
                     self.log.add_violation('stop_topology', 'stop_id', sk, sv)
@@ -212,6 +217,7 @@ class DataFormer:
                 entity_key=parent_key,
                 parent_station=parent_station,
                 stop_ids=missing_data,
+                stop_name=stop_name,
                 details=stop_id_analysis
             )
             return log_and_return('Undefined', v)
@@ -230,6 +236,7 @@ class DataFormer:
                 description=f"2-stop station misassigned: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
+                stop_name=stop_name,
                 details={'analysis': stop_id_analysis}
             )
             return log_and_return('Undefined', v)
@@ -246,6 +253,7 @@ class DataFormer:
                 description=f"Even-stop unpaired: {single} single, {multi} multi",
                 entity_key=parent_key,
                 parent_station=parent_station,
+                stop_name=stop_name,
                 details={'analysis': stop_id_analysis}
             )
             return log_and_return('Undefined', v)
@@ -260,6 +268,7 @@ class DataFormer:
             description=f"Odd-stop unpaired: {single} single, {multi} multi",
             entity_key=parent_key,
             parent_station=parent_station,
+            stop_name=stop_name,
             details={'analysis': stop_id_analysis}
         )
         return log_and_return('Undefined', v)
@@ -272,7 +281,7 @@ class DataFormer:
             name = row['stop_name']
             ps  = row['parent_station']
             key = self.log.build_entity_key("stop_topology", parent_station=ps, stop_id=sid)
-            dirs, counts = self._get_stop_id_directions(df, sid, ps, entity_key=key)
+            dirs, counts = self._get_stop_id_directions(df, sid, ps, name, entity_key=key)
             desc = 'multi_directional' if len(dirs)>1 else 'single_directional' if dirs else 'no_data'
             le = self.log.create_label_entry(
                 label_type='stop_id_stop_topology',
@@ -300,27 +309,37 @@ class DataFormer:
                 print(f"🚩 Stop ID {sid}: No direction data")
         print("✅ Stop ID validation complete.")
 
-    def _get_stop_id_directions(self, df, stop_id, parent_station, entity_key=None):
+    def _get_stop_id_directions(self, df, stop_id, parent_station, stop_name, entity_key=None):
+        """
+        Returns the list of directions and their counts for a given stop_id under a parent_station.
+        If no data is found, logs a violation with a single stop_name picked by mode.
+        """
         subset = df[
-            (df['stop_id'].astype(str)==str(stop_id)) &
-            (df['parent_station'].astype(str)==str(parent_station))
+            (df['stop_id'].astype(str) == str(stop_id)) &
+            (df['parent_station'].astype(str) == str(parent_station))
         ]
+        # If there's no data for this stop under the given parent_station, log a violation
         if subset.empty:
             if entity_key is None:
-                entity_key = self.log.build_entity_key('stop_topology',
-                                                    parent_station=parent_station,
-                                                    stop_id=stop_id)
+                entity_key = self.log.build_entity_key(
+                    'stop_topology',
+                    parent_station=parent_station,
+                    stop_id=stop_id
+                )
             ve = self.log.create_violation_entry(
                 violation_type='stop_id_missing_from_schedule',
                 severity=3,
                 description=f"No data for stop {stop_id} in parent_station {parent_station}",
                 entity_key=entity_key,
                 stop_id=stop_id,
-                parent_station=parent_station
+                stop_name=stop_name,
+                parent_station=parent_station,
             )
-            self.log.add_violation('stop_topology','stop_id',entity_key,ve)
+            self.log.add_violation('stop_topology', 'stop_id', entity_key, ve)
             print(f"⚠️ {ve['description']}")
             return [], {}
+
+        # Otherwise, compute unique directions and their occurrence counts
         dirs = subset['direction_id'].unique().tolist()
         counts = subset['direction_id'].value_counts().to_dict()
         return dirs, counts
@@ -466,6 +485,10 @@ class DataFormer:
 
         # 9) Per-stop labels, violations & prints, in canonical order
         for sid in canonical:
+            # one-off lookup of stop names for this direction
+            stop_names = df[df['stop_id'].astype(str) == str(sid)]['stop_name'].astype(str)
+            common_name = stop_names.mode().iloc[0] if not stop_names.empty else str(sid)
+
             stop_key = self.log.build_entity_key(
                 "direction_topology", direction_id=direction_id, stop_id=sid
             )
@@ -480,14 +503,15 @@ class DataFormer:
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
+                    stop_name = common_name,
                     details={"patterns": dict(missing_by_pattern[sid])}
                 )
                 self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
-
+                
                 # existing violation
                 miss_perc = miss_cnt/total_trips *100
                 desc = f"Stop ID {sid} is missing from {miss_cnt} trips, {miss_perc} %."
-                severity = np.ceil(miss_cnt/total_trips*5)
+                severity = 1 + sum(miss_perc > t for t in (5, 10, 15, 25))
                 v = self.log.create_violation_entry(
                     violation_type="missing_stop_id_in_pattern",
                     severity = severity,
@@ -495,6 +519,7 @@ class DataFormer:
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
+                    stop_name = common_name,
                     details={
                         "total_missing_count": miss_cnt,
                         "total_missing_perc": miss_perc,
@@ -514,6 +539,7 @@ class DataFormer:
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
+                    stop_name = common_name,
                     details={"patterns": dict(unexpected_by_pattern[sid])}
                 )
                 self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
@@ -527,6 +553,7 @@ class DataFormer:
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
+                    stop_name = common_name,
                     details={
                         "total_unexpected_count": unexp_cnt,
                         "total_unexpected_perc": unexp_perc,
@@ -545,6 +572,7 @@ class DataFormer:
                     entity_key=stop_key,
                     direction_id=direction_id,
                     stop_id=str(sid),
+                    stop_name = common_name,
                     details={"total_patterns": 1 + len(alt_counter)}
                 )
                 self.log.add_label("direction_topology", "stop_id", stop_key, label_entry)
@@ -605,6 +633,10 @@ class DataFormer:
         regulatory_count = 0
 
         for (direction_id, stop_id), group in df.groupby(["direction_id", "stop_id"]):
+            # one-off lookup of stop names for this direction
+            stop_names = df[df['stop_id'].astype(str) == str(stop_id)]['stop_name'].astype(str)
+            common_name = stop_names.mode().iloc[0] if not stop_names.empty else str(stop_id)
+
             times = group["scheduled_departure_time"].dropna()
             if times.empty:
                 continue
@@ -624,6 +656,7 @@ class DataFormer:
                     entity_key=entity_key,
                     direction_id=direction_id,
                     stop_id=stop_id,
+                    stop_name = common_name,
                     threshold=threshold,
                     proportion_zero_seconds=round(proportion, 3)
                 )

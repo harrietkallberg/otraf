@@ -9,6 +9,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005000050011",
+      "stop_name": "Linköpings resecentrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -21,6 +22,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005000216001",
+      "stop_name": "Johannelunds centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -33,6 +35,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005000217003",
+      "stop_name": "Nedre Johannelund",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -45,6 +48,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005001327002",
+      "stop_name": "Fönvindsvägen östra",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -57,6 +61,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005001460002",
+      "stop_name": "Tallboda centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -69,6 +74,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005001460004",
+      "stop_name": "Tallboda centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -81,6 +87,7 @@
       "route_short_name": "13",
       "direction_id": "0",
       "stop_id": "9022005080007002",
+      "stop_name": "Gränsliden",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -93,6 +100,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005000050008",
+      "stop_name": "Linköpings resecentrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -105,6 +113,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005000216002",
+      "stop_name": "Johannelunds centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -117,6 +126,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005000217003",
+      "stop_name": "Nedre Johannelund",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -129,6 +139,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005000351001",
+      "stop_name": "Linköping Arena",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -141,6 +152,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005001327001",
+      "stop_name": "Fönvindsvägen östra",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -153,6 +165,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005001460001",
+      "stop_name": "Tallboda centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -165,6 +178,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005001460003",
+      "stop_name": "Tallboda centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -177,6 +191,7 @@
       "route_short_name": "13",
       "direction_id": "1",
       "stop_id": "9022005080007001",
+      "stop_name": "Gränsliden",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     }

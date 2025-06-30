@@ -9,6 +9,7 @@
       "route_short_name": "5",
       "direction_id": "0",
       "stop_id": "9022005000048001",
+      "stop_name": "Skäggetorp centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -21,6 +22,7 @@
       "route_short_name": "5",
       "direction_id": "0",
       "stop_id": "9022005000050004",
+      "stop_name": "Linköpings resecentrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -33,6 +35,7 @@
       "route_short_name": "5",
       "direction_id": "0",
       "stop_id": "9022005000054002",
+      "stop_name": "Ekholmens centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -45,6 +48,7 @@
       "route_short_name": "5",
       "direction_id": "0",
       "stop_id": "9022005000419001",
+      "stop_name": "Räknestickan",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -57,6 +61,7 @@
       "route_short_name": "5",
       "direction_id": "0",
       "stop_id": "9022005000429001",
+      "stop_name": "IKEA",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -69,6 +74,7 @@
       "route_short_name": "5",
       "direction_id": "0",
       "stop_id": "9022005001241001",
+      "stop_name": "Sörgårdsgatan",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -81,6 +87,7 @@
       "route_short_name": "5",
       "direction_id": "1",
       "stop_id": "9022005000048001",
+      "stop_name": "Skäggetorp centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -93,6 +100,7 @@
       "route_short_name": "5",
       "direction_id": "1",
       "stop_id": "9022005000050010",
+      "stop_name": "Linköpings resecentrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -105,6 +113,7 @@
       "route_short_name": "5",
       "direction_id": "1",
       "stop_id": "9022005000054001",
+      "stop_name": "Ekholmens centrum",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -117,6 +126,7 @@
       "route_short_name": "5",
       "direction_id": "1",
       "stop_id": "9022005000419002",
+      "stop_name": "Räknestickan",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -129,6 +139,7 @@
       "route_short_name": "5",
       "direction_id": "1",
       "stop_id": "9022005000429002",
+      "stop_name": "IKEA",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     },
@@ -141,6 +152,7 @@
       "route_short_name": "5",
       "direction_id": "1",
       "stop_id": "9022005001241002",
+      "stop_name": "Sörgårdsgatan",
       "threshold": 0.95,
       "proportion_zero_seconds": 1.0
     }
