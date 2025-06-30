@@ -31,14 +31,17 @@ const TravelTimes: React.FC = () => {
     Promise.all([
       fetch('/api/global/stops').then(r => r.json()),
       fetch('/api/global/travel_times').then(r => r.json())
-    ]).then(([stops, times]) => {
+    ]).then(([stops, times]: [Record<string, any>, Omit<TravelSegment, 'from_stop_name' | 'to_stop_name'>[]]) => {
       setStopIndex(stops)
-      setSegments(times)
+      // Decorate each segment with its stop names
+      const withNames: TravelSegment[] = times.map(s => ({
+        ...s,
+        from_stop_name: stops[s.from_stop_id]?.stop_name || s.from_stop_id,
+        to_stop_name:   stops[s.to_stop_id]?.stop_name   || s.to_stop_id
+      }))
+      setSegments(withNames)
     })
   }, [])
-
-  const allFromStops = new Set(segments.map(s => s.from_stop_id))
-  const allToStops = new Set(segments.map(s => s.to_stop_id))
 
   const fromStopOptions = Array.from(
     new Set(
