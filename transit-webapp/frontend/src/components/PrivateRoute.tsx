@@ -1,13 +1,17 @@
-// src/components/PrivateRoute.tsx
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { ReactNode } from 'react'
+import { ReactNode, ReactElement } from 'react'
 
 interface Props {
   children: ReactNode
 }
 
-export default function PrivateRoute({ children }: Props) {
+export default function PrivateRoute({ children }: Props): ReactElement {
   const { user } = useAuth()
-  return user ? children : <Navigate to="/login" replace />
+
+  if (user) {
+    return <>{children}</>
+  } else {
+    return <Navigate to="/login" replace />
+  }
 }

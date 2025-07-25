@@ -1,10 +1,11 @@
 import React from 'react'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
+import { Outlet } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../supabaseClient'
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC = () => {
   const { user } = useAuth()
 
   const handleLogout = async () => {
@@ -26,7 +27,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </button>
           )}
         </Topbar>
-        <main className="p-4 overflow-auto">{children}</main>
+        <main className="p-4 overflow-auto">
+          <Outlet /> {/* ✅ Route children render here */}
+        </main>
       </div>
     </div>
   )

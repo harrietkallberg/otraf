@@ -49,11 +49,16 @@ a {
   border: 1px solid #ccc;
   margin-top: 1rem;
 }
-/* 
-.trees {
-  background-image: url('/trees.svg');
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: cover;
-  height: 120px;
-} */
+
+.bus-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #555;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+

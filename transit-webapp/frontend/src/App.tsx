@@ -23,26 +23,23 @@ export default function App() {
       <GlobalDataProvider>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          
+
           <Route
-            path="*"
             element={
               <PrivateRoute>
-                <Layout>
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="routes" element={<RoutesList />} />
-                    <Route path="routes/:rid/*" element={<RouteLayout />} />
-                    <Route path="stops" element={<StopsList />} />
-                    <Route path="stops/:sid/*" element={<StopLayout />} />
-                    <Route path="travel-times" element={<TravelTimes />} />
-                    <Route path="export-csv" element={<ExportCsvPage />} />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                  </Routes>
-                </Layout>
+                <Layout />
               </PrivateRoute>
             }
-          />
+          >
+            <Route path="/" element={<Dashboard />} />
+            <Route path="routes" element={<RoutesList />} />
+            <Route path="routes/:rid/*" element={<RouteLayout />} />
+            <Route path="stops" element={<StopsList />} />
+            <Route path="stops/:sid/*" element={<StopLayout />} />
+            <Route path="travel-times" element={<TravelTimes />} />
+            <Route path="export-csv" element={<ExportCsvPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
         </Routes>
       </GlobalDataProvider>
     </AuthProvider>
