@@ -1,21 +1,22 @@
 // src/components/Topbar.tsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface TopbarProps {
-  title: string;
+  title: string
+  children?: React.ReactNode  // ✅ ALLOW CHILDREN HERE
 }
 
-const Topbar: React.FC<TopbarProps> = ({ title }) => {
-  const [query, setQuery] = useState('');
-  const navigate = useNavigate();
+const Topbar: React.FC<TopbarProps> = ({ title, children }) => {
+  const [query, setQuery] = useState('')
+  const navigate = useNavigate()
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`)
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-between px-6 py-3 bg-white shadow border-b sticky top-0 z-50">
@@ -35,8 +36,13 @@ const Topbar: React.FC<TopbarProps> = ({ title }) => {
           Search
         </button>
       </form>
+      {children && (
+        <div className="ml-4">
+          {children} {/* ✅ Renders logout button passed from Layout */}
+        </div>
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default Topbar;
+export default Topbar
