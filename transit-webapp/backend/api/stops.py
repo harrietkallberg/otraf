@@ -1,24 +1,19 @@
-import os
 import json
-from flask import Blueprint, jsonify, abort, current_app
+from flask import Blueprint, jsonify, abort, request
+from data_loader import load_data_file, list_user_files
 
 stops_bp = Blueprint('stops', __name__)
 
-def get_data_dir():
-    return current_app.config['DATA_DIR']
+def get_user_id():
+    return request.headers.get('X-User-Id') or 'dev-user'
 
 def list_route_ids():
-    d = get_data_dir()
-    return [
-        name.split('route_')[1]
-        for name in os.listdir(d)
-        if name.startswith('route_') and os.path.isdir(os.path.join(d, name))
-    ]
+    files = list_user_files()
+    return [name.split('/')[0].split('route_')[1] for name in files if name.startswith('route_')]
 
 @stops_bp.route('', methods=['GET'])
 def list_stops():
-    fn = os.path.join(get_data_dir(), 'global_stop_index.json')
-    return jsonify(json.load(open(fn, encoding='utf-8')))
+    return jsonify(load_data_file('global_stop_index.json'))
 
 @stops_bp.route('/<stop_id>', methods=['GET'])
 def stop_detail(stop_id):
@@ -27,13 +22,12 @@ def stop_detail(stop_id):
         abort(404, 'Stop not found')
     meta = all_stops[stop_id]
 
-    # collect violations per route+direction
     violations_by_route = {}
     for rid in list_route_ids():
-        fn = os.path.join(get_data_dir(), f'route_{rid}', 'regulatory_stops.json')
-        if not os.path.exists(fn):
+        try:
+            reg = load_data_file(f'route_{rid}/regulatory_stops.json')
+        except:
             continue
-        reg = json.load(open(fn, encoding='utf-8'))
         for dir_id, stops in reg.items():
             if stop_id in stops:
                 violations_by_route.setdefault(rid, {})[dir_id] = stops[stop_id]

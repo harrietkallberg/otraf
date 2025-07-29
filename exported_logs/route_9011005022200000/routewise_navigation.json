@@ -348,11 +348,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004139001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004139001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004139001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004139001_pm_rush"
             }
@@ -385,11 +381,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004232001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004232001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004232001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004232001_pm_rush"
             }
@@ -422,11 +414,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003847001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003847001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003847001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003847001_pm_rush"
             }
@@ -461,11 +449,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080182002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080182002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080182002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080182002_pm_rush"
             }
@@ -498,11 +482,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_pm_rush"
             }
@@ -535,11 +515,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004236002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004236002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004236002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004236002_pm_rush"
             }
@@ -572,11 +548,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_pm_rush"
             }
@@ -609,11 +581,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000412001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000412001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000412001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000412001_pm_rush"
             }
@@ -646,11 +614,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001431001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001431001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001431001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001431001_pm_rush"
             }
@@ -685,11 +649,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001430001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001430001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001430001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001430001_pm_rush"
             }
@@ -722,11 +682,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000043001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000043001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000043001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000043001_pm_rush"
             }
@@ -759,11 +715,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001231001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001231001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001231001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001231001_pm_rush"
             }
@@ -796,11 +748,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000045001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000045001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000045001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000045001_pm_rush"
             }
@@ -833,11 +781,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001232001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001232001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001232001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001232001_pm_rush"
             }
@@ -870,11 +814,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001233001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001233001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001233001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001233001_pm_rush"
             }
@@ -907,11 +847,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003838002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003838002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003838002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003838002_pm_rush"
             }
@@ -944,11 +880,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001598001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001598001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001598001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001598001_pm_rush"
             }
@@ -983,11 +915,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000416001_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000416001_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000416001_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000416001_pm_rush"
             }
@@ -1020,11 +948,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000226002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000226002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000226002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000226002_pm_rush"
             }
@@ -1057,11 +981,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001394002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001394002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001394002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001394002_pm_rush"
             }
@@ -1094,11 +1014,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000437002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000437002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000437002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000437002_pm_rush"
             }
@@ -1131,11 +1047,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001398002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001398002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001398002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001398002_pm_rush"
             }
@@ -1168,11 +1080,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001400002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001400002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001400002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001400002_pm_rush"
             }
@@ -1205,11 +1113,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001401002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001401002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001401002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001401002_pm_rush"
             }
@@ -1242,11 +1146,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003850002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003850002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003850002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003850002_pm_rush"
             }
@@ -1281,11 +1181,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000054002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000054002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000054002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000054002_pm_rush"
             }
@@ -1318,11 +1214,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003559002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003559002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003559002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003559002_pm_rush"
             }
@@ -1357,11 +1249,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001318002_night",
-              "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001318002_pm_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "night": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001318002_night",
               "pm_rush": "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001318002_pm_rush"
             }
@@ -1704,10 +1592,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001318001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001318001_am_rush"
             }
           }
@@ -1743,10 +1628,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003559001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003559001_am_rush"
             }
           }
@@ -1784,10 +1666,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000054001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000054001_am_rush"
             }
           }
@@ -1823,10 +1702,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003850001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003850001_am_rush"
             }
           }
@@ -1862,10 +1738,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001401001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001401001_am_rush"
             }
           }
@@ -1901,10 +1774,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001400001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001400001_am_rush"
             }
           }
@@ -1940,10 +1810,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001398001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001398001_am_rush"
             }
           }
@@ -1979,10 +1846,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000437001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000437001_am_rush"
             }
           }
@@ -2018,10 +1882,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001394001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001394001_am_rush"
             }
           }
@@ -2057,10 +1918,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000226001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000226001_am_rush"
             }
           }
@@ -2098,10 +1956,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000416002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000416002_am_rush"
             }
           }
@@ -2137,10 +1992,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001598002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001598002_am_rush"
             }
           }
@@ -2176,10 +2028,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003838001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003838001_am_rush"
             }
           }
@@ -2215,10 +2064,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001233002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001233002_am_rush"
             }
           }
@@ -2254,10 +2100,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001232002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001232002_am_rush"
             }
           }
@@ -2293,10 +2136,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000045002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000045002_am_rush"
             }
           }
@@ -2332,10 +2172,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001231002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001231002_am_rush"
             }
           }
@@ -2373,10 +2210,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001430002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001430002_am_rush"
             }
           }
@@ -2408,10 +2242,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001431002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001431002_am_rush"
             }
           }
@@ -2443,10 +2274,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000412002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000412002_am_rush"
             }
           }
@@ -2478,10 +2306,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004253001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004253001_am_rush"
             }
           }
@@ -2513,10 +2338,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004236001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004236001_am_rush"
             }
           }
@@ -2548,10 +2370,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080004001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080004001_am_rush"
             }
           }
@@ -2583,10 +2402,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080182001_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080182001_am_rush"
             }
           }
@@ -2618,10 +2434,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003847002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003847002_am_rush"
             }
           }
@@ -2653,10 +2466,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004232003_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004232003_am_rush"
             }
           }
@@ -2690,10 +2500,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004139002_am_rush"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004139002_am_rush"
             }
           }

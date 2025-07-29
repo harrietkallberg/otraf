@@ -65,8 +65,7 @@ class LVLogger:
 
         # ===== PERFORMANCE & RELIABILITY ANALYSIS LOGS =====
         self.performance_logs = {
-            'histograms_stops': {}, 
-            'punctuality_barcharts': {},
+            'analytics_logs': {}, 
             'travel_times':{},        
             'metadata': {
                 'performance_summary': {

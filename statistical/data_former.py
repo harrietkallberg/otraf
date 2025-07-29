@@ -510,7 +510,7 @@ class DataFormer:
                 
                 # existing violation
                 miss_perc = miss_cnt/total_trips *100
-                desc = f"Stop ID {sid} is missing from {miss_cnt} trips, {miss_perc} %."
+                desc = f"Stop ID {sid} is missing from {miss_cnt} trips, {miss_perc:.2f} %."
                 severity = 1 + sum(miss_perc > t for t in (5, 10, 15, 25))
                 v = self.log.create_violation_entry(
                     violation_type="missing_stop_id_in_pattern",
@@ -666,206 +666,153 @@ class DataFormer:
         print(f"✅ {regulatory_count} stops labeled as regulatory (≥ {threshold*100:.1f}% zero-second departures).")
 
 #   ======================== HISTOGRAMS AND PUNCTUALITY DIAGRAMS ==================
+    
     def generate_performance_logs(self, df, min_ratio: float = 0.80):
         print("\n=== GENERATING PERFORMANCE HISTOGRAMS, PUNCTUALITY METRICS, AND TRAVEL TIME STATISTICS ===")
 
-        # 1) Compute travel times & delays
+        # Compute travel times & delays
         df = self.calculate_travel_times_and_delays(df.copy())
 
-        # 2) Prepare empty logs
-        histograms_log    = {}
-        punctuality_log   = {}
-        travel_time_log   = {}
-
-        # 3) Grab your precomputed regulatory‐stop labels
+        # Prepare empty logs
+        analytics_log, travel_time_log = {}, {}
         reg_labels = self.log.regulatory_stops_logs.get("stop_id_regulatory_labels", {})
 
-        first_stop_grp = df[df['stop_sequence'] == 1]
-        for (direction_id, stop_id, stop_name, time_type), group in first_stop_grp.groupby(
-                ['direction_id', 'stop_id', 'stop_name', 'time_type']
-        ):
-            delay_data = group['departure_delay'].dropna()
-            if len(delay_data) < 5:
-                continue
+        # Define fixed bin edges for all histograms
+        fixed_bin_edges = np.linspace(-180, 300, num=17)  # 16 bins of 30s
 
-            key = self.log.build_entity_key(
-                domain="performance",
-                direction_id=direction_id,
-                stop_id=stop_id,
-                time_type=time_type
-            )
-
-            # Total-delay histogram only
-            total_hist = self._create_normalized_histogram(delay_data)
-            histograms_log[key] = {
-                'route_id': self.route_id,
-                'direction_id': direction_id,
-                'stop_id': stop_id,
-                'stop_name': stop_name,
-                'time_type': time_type,
-                'total_delay_histogram': total_hist,
-                'incremental_delay_histogram': None
-            }
-
-            # Punctuality
-            punctuality = self._calculate_punctuality_metrics(delay_data)
-            if punctuality:
-                is_reg = bool(reg_labels.get(
-                    self.log.build_entity_key(
-                        "regulatory_stops",
-                        direction_id=direction_id,
-                        stop_id=stop_id
-                    )
-                ))
-                punctuality_log[key] = {
-                    'route_id': self.route_id,
-                    'direction_id': direction_id,
-                    'stop_id': stop_id,
-                    'stop_name': stop_name,
-                    'time_type': time_type,
-                    'punctuality': punctuality,
-                    'is_regulatory_stop': is_reg
-                }
-
-        # 4) Build per‐stop histograms and punctuality
-        for (direction_id, stop_id, stop_name, time_type), group in df[df['valid_segment']].groupby(
-                ['direction_id', 'stop_id', 'stop_name', 'time_type']
-        ):
-            # Extract delays
-            delay_data = group['departure_delay'].dropna()
-            incr_data  = group['incremental_delay'].dropna()
-
-            # Skip if too little data
-            if len(delay_data) < 5:
-                continue
-
-            # Build the entity key
-            entity_key = self.log.build_entity_key(
-                domain="performance",
-                direction_id=direction_id,
-                stop_id=stop_id,
-                time_type=time_type
-            )
-
-            # — Histogram construction —
-            # Combine both delay streams to get consistent bins
-            combined_data = pd.concat([delay_data, incr_data])
-            bin_edges     = np.histogram_bin_edges(combined_data, bins='fd')
-            total_hist    = self._create_normalized_histogram(delay_data, bin_edges)
-            incr_hist     = self._create_normalized_histogram(incr_data,  bin_edges)
-
-            # Store when at least one histogram exists
-            if total_hist or incr_hist:
-                histograms_log[entity_key] = {
-                    'route_id':                  self.route_id,
-                    'direction_id':              direction_id,
-                    'stop_id':                   stop_id,
-                    'stop_name':                 stop_name,
-                    'time_type':                 time_type,
-                    'total_delay_histogram':     total_hist,
-                    'incremental_delay_histogram': incr_hist
-                }
-
-            # — Punctuality metrics —
-            punctuality = self._calculate_punctuality_metrics(delay_data)
-            if punctuality:
-                # Detect regulatory stops
-                reg_key = self.log.build_entity_key(
-                    "regulatory_stops",
-                    direction_id=direction_id,
-                    stop_id=stop_id
-                )
-                is_reg = bool(reg_labels.get(reg_key))
-
-                punctuality_log[entity_key] = {
-                    'route_id':            self.route_id,
-                    'direction_id':        direction_id,
-                    'stop_id':             stop_id,
-                    'stop_name':           stop_name,
-                    'time_type':           time_type,
-                    'punctuality':         punctuality,
-                    'is_regulatory_stop':  is_reg
-                }
-
-        # 5) Travel-time segment analysis
-        df_valid = (
-            df[df['valid_segment'] & df['observed_travel_time'].notna()]
-            .copy()
-        )
-        df_valid['from_stop_id']   = df_valid.groupby(
-            ['trip_id', 'direction_id', 'start_date']
-        )['stop_id'].shift(1)
-        df_valid['from_stop_name'] = df_valid.groupby(
-            ['trip_id', 'direction_id', 'start_date']
-        )['stop_name'].shift(1)
-        df_valid['to_stop_id']     = df_valid['stop_id']
-        df_valid['to_stop_name']   = df_valid['stop_name']
+        # Travel-time segment analysis (Unchanged)
+        df_valid = df[df['valid_segment'] & df['observed_travel_time'].notna()].copy()
+        df_valid['from_stop_id'] = df_valid.groupby(['trip_id', 'direction_id', 'start_date'])['stop_id'].shift(1)
+        df_valid['from_stop_name'] = df_valid.groupby(['trip_id', 'direction_id', 'start_date'])['stop_name'].shift(1)
+        df_valid['to_stop_id'] = df_valid['stop_id']
+        df_valid['to_stop_name'] = df_valid['stop_name']
         df_valid = df_valid.dropna(subset=['from_stop_id', 'observed_travel_time'])
 
-        if 'route_id' not in df_valid.columns:
-            df_valid['route_id'] = self.route_id
+        for (direction_id, time_type, from_stop_id, to_stop_id), group in df_valid.groupby(
+                ['direction_id', 'time_type', 'from_stop_id', 'to_stop_id']):
 
-        segment_cols = ['route_id', 'direction_id', 'time_type', 'from_stop_id', 'to_stop_id']
-        for (route_id, direction_id, time_type, from_stop_id, to_stop_id), group in df_valid.groupby(segment_cols):
             travel_times = group['observed_travel_time'].dt.total_seconds().dropna()
             if len(travel_times) < 5:
                 continue
 
             seg_key = self.log.build_entity_key(
-                domain="performance",
-                direction_id=direction_id,
-                from_stop_id=from_stop_id,
-                to_stop_id=to_stop_id,
-                time_type=time_type
+                domain="performance", direction_id=direction_id,
+                from_stop_id=from_stop_id, to_stop_id=to_stop_id, time_type=time_type
             )
 
             travel_time_log[seg_key] = {
-                'route_id':        route_id,
-                'direction_id':    direction_id,
-                'time_type':       time_type,
-                'from_stop_id':    from_stop_id,
-                'from_stop_name':  group['from_stop_name'].iloc[0],
-                'to_stop_id':      to_stop_id,
-                'to_stop_name':    group['to_stop_name'].iloc[0],
-                'sample_size':     len(travel_times),
+                'route_id': self.route_id, 'direction_id': direction_id, 'time_type': time_type,
+                'from_stop_id': from_stop_id, 'from_stop_name': group['from_stop_name'].iloc[0],
+                'to_stop_id': to_stop_id, 'to_stop_name': group['to_stop_name'].iloc[0],
+                'sample_size': len(travel_times),
                 'statistics': {
-                    'mean':            round(travel_times.mean(), 2),
-                    'median':          round(travel_times.median(), 2),
-                    'std':             round(travel_times.std(), 2),
-                    'min':             int(travel_times.min()),
-                    'max':             int(travel_times.max()),
-                    'percentile_25':   int(np.percentile(travel_times, 25)),
-                    'percentile_75':   int(np.percentile(travel_times, 75)),
-                    'percentile_95':   int(np.percentile(travel_times, 95))
+                    'mean': round(travel_times.mean(), 2),
+                    'median': round(travel_times.median(), 2),
+                    'std': round(travel_times.std(), 2),
+                    'min': int(travel_times.min()),
+                    'max': int(travel_times.max()),
+                    'percentile_25': int(np.percentile(travel_times, 25)),
+                    'percentile_75': int(np.percentile(travel_times, 75)),
+                    'percentile_95': int(np.percentile(travel_times, 95))
                 }
             }
-        
-        # 4) Compute route-level performance_summary
+
+        # Process all stop data for histograms and punctuality
+        for (direction_id, stop_id, stop_name, time_type), group in df_valid.groupby(
+                ['direction_id', 'to_stop_id', 'to_stop_name', 'time_type']):
+
+            delay_data = group['departure_delay'].dropna()
+            incr_data = group['incremental_delay'].dropna()
+
+            if (len(delay_data) < 5) or (len(incr_data) < 5):
+                continue
+
+            key = self.log.build_entity_key(
+                domain="performance", direction_id=direction_id, stop_id=stop_id, time_type=time_type
+            )
+
+            if key not in analytics_log:
+                analytics_log[key] = {
+                    'route_id': self.route_id, 'direction_id': direction_id, 'stop_id': stop_id,
+                    'stop_name': stop_name, 'time_type': time_type, 'analytics': {}
+                }
+
+            total_hist = self._create_normalized_histogram(delay_data, bin_edges=fixed_bin_edges)
+            incr_hist = self._create_normalized_histogram(incr_data, bin_edges=fixed_bin_edges)
+
+            if total_hist and incr_hist:
+                analytics_log[key]['analytics']['total_delay_histogram'] = {
+                    'step_start': total_hist['step_start'],
+                    'step_size': total_hist['step_size'],
+                    'num_bins': total_hist['num_bins'],
+                    'proportions': total_hist['proportions']
+                }
+                analytics_log[key]['analytics']['incremental_delay_histogram'] = {
+                    'step_start': incr_hist['step_start'],
+                    'step_size': incr_hist['step_size'],
+                    'num_bins': incr_hist['num_bins'],
+                    'proportions': incr_hist['proportions']
+                }
+
+                punctuality = self._calculate_punctuality_metrics(delay_data)
+                if punctuality:
+                    is_reg = bool(reg_labels.get(self.log.build_entity_key(
+                        "regulatory_stops", direction_id=direction_id, stop_id=stop_id)))
+                    analytics_log[key]['analytics']['punctuality'] = punctuality
+                    analytics_log[key]['analytics']['is_regulatory_stop'] = is_reg
+
+        for (direction_id, stop_id, stop_name, time_type), group in df.groupby(
+                ['direction_id', 'stop_id', 'stop_name', 'time_type']):
+
+            delay_data = group['departure_delay'].dropna()
+            if len(delay_data) < 5:
+                continue
+
+            key = self.log.build_entity_key(
+                domain="performance", direction_id=direction_id, stop_id=stop_id, time_type=time_type
+            )
+
+            if key not in analytics_log:
+                analytics_log[key] = {
+                    'route_id': self.route_id, 'direction_id': direction_id, 'stop_id': stop_id,
+                    'stop_name': stop_name, 'time_type': time_type, 'analytics': {'total_delay_histogram': {}}
+                }
+
+            total_hist = self._create_normalized_histogram(delay_data, bin_edges=fixed_bin_edges)
+            if total_hist:
+                analytics_log[key]['analytics']['total_delay_histogram'] = {
+                    'step_start': total_hist['step_start'],
+                    'step_size': total_hist['step_size'],
+                    'num_bins': total_hist['num_bins'],
+                    'proportions': total_hist['proportions']
+                }
+
+                punctuality = self._calculate_punctuality_metrics(delay_data)
+                if punctuality:
+                    is_reg = bool(reg_labels.get(self.log.build_entity_key(
+                        "regulatory_stops", direction_id=direction_id, stop_id=stop_id)))
+                    analytics_log[key]['analytics']['punctuality'] = punctuality
+                    analytics_log[key]['analytics']['is_regulatory_stop'] = is_reg
+
+        # Compute route-level performance summary
         all_delays = df['departure_delay'].dropna()
         if len(all_delays) >= 1:
-            # reuse your punctuality thresholds logic
             route_metrics = self._calculate_punctuality_metrics(all_delays)
-
             md = self.log.performance_logs['metadata']['performance_summary']
-            # percentages come as e.g. 12.34 (percent)
             pdist = route_metrics['punctuality_distribution']['percentages']
-            md['overall_too_early_rate']  = pdist.get('too_early', 0.0)
-            md['overall_on_time_rate']    = pdist.get('on_time',    0.0)
-            md['overall_too_late_rate']   = pdist.get('too_late',   0.0)
-            # mean_delay is in seconds (or minutes), depending on your unit
-            md['average_departure_delay'] = route_metrics['basic_statistics']['mean_delay']
-       
+            md.update({
+                'overall_too_early_rate': pdist.get('too_early', 0.0),
+                'overall_on_time_rate': pdist.get('on_time', 0.0),
+                'overall_too_late_rate': pdist.get('too_late', 0.0),
+                'average_departure_delay': route_metrics['basic_statistics']['mean_delay']
+            })
 
-        # 6) Write back to LVLogger
-        self.log.performance_logs['histograms_stops']      = histograms_log
-        self.log.performance_logs['punctuality_barcharts'] = punctuality_log
-        self.log.performance_logs['travel_times']          = travel_time_log
+        # Write to log
+        self.log.performance_logs['analytics_logs'] = analytics_log
+        self.log.performance_logs['travel_times'] = travel_time_log
 
-        print(
-            f"  ✅ {len(histograms_log)} histograms, "
-            f"{len(punctuality_log)} punctuality entries, "
-            f"{len(travel_time_log)} travel time segments logged."
-        )
+        print(f"  ✅ {len(analytics_log)} analytics entries, {len(travel_time_log)} travel time segments logged.")
+
 
     def calculate_travel_times_and_delays(self, df):
         """Calculate incremental travel times and delays between consecutive stops."""
@@ -895,32 +842,32 @@ class DataFormer:
         print(f"  ✅ {df['valid_segment'].sum()} valid travel segments out of {len(df)}")
         return df
 
-    def _create_normalized_histogram(self, data, bin_edges=None, bins='fd'):
+    def _create_normalized_histogram(self, data, bin_edges=None, bins=10):
         if len(data) < 5:
             return None
 
-        if bin_edges is None:
-            bin_edges = np.histogram_bin_edges(data, bins=bins)
-
+        # Calculate bin counts
         counts, _ = np.histogram(data, bins=bin_edges)
-        probabilities = counts / counts.sum()
-        bin_labels = [f"{int(bin_edges[i])}s to {int(bin_edges[i+1])}s" for i in range(len(bin_edges) - 1)]
+        total_count = counts.sum()
+        if total_count == 0:
+            return None
+
+        proportions = [round(c / total_count, 4) for c in counts]
 
         return {
-            'bin_edges': bin_edges.tolist(),
-            'bin_centers': ((bin_edges[:-1] + bin_edges[1:]) / 2).tolist(),
-            'bin_labels': bin_labels,
-            'counts': counts.tolist(),
-            'probabilities': probabilities.tolist(),
-            'statistics': {
-                'mean': float(data.mean()),
-                'median': float(data.median()),
-                'std': float(data.std()),
-                'min': float(data.min()),
-                'max': float(data.max()),
-                'percentile_25': float(np.percentile(data, 25)),
-                'percentile_75': float(np.percentile(data, 75)),
-                'percentile_95': float(np.percentile(data, 95)),
+            "step_start": round(bin_edges[0], 2),            # -400
+            "step_size":  round(bin_edges[1] - bin_edges[0], 2),  # 100
+            "num_bins":   10,
+            "proportions": proportions,
+            "statistics": {
+                'mean': round(float(data.mean()), 2),
+                'median': round(float(data.median()), 2),
+                'std': round(float(data.std()), 2),
+                'min': round(float(data.min()), 2),
+                'max': round(float(data.max()), 2),
+                'percentile_25': round(float(np.percentile(data, 25)), 2),
+                'percentile_75': round(float(np.percentile(data, 75)), 2),
+                'percentile_95': round(float(np.percentile(data, 95)), 2),
                 'sample_size': len(data)
             }
         }
@@ -1053,8 +1000,7 @@ class DataFormer:
         classification_labels               = dir_logs.get("direction_labels", {})
         canonical_pattern_label_entries     = dir_logs.get("direction_canonical_pattern_labels", {})
         direction_violations                = dir_logs.get("direction_violations", {})
-        histograms                          = perf_logs.get("histograms_stops", {})
-        punctuality                         = perf_logs.get("punctuality_barcharts", {})
+        analytics                           = perf_logs.get("analytics_logs", {})
         travel_times                        = perf_logs.get("travel_times", {})
 
         # Pre-aggregate stop-level violations
@@ -1070,7 +1016,7 @@ class DataFormer:
         stop_by_type = stop_meta.get('violation_counts_by_type', {})
         dir_by_type  = dir_meta.get('violation_counts_by_type', {})
 
-        # 3) Pull the severity histograms
+        # 3) Pull the severity
         stop_sev = stop_meta.get('violation_counts_by_severity', {})
         dir_sev  = dir_meta.get('violation_counts_by_severity', {})
 
@@ -1115,7 +1061,7 @@ class DataFormer:
         # Determine all time_types
         all_tts = {
             e.get("time_type")
-            for e in list(histograms.values()) + list(punctuality.values()) + list(travel_times.values())
+            for e in list(analytics.values()) +  list(travel_times.values())
             if e.get("time_type") is not None
         }
 
@@ -1161,7 +1107,7 @@ class DataFormer:
                 "label_key":   canonical_label_key
             }
 
-            # --- Alternative Patterns (unchanged) ---
+            # --- Alternative Patterns ---
             alts = []
             multiple_patterns_violation = next(
                 (v for v in direction_violations.values()
@@ -1197,7 +1143,7 @@ class DataFormer:
                         "unexpected_stop_id_violation_keys": unexpected_keys
                     })
 
-            # --- Travel-time Segments (unchanged) ---
+            # --- Travel-time Segments ---
             seg_map = {}
             for key, entry in travel_times.items():
                 if entry.get("direction_id") != dir_id_str:
@@ -1258,26 +1204,18 @@ class DataFormer:
                     if sid in entry.get("stop_ids", []):
                         viols["parent_station"].append(key)
 
-                # Performance availability (unchanged) …
+                # Performance availability…
                 tts_for_stop = {
-                    e.get("time_type") for e in histograms.values()
-                    if e.get("direction_id")==dir_id_str and str(e.get("stop_id"))==sid
-                } | {
-                    e.get("time_type") for e in punctuality.values()
+                    e.get("time_type") for e in analytics.values()
                     if e.get("direction_id")==dir_id_str and str(e.get("stop_id"))==sid
                 }
-                perf_avail = {"histograms": {}, "punctuality": {}}
+                perf_avail = {"analytics": {}}
                 for tt in sorted(tts_for_stop):
-                    hkey = next((k for k, e in histograms.items()
+                    akey = next((k for k, e in analytics.items()
                                 if e.get("direction_id")==dir_id_str
                                 and str(e.get("stop_id"))==sid
                                 and e.get("time_type")==tt), None)
-                    pkey = next((k for k, e in punctuality.items()
-                                if e.get("direction_id")==dir_id_str
-                                and str(e.get("stop_id"))==sid
-                                and e.get("time_type")==tt), None)
-                    perf_avail["histograms"][tt]  = hkey
-                    perf_avail["punctuality"][tt] = pkey
+                    perf_avail["analytics"][tt] = akey
 
                 stop_sev = {}
                 # stop_topology violations

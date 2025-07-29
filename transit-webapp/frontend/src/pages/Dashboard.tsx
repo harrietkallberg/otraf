@@ -1,6 +1,8 @@
 // src/pages/Dashboard.tsx
 import React, { useContext, useEffect, useState } from 'react'
 import { GlobalDataContext, ViolationEntry } from '../contexts/GlobalDataContext'
+import { useAuth } from '../contexts/AuthContext'
+
 
 type RoutesIndex = Record<
   string,
@@ -10,14 +12,17 @@ type RoutesIndex = Record<
 const Dashboard: React.FC = () => {
   const globalData = useContext(GlobalDataContext)
   const [routes, setRoutes] = useState<RoutesIndex | null>(null)
-
+  const { user } = useAuth()
   // fetch global routes
   useEffect(() => {
-    fetch('/api/global/routes')
+    if (!user) return
+    fetch('/api/global/routes', {
+          headers: { 'X-User-Id': user.id }
+        })
       .then((r) => r.json())
       .then((json: RoutesIndex) => setRoutes(json))
       .catch(console.error)
-  }, [])
+  }, [user])
 
   if (!globalData || routes === null) {
     return <div className="p-6">Loading dashboard…</div>

@@ -221,7 +221,7 @@
     "direction_topology_9011005022000000_direction_id_stop_id_1_9022005000050020": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": 1,
-      "description": "Stop ID 9022005000050020 is missing from 1 trips, 0.141643059490085 %.",
+      "description": "Stop ID 9022005000050020 is missing from 1 trips, 0.14 %.",
       "entity_key": "direction_topology_9011005022000000_direction_id_stop_id_1_9022005000050020",
       "route_id": "9011005022000000",
       "route_long_name": "220",

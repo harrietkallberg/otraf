@@ -10,7 +10,9 @@ from api.csv_routes  import csv_routes_bp
 
 def create_app():
     app = Flask(__name__)
-    app.config['DATA_DIR'] = os.path.join(os.path.dirname(__file__), 'data')
+
+    # Example flag
+    app.config['USE_SUPABASE'] = os.getenv("USE_SUPABASE", "false").lower() == "true"
 
     app.register_blueprint(routes_bp,     url_prefix='/api/routes')
     app.register_blueprint(stops_bp,      url_prefix='/api/stops')

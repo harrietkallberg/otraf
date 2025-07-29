@@ -1,34 +1,36 @@
-// src/pages/ExportCsvPage.tsx
 import React from 'react'
+import { useAuth } from '../contexts/AuthContext'
 
 const downloads = [
   {
     href: '/api/csv/global_travel_times.csv',
     fileName: 'global_travel_times.csv',
     title: 'Global Travel Times',
-    description:
-      'Aggregated mean & per-route travel times between every stop segment and time-of-day.',
+    description: 'Aggregated mean & per-route travel times between every stop segment and time-of-day.',
   },
   {
     href: '/api/csv/underperforming_regulatory_stops.csv',
     fileName: 'underperforming_regulatory_stops.csv',
     title: 'Underperforming Regulatory Stops',
-    description:
-      'All regulatory stops whose overall on-time percentage fell below the performance threshold.',
+    description: 'All regulatory stops whose overall on-time percentage fell below the performance threshold.',
   },
   {
     href: '/api/csv/mis_tracked_stops.csv',
     fileName: 'mis_tracked_stops.csv',
     title: 'Mis-tracked Stops',
-    description:
-      'Stops flagged for topology violations, with counts and max severity per stop.',
+    description: 'Stops flagged for topology violations, with counts and max severity per stop.',
   },
 ]
 
 const ExportCsvPage: React.FC = () => {
+  const { user } = useAuth()
+
   const handleDownload = async (href: string, fileName: string) => {
     try {
-      const res = await fetch(href, { method: 'GET' })
+      const res = await fetch(href, {
+        method: 'GET',
+        headers: { 'X-User-Id': user?.id ?? '' },
+      })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const blob = await res.blob()
       const url = window.URL.createObjectURL(blob)

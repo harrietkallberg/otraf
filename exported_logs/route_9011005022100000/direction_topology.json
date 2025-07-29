@@ -281,7 +281,7 @@
     "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": 1,
-      "description": "Stop ID 9022005001421002 is missing from 2 trips, 0.2751031636863824 %.",
+      "description": "Stop ID 9022005001421002 is missing from 2 trips, 0.28 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001421002",
       "route_id": "9011005022100000",
       "route_long_name": "221",
@@ -300,7 +300,7 @@
     "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": 1,
-      "description": "Stop ID 9022005001419001 is missing from 2 trips, 0.2751031636863824 %.",
+      "description": "Stop ID 9022005001419001 is missing from 2 trips, 0.28 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001419001",
       "route_id": "9011005022100000",
       "route_long_name": "221",
@@ -319,7 +319,7 @@
     "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": 1,
-      "description": "Stop ID 9022005001418001 is missing from 2 trips, 0.2751031636863824 %.",
+      "description": "Stop ID 9022005001418001 is missing from 2 trips, 0.28 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_0_9022005001418001",
       "route_id": "9011005022100000",
       "route_long_name": "221",
@@ -338,7 +338,7 @@
     "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018": {
       "violation_type": "missing_stop_id_in_pattern",
       "severity": 1,
-      "description": "Stop ID 9022005000050018 is missing from 1 trips, 0.14204545454545456 %.",
+      "description": "Stop ID 9022005000050018 is missing from 1 trips, 0.14 %.",
       "entity_key": "direction_topology_9011005022100000_direction_id_stop_id_1_9022005000050018",
       "route_id": "9011005022100000",
       "route_long_name": "221",

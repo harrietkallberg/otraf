@@ -1,5 +1,6 @@
 // src/pages/TravelTimes.tsx
 import React, { useEffect, useState } from 'react'
+import { useAuth } from '../contexts/AuthContext'
 
 interface ByRouteEntry {
   route_id: string
@@ -28,17 +29,21 @@ const TravelTimes: React.FC = () => {
   const [fromName, setFromName] = useState('')
   const [toName, setToName]     = useState('')
   const [timeType, setTimeType] = useState('')
-
+  const { user } = useAuth()
   // filter out purely numeric names
   const hasLetters = (s: string) => /\D/.test(s)
 
   useEffect(() => {
+    if (!user) return
     Promise.all([
-      fetch('/api/global/stops').then(r => r.json()),
-      fetch('/api/global/travel_times').then(r => r.json())
+      fetch('/api/global/stops', {
+        headers: { 'X-User-Id': user.id }
+      }).then(r => r.json()),
+      fetch('/api/global/travel_times', {
+        headers: { 'X-User-Id': user.id }
+      }).then(r => r.json())
     ]).then(([stops, times]: [Record<string, any>, Omit<TravelSegment, 'from_stop_name' | 'to_stop_name'>[]]) => {
       setStopIndex(stops)
-      // attach names
       const withNames = times.map(s => ({
         ...s,
         from_stop_name: stops[s.from_stop_id]?.stop_name || s.from_stop_id,
@@ -46,7 +51,7 @@ const TravelTimes: React.FC = () => {
       }))
       setSegments(withNames)
     })
-  }, [])
+  }, [user])
 
   // build name→IDs map
   const nameToIds: Record<string, string[]> = {}

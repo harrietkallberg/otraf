@@ -1,19 +1,19 @@
-# api/csv_routes.py
-import os
-from flask import Blueprint, current_app, send_from_directory, abort
+from flask import Blueprint, request, abort, send_file
+from data_loader import load_data_file
+from io import BytesIO
+import mimetypes
+import json
 
 csv_routes_bp = Blueprint('csv_routes', __name__)
 
 @csv_routes_bp.route('/<path:filename>')
 def download_csv(filename):
-    data_dir = current_app.config['DATA_DIR']
-    csv_dir  = os.path.join(data_dir, 'csv')
-    full_path = os.path.join(csv_dir, filename)
-
-    # debug
-    print("→ [csv_routes] DATA_DIR:", data_dir)
-    print("→ [csv_routes] CSV contents:", os.listdir(csv_dir))
-
-    if not os.path.isfile(full_path):
+    try:
+        raw = load_data_file(f'csv/{filename}')
+        buf = BytesIO()
+        buf.write(json.dumps(raw).encode('utf-8'))
+        buf.seek(0)
+        mime_type = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+        return send_file(buf, mimetype=mime_type, as_attachment=True, download_name=filename)
+    except:
         abort(404)
-    return send_from_directory(csv_dir, filename, as_attachment=True)

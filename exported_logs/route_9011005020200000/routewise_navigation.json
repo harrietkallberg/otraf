@@ -362,14 +362,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000469002_night",
@@ -409,14 +402,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004084001_night",
@@ -456,14 +442,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004076001_night",
@@ -503,14 +482,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004250001_night",
@@ -550,14 +522,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004251001_night",
@@ -597,14 +562,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005004236002_night",
@@ -644,14 +602,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000404002_night",
@@ -693,14 +644,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001249002_night",
@@ -740,14 +684,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000198002_night",
@@ -783,14 +720,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000042002_night",
@@ -826,14 +756,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000046004_night",
@@ -873,14 +796,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005001243002_night",
@@ -918,14 +834,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_0_9022005000050006_night",
@@ -1187,14 +1096,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000050006_night",
@@ -1234,14 +1136,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001243001_night",
@@ -1281,14 +1176,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000046003_night",
@@ -1328,14 +1216,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000042001_night",
@@ -1371,14 +1252,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000198001_night",
@@ -1416,14 +1290,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005001249001_night",
@@ -1463,14 +1330,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000404001_night",
@@ -1506,14 +1366,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004236001_night",
@@ -1549,14 +1402,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004251002_night",
@@ -1592,14 +1438,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004250002_night",
@@ -1635,14 +1474,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004076002_night",
@@ -1678,14 +1510,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005004084002_night",
@@ -1723,14 +1548,7 @@
             "parent_station": []
           },
           "performance_availability": {
-            "histograms": {
-              "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_am_rush",
-              "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_day",
-              "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_night",
-              "pm_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_pm_rush",
-              "weekend": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_weekend"
-            },
-            "punctuality": {
+            "analytics": {
               "am_rush": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_am_rush",
               "day": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_day",
               "night": "performance_9011005020200000_direction_id_stop_id_time_type_1_9022005000469003_night",

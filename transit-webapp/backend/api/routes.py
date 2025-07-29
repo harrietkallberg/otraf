@@ -1,25 +1,17 @@
-import os
 import json
-from flask import Blueprint, jsonify, abort, current_app
+from flask import Blueprint, jsonify, abort, request
+from data_loader import load_data_file, list_user_files
 
 routes_bp = Blueprint('routes', __name__)
 
-def get_data_dir():
-    return current_app.config['DATA_DIR']
-
-def list_route_ids():
-    d = get_data_dir()
-    return [
-        name.split('route_')[1]
-        for name in os.listdir(d)
-        if name.startswith('route_') and os.path.isdir(os.path.join(d, name))
-    ]
+def get_user_id():
+    return request.headers.get('X-User-Id') or 'dev-user'
 
 @routes_bp.route('', methods=['GET'])
 def list_routes():
-    d = get_data_dir()
-    idx = json.load(open(os.path.join(d, 'global_route_index.json'), encoding='utf-8'))
-    existing = set(list_route_ids())
+    idx = load_data_file('global_route_index.json')
+    files = list_user_files()
+    existing = set(name.split('/')[0].split('route_')[1] for name in files if name.startswith('route_'))
     return jsonify({rid: info for rid, info in idx.items() if rid in existing})
 
 @routes_bp.route('/<route_id>', methods=['GET'])
@@ -31,51 +23,39 @@ def route_detail(route_id):
 
 @routes_bp.route('/<route_id>/navigation', methods=['GET'])
 def route_navigation(route_id):
-    fn = os.path.join(get_data_dir(), f'route_{route_id}', 'routewise_navigation.json')
-    if not os.path.exists(fn):
+    try:
+        return jsonify(load_data_file(f'route_{route_id}/routewise_navigation.json'))
+    except:
         abort(404, 'Navigation not found')
-    return jsonify(json.load(open(fn, encoding='utf-8')))
 
 @routes_bp.route('/<route_id>/directions/<int:dir_id>/topology', methods=['GET'])
 def direction_topology(route_id, dir_id):
-    fn = os.path.join(get_data_dir(), f'route_{route_id}', 'direction_topology.json')
-    if not os.path.exists(fn):
-        abort(404, 'Topology file not found')
-    data = json.load(open(fn, encoding='utf-8'))
-    key = str(dir_id)
-    if key not in data:
-        abort(404, 'Direction not found')
-    return jsonify(data[key])
+    try:
+        data = load_data_file(f'route_{route_id}/direction_topology.json')
+        return jsonify(data[str(dir_id)])
+    except:
+        abort(404, 'Topology file or direction not found')
 
 @routes_bp.route('/<route_id>/directions/<int:dir_id>/performance', methods=['GET'])
 def direction_performance(route_id, dir_id):
-    fn = os.path.join(get_data_dir(), f'route_{route_id}', 'performance_logs.json')
-    if not os.path.exists(fn):
+    try:
+        data = load_data_file(f'route_{route_id}/performance_logs.json')
+        return jsonify(data[str(dir_id)])
+    except:
         abort(404, 'Performance logs not found')
-    data = json.load(open(fn, encoding='utf-8'))
-    key = str(dir_id)
-    if key not in data:
-        abort(404, 'No performance data for this direction')
-    return jsonify(data[key])
 
 @routes_bp.route('/<route_id>/directions/<int:dir_id>/violations', methods=['GET'])
 def direction_violations(route_id, dir_id):
-    fn = os.path.join(get_data_dir(), f'route_{route_id}', 'regulatory_stops.json')
-    if not os.path.exists(fn):
+    try:
+        data = load_data_file(f'route_{route_id}/regulatory_stops.json')
+        return jsonify(data[str(dir_id)])
+    except:
         abort(404, 'Violations file not found')
-    data = json.load(open(fn, encoding='utf-8'))
-    key = str(dir_id)
-    if key not in data:
-        abort(404, 'No violations for this direction')
-    return jsonify(data[key])
 
 @routes_bp.route('/<route_id>/directions/<int:dir_id>/stop_topology', methods=['GET'])
 def direction_stop_topology(route_id, dir_id):
-    fn = os.path.join(get_data_dir(), f'route_{route_id}', 'stop_topology.json')
-    if not os.path.exists(fn):
+    try:
+        data = load_data_file(f'route_{route_id}/stop_topology.json')
+        return jsonify(data[str(dir_id)])
+    except:
         abort(404, 'Stop topology file not found')
-    data = json.load(open(fn, encoding='utf-8'))
-    key = str(dir_id)
-    if key not in data:
-        abort(404, 'No stop topology for this direction')
-    return jsonify(data[key])

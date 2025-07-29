@@ -38,16 +38,15 @@ class Exporter:
             route_dir.mkdir(parents=True, exist_ok=True)
 
             # Topology & regulatory
-            self._dump_safe(log.stop_topology_logs,      route_dir / "stop_topology.json")
+            self._dump_safe(log.stop_topology_logs, route_dir / "stop_topology.json")
             self._dump_safe(log.direction_topology_logs, route_dir / "direction_topology.json")
-            self._dump_safe(log.regulatory_stops_logs,   route_dir / "regulatory_stops.json")
+            self._dump_safe(log.regulatory_stops_logs, route_dir / "regulatory_stops.json")
 
-            # Performance logs
+            # Performance logs - Now we include analytics_logs which contains histograms and punctuality
             perf_bundle = {
-            "performance_summary": log.performance_logs['metadata']['performance_summary'],
-            "histograms_stops":      log.performance_logs.get("histograms_stops", {}),
-            "punctuality_barcharts": log.performance_logs.get("punctuality_barcharts", {}),
-            "travel_times":          log.performance_logs.get("travel_times", {})
+                "performance_summary": log.performance_logs['metadata']['performance_summary'],
+                "analytics_logs": log.performance_logs.get("analytics_logs", {}),  # New combined logs
+                "travel_times": log.performance_logs.get("travel_times", {})
             }
 
             self._dump_safe(perf_bundle, route_dir / "performance_logs.json")
@@ -58,15 +57,16 @@ class Exporter:
 
             print(f"✅ Exported route {rid} to {route_dir}")
 
-        # 2) Global indexes
+        # 2) Global indexes (no changes needed here)
         self._export_global_route_index(export_root)
         self._export_global_stop_index(export_root)
+
         self._export_global_time_types(export_root)
         self._export_global_violations(export_root)
         self._export_global_labels(export_root)
+
         self._export_global_travel_times(export_root)
-        self._export_global_histograms(export_root)
-        self._export_global_punctuality(export_root)
+        self._export_global_performance_analytics(export_root)
 
         # 2b) Prepare CSV folder
         csv_dir = export_root / "csv"
@@ -213,16 +213,12 @@ class Exporter:
         """
         time_types = set()
         for log in self.logs.values():
-            # Histograms:
-            for entry in (log.performance_logs.get("histograms_stops", {}).values()):
+            
+            for entry in log.performance_logs.get("analytics_logs", {}).values():
                 tt = entry.get("time_type")
                 if tt:
                     time_types.add(tt)
-            # Punctuality:
-            for entry in (log.performance_logs.get("punctuality_barcharts", {}).values()):
-                tt = entry.get("time_type")
-                if tt:
-                    time_types.add(tt)
+
             # Travel times:        
             for entry in log.performance_logs.get("travel_times",{}).values():
                 if tt := entry.get("time_type"):
@@ -280,152 +276,105 @@ class Exporter:
 
     def _export_global_travel_times(self, export_root: Path):
         """
-        Export global aggregated travel times by 
-        (from_stop_id, to_stop_id, time_type, direction_id).
-        Each entry includes overall mean and sample size, as well as per-route breakdowns.
+        Export global aggregated travel times keyed by seg_key.
+        Each entry includes:
+        - seg_key (entity_key for the segment)
+        - from_stop_id, to_stop_id, time_type
+        - aggregated mean and sample size
+        - per-route breakdowns
         """
         from collections import defaultdict
 
-        # 1) group by four fields
         grouped = defaultdict(list)
+
+        # 1) Group entries by segment + time_type (and keep their seg_key)
         for log in self.logs.values():
-            for entry in log.performance_logs.get("travel_times", {}).values():
+            for seg_key, entry in log.performance_logs.get("travel_times", {}).items():
                 key = (
                     entry["from_stop_id"],
                     entry["to_stop_id"],
-                    entry["time_type"],
+                    entry["time_type"]
                 )
-                grouped[key].append(entry)
+                grouped[key].append((seg_key, entry))
 
-        # 2) build global entries
-        global_entries = []
-        for (from_id, to_id, tt), entries in grouped.items():
-            # Sum up sample sizes from each route
-            total_samples = sum(e.get("sample_size", 0) for e in entries)
-            # Compute weighted mean across routes
-            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for e in entries)
+        # 2) Build global entries
+        global_dict = {}
+
+        for (from_id, to_id, tt), seg_entries in grouped.items():
+            total_samples = sum(e.get("sample_size", 0) for _, e in seg_entries)
+            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for _, e in seg_entries)
             overall_mean = round(weighted_sum / total_samples, 2) if total_samples > 0 else None
 
-            global_entries.append({
-                "from_stop_id":  from_id,
-                "to_stop_id":    to_id,
-                "time_type":     tt,
-                "aggregated": {
-                    "mean":        overall_mean,
-                    "sample_size": total_samples
-                },
-                "by_route": [
-                    {
-                        "route_id":     e["route_id"],
-                        "direction_id": e["direction_id"],
-                        "mean":         e["statistics"]["mean"],
-                        "sample_size":  e.get("sample_size", 0)
-                    }
-                    for e in entries
-                ]
-            })
+            for seg_key, entry in seg_entries:
+                global_dict[seg_key] = {
+                    "seg_key":       seg_key,
+                    "from_stop_id":  from_id,
+                    "to_stop_id":    to_id,
+                    "time_type":     tt,
+                    "aggregated": {
+                        "mean":        overall_mean,
+                        "sample_size": total_samples
+                    },
+                    "by_route": [
+                        {
+                            "route_id":     e["route_id"],
+                            "direction_id": e["direction_id"],
+                            "mean":         e["statistics"]["mean"],
+                            "sample_size":  e.get("sample_size", 0)
+                        }
+                        for _, e in seg_entries
+                    ]
+                }
 
-        # 3) write out
-        self._dump_safe(global_entries, export_root / "global_travel_times.json")
+        # 3) Write out as a dictionary keyed by seg_key
+        self._dump_safe(global_dict, export_root / "global_travel_times.json")
         print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
 
-    def _export_global_histograms(self, export_root: Path):
+    def _export_global_performance_analytics(self, export_root: Path):
         """
-        Flatten all per-route stop histograms into one file with:
-          - stop_id, stop_name
-          - route_id, direction_id
-          - total_delay_histogram, incremental_delay_histogram
+        Export global performance analytics as a dictionary keyed by entity_key.
+        Each entry mirrors the routewise structure:
+        {
+        "entity_key": {
+            "route_id": ...,
+            "direction_id": ...,
+            "stop_id": ...,
+            "stop_name": ...,
+            "time_type": ...,
+            "analytics": {
+            "total_delay_histogram": {...},
+            "incremental_delay_histogram": {...},
+            "punctuality": {...},
+            "is_regulatory_stop": ...
+            }
+        }
+        }
         """
-        flat: list[dict] = []
+        analytics_dict = {}
+
         for rid, log in self.logs.items():
-            for entry in log.performance_logs.get("histograms_stops", {}).values():
-                flat.append({
-                    "route_id":                    rid,
-                    "direction_id":                entry["direction_id"],
-                    "stop_id":                     entry["stop_id"],
-                    "stop_name":                   entry["stop_name"],  # :contentReference[oaicite:2]{index=2}
-                    "time_type":                   entry["time_type"],
-                    "total_delay_histogram":       entry.get("total_delay_histogram"),
-                    "incremental_delay_histogram": entry.get("incremental_delay_histogram"),
-                })
+            entries = log.performance_logs.get("analytics_logs", {})
+            for entity_key, entry in entries.items():
+                analytics_dict[entity_key] = {
+                    "route_id": rid,
+                    "direction_id": entry.get("direction_id"),
+                    "stop_id": entry.get("stop_id"),
+                    "stop_name": entry.get("stop_name"),
+                    "time_type": entry.get("time_type"),
+                    "analytics": entry.get("analytics", {})
+                }
 
-        self._dump_safe(flat, export_root / "global_histograms_stops.json")
-        print(f"🔄 Exported global histograms to {export_root / 'global_histograms_stops.json'}")
-
-    def _export_global_punctuality(self, export_root: Path):
-        """
-        Flatten per-time_type entries and then add an "all" aggregation,
-        carrying through an is_regulatory_stop flag if *any* underlying entry is regulatory.
-        """
-        from collections import defaultdict
-
-        flat = []
-        # 1) Flatten time_type–specific entries
-        for rid, log in self.logs.items():
-            for entry in log.performance_logs.get("punctuality_barcharts", {}).values():
-                pct = entry["punctuality"]["punctuality_distribution"]["percentages"]
-                n   = entry["punctuality"].get("sample_size", 0)
-                is_reg = entry.get("is_regulatory_stop", False)
-                flat.append({
-                    "route_id":           rid,
-                    "direction_id":       entry["direction_id"],
-                    "stop_id":            entry["stop_id"],
-                    "stop_name":          entry["stop_name"],
-                    "time_type":          entry["time_type"],
-                    "sample_size":        n,
-                    "too_early_pct":      pct.get("too_early", 0.0),
-                    "on_time_pct":        pct.get("on_time",   0.0),
-                    "too_late_pct":       pct.get("too_late",  0.0),
-                    "is_regulatory_stop": is_reg
-                })
-
-        # 2) Group for "all" aggregation
-        buckets = defaultdict(lambda: {
-            "sum_on":    0.0,
-            "sum_early": 0.0,
-            "sum_late":  0.0,
-            "n":         0,
-            "reg_flag":  False
-        })
-        for e in flat:
-            key = (e["route_id"], e["direction_id"], e["stop_id"], e["stop_name"])
-            b = buckets[key]
-            b["n"]         += e["sample_size"]
-            b["sum_on"]    += e["on_time_pct"]   * e["sample_size"]
-            b["sum_early"] += e["too_early_pct"] * e["sample_size"]
-            b["sum_late"]  += e["too_late_pct"]  * e["sample_size"]
-            b["reg_flag"]   = b["reg_flag"] or e["is_regulatory_stop"]
-
-        # 3) Append the aggregated entries
-        for (rid, did, sid, sname), agg in buckets.items():
-            total_n = agg["n"]
-            if total_n == 0:
-                continue
-            flat.append({
-                "route_id":           rid,
-                "direction_id":       did,
-                "stop_id":            sid,
-                "stop_name":          sname,
-                "time_type":          "all",
-                "sample_size":        total_n,
-                "too_early_pct":      agg["sum_early"] / total_n,
-                "on_time_pct":        agg["sum_on"]   / total_n,
-                "too_late_pct":       agg["sum_late"]  / total_n,
-                # carry through regulatory status:
-                "is_regulatory_stop": agg["reg_flag"]
-            })
-
-        # 4) Write out the file
-        self._dump_safe(flat, export_root / "global_punctuality_stops.json")
-        print(f"🔄 Exported global punctuality to {export_root / 'global_punctuality_stops.json'}")
+        self._dump_safe(analytics_dict, export_root / "global_performance_analytics.json")
+        print(f"🔄 Exported global performance analytics to {export_root / 'global_performance_analytics.json'}")
 
     def _export_csv_global_travel_times(self, csv_dir: Path):
         """
-        csv_dir should be something like export_root/csv
+        Export travel times in the legacy flat format:
+        from_stop_id, to_stop_id, time_type, aggregated_mean, aggregated_sample_size,
+        route_id, direction_id, route_mean, route_sample_size
         """
         import json, csv
 
-        # load JSON from export_root/global_travel_times.json
         json_path = csv_dir.parent / "global_travel_times.json"
         with open(json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -434,36 +383,40 @@ class Exporter:
         with open(csv_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow([
-                "from_stop_id","to_stop_id","time_type",
-                "aggregated_mean","aggregated_sample_size",
-                "route_id","direction_id","route_mean","route_sample_size",
+                "from_stop_id", "to_stop_id", "time_type",
+                "aggregated_mean", "aggregated_sample_size",
+                "route_id", "direction_id", "route_mean", "route_sample_size"
             ])
-            for entry in data:
+
+            for entry in data.values() if isinstance(data, dict) else data:
                 agg = entry["aggregated"]
+                from_stop_id = entry["from_stop_id"]
+                to_stop_id = entry["to_stop_id"]
+                time_type = entry["time_type"]
+
                 for r in entry["by_route"]:
                     writer.writerow([
-                        entry["from_stop_id"],
-                        entry["to_stop_id"],
-                        entry["time_type"],
-                        agg["mean"] or "",
-                        agg["sample_size"],
-                        r["route_id"],
-                        r["direction_id"],
-                        r["mean"] or "",
-                        r["sample_size"],
+                        from_stop_id,
+                        to_stop_id,
+                        time_type,
+                        agg.get("mean", ""),
+                        agg.get("sample_size", ""),
+                        r.get("route_id", ""),
+                        r.get("direction_id", ""),
+                        r.get("mean", ""),
+                        r.get("sample_size", "")
                     ])
+
         print(f"🔄 Exported global_travel_times.csv to {csv_path}")
 
     def _export_csv_underperforming_regulatory_stops(self, csv_dir: Path, threshold: float = 80.0):
         """
-        Export CSV of regulatory stops with aggregated on-time % below threshold.
-        Reads `global_punctuality_stops.json` and pulls only the `time_type=="all"` entries
-        where `is_regulatory_stop` is True and `on_time_pct` < threshold.
-
-        Columns: route_id, direction_id, stop_id, stop_name, on_time_pct, sample_size
+        Export CSV of regulatory stops with on-time % below threshold,
+        using global_performance_analytics.json.
         """
-        # load the global punctuality file we just wrote
-        jp = csv_dir.parent / "global_punctuality_stops.json"
+        import json, csv
+
+        jp = csv_dir.parent / "global_performance_analytics.json"
         with jp.open("r", encoding="utf-8") as f:
             data = json.load(f)
 
@@ -471,23 +424,28 @@ class Exporter:
         with out_path.open("w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([
-                "route_id", "direction_id", "stop_id",
-                "stop_name", "on_time_pct", "sample_size"
+                "entity_key", "route_id", "direction_id", "stop_id",
+                "stop_name", "time_type", "on_time_pct", "sample_size"
             ])
 
-            for e in data:
-                if (
-                    e.get("time_type") == "all"
-                    and e.get("is_regulatory_stop", False)
-                    and e.get("on_time_pct", 0.0) < threshold
-                ):
+            for entity_key, e in data.items():
+                analytics = e.get("analytics", {})
+                punctuality = analytics.get("punctuality", {})
+                is_reg = analytics.get("is_regulatory_stop", False)
+                pct = punctuality.get("punctuality_distribution", {}).get("percentages", {})
+                on_time = pct.get("on_time", 0.0)
+                sample_size = punctuality.get("sample_size", 0)
+
+                if is_reg and on_time < threshold:
                     writer.writerow([
+                        entity_key,
                         e.get("route_id", ""),
                         e.get("direction_id", ""),
                         e.get("stop_id", ""),
                         e.get("stop_name", ""),
-                        e.get("on_time_pct", ""),
-                        e.get("sample_size", "")
+                        e.get("time_type", ""),
+                        on_time,
+                        sample_size
                     ])
 
         print(f"🔄 Exported underperforming regulatory stops to {out_path}")
