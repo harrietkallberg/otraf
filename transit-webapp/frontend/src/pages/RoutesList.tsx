@@ -11,24 +11,27 @@ type Violation = { route_id: string }
 export default function RoutesList() {
   const [routes, setRoutes] = useState<Record<string, RouteMeta>>({})
   const [violations, setViolations] = useState<Violation[]>([])
-  const { user } = useAuth()
+  const { user, session } = useAuth()
 
   useEffect(() => {
-    if (!user) return
+    if (!user || !session?.access_token) return
+    
+    const headers = { 
+      'X-User-Id': user.id,
+      'Authorization': `Bearer ${session.access_token}`,
+      'X-Refresh-Token': session.refresh_token,  // Pass refresh token in a custom header
+    }
+    
     Promise.all([
-      fetch('/api/global/routes', {
-        headers: { 'X-User-Id': user.id }
-      }).then(r => r.json()),
-      fetch('/api/global/violations', {
-        headers: { 'X-User-Id': user.id }
-      }).then(r => r.json()),
+      fetch('/api/global/routes', { headers }).then(r => r.json()),
+      fetch('/api/global/violations', { headers }).then(r => r.json()),
     ])
       .then(([routesJson, violJson]) => {
         setRoutes(routesJson)
         setViolations(violJson)
       })
       .catch(console.error)
-  }, [user])
+  }, [user, session])
 
   const list = Object.entries(routes).map(([id, meta]) => ({
     id,

@@ -1,28 +1,39 @@
 // src/pages/Dashboard.tsx
 import React, { useContext, useEffect, useState } from 'react'
-import { GlobalDataContext, ViolationEntry } from '../contexts/GlobalDataContext'
+import { GlobalDataContext } from '../contexts/GlobalDataContext'
 import { useAuth } from '../contexts/AuthContext'
-
 
 type RoutesIndex = Record<
   string,
   { route_long_name: string; route_short_name: string }
 >
 
+// Define the violation interface
+interface Violation {
+  severity: number
+  [key: string]: any
+}
+
 const Dashboard: React.FC = () => {
   const globalData = useContext(GlobalDataContext)
   const [routes, setRoutes] = useState<RoutesIndex | null>(null)
-  const { user } = useAuth()
+  const { user, session } = useAuth()
+
   // fetch global routes
   useEffect(() => {
-    if (!user) return
+    if (!user || !session) return
+    
     fetch('/api/global/routes', {
-          headers: { 'X-User-Id': user.id }
-        })
+      headers : { 
+      'X-User-Id': user.id,
+      'Authorization': `Bearer ${session.access_token}`,
+      'X-Refresh-Token': session.refresh_token,  // Pass refresh token in a custom header
+    }
+    })
       .then((r) => r.json())
       .then((json: RoutesIndex) => setRoutes(json))
       .catch(console.error)
-  }, [user])
+  }, [user, session]) // Added session to dependency array
 
   if (!globalData || routes === null) {
     return <div className="p-6">Loading dashboard…</div>
@@ -36,9 +47,10 @@ const Dashboard: React.FC = () => {
   const totalRoutes = Object.keys(routes).length
   const totalTimeTypes = time_types.length
 
-  // breakdown of violations by severity
+  // breakdown of violations by severity with proper typing
   const severityCounts = Object.values(violations).reduce<Record<string, number>>((acc, v) => {
-    const sev = String(v.severity)
+    const violation = v as Violation // Type assertion to handle the unknown type
+    const sev = String(violation.severity)
     acc[sev] = (acc[sev] || 0) + 1
     return acc
   }, {})
@@ -92,5 +104,3 @@ const Card: React.FC<CardProps> = ({ title, value }) => (
 )
 
 export default Dashboard
-
-

@@ -23,15 +23,27 @@ const downloads = [
 ]
 
 const ExportCsvPage: React.FC = () => {
-  const { user } = useAuth()
+  const { user, session } = useAuth()
 
   const handleDownload = async (href: string, fileName: string) => {
     try {
+      // Check if the session is valid
+      if (!session || !session.access_token || !session.refresh_token || !user) {
+        throw new Error('No valid session or tokens available')
+      }
+
       const res = await fetch(href, {
         method: 'GET',
-        headers: { 'X-User-Id': user?.id ?? '' },
+        headers: { 
+          'X-User-Id': user.id,  // Pass user ID
+          'Authorization': `Bearer ${session.access_token}`,  // Pass access token
+          'X-Refresh-Token': session.refresh_token,  // Pass refresh token in a custom header
+        },
       })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+
+      // Create a blob from the response and trigger the download
       const blob = await res.blob()
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -40,10 +52,12 @@ const ExportCsvPage: React.FC = () => {
       document.body.appendChild(a)
       a.click()
       a.remove()
+
+      // Clean up the object URL after the download
       window.URL.revokeObjectURL(url)
     } catch (err) {
       console.error('Download failed', err)
-      alert('Failed to download file.')
+      alert('Failed to download file. Please try again.')
     }
   }
 
@@ -69,4 +83,3 @@ const ExportCsvPage: React.FC = () => {
 }
 
 export default ExportCsvPage
-

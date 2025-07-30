@@ -276,18 +276,17 @@ class Exporter:
 
     def _export_global_travel_times(self, export_root: Path):
         """
-        Export global aggregated travel times keyed by seg_key.
+        Export global aggregated travel times as an array.
         Each entry includes:
-        - seg_key (entity_key for the segment)
         - from_stop_id, to_stop_id, time_type
-        - aggregated mean and sample size
+        - aggregated mean and sample size across all routes
         - per-route breakdowns
         """
         from collections import defaultdict
 
         grouped = defaultdict(list)
 
-        # 1) Group entries by segment + time_type (and keep their seg_key)
+        # 1) Group entries by segment + time_type (regardless of route)
         for log in self.logs.values():
             for seg_key, entry in log.performance_logs.get("travel_times", {}).items():
                 key = (
@@ -295,39 +294,38 @@ class Exporter:
                     entry["to_stop_id"],
                     entry["time_type"]
                 )
-                grouped[key].append((seg_key, entry))
+                grouped[key].append(entry)
 
-        # 2) Build global entries
-        global_dict = {}
+        # 2) Build global entries - one per unique segment
+        global_array = []
 
-        for (from_id, to_id, tt), seg_entries in grouped.items():
-            total_samples = sum(e.get("sample_size", 0) for _, e in seg_entries)
-            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for _, e in seg_entries)
+        for (from_id, to_id, tt), entries in grouped.items():
+            # Calculate aggregated statistics across all routes for this segment
+            total_samples = sum(e.get("sample_size", 0) for e in entries)
+            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for e in entries)
             overall_mean = round(weighted_sum / total_samples, 2) if total_samples > 0 else None
 
-            for seg_key, entry in seg_entries:
-                global_dict[seg_key] = {
-                    "seg_key":       seg_key,
-                    "from_stop_id":  from_id,
-                    "to_stop_id":    to_id,
-                    "time_type":     tt,
-                    "aggregated": {
-                        "mean":        overall_mean,
-                        "sample_size": total_samples
-                    },
-                    "by_route": [
-                        {
-                            "route_id":     e["route_id"],
-                            "direction_id": e["direction_id"],
-                            "mean":         e["statistics"]["mean"],
-                            "sample_size":  e.get("sample_size", 0)
-                        }
-                        for _, e in seg_entries
-                    ]
-                }
+            global_array.append({
+                "from_stop_id": from_id,
+                "to_stop_id": to_id,
+                "time_type": tt,
+                "aggregated": {
+                    "mean": overall_mean,
+                    "sample_size": total_samples
+                },
+                "by_route": [
+                    {
+                        "route_id": e["route_id"],
+                        "direction_id": e["direction_id"],
+                        "mean": e["statistics"]["mean"],
+                        "sample_size": e.get("sample_size", 0)
+                    }
+                    for e in entries
+                ]
+            })
 
-        # 3) Write out as a dictionary keyed by seg_key
-        self._dump_safe(global_dict, export_root / "global_travel_times.json")
+        # 3) Write out as an array
+        self._dump_safe(global_array, export_root / "global_travel_times.json")
         print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
 
     def _export_global_performance_analytics(self, export_root: Path):
@@ -388,7 +386,10 @@ class Exporter:
                 "route_id", "direction_id", "route_mean", "route_sample_size"
             ])
 
-            for entry in data.values() if isinstance(data, dict) else data:
+            # Handle both old dict format and new array format
+            entries = data if isinstance(data, list) else data.values()
+            
+            for entry in entries:
                 agg = entry["aggregated"]
                 from_stop_id = entry["from_stop_id"]
                 to_stop_id = entry["to_stop_id"]
@@ -424,7 +425,7 @@ class Exporter:
         with out_path.open("w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([
-                "entity_key", "route_id", "direction_id", "stop_id",
+                 "route_id", "direction_id", "stop_id",
                 "stop_name", "time_type", "on_time_pct", "sample_size"
             ])
 
@@ -438,7 +439,6 @@ class Exporter:
 
                 if is_reg and on_time < threshold:
                     writer.writerow([
-                        entity_key,
                         e.get("route_id", ""),
                         e.get("direction_id", ""),
                         e.get("stop_id", ""),
@@ -494,12 +494,28 @@ class Exporter:
 
     def _dump_safe(self, obj: any, path: Path):
         """
-        Serialize an object to JSON safely, creating parent dirs as needed.
+        Serialize an object to JSON safely with NumPy support, creating parent dirs as needed.
         Ensures lists, dicts are sanitized; catches file errors.
         """
+        import numpy as np
+        
+        class NumpyEncoder(json.JSONEncoder):
+            def default(self, obj):
+                if isinstance(obj, np.integer):
+                    return int(obj)
+                elif isinstance(obj, np.floating):
+                    return float(obj)
+                elif isinstance(obj, np.ndarray):
+                    return obj.tolist()
+                elif isinstance(obj, np.bool_):
+                    return bool(obj)
+                elif hasattr(obj, 'item'):  # Handle numpy scalars
+                    return obj.item()
+                return super().default(obj)
+        
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
             with path.open("w", encoding="utf-8") as f:
-                json.dump(obj, f, indent=2, ensure_ascii=False)
+                json.dump(obj, f, indent=2, ensure_ascii=False, cls=NumpyEncoder)
         except Exception as e:
             print(f"Error exporting {path}: {e}")

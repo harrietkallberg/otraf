@@ -10,7 +10,7 @@ class DataFormer:
     def __init__(self, raw_data):
         self.raw_data = raw_data
         self.route_id = raw_data["route_id"].iloc[0]
-        self.route_long_name = self.get_route_long_name()
+        self.route_long_name = raw_data["route_long_name"].iloc[0]
         self.route_short_name = raw_data["route_short_name"].iloc[0]
 
         # Initialize logger with extracted route metadata
@@ -34,88 +34,76 @@ class DataFormer:
 
 #   ================================ Preparation =====================================
 
-    def get_route_long_name(self):
-        if 'route_long_name' in self.raw_data.columns and not self.raw_data['route_long_name'].empty:
-            # Get first non-null value
-            first_valid = self.raw_data['route_long_name'].dropna()
-            if not first_valid.empty:
-                route_long_name = first_valid.iloc[0]
-            else:
-                route_long_name = 'Unknown'
-        else:
-            route_long_name = 'Unknown'
-        return route_long_name
-
     def prepare_columns(self, df):
-        "prepare dataframe to have a good structure before manipulating it"
+        """Simplified version with better performance"""
         df = df.copy()
-
-        if 'date' in df.columns:
-            df.rename(columns={'date': 'update_date'}, inplace=True)
-        if 'start_date' in df.columns:
-            df['start_date'] = pd.to_datetime(df['start_date'], format='%Y%m%d')
-
-        columns_to_keep = ['trip_id', 'route_long_name', 'start_date', 'direction_id', 'stop_id', 'stop_name', 'stop_sequence', 
-            'scheduled_departure_time', 'observed_departure_time', 'departure_delay', 'route_short_name','city', 'parent_station']
-
-        available_columns = [col for col in columns_to_keep if col in df.columns]
-
-        df = df[available_columns].copy()
         
-        if 'observed_departure_time' in df.columns and 'scheduled_departure_time' in df.columns and 'departure_delay' in df.columns:
+        # Convert timestamps
+        df['observed_departure_time'] = pd.to_datetime(df['observed_departure_time'], unit='s')
+        df['scheduled_departure_time'] = pd.to_datetime(df['scheduled_departure_time'])
+
+        # Convert to string - use .astype() for Series
+        df['route_id'] = df['route_id'].astype(str)
+        df['route_long_name'] = df['route_long_name'].astype(str)
+        df['route_short_name'] = df['route_short_name'].astype(str)
+
+        # For direction_id, handle potential floats first, then convert to string
+        df['direction_id'] = df['direction_id'].astype(int).astype(str)
+        
+        # Fix observed_departure_time if needed
+        if 'departure_delay' in df.columns:
             df['observed_departure_time'] = df['scheduled_departure_time'] + pd.to_timedelta(df['departure_delay'], unit='s')
         
+        # Remove duplicates
         df = df.drop_duplicates(subset=['trip_id', 'stop_id', 'stop_name','direction_id', 'start_date'])
-        df['month'] = df['start_date'].dt.month
-        df['month_type'] = df['start_date'].dt.month.apply(lambda x: 1 if x >= 6 and x <= 8 else 0)
-        df['day_type'] = df['start_date'].dt.weekday.apply(lambda x: 'weekday' if x <= 4 else ('saturday' if x == 5 else 'sunday'))
         
-        # Sort once and get the first scheduled_departure_time per trip
+        # Date processing
+        df['start_date'] = pd.to_datetime(df['start_date'])
+        df['month'] = df['start_date'].dt.month
+        df['month_type'] = (df['start_date'].dt.month.between(6, 8)).astype(int)
+        
+        # Day type
+        weekday_num = df['start_date'].dt.weekday
+        df['day_type'] = weekday_num.map({
+            0: 'weekday', 1: 'weekday', 2: 'weekday', 3: 'weekday', 4: 'weekday',
+            5: 'saturday', 6: 'sunday'
+        })
+        
+        # Get trip start times
         trip_start_times = (
             df.sort_values('stop_sequence')
             .groupby(['trip_id', 'direction_id', 'start_date'])['scheduled_departure_time']
             .first()
             .reset_index(name='start_time')
         )
-
-        # Merge back to original DataFrame
+        
         df = df.merge(trip_start_times, on=['trip_id', 'direction_id', 'start_date'], how='left')
-
-        # Add time_type based on consistent trip start_time
-        def categorize_time(row):
-            if pd.isna(row['start_time']):
-                return 'unknown'
-                
-            if row['day_type'] != 'weekday':
-                return 'weekend'
-                
-            hour = pd.to_datetime(row['start_time']).hour  # Use start_time instead of scheduled_departure_time
-            if 6 <= hour < 9: 
-                return 'am_rush'
-            elif 9 <= hour < 15: 
-                return 'day'
-            elif 15 <= hour < 17: 
-                return 'pm_rush'
-            else: 
-                return 'night'
-            
-        df['time_type'] = df.apply(categorize_time, axis=1)
-
-
-        if all(col in df.columns for col in ['trip_id', 'stop_id','stop_name', 'direction_id', 'start_date']):
-            # Count duplicates before dropping
-            duplicate_count = len(df) - len(df.drop_duplicates(subset=['trip_id', 'stop_id', 'stop_name', 'direction_id', 'start_date']))
-            print(f'Removing {duplicate_count} duplicates.')
-            df = df.drop_duplicates(subset=['trip_id', 'stop_id', 'stop_name', 'direction_id', 'start_date'])
-
-        # In DataFormer.__init__, after self.df_before = df.copy():
+        
+        # Time type - vectorized approach
+        hours = df['start_time'].dt.hour
+        
+        # Initialize all as weekend
+        df['time_type'] = 'weekend'
+        
+        # For weekdays only
+        weekday_mask = df['day_type'] == 'weekday'
+        
+        # Apply time categories to weekdays
+        df.loc[weekday_mask & (hours >= 6) & (hours < 9), 'time_type'] = 'am_rush'
+        df.loc[weekday_mask & (hours >= 9) & (hours < 15), 'time_type'] = 'day'
+        df.loc[weekday_mask & (hours >= 15) & (hours < 17), 'time_type'] = 'pm_rush'
+        df.loc[weekday_mask & ~((hours >= 6) & (hours < 17)), 'time_type'] = 'night'
+        
+        # Handle missing start_time
+        df.loc[df['start_time'].isna(), 'time_type'] = 'unknown'
+        
+        # Convert to string
         for col in ["direction_id", "stop_id", "time_type"]:
             if col in df.columns:
                 df[col] = df[col].astype(str)
-
-
+        
         return df
-    
+        
 #   ================ CLEARLY SEPARATED VALIDATION METHODS =====================
 
     def create_and_validate_stop_topology(self, df):

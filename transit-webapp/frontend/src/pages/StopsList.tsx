@@ -9,9 +9,20 @@ interface StopGroup {
   hasViolation: boolean
 }
 
+// Define the shape of a stop entry
+interface StopEntry {
+  stop_name: string
+  violation_stats: Record<string, { occurrences: number }>
+}
+
 const StopsList: React.FC = () => {
-  const globalData = useContext(GlobalDataContext)!
-  const stopsIndex = globalData.stops   // Record<stop_id, { stop_name, violation_stats, … }>
+  const globalData = useContext(GlobalDataContext)
+  
+  if (!globalData) {
+    return <div className="p-6">Loading stops...</div>
+  }
+
+  const stopsIndex = globalData.stops as Record<string, StopEntry>
 
   // Group by stop_name
   const groupsMap: Record<string, StopGroup> = {}
@@ -19,7 +30,7 @@ const StopsList: React.FC = () => {
     const name = entry.stop_name
     // check across all domains for any violations
     const hasViol = Object.values(entry.violation_stats).some(
-      (dom: any) => dom.occurrences > 0
+      (dom) => dom.occurrences > 0
     )
 
     if (!groupsMap[name]) {
