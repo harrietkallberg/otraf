@@ -274,60 +274,6 @@ class Exporter:
         self._dump_safe(flat, export_root / "global_labels.json")
         print(f"🔄 Exported global labels to {export_root / 'global_labels.json'}")
 
-    def _export_global_travel_times(self, export_root: Path):
-        """
-        Export global aggregated travel times as an array.
-        Each entry includes:
-        - from_stop_id, to_stop_id, time_type
-        - aggregated mean and sample size across all routes
-        - per-route breakdowns
-        """
-        from collections import defaultdict
-
-        grouped = defaultdict(list)
-
-        # 1) Group entries by segment + time_type (regardless of route)
-        for log in self.logs.values():
-            for seg_key, entry in log.performance_logs.get("travel_times", {}).items():
-                key = (
-                    entry["from_stop_id"],
-                    entry["to_stop_id"],
-                    entry["time_type"]
-                )
-                grouped[key].append(entry)
-
-        # 2) Build global entries - one per unique segment
-        global_array = []
-
-        for (from_id, to_id, tt), entries in grouped.items():
-            # Calculate aggregated statistics across all routes for this segment
-            total_samples = sum(e.get("sample_size", 0) for e in entries)
-            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for e in entries)
-            overall_mean = round(weighted_sum / total_samples, 2) if total_samples > 0 else None
-
-            global_array.append({
-                "from_stop_id": from_id,
-                "to_stop_id": to_id,
-                "time_type": tt,
-                "aggregated": {
-                    "mean": overall_mean,
-                    "sample_size": total_samples
-                },
-                "by_route": [
-                    {
-                        "route_id": e["route_id"],
-                        "direction_id": e["direction_id"],
-                        "mean": e["statistics"]["mean"],
-                        "sample_size": e.get("sample_size", 0)
-                    }
-                    for e in entries
-                ]
-            })
-
-        # 3) Write out as an array
-        self._dump_safe(global_array, export_root / "global_travel_times.json")
-        print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
-
     def _export_global_performance_analytics(self, export_root: Path):
         """
         Export global performance analytics as a dictionary keyed by entity_key.
@@ -365,14 +311,123 @@ class Exporter:
         self._dump_safe(analytics_dict, export_root / "global_performance_analytics.json")
         print(f"🔄 Exported global performance analytics to {export_root / 'global_performance_analytics.json'}")
 
+    def _export_global_travel_times(self, export_root: Path):
+        """
+        Export global aggregated travel times as an array.
+        Each entry includes:
+        - from_stop_id, to_stop_id, time_type
+        - aggregated mean and sample size across all routes
+        - per-route breakdowns
+        """
+        from collections import defaultdict
+
+        grouped = defaultdict(list)
+
+        # 1) Group entries by segment + time_type (regardless of route)
+        for log in self.logs.values():
+            for seg_key, entry in log.performance_logs.get("travel_times", {}).items():
+                key = (
+                    entry["from_stop_id"],
+                    entry["from_stop_name"],
+                    entry["to_stop_id"],
+                    entry["to_stop_name"],
+                    entry["time_type"]
+                )
+                grouped[key].append(entry)
+
+        # 2) Build global entries - one per unique segment
+        global_array = []
+
+        for (from_id, from_name, to_id, to_name, tt), entries in grouped.items():
+            # Calculate aggregated statistics across all routes for this segment
+            total_samples = sum(e.get("sample_size", 0) for e in entries)
+            weighted_sum = sum(e["statistics"]["mean"] * e.get("sample_size", 0) for e in entries)
+            overall_mean = round(weighted_sum / total_samples, 2) if total_samples > 0 else None
+
+            global_array.append({
+                "from_stop_id": from_id,
+                "from_stop_name": from_name,
+                "to_stop_id": to_id,
+                "to_stop_name": to_name,
+                "time_type": tt,
+                "aggregated": {
+                    "mean": overall_mean,
+                    "sample_size": total_samples
+                },
+                "by_route": [
+                    {
+                        "route_id": e["route_id"],
+                        "direction_id": e["direction_id"],
+                        "mean": e["statistics"]["mean"],
+                        "sample_size": e.get("sample_size", 0)
+                    }
+                    for e in entries
+                ]
+            })
+
+        # 3) Create 'all' time_type entries by aggregating across all time types for each segment
+        segment_all_data = defaultdict(list)
+        
+        # Group by segment (ignoring time_type) to create 'all' entries
+        for (from_id, from_name, to_id, to_name, tt), entries in grouped.items():
+            segment_key = (from_id, from_name, to_id, to_name)
+            segment_all_data[segment_key].extend(entries)
+        
+        # Add 'all' entries to global_array
+        for (from_id, from_name, to_id, to_name), all_entries in segment_all_data.items():
+            # First, aggregate by route+direction across time types
+            route_aggregates = defaultdict(lambda: {"samples": 0, "weighted_sum": 0, "direction_id": None})
+            
+            for entry in all_entries:
+                route_key = (entry["route_id"], entry["direction_id"])
+                samples = entry.get("sample_size", 0)
+                mean = entry["statistics"]["mean"]
+                
+                route_aggregates[route_key]["samples"] += samples
+                route_aggregates[route_key]["weighted_sum"] += mean * samples
+                route_aggregates[route_key]["direction_id"] = entry["direction_id"]
+            
+            # Create aggregated by_route entries
+            aggregated_by_route = []
+            for (route_id, direction_id), agg_data in route_aggregates.items():
+                if agg_data["samples"] > 0:
+                    route_mean = round(agg_data["weighted_sum"] / agg_data["samples"], 2)
+                    aggregated_by_route.append({
+                        "route_id": route_id,
+                        "direction_id": direction_id,
+                        "mean": route_mean,
+                        "sample_size": agg_data["samples"]
+                    })
+            
+            # Calculate overall aggregated statistics across all routes
+            total_samples = sum(r["sample_size"] for r in aggregated_by_route)
+            weighted_sum = sum(r["mean"] * r["sample_size"] for r in aggregated_by_route)
+            overall_mean = round(weighted_sum / total_samples, 2) if total_samples > 0 else None
+
+            global_array.append({
+                "from_stop_id": from_id,
+                "from_stop_name": from_name,
+                "to_stop_id": to_id,
+                "to_stop_name": to_name,
+                "time_type": "all",
+                "aggregated": {
+                    "mean": overall_mean,
+                    "sample_size": total_samples
+                },
+                "by_route": aggregated_by_route
+            })
+
+        # 4) Write out as an array
+        self._dump_safe(global_array, export_root / "global_travel_times.json")
+        print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
+
+
     def _export_csv_global_travel_times(self, csv_dir: Path):
         """
         Export travel times in the legacy flat format:
         from_stop_id, to_stop_id, time_type, aggregated_mean, aggregated_sample_size,
         route_id, direction_id, route_mean, route_sample_size
         """
-        import json, csv
-
         json_path = csv_dir.parent / "global_travel_times.json"
         with open(json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -381,7 +436,7 @@ class Exporter:
         with open(csv_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow([
-                "from_stop_id", "to_stop_id", "time_type",
+                "from_stop_id", "from_stop_name", "to_stop_id", "to_stop_name", "time_type",
                 "aggregated_mean", "aggregated_sample_size",
                 "route_id", "direction_id", "route_mean", "route_sample_size"
             ])
@@ -392,13 +447,17 @@ class Exporter:
             for entry in entries:
                 agg = entry["aggregated"]
                 from_stop_id = entry["from_stop_id"]
+                from_stop_name = entry['from_stop_name']
                 to_stop_id = entry["to_stop_id"]
+                to_stop_name = entry['to_stop_name']
                 time_type = entry["time_type"]
 
                 for r in entry["by_route"]:
                     writer.writerow([
                         from_stop_id,
+                        from_stop_name,
                         to_stop_id,
+                        to_stop_name,
                         time_type,
                         agg.get("mean", ""),
                         agg.get("sample_size", ""),
@@ -409,14 +468,12 @@ class Exporter:
                     ])
 
         print(f"🔄 Exported global_travel_times.csv to {csv_path}")
-
+    # Export underperforming regulatory stops to CSV with UTF-8 encoding
     def _export_csv_underperforming_regulatory_stops(self, csv_dir: Path, threshold: float = 80.0):
         """
         Export CSV of regulatory stops with on-time % below threshold,
         using global_performance_analytics.json.
         """
-        import json, csv
-
         jp = csv_dir.parent / "global_performance_analytics.json"
         with jp.open("r", encoding="utf-8") as f:
             data = json.load(f)
@@ -425,7 +482,7 @@ class Exporter:
         with out_path.open("w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([
-                 "route_id", "direction_id", "stop_id",
+                "route_id", "direction_id", "stop_id",
                 "stop_name", "time_type", "on_time_pct", "sample_size"
             ])
 
@@ -450,6 +507,7 @@ class Exporter:
 
         print(f"🔄 Exported underperforming regulatory stops to {out_path}")
 
+    # Export mis-tracked stops to CSV with UTF-8 encoding
     def _export_csv_mis_tracked_stops(self, csv_dir: Path):
         path = csv_dir / "mis_tracked_stops.csv"
         # aggregate per stop_id/stop_name → list of (violation_type, severity)
@@ -457,13 +515,13 @@ class Exporter:
         for log in self.logs.values():
             for dom in (log.stop_topology_logs, log.direction_topology_logs):
                 for e in dom.get("stop_id_violations", {}).values():
-                    sid   = e["stop_id"]
+                    sid = e["stop_id"]
                     sname = e["stop_name"]
                     vtype = e["violation_type"]
-                    sev   = int(e["severity"])
+                    sev = int(e["severity"])
                     agg.setdefault((sid, sname), []).append((vtype, sev))
 
-        with path.open("w", newline="", encoding="utf-8") as f:
+        with path.open("w", newline="", encoding="utf-8") as f:  # Writing rows to CSV with UTF-8 encoding
             writer = csv.writer(f)
             writer.writerow([
                 "stop_id",
@@ -491,6 +549,8 @@ class Exporter:
                     top_vtype,
                     has_others,
                 ])
+
+        print(f"🔄 Exported mis_tracked_stops.csv to {path}")
 
     def _dump_safe(self, obj: any, path: Path):
         """

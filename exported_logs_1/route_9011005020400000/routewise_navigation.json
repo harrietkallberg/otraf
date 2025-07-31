@@ -1,0 +1,2344 @@
+{
+  "route_id": 9011005020400000,
+  "route_name": 204,
+  "route_summary": {
+    "total_parent_stations": 18,
+    "total_stop_ids": 35,
+    "total_directions": 2,
+    "total_trip_instances": 56519,
+    "canonical_share": 0.09800244165678798,
+    "violation_counts_by_type": {
+      "stop_topology": {
+        "parent_station": 0,
+        "stop_id": 0
+      },
+      "direction_topology": {
+        "direction": 2,
+        "stop_id": 25
+      }
+    },
+    "violation_counts_by_severity": {
+      "1": 25,
+      "5": 2
+    },
+    "violation_counts_by_severity_by_domain": {
+      "stop_topology": {},
+      "direction_topology": {
+        "1": 25,
+        "5": 2
+      }
+    }
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 12.91,
+    "overall_on_time_rate": 73.22,
+    "overall_too_late_rate": 13.88,
+    "average_departure_delay": 73.2966999488468
+  },
+  "regulatory_summary": {
+    "total_regulatory_stops": 7
+  },
+  "directions": [
+    {
+      "direction_id": "0",
+      "direction_label_keys": [
+        "direction_topology_9011005020400000_direction_id_0"
+      ],
+      "direction_violation_keys": [
+        "direction_topology_9011005020400000_direction_id_0"
+      ],
+      "has_direction_violations": true,
+      "contains_violations": true,
+      "violation_severity_counts": {
+        "1": 1
+      },
+      "canonical_pattern": {
+        "pattern_str": "1-17",
+        "pattern_ids": [
+          "9022005000223001",
+          "9022005000418001",
+          "9022005001275001",
+          "9022005001274001",
+          "9022005001273001",
+          "9022005000213001",
+          "9022005000234002",
+          "9022005080182002",
+          "9022005080004002",
+          "9022005004236002",
+          "9022005000404002",
+          "9022005001249002",
+          "9022005000198002",
+          "9022005000042002",
+          "9022005000046004",
+          "9022005001243002",
+          "9022005000050006"
+        ],
+        "count": 5662,
+        "label_key": "direction_topology_9011005020400000_direction_id_0"
+      },
+      "alternative_patterns": [
+        {
+          "pattern_str": "8-17",
+          "count": 5,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "1-15_17",
+          "count": 1017,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001243002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "8-15_17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001243002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "12-17",
+          "count": 13,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005004236002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "9-17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "2-17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "1-10_*9022005004230002*_12-17",
+          "count": 51174,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "8-10_*9022005004230002*_12-17",
+          "count": 50,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "10_*9022005004230002*_12-17",
+          "count": 6,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "9-10_*9022005004230002*_12-17",
+          "count": 6,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "6-10_*9022005004230002*_12-17",
+          "count": 16,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "_*9022005004230002*_12-17",
+          "count": 9,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005004236002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "4-10_*9022005004230002*_12-17",
+          "count": 5,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "7-10_*9022005004230002*_12-17",
+          "count": 26,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "3-10_*9022005004230002*_12-17",
+          "count": 8,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "13-17",
+          "count": 9,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001249002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005004236002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "5-10_*9022005004230002*_12-17",
+          "count": 4,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "2-10_*9022005004230002*_12-17",
+          "count": 2,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "14-17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000198002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001249002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005004236002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002",
+            "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        }
+      ],
+      "travel_time_segments": [
+        {
+          "from_stop_id": "9022005000042002",
+          "to_stop_id": "9022005000046004",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000042002_9022005000046004_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000042002_9022005000046004_day",
+            "night": "performance_9011005020400000_segment_0_9022005000042002_9022005000046004_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000042002_9022005000046004_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000042002_9022005000046004_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000046004",
+          "to_stop_id": "9022005000050006",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000046004_9022005000050006_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000046004_9022005000050006_day",
+            "night": "performance_9011005020400000_segment_0_9022005000046004_9022005000050006_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000046004_9022005000050006_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000046004_9022005000050006_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000046004",
+          "to_stop_id": "9022005001243002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000046004_9022005001243002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000046004_9022005001243002_day",
+            "night": "performance_9011005020400000_segment_0_9022005000046004_9022005001243002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000046004_9022005001243002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000046004_9022005001243002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000198002",
+          "to_stop_id": "9022005000042002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000198002_9022005000042002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000198002_9022005000042002_day",
+            "night": "performance_9011005020400000_segment_0_9022005000198002_9022005000042002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000198002_9022005000042002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000198002_9022005000042002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000213001",
+          "to_stop_id": "9022005000234002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000213001_9022005000234002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000213001_9022005000234002_day",
+            "night": "performance_9011005020400000_segment_0_9022005000213001_9022005000234002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000213001_9022005000234002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000213001_9022005000234002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000234002",
+          "to_stop_id": "9022005080182002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000234002_9022005080182002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000234002_9022005080182002_day",
+            "night": "performance_9011005020400000_segment_0_9022005000234002_9022005080182002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000234002_9022005080182002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000234002_9022005080182002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000404002",
+          "to_stop_id": "9022005001249002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000404002_9022005001249002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000404002_9022005001249002_day",
+            "night": "performance_9011005020400000_segment_0_9022005000404002_9022005001249002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000404002_9022005001249002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000404002_9022005001249002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000418001",
+          "to_stop_id": "9022005001275001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005000418001_9022005001275001_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005000418001_9022005001275001_day",
+            "night": "performance_9011005020400000_segment_0_9022005000418001_9022005001275001_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005000418001_9022005001275001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005000418001_9022005001275001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001243002",
+          "to_stop_id": "9022005000050006",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005001243002_9022005000050006_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005001243002_9022005000050006_day",
+            "night": "performance_9011005020400000_segment_0_9022005001243002_9022005000050006_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005001243002_9022005000050006_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005001243002_9022005000050006_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001249002",
+          "to_stop_id": "9022005000198002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005001249002_9022005000198002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005001249002_9022005000198002_day",
+            "night": "performance_9011005020400000_segment_0_9022005001249002_9022005000198002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005001249002_9022005000198002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005001249002_9022005000198002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001273001",
+          "to_stop_id": "9022005000213001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005001273001_9022005000213001_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005001273001_9022005000213001_day",
+            "night": "performance_9011005020400000_segment_0_9022005001273001_9022005000213001_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005001273001_9022005000213001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005001273001_9022005000213001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001274001",
+          "to_stop_id": "9022005001273001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005001274001_9022005001273001_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005001274001_9022005001273001_day",
+            "night": "performance_9011005020400000_segment_0_9022005001274001_9022005001273001_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005001274001_9022005001273001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005001274001_9022005001273001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001275001",
+          "to_stop_id": "9022005001274001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005001275001_9022005001274001_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005001275001_9022005001274001_day",
+            "night": "performance_9011005020400000_segment_0_9022005001275001_9022005001274001_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005001275001_9022005001274001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005001275001_9022005001274001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005004230002",
+          "to_stop_id": "9022005001249002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005004230002_9022005001249002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005004230002_9022005001249002_day",
+            "night": "performance_9011005020400000_segment_0_9022005004230002_9022005001249002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005004230002_9022005001249002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005004230002_9022005001249002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005004236002",
+          "to_stop_id": "9022005000404002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005004236002_9022005000404002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005004236002_9022005000404002_day",
+            "night": "performance_9011005020400000_segment_0_9022005004236002_9022005000404002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005004236002_9022005000404002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005004236002_9022005000404002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005004236002",
+          "to_stop_id": "9022005004230002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005004236002_9022005004230002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005004236002_9022005004230002_day",
+            "night": "performance_9011005020400000_segment_0_9022005004236002_9022005004230002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005004236002_9022005004230002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005004236002_9022005004230002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005080004002",
+          "to_stop_id": "9022005004236002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005080004002_9022005004236002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005080004002_9022005004236002_day",
+            "night": "performance_9011005020400000_segment_0_9022005080004002_9022005004236002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005080004002_9022005004236002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005080004002_9022005004236002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005080182002",
+          "to_stop_id": "9022005080004002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_0_9022005080182002_9022005080004002_am_rush",
+            "day": "performance_9011005020400000_segment_0_9022005080182002_9022005080004002_day",
+            "night": "performance_9011005020400000_segment_0_9022005080182002_9022005080004002_night",
+            "pm_rush": "performance_9011005020400000_segment_0_9022005080182002_9022005080004002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_0_9022005080182002_9022005080004002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005004236002",
+          "to_stop_id": "9022005000198002",
+          "availability": {
+            "am_rush": null,
+            "day": "performance_9011005020400000_segment_0_9022005004236002_9022005000198002_day",
+            "night": null,
+            "pm_rush": null,
+            "weekend": null
+          }
+        }
+      ],
+      "stops": [
+        {
+          "position": 1,
+          "stop_id": "9022005000223001",
+          "stop_name": "Landbogatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000223000_9022005000223001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_0_9022005000223001"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000223000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000223001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000223001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000223001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000223001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000223001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000223001_weekend"
+            }
+          }
+        },
+        {
+          "position": 2,
+          "stop_id": "9022005000418001",
+          "stop_name": "Änggårdsskolan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000418000_9022005000418001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000418000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000418001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000418001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000418001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000418001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000418001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000418001_weekend"
+            }
+          }
+        },
+        {
+          "position": 3,
+          "stop_id": "9022005001275001",
+          "stop_name": "Boställsgatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001275000_9022005001275001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001275000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001275001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001275001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001275001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001275001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001275001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001275001_weekend"
+            }
+          }
+        },
+        {
+          "position": 4,
+          "stop_id": "9022005001274001",
+          "stop_name": "Slestadsskolan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001274000_9022005001274001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001274000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001274001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001274001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001274001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001274001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001274001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001274001_weekend"
+            }
+          }
+        },
+        {
+          "position": 5,
+          "stop_id": "9022005001273001",
+          "stop_name": "Rättaregatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001273000_9022005001273001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001273000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001273001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001273001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001273001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001273001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001273001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001273001_weekend"
+            }
+          }
+        },
+        {
+          "position": 6,
+          "stop_id": "9022005000213001",
+          "stop_name": "Isberget",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000213000_9022005000213001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_0_9022005000213001"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000213000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000213001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000213001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000213001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000213001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000213001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000213001_weekend"
+            }
+          }
+        },
+        {
+          "position": 7,
+          "stop_id": "9022005000234002",
+          "stop_name": "Teknikringen",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000234000_9022005000234002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000234000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000234002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000234002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000234002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000234002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000234002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000234002_weekend"
+            }
+          }
+        },
+        {
+          "position": 8,
+          "stop_id": "9022005080182002",
+          "stop_name": "Nobeltorget",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005080182000_9022005080182002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005080182000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080182002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080182002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080182002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080182002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080182002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080182002_weekend"
+            }
+          }
+        },
+        {
+          "position": 9,
+          "stop_id": "9022005080004002",
+          "stop_name": "Vallastadens skola",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005080004000_9022005080004002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005080004000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_weekend"
+            }
+          }
+        },
+        {
+          "position": 10,
+          "stop_id": "9022005004236002",
+          "stop_name": "Djurgården",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005004236000_9022005004236002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005004236002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005004236000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005004236002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005004236002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005004236002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005004236002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005004236002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005004236002_weekend"
+            }
+          }
+        },
+        {
+          "position": 11,
+          "stop_id": "9022005000404002",
+          "stop_name": "Infanterivägen",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000404000_9022005000404002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000404000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "5": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000404002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000404002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000404002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000404002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000404002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000404002_weekend"
+            }
+          }
+        },
+        {
+          "position": 12,
+          "stop_id": "9022005001249002",
+          "stop_name": "US Södra entrén",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001249000_9022005001249002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001249002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_0_9022005001249002"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001249000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001249002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001249002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001249002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001249002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001249002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001249002_weekend"
+            }
+          }
+        },
+        {
+          "position": 13,
+          "stop_id": "9022005000198002",
+          "stop_name": "US Norra entrén",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000198000_9022005000198002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000198002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000198000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000198002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000198002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000198002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000198002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000198002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000198002_weekend"
+            }
+          }
+        },
+        {
+          "position": 14,
+          "stop_id": "9022005000042002",
+          "stop_name": "Tinnerbäcksbadet",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000042000_9022005000042002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000042002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000042000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000042002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000042002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000042002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000042002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000042002_weekend"
+            }
+          }
+        },
+        {
+          "position": 15,
+          "stop_id": "9022005000046004",
+          "stop_name": "Trädgårdstorget",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000046000_9022005000046004"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000046004",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000046000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000046004_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000046004_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000046004_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000046004_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000046004_weekend"
+            }
+          }
+        },
+        {
+          "position": 16,
+          "stop_id": "9022005001243002",
+          "stop_name": "Kungsgatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001243000_9022005001243002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001243002",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001243000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005001243002"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001243002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001243002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001243002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001243002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005001243002_weekend"
+            }
+          }
+        },
+        {
+          "position": 17,
+          "stop_id": "9022005000050006",
+          "stop_name": "Linköpings resecentrum",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000050000_9022005000050006"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_0_9022005000050006",
+              "direction_topology_9011005020400000_direction_id_0",
+              "direction_topology_9011005020400000_direction_id_0"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_0_9022005000050006"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000050000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000050006_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000050006_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000050006_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000050006_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005000050006_weekend"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "direction_id": "1",
+      "direction_label_keys": [
+        "direction_topology_9011005020400000_direction_id_1"
+      ],
+      "direction_violation_keys": [
+        "direction_topology_9011005020400000_direction_id_1"
+      ],
+      "has_direction_violations": true,
+      "contains_violations": true,
+      "violation_severity_counts": {
+        "1": 1
+      },
+      "canonical_pattern": {
+        "pattern_str": "1-17",
+        "pattern_ids": [
+          "9022005000050006",
+          "9022005001243001",
+          "9022005000046003",
+          "9022005000042001",
+          "9022005000198001",
+          "9022005001249001",
+          "9022005000404001",
+          "9022005004236001",
+          "9022005080004001",
+          "9022005080182001",
+          "9022005000234001",
+          "9022005000213002",
+          "9022005001273002",
+          "9022005001274002",
+          "9022005001275002",
+          "9022005000418002",
+          "9022005000223002"
+        ],
+        "count": 5539,
+        "label_key": "direction_topology_9011005020400000_direction_id_1"
+      },
+      "alternative_patterns": [
+        {
+          "pattern_str": "1_3-17",
+          "count": 997,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "5-17",
+          "count": 3,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "3-17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "8-17",
+          "count": 6,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "1-6_*9022005004230001*_8-17",
+          "count": 49926,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "7-17",
+          "count": 2,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "3-6_*9022005004230001*_8-17",
+          "count": 4,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "5-6_*9022005004230001*_8-17",
+          "count": 7,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "12-17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000234001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005004236001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080182001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "4-6_*9022005004230001*_8-17",
+          "count": 4,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "_*9022005004230001*_8-17",
+          "count": 6,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "6_*9022005004230001*_8-17",
+          "count": 5,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "2-6_*9022005004230001*_8-17",
+          "count": 4,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "11-17",
+          "count": 2,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005004236001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080182001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "9-17",
+          "count": 6,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005004236001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "10-17",
+          "count": 5,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005004236001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        },
+        {
+          "pattern_str": "1_4-6_*9022005004230001*_8-17",
+          "count": 1,
+          "missing_stop_id_violation_keys": [
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+            "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+          ],
+          "unexpected_stop_id_violation_keys": []
+        }
+      ],
+      "travel_time_segments": [
+        {
+          "from_stop_id": "9022005000042001",
+          "to_stop_id": "9022005000198001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000042001_9022005000198001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000042001_9022005000198001_day",
+            "night": "performance_9011005020400000_segment_1_9022005000042001_9022005000198001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000042001_9022005000198001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000042001_9022005000198001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000046003",
+          "to_stop_id": "9022005000042001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000046003_9022005000042001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000046003_9022005000042001_day",
+            "night": "performance_9011005020400000_segment_1_9022005000046003_9022005000042001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000046003_9022005000042001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000046003_9022005000042001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000198001",
+          "to_stop_id": "9022005001249001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000198001_9022005001249001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000198001_9022005001249001_day",
+            "night": "performance_9011005020400000_segment_1_9022005000198001_9022005001249001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000198001_9022005001249001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000198001_9022005001249001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000213002",
+          "to_stop_id": "9022005001273002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000213002_9022005001273002_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000213002_9022005001273002_day",
+            "night": "performance_9011005020400000_segment_1_9022005000213002_9022005001273002_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000213002_9022005001273002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000213002_9022005001273002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000234001",
+          "to_stop_id": "9022005000213002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000234001_9022005000213002_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000234001_9022005000213002_day",
+            "night": "performance_9011005020400000_segment_1_9022005000234001_9022005000213002_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000234001_9022005000213002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000234001_9022005000213002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000404001",
+          "to_stop_id": "9022005004236001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000404001_9022005004236001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000404001_9022005004236001_day",
+            "night": "performance_9011005020400000_segment_1_9022005000404001_9022005004236001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000404001_9022005004236001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000404001_9022005004236001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005000418002",
+          "to_stop_id": "9022005000223002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005000418002_9022005000223002_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005000418002_9022005000223002_day",
+            "night": "performance_9011005020400000_segment_1_9022005000418002_9022005000223002_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005000418002_9022005000223002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005000418002_9022005000223002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001243001",
+          "to_stop_id": "9022005000046003",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005001243001_9022005000046003_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005001243001_9022005000046003_day",
+            "night": "performance_9011005020400000_segment_1_9022005001243001_9022005000046003_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005001243001_9022005000046003_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005001243001_9022005000046003_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001249001",
+          "to_stop_id": "9022005000404001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005001249001_9022005000404001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005001249001_9022005000404001_day",
+            "night": "performance_9011005020400000_segment_1_9022005001249001_9022005000404001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005001249001_9022005000404001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005001249001_9022005000404001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001249001",
+          "to_stop_id": "9022005004230001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005001249001_9022005004230001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005001249001_9022005004230001_day",
+            "night": "performance_9011005020400000_segment_1_9022005001249001_9022005004230001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005001249001_9022005004230001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005001249001_9022005004230001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001273002",
+          "to_stop_id": "9022005001274002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005001273002_9022005001274002_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005001273002_9022005001274002_day",
+            "night": "performance_9011005020400000_segment_1_9022005001273002_9022005001274002_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005001273002_9022005001274002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005001273002_9022005001274002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001274002",
+          "to_stop_id": "9022005001275002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005001274002_9022005001275002_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005001274002_9022005001275002_day",
+            "night": "performance_9011005020400000_segment_1_9022005001274002_9022005001275002_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005001274002_9022005001275002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005001274002_9022005001275002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001275002",
+          "to_stop_id": "9022005000418002",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005001275002_9022005000418002_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005001275002_9022005000418002_day",
+            "night": "performance_9011005020400000_segment_1_9022005001275002_9022005000418002_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005001275002_9022005000418002_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005001275002_9022005000418002_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005004230001",
+          "to_stop_id": "9022005004236001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005004230001_9022005004236001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005004230001_9022005004236001_day",
+            "night": "performance_9011005020400000_segment_1_9022005004230001_9022005004236001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005004230001_9022005004236001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005004230001_9022005004236001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005004236001",
+          "to_stop_id": "9022005080004001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005004236001_9022005080004001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005004236001_9022005080004001_day",
+            "night": "performance_9011005020400000_segment_1_9022005004236001_9022005080004001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005004236001_9022005080004001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005004236001_9022005080004001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005080004001",
+          "to_stop_id": "9022005080182001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005080004001_9022005080182001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005080004001_9022005080182001_day",
+            "night": "performance_9011005020400000_segment_1_9022005080004001_9022005080182001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005080004001_9022005080182001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005080004001_9022005080182001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005080182001",
+          "to_stop_id": "9022005000234001",
+          "availability": {
+            "am_rush": "performance_9011005020400000_segment_1_9022005080182001_9022005000234001_am_rush",
+            "day": "performance_9011005020400000_segment_1_9022005080182001_9022005000234001_day",
+            "night": "performance_9011005020400000_segment_1_9022005080182001_9022005000234001_night",
+            "pm_rush": "performance_9011005020400000_segment_1_9022005080182001_9022005000234001_pm_rush",
+            "weekend": "performance_9011005020400000_segment_1_9022005080182001_9022005000234001_weekend"
+          }
+        },
+        {
+          "from_stop_id": "9022005001249001",
+          "to_stop_id": "9022005080004001",
+          "availability": {
+            "am_rush": null,
+            "day": "performance_9011005020400000_segment_1_9022005001249001_9022005080004001_day",
+            "night": null,
+            "pm_rush": null,
+            "weekend": null
+          }
+        }
+      ],
+      "stops": [
+        {
+          "position": 1,
+          "stop_id": "9022005000050006",
+          "stop_name": "Linköpings resecentrum",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000050000_9022005000050006"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_1_9022005000050006"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000050000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000050006"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000050006_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000050006_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000050006_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000050006_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000050006_weekend"
+            }
+          }
+        },
+        {
+          "position": 2,
+          "stop_id": "9022005001243001",
+          "stop_name": "Kungsgatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001243000_9022005001243001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001243000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001243001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001243001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001243001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001243001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001243001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001243001_weekend"
+            }
+          }
+        },
+        {
+          "position": 3,
+          "stop_id": "9022005000046003",
+          "stop_name": "Trädgårdstorget",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000046000_9022005000046003"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000046000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000046003"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000046003_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000046003_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000046003_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000046003_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000046003_weekend"
+            }
+          }
+        },
+        {
+          "position": 4,
+          "stop_id": "9022005000042001",
+          "stop_name": "Tinnerbäcksbadet",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000042000_9022005000042001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000042000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000042001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000042001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000042001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000042001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000042001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000042001_weekend"
+            }
+          }
+        },
+        {
+          "position": 5,
+          "stop_id": "9022005000198001",
+          "stop_name": "US Norra entrén",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000198000_9022005000198001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000198000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000198001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000198001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000198001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000198001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000198001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000198001_weekend"
+            }
+          }
+        },
+        {
+          "position": 6,
+          "stop_id": "9022005001249001",
+          "stop_name": "US Södra entrén",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001249000_9022005001249001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_1_9022005001249001"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001249000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001249001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001249001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001249001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001249001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001249001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001249001_weekend"
+            }
+          }
+        },
+        {
+          "position": 7,
+          "stop_id": "9022005000404001",
+          "stop_name": "Infanterivägen",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000404000_9022005000404001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000404000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "5": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000404001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000404001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000404001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000404001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000404001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000404001_weekend"
+            }
+          }
+        },
+        {
+          "position": 8,
+          "stop_id": "9022005004236001",
+          "stop_name": "Djurgården",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005004236000_9022005004236001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005004236001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005004236000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005004236001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005004236001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005004236001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005004236001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005004236001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005004236001_weekend"
+            }
+          }
+        },
+        {
+          "position": 9,
+          "stop_id": "9022005080004001",
+          "stop_name": "Vallastadens skola",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005080004000_9022005080004001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005080004000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_weekend"
+            }
+          }
+        },
+        {
+          "position": 10,
+          "stop_id": "9022005080182001",
+          "stop_name": "Nobeltorget",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005080182000_9022005080182001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080182001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005080182000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080182001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080182001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080182001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080182001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080182001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080182001_weekend"
+            }
+          }
+        },
+        {
+          "position": 11,
+          "stop_id": "9022005000234001",
+          "stop_name": "Teknikringen",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000234000_9022005000234001"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000234001",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000234000"
+            ]
+          },
+          "has_violations": true,
+          "violation_severity_counts": {
+            "1": 1
+          },
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000234001"
+            ],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000234001_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000234001_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000234001_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000234001_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000234001_weekend"
+            }
+          }
+        },
+        {
+          "position": 12,
+          "stop_id": "9022005000213002",
+          "stop_name": "Isberget",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000213000_9022005000213002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000213002",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000213000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000213002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000213002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000213002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000213002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000213002_weekend"
+            }
+          }
+        },
+        {
+          "position": 13,
+          "stop_id": "9022005001273002",
+          "stop_name": "Rättaregatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001273000_9022005001273002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001273002",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001273000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001273002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001273002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001273002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001273002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001273002_weekend"
+            }
+          }
+        },
+        {
+          "position": 14,
+          "stop_id": "9022005001274002",
+          "stop_name": "Slestadsskolan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001274000_9022005001274002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001274002",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001274000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001274002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001274002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001274002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001274002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001274002_weekend"
+            }
+          }
+        },
+        {
+          "position": 15,
+          "stop_id": "9022005001275002",
+          "stop_name": "Boställsgatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005001275000_9022005001275002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005001275002",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005001275000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001275002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001275002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001275002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001275002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005001275002_weekend"
+            }
+          }
+        },
+        {
+          "position": 16,
+          "stop_id": "9022005000418002",
+          "stop_name": "Änggårdsskolan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000418000_9022005000418002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000418002",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000418000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000418002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000418002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000418002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000418002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000418002_weekend"
+            }
+          }
+        },
+        {
+          "position": 17,
+          "stop_id": "9022005000223002",
+          "stop_name": "Landbogatan",
+          "labels": {
+            "stop_topology": [
+              "stop_topology_9011005020400000_parent_station_stop_id_9021005000223000_9022005000223002"
+            ],
+            "direction_topology": [
+              "direction_topology_9011005020400000_direction_id_stop_id_1_9022005000223002",
+              "direction_topology_9011005020400000_direction_id_1",
+              "direction_topology_9011005020400000_direction_id_1"
+            ],
+            "regulatory": [
+              "regulatory_stops_9011005020400000_direction_id_stop_id_1_9022005000223002"
+            ],
+            "parent_station": [
+              "stop_topology_9011005020400000_parent_station_9021005000223000"
+            ]
+          },
+          "has_violations": false,
+          "violation_severity_counts": {},
+          "violations": {
+            "stop_topology": [],
+            "direction_topology": [],
+            "regulatory": [],
+            "parent_station": []
+          },
+          "performance_availability": {
+            "analytics": {
+              "am_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000223002_am_rush",
+              "day": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000223002_day",
+              "night": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000223002_night",
+              "pm_rush": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000223002_pm_rush",
+              "weekend": "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005000223002_weekend"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

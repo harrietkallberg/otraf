@@ -1,0 +1,2522 @@
+{
+  "performance_summary": {
+    "overall_too_early_rate": 17.2,
+    "overall_on_time_rate": 75.3,
+    "overall_too_late_rate": 7.5,
+    "average_departure_delay": 39.35547931265083
+  },
+  "analytics_logs": {
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005000050020_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0541,
+            0.0968,
+            0.1666,
+            0.1873,
+            0.1672,
+            0.1219,
+            0.0861,
+            0.0515,
+            0.0233,
+            0.017,
+            0.0145,
+            0.0063,
+            0.0013,
+            0.0031,
+            0.0019,
+            0.0013
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0526,
+            0.1509,
+            0.34,
+            0.2523,
+            0.1202,
+            0.0582,
+            0.015,
+            0.0069,
+            0.0013,
+            0.0006,
+            0.0013,
+            0.0,
+            0.0,
+            0.0006,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": -50.82874617737003,
+            "median_delay": -63.0,
+            "std_delay": 95.67584773077394,
+            "min_delay": -367.0,
+            "max_delay": 1158.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 1104,
+              "on_time": 510,
+              "too_late": 21
+            },
+            "percentages": {
+              "too_early": 67.52,
+              "on_time": 31.19,
+              "too_late": 1.28
+            }
+          },
+          "sample_size": 1635
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005000050020_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
+      "time_type": "night",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0869,
+            0.0953,
+            0.1356,
+            0.1727,
+            0.1239,
+            0.1314,
+            0.0826,
+            0.0519,
+            0.0275,
+            0.0191,
+            0.0191,
+            0.0138,
+            0.0191,
+            0.0042,
+            0.0095,
+            0.0074
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.131,
+            0.1488,
+            0.3095,
+            0.2119,
+            0.1167,
+            0.0369,
+            0.0179,
+            0.0071,
+            0.0107,
+            0.0024,
+            0.0012,
+            0.0036,
+            0.0012,
+            0.0012,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": -44.56201881950385,
+            "median_delay": -73.0,
+            "std_delay": 182.88912763816674,
+            "min_delay": -378.0,
+            "max_delay": 2149.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 761,
+              "on_time": 326,
+              "too_late": 82
+            },
+            "percentages": {
+              "too_early": 65.1,
+              "on_time": 27.89,
+              "too_late": 7.01
+            }
+          },
+          "sample_size": 1169
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005000050020_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
+      "time_type": "pm_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0874,
+            0.1056,
+            0.131,
+            0.1284,
+            0.1214,
+            0.0943,
+            0.0834,
+            0.0715,
+            0.0483,
+            0.0311,
+            0.0301,
+            0.0215,
+            0.0159,
+            0.0103,
+            0.0099,
+            0.0099
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.1584,
+            0.1542,
+            0.2296,
+            0.1743,
+            0.1315,
+            0.064,
+            0.0371,
+            0.0136,
+            0.0148,
+            0.008,
+            0.0042,
+            0.003,
+            0.0023,
+            0.0019,
+            0.0023,
+            0.0008
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": -45.295915532092245,
+            "median_delay": -66.0,
+            "std_delay": 145.53013041183993,
+            "min_delay": -363.0,
+            "max_delay": 1171.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 2236,
+              "on_time": 1149,
+              "too_late": 214
+            },
+            "percentages": {
+              "too_early": 62.13,
+              "on_time": 31.93,
+              "too_late": 5.95
+            }
+          },
+          "sample_size": 3599
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005001256002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005001256002",
+      "stop_name": "Universitetet",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0006,
+            0.0006,
+            0.0049,
+            0.0104,
+            0.0448,
+            0.1828,
+            0.3,
+            0.1859,
+            0.1264,
+            0.0595,
+            0.0307,
+            0.0245,
+            0.0129,
+            0.0092,
+            0.0049,
+            0.0018
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0006,
+            0.074,
+            0.6,
+            0.2703,
+            0.0483,
+            0.0067,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 36.92721712538226,
+            "median_delay": 23.0,
+            "std_delay": 60.96712569447147,
+            "min_delay": -178.0,
+            "max_delay": 613.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 100,
+              "on_time": 1483,
+              "too_late": 52
+            },
+            "percentages": {
+              "too_early": 6.12,
+              "on_time": 90.7,
+              "too_late": 3.18
+            }
+          },
+          "sample_size": 1635
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005001256002_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005001256002",
+      "stop_name": "Universitetet",
+      "time_type": "night",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0009,
+            0.0082,
+            0.0281,
+            0.1425,
+            0.2877,
+            0.1797,
+            0.1307,
+            0.0662,
+            0.0426,
+            0.0336,
+            0.02,
+            0.0327,
+            0.01,
+            0.0172
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0043,
+            0.1112,
+            0.5449,
+            0.3028,
+            0.0334,
+            0.0026,
+            0.0,
+            0.0009,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 82.7775876817793,
+            "median_delay": 38.0,
+            "std_delay": 151.12557763805574,
+            "min_delay": -218.0,
+            "max_delay": 1812.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 42,
+              "on_time": 973,
+              "too_late": 154
+            },
+            "percentages": {
+              "too_early": 3.59,
+              "on_time": 83.23,
+              "too_late": 13.17
+            }
+          },
+          "sample_size": 1169
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005001256002_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005001256002",
+      "stop_name": "Universitetet",
+      "time_type": "pm_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0017,
+            0.0043,
+            0.0087,
+            0.0324,
+            0.1366,
+            0.2354,
+            0.1722,
+            0.13,
+            0.0916,
+            0.0633,
+            0.041,
+            0.0292,
+            0.0257,
+            0.015,
+            0.013
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0014,
+            0.0806,
+            0.5615,
+            0.307,
+            0.0397,
+            0.0081,
+            0.0011,
+            0.0003,
+            0.0,
+            0.0003,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 73.14920811336482,
+            "median_delay": 46.0,
+            "std_delay": 101.4129896131102,
+            "min_delay": -131.0,
+            "max_delay": 845.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 163,
+              "on_time": 3012,
+              "too_late": 424
+            },
+            "percentages": {
+              "too_early": 4.53,
+              "on_time": 83.69,
+              "too_late": 11.78
+            }
+          },
+          "sample_size": 3599
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005001257002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005001257002",
+      "stop_name": "Mäster Mattias väg",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0006,
+            0.0,
+            0.0,
+            0.0104,
+            0.0676,
+            0.169,
+            0.225,
+            0.212,
+            0.1432,
+            0.0756,
+            0.0387,
+            0.0227,
+            0.0172,
+            0.008,
+            0.0086,
+            0.0012
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0073,
+            0.1983,
+            0.5924,
+            0.183,
+            0.0153,
+            0.0031,
+            0.0,
+            0.0006,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 42.863608562691134,
+            "median_delay": 33.0,
+            "std_delay": 64.65320624335332,
+            "min_delay": -153.0,
+            "max_delay": 636.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 128,
+              "on_time": 1442,
+              "too_late": 65
+            },
+            "percentages": {
+              "too_early": 7.83,
+              "on_time": 88.2,
+              "too_late": 3.98
+            }
+          },
+          "sample_size": 1635
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005001257002_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005001257002",
+      "stop_name": "Mäster Mattias väg",
+      "time_type": "night",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0328,
+            0.1294,
+            0.2343,
+            0.2325,
+            0.1322,
+            0.0711,
+            0.0447,
+            0.0319,
+            0.0292,
+            0.0301,
+            0.0182,
+            0.0137
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0094,
+            0.1788,
+            0.5586,
+            0.2002,
+            0.0402,
+            0.0086,
+            0.0026,
+            0.0009,
+            0.0,
+            0.0009,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 89.73481608212147,
+            "median_delay": 45.0,
+            "std_delay": 153.97038663245547,
+            "min_delay": -216.0,
+            "max_delay": 1831.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 37,
+              "on_time": 961,
+              "too_late": 171
+            },
+            "percentages": {
+              "too_early": 3.17,
+              "on_time": 82.21,
+              "too_late": 14.63
+            }
+          },
+          "sample_size": 1169
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005001257002_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005001257002",
+      "stop_name": "Mäster Mattias väg",
+      "time_type": "pm_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0003,
+            0.0,
+            0.0003,
+            0.0116,
+            0.0411,
+            0.1108,
+            0.1999,
+            0.1929,
+            0.1475,
+            0.0998,
+            0.0665,
+            0.0396,
+            0.0341,
+            0.0237,
+            0.02,
+            0.0119
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.005,
+            0.127,
+            0.5425,
+            0.2574,
+            0.0598,
+            0.0078,
+            0.0006,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 78.02167268685746,
+            "median_delay": 53.0,
+            "std_delay": 101.75011668300768,
+            "min_delay": -177.0,
+            "max_delay": 865.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 184,
+              "on_time": 2963,
+              "too_late": 452
+            },
+            "percentages": {
+              "too_early": 5.11,
+              "on_time": 82.33,
+              "too_late": 12.56
+            }
+          },
+          "sample_size": 3599
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005003847001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005003847001",
+      "stop_name": "Forskningsbyn",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0006,
+            0.0,
+            0.0,
+            0.0129,
+            0.102,
+            0.2383,
+            0.2568,
+            0.1744,
+            0.0964,
+            0.0485,
+            0.0227,
+            0.024,
+            0.0123,
+            0.0055,
+            0.0031,
+            0.0025
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.1291,
+            0.5315,
+            0.2758,
+            0.0575,
+            0.0055,
+            0.0006,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 28.096024464831803,
+            "median_delay": 17.0,
+            "std_delay": 61.7703129101097,
+            "min_delay": -164.0,
+            "max_delay": 633.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 188,
+              "on_time": 1402,
+              "too_late": 45
+            },
+            "percentages": {
+              "too_early": 11.5,
+              "on_time": 85.75,
+              "too_late": 2.75
+            }
+          },
+          "sample_size": 1635
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005003847001_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005003847001",
+      "stop_name": "Forskningsbyn",
+      "time_type": "night",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0353,
+            0.2482,
+            0.2962,
+            0.1558,
+            0.0788,
+            0.048,
+            0.0353,
+            0.0344,
+            0.0254,
+            0.019,
+            0.0136,
+            0.01
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0505,
+            0.7596,
+            0.1668,
+            0.0154,
+            0.0034,
+            0.0,
+            0.0,
+            0.0026,
+            0.0017,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 71.43455945252353,
+            "median_delay": 24.0,
+            "std_delay": 150.9987617992136,
+            "min_delay": -219.0,
+            "max_delay": 1816.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 40,
+              "on_time": 990,
+              "too_late": 139
+            },
+            "percentages": {
+              "too_early": 3.42,
+              "on_time": 84.69,
+              "too_late": 11.89
+            }
+          },
+          "sample_size": 1169
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005003847001_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005003847001",
+      "stop_name": "Forskningsbyn",
+      "time_type": "pm_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0003,
+            0.0,
+            0.0003,
+            0.0103,
+            0.0612,
+            0.2077,
+            0.2492,
+            0.166,
+            0.0967,
+            0.0621,
+            0.0452,
+            0.0378,
+            0.0217,
+            0.016,
+            0.0157,
+            0.0097
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0784,
+            0.6124,
+            0.2792,
+            0.0247,
+            0.0033,
+            0.0008,
+            0.0,
+            0.0003,
+            0.0,
+            0.0006,
+            0.0,
+            0.0003
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 55.70880800222284,
+            "median_delay": 28.0,
+            "std_delay": 97.07413777228149,
+            "min_delay": -168.0,
+            "max_delay": 883.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 252,
+              "on_time": 3022,
+              "too_late": 325
+            },
+            "percentages": {
+              "too_early": 7.0,
+              "on_time": 83.97,
+              "too_late": 9.03
+            }
+          },
+          "sample_size": 3599
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005001257001_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005001257001",
+      "stop_name": "Mäster Mattias väg",
+      "time_type": "am_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0046,
+            0.0093,
+            0.0196,
+            0.0423,
+            0.0575,
+            0.0954,
+            0.1147,
+            0.1482,
+            0.159,
+            0.1268,
+            0.0925,
+            0.057,
+            0.0332,
+            0.0198,
+            0.0124,
+            0.0077
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0548,
+            0.5118,
+            0.4146,
+            0.0176,
+            0.0005,
+            0.0,
+            0.0005,
+            0.0,
+            0.0,
+            0.0003,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 72.2671353251318,
+            "median_delay": 64.0,
+            "std_delay": 132.30707339184983,
+            "min_delay": -206.0,
+            "max_delay": 2694.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 519,
+              "on_time": 3079,
+              "too_late": 385
+            },
+            "percentages": {
+              "too_early": 13.03,
+              "on_time": 77.3,
+              "too_late": 9.67
+            }
+          },
+          "sample_size": 3983
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005001257001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005001257001",
+      "stop_name": "Mäster Mattias väg",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0019,
+            0.0075,
+            0.0393,
+            0.0562,
+            0.1283,
+            0.1554,
+            0.2013,
+            0.1788,
+            0.1105,
+            0.0609,
+            0.0262,
+            0.0206,
+            0.0131,
+            0.0
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0074,
+            0.4115,
+            0.5412,
+            0.0371,
+            0.0,
+            0.0009,
+            0.0009,
+            0.0,
+            0.0009,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 79.70713623725672,
+            "median_delay": 76.0,
+            "std_delay": 69.82399988656194,
+            "min_delay": -111.0,
+            "max_delay": 452.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 52,
+              "on_time": 952,
+              "too_late": 75
+            },
+            "percentages": {
+              "too_early": 4.82,
+              "on_time": 88.23,
+              "too_late": 6.95
+            }
+          },
+          "sample_size": 1079
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005003847002_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005003847002",
+      "stop_name": "Forskningsbyn",
+      "time_type": "am_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0028,
+            0.0093,
+            0.0145,
+            0.038,
+            0.0623,
+            0.1,
+            0.1333,
+            0.1617,
+            0.1576,
+            0.1263,
+            0.0858,
+            0.0444,
+            0.0245,
+            0.0214,
+            0.0101,
+            0.008
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0193,
+            0.2041,
+            0.3211,
+            0.2875,
+            0.129,
+            0.0271,
+            0.0058,
+            0.0025,
+            0.0013,
+            0.0013,
+            0.0008,
+            0.0003,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 69.78031634446397,
+            "median_delay": 58.0,
+            "std_delay": 131.07606724156844,
+            "min_delay": -199.0,
+            "max_delay": 2661.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 495,
+              "on_time": 3132,
+              "too_late": 356
+            },
+            "percentages": {
+              "too_early": 12.43,
+              "on_time": 78.63,
+              "too_late": 8.94
+            }
+          },
+          "sample_size": 3983
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005003847002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005003847002",
+      "stop_name": "Forskningsbyn",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0009,
+            0.0028,
+            0.0131,
+            0.0439,
+            0.0682,
+            0.1289,
+            0.1905,
+            0.197,
+            0.155,
+            0.1018,
+            0.0532,
+            0.0224,
+            0.014,
+            0.0047,
+            0.0037
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.1594,
+            0.5051,
+            0.2864,
+            0.0454,
+            0.0019,
+            0.0019,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 70.85171455050973,
+            "median_delay": 67.0,
+            "std_delay": 69.11594057445596,
+            "min_delay": -132.0,
+            "max_delay": 450.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 65,
+              "on_time": 958,
+              "too_late": 56
+            },
+            "percentages": {
+              "too_early": 6.02,
+              "on_time": 88.79,
+              "too_late": 5.19
+            }
+          },
+          "sample_size": 1079
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005004139002_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005004139002",
+      "stop_name": "Mjärdevi",
+      "time_type": "am_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.1604,
+            0.1269,
+            0.1384,
+            0.139,
+            0.1214,
+            0.1093,
+            0.0791,
+            0.0459,
+            0.0288,
+            0.0198,
+            0.0115,
+            0.0055,
+            0.0038,
+            0.0047,
+            0.0022,
+            0.0033
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0311,
+            0.4164,
+            0.3739,
+            0.1582,
+            0.0118,
+            0.0043,
+            0.0035,
+            0.0008,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": -68.01707684580613,
+            "median_delay": -82.0,
+            "std_delay": 132.48375921356006,
+            "min_delay": -394.0,
+            "max_delay": 2465.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 2796,
+              "on_time": 1092,
+              "too_late": 94
+            },
+            "percentages": {
+              "too_early": 70.22,
+              "on_time": 27.42,
+              "too_late": 2.36
+            }
+          },
+          "sample_size": 3982
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005004139002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005004139002",
+      "stop_name": "Mjärdevi",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0678,
+            0.0979,
+            0.1525,
+            0.1808,
+            0.1563,
+            0.1281,
+            0.0895,
+            0.0612,
+            0.0292,
+            0.0207,
+            0.0056,
+            0.0028,
+            0.0019,
+            0.0038,
+            0.0,
+            0.0019
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0009,
+            0.1353,
+            0.5616,
+            0.2929,
+            0.0065,
+            0.0019,
+            0.0009,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": -52.758109360519,
+            "median_delay": -61.0,
+            "std_delay": 74.46394619215067,
+            "min_delay": -270.0,
+            "max_delay": 344.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 711,
+              "on_time": 358,
+              "too_late": 10
+            },
+            "percentages": {
+              "too_early": 65.89,
+              "on_time": 33.18,
+              "too_late": 0.93
+            }
+          },
+          "sample_size": 1079
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005004232003_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005004232003",
+      "stop_name": "Mjärdevi Center",
+      "time_type": "am_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0065,
+            0.0189,
+            0.0359,
+            0.062,
+            0.0882,
+            0.1295,
+            0.1546,
+            0.145,
+            0.129,
+            0.0884,
+            0.0556,
+            0.0362,
+            0.0225,
+            0.0127,
+            0.0096,
+            0.0054
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0078,
+            0.1947,
+            0.2264,
+            0.2804,
+            0.2834,
+            0.0053,
+            0.0005,
+            0.0005,
+            0.0003,
+            0.0003,
+            0.0003,
+            0.0,
+            0.0003,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 45.56967110218428,
+            "median_delay": 32.0,
+            "std_delay": 134.085284389344,
+            "min_delay": -280.0,
+            "max_delay": 2594.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 835,
+              "on_time": 2856,
+              "too_late": 292
+            },
+            "percentages": {
+              "too_early": 20.96,
+              "on_time": 71.7,
+              "too_late": 7.33
+            }
+          },
+          "sample_size": 3983
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005004232003_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005004232003",
+      "stop_name": "Mjärdevi Center",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0009,
+            0.0028,
+            0.014,
+            0.0355,
+            0.0738,
+            0.128,
+            0.1841,
+            0.1813,
+            0.1383,
+            0.1019,
+            0.0701,
+            0.0318,
+            0.0234,
+            0.0075,
+            0.0037,
+            0.0028
+          ]
+        },
+        "incremental_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0594,
+            0.3673,
+            0.3636,
+            0.2032,
+            0.0046,
+            0.0,
+            0.0009,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0009,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 46.876737720111215,
+            "median_delay": 40.0,
+            "std_delay": 74.51466097052136,
+            "min_delay": -201.0,
+            "max_delay": 443.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 137,
+              "on_time": 894,
+              "too_late": 48
+            },
+            "percentages": {
+              "too_early": 12.7,
+              "on_time": 82.85,
+              "too_late": 4.45
+            }
+          },
+          "sample_size": 1079
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005004139001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005004139001",
+      "stop_name": "Mjärdevi",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0012,
+            0.0,
+            0.0,
+            0.0018,
+            0.0031,
+            0.2418,
+            0.4646,
+            0.1255,
+            0.0529,
+            0.0425,
+            0.0252,
+            0.0142,
+            0.0092,
+            0.0074,
+            0.0068,
+            0.0037
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 30.495412844036696,
+            "median_delay": 9.0,
+            "std_delay": 60.30358080388006,
+            "min_delay": -173.0,
+            "max_delay": 685.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 10,
+              "on_time": 1571,
+              "too_late": 54
+            },
+            "percentages": {
+              "too_early": 0.61,
+              "on_time": 96.09,
+              "too_late": 3.3
+            }
+          },
+          "sample_size": 1635
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005004139001_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005004139001",
+      "stop_name": "Mjärdevi",
+      "time_type": "night",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0009,
+            0.0018,
+            0.0009,
+            0.0064,
+            0.2396,
+            0.4056,
+            0.1071,
+            0.0617,
+            0.0508,
+            0.0381,
+            0.0218,
+            0.0299,
+            0.0136,
+            0.0136,
+            0.0082
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 66.15911035072712,
+            "median_delay": 13.0,
+            "std_delay": 148.98924988075404,
+            "min_delay": -277.0,
+            "max_delay": 1852.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 16,
+              "on_time": 1019,
+              "too_late": 134
+            },
+            "percentages": {
+              "too_early": 1.37,
+              "on_time": 87.17,
+              "too_late": 11.46
+            }
+          },
+          "sample_size": 1169
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005004139001_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005004139001",
+      "stop_name": "Mjärdevi",
+      "time_type": "pm_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0003,
+            0.002,
+            0.0009,
+            0.0006,
+            0.0034,
+            0.213,
+            0.3716,
+            0.132,
+            0.0764,
+            0.0584,
+            0.0467,
+            0.0315,
+            0.0198,
+            0.0195,
+            0.0135,
+            0.0106
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 55.704084467907755,
+            "median_delay": 18.0,
+            "std_delay": 94.98800990711429,
+            "min_delay": -219.0,
+            "max_delay": 900.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 28,
+              "on_time": 3247,
+              "too_late": 324
+            },
+            "percentages": {
+              "too_early": 0.78,
+              "on_time": 90.22,
+              "too_late": 9.0
+            }
+          },
+          "sample_size": 3599
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005004232001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005004232001",
+      "stop_name": "Mjärdevi Center",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0006,
+            0.0,
+            0.0,
+            0.0,
+            0.0203,
+            0.2409,
+            0.3608,
+            0.1789,
+            0.0787,
+            0.0436,
+            0.0295,
+            0.0172,
+            0.0148,
+            0.0074,
+            0.0037,
+            0.0037
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 34.07645259938838,
+            "median_delay": 18.0,
+            "std_delay": 59.89459041082477,
+            "min_delay": -164.0,
+            "max_delay": 671.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 34,
+              "on_time": 1545,
+              "too_late": 56
+            },
+            "percentages": {
+              "too_early": 2.08,
+              "on_time": 94.5,
+              "too_late": 3.43
+            }
+          },
+          "sample_size": 1635
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005004232001_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005004232001",
+      "stop_name": "Mjärdevi Center",
+      "time_type": "night",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0027,
+            0.1341,
+            0.3922,
+            0.1848,
+            0.0842,
+            0.0598,
+            0.0389,
+            0.0263,
+            0.0263,
+            0.0254,
+            0.0163,
+            0.0091
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 79.68776732249786,
+            "median_delay": 29.0,
+            "std_delay": 148.1980609513972,
+            "min_delay": -198.0,
+            "max_delay": 1839.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 4,
+              "on_time": 1016,
+              "too_late": 149
+            },
+            "percentages": {
+              "too_early": 0.34,
+              "on_time": 86.91,
+              "too_late": 12.75
+            }
+          },
+          "sample_size": 1169
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_0_9022005004232001_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "stop_id": "9022005004232001",
+      "stop_name": "Mjärdevi Center",
+      "time_type": "pm_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0003,
+            0.0,
+            0.0006,
+            0.0143,
+            0.1791,
+            0.3167,
+            0.1765,
+            0.1007,
+            0.0584,
+            0.0423,
+            0.0398,
+            0.0258,
+            0.0189,
+            0.0146,
+            0.012
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 61.936093359266465,
+            "median_delay": 30.0,
+            "std_delay": 94.99863563789096,
+            "min_delay": -127.0,
+            "max_delay": 908.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 53,
+              "on_time": 3193,
+              "too_late": 353
+            },
+            "percentages": {
+              "too_early": 1.47,
+              "on_time": 88.72,
+              "too_late": 9.81
+            }
+          },
+          "sample_size": 3599
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005000050020_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
+      "time_type": "am_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0044,
+            0.0037,
+            0.0042,
+            0.001,
+            0.0042,
+            0.1517,
+            0.5606,
+            0.1433,
+            0.0547,
+            0.0319,
+            0.0139,
+            0.0094,
+            0.0071,
+            0.0039,
+            0.0029,
+            0.0031
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 18.23643216080402,
+            "median_delay": 10.0,
+            "std_delay": 78.93533595584488,
+            "min_delay": -296.0,
+            "max_delay": 982.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 193,
+              "on_time": 3691,
+              "too_late": 96
+            },
+            "percentages": {
+              "too_early": 4.85,
+              "on_time": 92.74,
+              "too_late": 2.41
+            }
+          },
+          "sample_size": 3980
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005000050020_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005000050020",
+      "stop_name": "Linköpings resecentrum",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0009,
+            0.0,
+            0.0,
+            0.0,
+            0.2589,
+            0.5675,
+            0.091,
+            0.0375,
+            0.015,
+            0.0113,
+            0.0084,
+            0.0047,
+            0.0038,
+            0.0009,
+            0.0
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 16.13531047265987,
+            "median_delay": 6.0,
+            "std_delay": 49.11816282180949,
+            "min_delay": -283.0,
+            "max_delay": 543.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 9,
+              "on_time": 1055,
+              "too_late": 15
+            },
+            "percentages": {
+              "too_early": 0.83,
+              "on_time": 97.78,
+              "too_late": 1.39
+            }
+          },
+          "sample_size": 1079
+        },
+        "is_regulatory_stop": true
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005001256001_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005001256001",
+      "stop_name": "Universitetet",
+      "time_type": "am_rush",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0052,
+            0.0137,
+            0.0229,
+            0.042,
+            0.0634,
+            0.0863,
+            0.1054,
+            0.1394,
+            0.1463,
+            0.126,
+            0.0969,
+            0.0639,
+            0.0412,
+            0.0227,
+            0.0144,
+            0.0106
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 74.36706000502134,
+            "median_delay": 66.0,
+            "std_delay": 135.75939229479224,
+            "min_delay": -217.0,
+            "max_delay": 2701.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 574,
+              "on_time": 2966,
+              "too_late": 443
+            },
+            "percentages": {
+              "too_early": 14.41,
+              "on_time": 74.47,
+              "too_late": 11.12
+            }
+          },
+          "sample_size": 3983
+        },
+        "is_regulatory_stop": false
+      }
+    },
+    "performance_9011005022000000_direction_id_stop_id_time_type_1_9022005001256001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "stop_id": "9022005001256001",
+      "stop_name": "Universitetet",
+      "time_type": "day",
+      "analytics": {
+        "total_delay_histogram": {
+          "step_start": -180.0,
+          "step_size": 30.0,
+          "num_bins": 10,
+          "proportions": [
+            0.0,
+            0.0,
+            0.0028,
+            0.0187,
+            0.0392,
+            0.0663,
+            0.1289,
+            0.1559,
+            0.1951,
+            0.169,
+            0.1167,
+            0.0458,
+            0.0345,
+            0.0149,
+            0.0084,
+            0.0037
+          ]
+        },
+        "punctuality": {
+          "basic_statistics": {
+            "mean_delay": 75.07043558850788,
+            "median_delay": 74.0,
+            "std_delay": 70.85913700911482,
+            "min_delay": -116.0,
+            "max_delay": 465.0
+          },
+          "punctuality_distribution": {
+            "counts": {
+              "too_early": 65,
+              "on_time": 940,
+              "too_late": 74
+            },
+            "percentages": {
+              "too_early": 6.02,
+              "on_time": 87.12,
+              "too_late": 6.86
+            }
+          },
+          "sample_size": 1079
+        },
+        "is_regulatory_stop": false
+      }
+    }
+  },
+  "travel_times": {
+    "performance_9011005022000000_segment_0_9022005001256002_9022005000050020_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "day",
+      "from_stop_id": "9022005001256002",
+      "from_stop_name": "Universitetet",
+      "to_stop_id": "9022005000050020",
+      "to_stop_name": "Linköpings resecentrum",
+      "sample_size": 1635,
+      "statistics": {
+        "mean": 512.24,
+        "median": 503.0,
+        "std": 74.11,
+        "min": 407,
+        "max": 1843,
+        "percentile_25": 482,
+        "percentile_75": 531,
+        "percentile_95": 587
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005001257002_9022005001256002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "day",
+      "from_stop_id": "9022005001257002",
+      "from_stop_name": "Mäster Mattias väg",
+      "to_stop_id": "9022005001256002",
+      "to_stop_name": "Universitetet",
+      "sample_size": 1635,
+      "statistics": {
+        "mean": 67.85,
+        "median": 65.0,
+        "std": 18.04,
+        "min": 19,
+        "max": 142,
+        "percentile_25": 57,
+        "percentile_75": 75,
+        "percentile_95": 105
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005003847001_9022005001257002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "day",
+      "from_stop_id": "9022005003847001",
+      "from_stop_name": "Forskningsbyn",
+      "to_stop_id": "9022005001257002",
+      "to_stop_name": "Mäster Mattias väg",
+      "sample_size": 1635,
+      "statistics": {
+        "mean": 90.46,
+        "median": 89.0,
+        "std": 21.55,
+        "min": 32,
+        "max": 410,
+        "percentile_25": 79,
+        "percentile_75": 102,
+        "percentile_95": 124
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005004232001_9022005003847001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "day",
+      "from_stop_id": "9022005004232001",
+      "from_stop_name": "Mjärdevi Center",
+      "to_stop_id": "9022005003847001",
+      "to_stop_name": "Forskningsbyn",
+      "sample_size": 1635,
+      "statistics": {
+        "mean": 68.59,
+        "median": 66.0,
+        "std": 19.77,
+        "min": 28,
+        "max": 164,
+        "percentile_25": 56,
+        "percentile_75": 79,
+        "percentile_95": 106
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005001256002_9022005000050020_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "night",
+      "from_stop_id": "9022005001256002",
+      "from_stop_name": "Universitetet",
+      "to_stop_id": "9022005000050020",
+      "to_stop_name": "Linköpings resecentrum",
+      "sample_size": 1169,
+      "statistics": {
+        "mean": 528.5,
+        "median": 514.0,
+        "std": 84.28,
+        "min": 411,
+        "max": 2524,
+        "percentile_25": 489,
+        "percentile_75": 550,
+        "percentile_95": 632
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005001257002_9022005001256002_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "night",
+      "from_stop_id": "9022005001257002",
+      "from_stop_name": "Mäster Mattias väg",
+      "to_stop_id": "9022005001256002",
+      "to_stop_name": "Universitetet",
+      "sample_size": 1169,
+      "statistics": {
+        "mean": 66.53,
+        "median": 66.0,
+        "std": 17.71,
+        "min": 20,
+        "max": 193,
+        "percentile_25": 57,
+        "percentile_75": 75,
+        "percentile_95": 97
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005003847001_9022005001257002_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "night",
+      "from_stop_id": "9022005003847001",
+      "from_stop_name": "Forskningsbyn",
+      "to_stop_id": "9022005001257002",
+      "to_stop_name": "Mäster Mattias väg",
+      "sample_size": 1169,
+      "statistics": {
+        "mean": 93.62,
+        "median": 90.0,
+        "std": 24.65,
+        "min": 46,
+        "max": 322,
+        "percentile_25": 80,
+        "percentile_75": 104,
+        "percentile_95": 139
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005004232001_9022005003847001_night": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "night",
+      "from_stop_id": "9022005004232001",
+      "from_stop_name": "Mjärdevi Center",
+      "to_stop_id": "9022005003847001",
+      "to_stop_name": "Forskningsbyn",
+      "sample_size": 1169,
+      "statistics": {
+        "mean": 66.5,
+        "median": 65.0,
+        "std": 18.28,
+        "min": 32,
+        "max": 263,
+        "percentile_25": 59,
+        "percentile_75": 71,
+        "percentile_95": 88
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005001256002_9022005000050020_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "pm_rush",
+      "from_stop_id": "9022005001256002",
+      "from_stop_name": "Universitetet",
+      "to_stop_id": "9022005000050020",
+      "to_stop_name": "Linköpings resecentrum",
+      "sample_size": 3599,
+      "statistics": {
+        "mean": 554.38,
+        "median": 534.0,
+        "std": 86.41,
+        "min": 333,
+        "max": 1770,
+        "percentile_25": 501,
+        "percentile_75": 586,
+        "percentile_95": 692
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005001257002_9022005001256002_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "pm_rush",
+      "from_stop_id": "9022005001257002",
+      "from_stop_name": "Mäster Mattias väg",
+      "to_stop_id": "9022005001256002",
+      "to_stop_name": "Universitetet",
+      "sample_size": 3599,
+      "statistics": {
+        "mean": 68.57,
+        "median": 66.0,
+        "std": 18.81,
+        "min": 20,
+        "max": 264,
+        "percentile_25": 58,
+        "percentile_75": 77,
+        "percentile_95": 101
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005003847001_9022005001257002_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "pm_rush",
+      "from_stop_id": "9022005003847001",
+      "from_stop_name": "Forskningsbyn",
+      "to_stop_id": "9022005001257002",
+      "to_stop_name": "Mäster Mattias väg",
+      "sample_size": 3599,
+      "statistics": {
+        "mean": 97.58,
+        "median": 94.0,
+        "std": 23.27,
+        "min": 35,
+        "max": 402,
+        "percentile_25": 83,
+        "percentile_75": 111,
+        "percentile_95": 138
+      }
+    },
+    "performance_9011005022000000_segment_0_9022005004232001_9022005003847001_pm_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "0",
+      "time_type": "pm_rush",
+      "from_stop_id": "9022005004232001",
+      "from_stop_name": "Mjärdevi Center",
+      "to_stop_id": "9022005003847001",
+      "to_stop_name": "Forskningsbyn",
+      "sample_size": 3599,
+      "statistics": {
+        "mean": 68.56,
+        "median": 67.0,
+        "std": 17.99,
+        "min": 28,
+        "max": 360,
+        "percentile_25": 60,
+        "percentile_75": 76,
+        "percentile_95": 95
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005001256001_9022005001257001_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "am_rush",
+      "from_stop_id": "9022005001256001",
+      "from_stop_name": "Universitetet",
+      "to_stop_id": "9022005001257001",
+      "to_stop_name": "Mäster Mattias väg",
+      "sample_size": 3980,
+      "statistics": {
+        "mean": 56.6,
+        "median": 57.0,
+        "std": 11.5,
+        "min": 21,
+        "max": 289,
+        "percentile_25": 53,
+        "percentile_75": 62,
+        "percentile_95": 71
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005001257001_9022005003847002_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "am_rush",
+      "from_stop_id": "9022005001257001",
+      "from_stop_name": "Mäster Mattias väg",
+      "to_stop_id": "9022005003847002",
+      "to_stop_name": "Forskningsbyn",
+      "sample_size": 3983,
+      "statistics": {
+        "mean": 94.81,
+        "median": 89.0,
+        "std": 26.18,
+        "min": 20,
+        "max": 372,
+        "percentile_25": 79,
+        "percentile_75": 105,
+        "percentile_95": 138
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005003847002_9022005004232003_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "am_rush",
+      "from_stop_id": "9022005003847002",
+      "from_stop_name": "Forskningsbyn",
+      "to_stop_id": "9022005004232003",
+      "to_stop_name": "Mjärdevi Center",
+      "sample_size": 3983,
+      "statistics": {
+        "mean": 73.38,
+        "median": 73.0,
+        "std": 17.38,
+        "min": 25,
+        "max": 566,
+        "percentile_25": 68,
+        "percentile_75": 78,
+        "percentile_95": 88
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005004232003_9022005004139002_am_rush": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "am_rush",
+      "from_stop_id": "9022005004232003",
+      "from_stop_name": "Mjärdevi Center",
+      "to_stop_id": "9022005004139002",
+      "to_stop_name": "Mjärdevi",
+      "sample_size": 3982,
+      "statistics": {
+        "mean": 57.28,
+        "median": 55.0,
+        "std": 21.49,
+        "min": 8,
+        "max": 228,
+        "percentile_25": 44,
+        "percentile_75": 68,
+        "percentile_95": 86
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005001256001_9022005001257001_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "day",
+      "from_stop_id": "9022005001256001",
+      "from_stop_name": "Universitetet",
+      "to_stop_id": "9022005001257001",
+      "to_stop_name": "Mäster Mattias väg",
+      "sample_size": 1079,
+      "statistics": {
+        "mean": 57.52,
+        "median": 58.0,
+        "std": 12.87,
+        "min": 17,
+        "max": 261,
+        "percentile_25": 54,
+        "percentile_75": 63,
+        "percentile_95": 72
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005001257001_9022005003847002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "day",
+      "from_stop_id": "9022005001257001",
+      "from_stop_name": "Mäster Mattias väg",
+      "to_stop_id": "9022005003847002",
+      "to_stop_name": "Forskningsbyn",
+      "sample_size": 1079,
+      "statistics": {
+        "mean": 78.26,
+        "median": 78.0,
+        "std": 15.53,
+        "min": 42,
+        "max": 202,
+        "percentile_25": 69,
+        "percentile_75": 86,
+        "percentile_95": 105
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005003847002_9022005004232003_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "day",
+      "from_stop_id": "9022005003847002",
+      "from_stop_name": "Forskningsbyn",
+      "to_stop_id": "9022005004232003",
+      "to_stop_name": "Mjärdevi Center",
+      "sample_size": 1079,
+      "statistics": {
+        "mean": 63.14,
+        "median": 62.0,
+        "std": 18.68,
+        "min": 36,
+        "max": 430,
+        "percentile_25": 53,
+        "percentile_75": 70,
+        "percentile_95": 82
+      }
+    },
+    "performance_9011005022000000_segment_1_9022005004232003_9022005004139002_day": {
+      "route_id": 9011005022000000,
+      "direction_id": "1",
+      "time_type": "day",
+      "from_stop_id": "9022005004232003",
+      "from_stop_name": "Mjärdevi Center",
+      "to_stop_id": "9022005004139002",
+      "to_stop_name": "Mjärdevi",
+      "sample_size": 1079,
+      "statistics": {
+        "mean": 53.97,
+        "median": 52.0,
+        "std": 17.57,
+        "min": -3,
+        "max": 151,
+        "percentile_25": 42,
+        "percentile_75": 66,
+        "percentile_95": 83
+      }
+    }
+  }
+}

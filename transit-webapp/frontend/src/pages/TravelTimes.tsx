@@ -23,17 +23,8 @@ interface TravelSegment {
   by_route: ByRouteEntry[]
 }
 
-interface ParsedSegmentKey {
-  route_id: number
-  direction_id: string
-  from_stop_id: string
-  to_stop_id: string
-  time_type: string
-}
-
 const TravelTimes: React.FC = () => {
   const [segments, setSegments] = useState<TravelSegment[]>([])
-  const [stopIndex, setStopIndex] = useState<Record<string, any>>({})
   const [route, setRoute] = useState('')
   const [fromName, setFromName] = useState('')
   const [toName, setToName] = useState('')
@@ -42,10 +33,7 @@ const TravelTimes: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [expandedSegments, setExpandedSegments] = useState<Set<number>>(new Set())
   const { user, session } = useAuth()
-  
-  // No longer need to parse seg_keys since we have clean array format
 
-  // filter out purely numeric names
   const hasLetters = (s: string) => /\D/.test(s)
 
   const toggleSegmentDetails = (index: number) => {
@@ -106,7 +94,6 @@ const TravelTimes: React.FC = () => {
         throw new Error(`Expected travel times to be an object or array, got: ${typeof timesData}`)
       }
       
-      setStopIndex(stops)
       const withNames = timesArray.map(s => ({
         ...s,
         from_stop_name: stops[s.from_stop_id]?.stop_name || s.from_stop_id,
@@ -132,13 +119,12 @@ const TravelTimes: React.FC = () => {
     setToName('')
   }, [fromName])
 
-  // Efficiently compute available options using direct data access
+  // Compute available options
   const availableOptions = useMemo(() => {
     const routes = new Set<number>()
     const timeTypes = new Set<string>()
     const fromStops = new Set<string>()
     const toStops = new Set<string>()
-    const validCombinations = new Set<string>()
 
     segments.forEach(segment => {
       // Check if segment has actual data
@@ -147,97 +133,43 @@ const TravelTimes: React.FC = () => {
       
       if (!hasData) return
 
-      const from_stop_name = segment.from_stop_name
-      const to_stop_name = segment.to_stop_name
-      const time_type = segment.time_type
-
-      // Get all routes for this segment
-      const segmentRoutes = segment.by_route?.map(r => r.route_id) || []
+      timeTypes.add(segment.time_type)
+      if (hasLetters(segment.from_stop_name)) fromStops.add(segment.from_stop_name)
+      if (hasLetters(segment.to_stop_name)) toStops.add(segment.to_stop_name)
       
-      segmentRoutes.forEach(route_id => {
-        const combKey = `${route_id}|${from_stop_name}|${to_stop_name}|${time_type}`
-        validCombinations.add(combKey)
-        routes.add(route_id)
-      })
-
-      timeTypes.add(time_type)
-      if (hasLetters(from_stop_name)) fromStops.add(from_stop_name)
-      if (hasLetters(to_stop_name)) toStops.add(to_stop_name)
+      segment.by_route?.forEach(r => routes.add(r.route_id))
     })
 
-    // Filter options based on current selections
-    const getFilteredRoutes = () => {
-      if (!fromName && !toName && !timeType) return Array.from(routes).sort((a, b) => a - b)
+    // Apply current filters to get available options
+    const filtered = segments.filter(segment => {
+      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
+      const fromMatch = !fromName || segment.from_stop_name === fromName
+      const toMatch = !toName || segment.to_stop_name === toName
+      const timeMatch = !timeType || segment.time_type === timeType
       
-      const filtered = new Set<number>()
-      validCombinations.forEach(combKey => {
-        const [r, f, t, tt] = combKey.split('|')
-        if ((!fromName || f === fromName) &&
-            (!toName || t === toName) &&
-            (!timeType || tt === timeType)) {
-          filtered.add(Number(r))
-        }
-      })
-      return Array.from(filtered).sort((a, b) => a - b)
-    }
+      const hasData = (typeof segment.aggregated?.mean === 'number') ||
+                     (segment.by_route?.some(r => typeof r.mean === 'number'))
+      
+      return routeMatch && fromMatch && toMatch && timeMatch && hasData
+    })
 
-    const getFilteredTimeTypes = () => {
-      if (!route && !fromName && !toName) return Array.from(timeTypes).sort()
-      
-      const filtered = new Set<string>()
-      validCombinations.forEach(combKey => {
-        const [r, f, t, tt] = combKey.split('|')
-        if ((!route || Number(r) === Number(route)) &&
-            (!fromName || f === fromName) &&
-            (!toName || t === toName)) {
-          filtered.add(tt)
-        }
-      })
-      return Array.from(filtered).sort()
-    }
+    const filteredRoutes = new Set<number>()
+    const filteredTimeTypes = new Set<string>()
+    const filteredFromStops = new Set<string>()
+    const filteredToStops = new Set<string>()
 
-    const getFilteredFromStops = () => {
-      if (!route && !toName && !timeType) {
-        return Array.from(fromStops).sort((a, b) => a.localeCompare(b))
-      }
-      
-      const filtered = new Set<string>()
-      validCombinations.forEach(combKey => {
-        const [r, f, t, tt] = combKey.split('|')
-        if ((!route || Number(r) === Number(route)) &&
-            (!toName || t === toName) &&
-            (!timeType || tt === timeType) &&
-            hasLetters(f)) {
-          filtered.add(f)
-        }
-      })
-      return Array.from(filtered).sort((a, b) => a.localeCompare(b))
-    }
-
-    const getFilteredToStops = () => {
-      if (!route && !fromName && !timeType) {
-        return Array.from(toStops).sort((a, b) => a.localeCompare(b))
-      }
-      
-      const filtered = new Set<string>()
-      validCombinations.forEach(combKey => {
-        const [r, f, t, tt] = combKey.split('|')
-        if ((!route || Number(r) === Number(route)) &&
-            (!fromName || f === fromName) &&
-            (!timeType || tt === timeType) &&
-            hasLetters(t)) {
-          filtered.add(t)
-        }
-      })
-      return Array.from(filtered).sort((a, b) => a.localeCompare(b))
-    }
+    filtered.forEach(segment => {
+      filteredTimeTypes.add(segment.time_type)
+      if (hasLetters(segment.from_stop_name)) filteredFromStops.add(segment.from_stop_name)
+      if (hasLetters(segment.to_stop_name)) filteredToStops.add(segment.to_stop_name)
+      segment.by_route?.forEach(r => filteredRoutes.add(r.route_id))
+    })
 
     return {
-      routes: getFilteredRoutes(),
-      timeTypes: getFilteredTimeTypes(),
-      fromStops: getFilteredFromStops(),
-      toStops: getFilteredToStops(),
-      validCombinations
+      routes: Array.from(filteredRoutes).sort((a, b) => a - b),
+      timeTypes: Array.from(filteredTimeTypes).sort(),
+      fromStops: Array.from(filteredFromStops).sort((a, b) => a.localeCompare(b)),
+      toStops: Array.from(filteredToStops).sort((a, b) => a.localeCompare(b))
     }
   }, [segments, route, fromName, toName, timeType])
 
@@ -249,10 +181,8 @@ const TravelTimes: React.FC = () => {
       const toMatch = !toName || segment.to_stop_name === toName
       const timeMatch = !timeType || segment.time_type === timeType
       
-      // Check if segment has actual data for the selected route
       const hasData = !route 
-        ? (typeof segment.aggregated?.mean === 'number') ||
-          (segment.by_route?.some(r => typeof r.mean === 'number'))
+        ? (typeof segment.aggregated?.mean === 'number')
         : segment.by_route?.some(r => r.route_id === Number(route) && typeof r.mean === 'number')
       
       return routeMatch && fromMatch && toMatch && timeMatch && hasData
@@ -324,16 +254,12 @@ const TravelTimes: React.FC = () => {
             value={fromName}
             onChange={e => setFromName(e.target.value)}
             className="w-full border p-2 rounded"
-            disabled={availableOptions.fromStops.length === 0}
           >
             <option value="">(any stop)</option>
             {availableOptions.fromStops.map(name => (
               <option key={name} value={name}>{name}</option>
             ))}
           </select>
-          {availableOptions.fromStops.length === 0 && (
-            <div className="text-xs text-gray-500 mt-1">No stops available for current filters</div>
-          )}
         </div>
 
         <div>
@@ -342,16 +268,12 @@ const TravelTimes: React.FC = () => {
             value={toName}
             onChange={e => setToName(e.target.value)}
             className="w-full border p-2 rounded"
-            disabled={availableOptions.toStops.length === 0}
           >
             <option value="">(any stop)</option>
             {availableOptions.toStops.map(name => (
               <option key={name} value={name}>{name}</option>
             ))}
           </select>
-          {availableOptions.toStops.length === 0 && (
-            <div className="text-xs text-gray-500 mt-1">No stops available for current filters</div>
-          )}
         </div>
       </div>
 
@@ -370,18 +292,19 @@ const TravelTimes: React.FC = () => {
 
             <div className="text-sm text-gray-700">
               {route ? (
+                // When a route is selected, show only that route's data - no "Show Details" button
                 <div className="space-y-1">
                   {s.by_route
-                    ?.filter(r2 => r2.route_id === Number(route))
-                    .map((r2, i) => (
+                    ?.filter(r => r.route_id === Number(route))
+                    .map((r, i) => (
                       <div key={i}>
-                        Route {r2.route_id}:{' '}
-                        {typeof r2.mean === 'number'
-                          ? <strong>{r2.mean.toFixed(1)} s</strong>
+                        Route {r.route_id}, dir {r.direction_id}:{' '}
+                        {typeof r.mean === 'number'
+                          ? <strong>{r.mean.toFixed(1)} s</strong>
                           : 'n/a'}
-                        {r2.sample_size && (
+                        {r.sample_size > 0 && (
                           <span className="text-gray-500 ml-2">
-                            ({r2.sample_size.toLocaleString()} samples)
+                            ({r.sample_size.toLocaleString()} samples)
                           </span>
                         )}
                       </div>
@@ -389,42 +312,47 @@ const TravelTimes: React.FC = () => {
                   }
                 </div>
               ) : (
+                // When no route is selected, show aggregated with expandable details from by_route
                 <div className="space-y-2">
                   <div>
                     Aggregated:{' '}
                     {typeof s.aggregated?.mean === 'number'
                       ? <strong>{s.aggregated.mean.toFixed(1)} s</strong>
                       : 'n/a'}
-                    {s.aggregated?.sample_size && (
+                    {s.aggregated?.sample_size > 0 && (
                       <span className="text-gray-500 ml-2">
                         ({s.aggregated.sample_size.toLocaleString()} samples)
                       </span>
                     )}
                   </div>
                   
-                  <button
-                    onClick={() => toggleSegmentDetails(idx)}
-                    className="text-blue-600 hover:text-blue-800 text-sm underline"
-                  >
-                    {expandedSegments.has(idx) ? 'Hide Details' : 'Show Details'}
-                  </button>
-                  
-                  {expandedSegments.has(idx) && (
-                    <div className="mt-2 pl-4 border-l-2 border-gray-200 space-y-1">
-                      {s.by_route?.map((r2, i) => (
-                        <div key={i} className="text-xs">
-                          Route {r2.route_id}, dir {r2.direction_id}:{' '}
-                          {typeof r2.mean === 'number'
-                            ? `${r2.mean.toFixed(1)} s`
-                            : 'n/a'}
-                          {r2.sample_size && (
-                            <span className="text-gray-500 ml-2">
-                              ({r2.sample_size.toLocaleString()} samples)
-                            </span>
-                          )}
+                  {s.by_route && s.by_route.length > 0 && (
+                    <>
+                      <button
+                        onClick={() => toggleSegmentDetails(idx)}
+                        className="text-blue-600 hover:text-blue-800 text-sm underline"
+                      >
+                        {expandedSegments.has(idx) ? 'Hide Details' : 'Show Details'}
+                      </button>
+                      
+                      {expandedSegments.has(idx) && (
+                        <div className="mt-2 pl-4 border-l-2 border-gray-200 space-y-1">
+                          {s.by_route.map((r, i) => (
+                            <div key={i} className="text-xs">
+                              Route {r.route_id}, dir {r.direction_id}:{' '}
+                              {typeof r.mean === 'number'
+                                ? `${r.mean.toFixed(1)} s`
+                                : 'n/a'}
+                              {r.sample_size > 0 && (
+                                <span className="text-gray-500 ml-2">
+                                  ({r.sample_size.toLocaleString()} samples)
+                                </span>
+                              )}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      )}
+                    </>
                   )}
                 </div>
               )}

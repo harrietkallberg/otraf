@@ -1,12 +1,12 @@
 import json
 from flask import Blueprint, jsonify, abort, request
-from .data_loader import load_global_file, load_route_file, list_user_files
+from .data_loader import load_global_file, load_route_file, list_user_items
 
 stops_bp = Blueprint('stops', __name__)
 
 def list_route_ids():
     """Get list of route IDs from file structure"""
-    files = list_user_files()
+    files = list_user_items()
     route_ids = []
     for file_path in files:
         if file_path.startswith('route_') and '/' in file_path:
@@ -21,7 +21,7 @@ def list_stops():
 
 @stops_bp.route('/<stop_id>', methods=['GET'])
 def stop_detail(stop_id):
-    all_stops = load_global_file('stop_index')
+    all_stops = load_route_file('stop_index')
     
     if stop_id not in all_stops:
         abort(404, 'Stop not found')

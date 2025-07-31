@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useRouteData } from '../contexts/RouteDataContext' // Access context to set routeId
 
 type RouteMeta = {
   route_long_name: string
@@ -12,6 +13,7 @@ export default function RoutesList() {
   const [routes, setRoutes] = useState<Record<string, RouteMeta>>({})
   const [violations, setViolations] = useState<Violation[]>([])
   const { user, session } = useAuth()
+  const { setRouteId } = useRouteData() // Use context to set routeId when selecting a route
 
   useEffect(() => {
     if (!user || !session?.access_token) return
@@ -40,6 +42,10 @@ export default function RoutesList() {
     hasViol: violations.some(v => v.route_id === id),
   }))
 
+  const handleRouteSelect = (routeId: string) => {
+    setRouteId(routeId)  // Set the selected routeId in context when the route is clicked
+  }
+
   return (
     <div className="px-6 py-4">
       <h2 className="text-2xl font-semibold mb-6">All Routes</h2>
@@ -47,8 +53,9 @@ export default function RoutesList() {
         {list.map((r) => (
           <Link
             key={r.id}
-            to={`/routes/${r.id}`}
+            to={`/routes/${r.id}`}  // Navigate to RouteLayout with routeId
             className="block bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5 flex justify-between items-center"
+            onClick={() => handleRouteSelect(r.id)}  // Trigger routeId selection here
           >
             <div>
               <h3 className="text-lg font-medium">Route {r.longName}</h3>

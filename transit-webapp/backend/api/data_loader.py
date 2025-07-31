@@ -1,4 +1,4 @@
-from .supa_helper import fetch_json_from_supabase, list_files_in_user_bucket
+from .supa_helper import fetch_json_from_supabase, fetch_csv_from_supabase, list_items_in_user_bucket, list_items_in_route_folder
 from flask import request, abort
 
 def get_user_id_and_tokens():
@@ -25,23 +25,39 @@ def get_user_id_and_tokens():
 
     return user_id, auth_token, refresh_token  # Return user_id, auth_token, and refresh_token if needed
 
-def load_data_file(filename):
+def load_static_json_file(filename):
     """Load a data file from Supabase storage."""
     user_id, auth_token, refresh_token = get_user_id_and_tokens()  # Get user ID, auth_token, and refresh_token
     print(f"Loading file: {filename} for user: {user_id}")
     return fetch_json_from_supabase(user_id, filename, auth_token, refresh_token)
 
+def load_downloadable_csv_file(filename):
+    """Load a data file from Supabase storage."""
+    user_id, auth_token, refresh_token = get_user_id_and_tokens()  # Get user ID, auth_token, and refresh_token
+    print(f"Loading file: {filename} for user: {user_id}")
+    return fetch_csv_from_supabase(user_id, filename, auth_token, refresh_token)
+
 def load_global_file(name):
     """Helper function specifically for global files."""
     filename = f'global_{name}.json'
-    return load_data_file(filename)
+    return load_static_json_file(filename)
 
 def load_route_file(route_id, filename):
     """Helper function specifically for route files."""
-    full_path = f'route_{route_id}/{filename}'
-    return load_data_file(full_path)
+    full_path = f'route_{route_id}/{filename}.json'
+    return load_static_json_file(full_path)
 
-def list_user_files():
+def load_csv_file(filename):
+    """Helper function specifically for csv files."""
+    full_path = f'csv/{filename}.csv'
+    return load_downloadable_csv_file(full_path)
+
+def list_user_items():
     """List all files for the authenticated user."""
     user_id, auth_token, refresh_token = get_user_id_and_tokens()  # Get user ID, auth_token, and refresh_token
-    return list_files_in_user_bucket(user_id, auth_token, refresh_token)  # Call the function in supa_helper.py to list files
+    return list_items_in_user_bucket(user_id, auth_token, refresh_token)  # Call the function in supa_helper.py to list files
+
+def list_route_items(route_id):
+    """List all files for the authenticated user."""
+    user_id, auth_token, refresh_token = get_user_id_and_tokens()  # Get user ID, auth_token, and refresh_token
+    return list_items_in_route_folder(user_id, route_id, auth_token, refresh_token)  # Call the function in supa_helper.py to list files
