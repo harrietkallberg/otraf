@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 from collections import defaultdict
 import csv as csv
+import itertools
+from statistical.lv_logger import LVLogger
 
 class Exporter:
     """
@@ -12,6 +14,7 @@ class Exporter:
     def __init__(self):
         # Map of route_id (str) to LVLogger instance
         self.logs: dict[str, any] = {}
+        self.stop_index = {}
 
     def add_log(self, logger: any):
         """
@@ -24,6 +27,173 @@ class Exporter:
             raise ValueError(f"Route {rid} already registered for export")
         self.logs[rid] = logger
 
+    def build_routewise_nav(self, rid):
+        """
+        Build the routewise navigation structure for a given route ID.
+        This structure will include metadata, violation counts, severity, and stop-level data.
+        """
+        # Fetch the log for the given route ID
+        log = self.logs[rid]
+        
+        # 1) Grab all metadata from the logs
+        stop_meta = log.stop_topology_logs['metadata']
+        dir_meta = log.direction_topology_logs['metadata']
+        perf_meta = log.performance_logs['metadata']['performance_summary']
+        reg_meta = log.regulatory_stops_logs['metadata']
+        
+        # 2) Create route summary and flatten any nested 'route_summary' keys
+        route_summary = {
+            'stop_topology': stop_meta.copy(),
+            'direction_topology': dir_meta.copy(),
+            'performance': perf_meta.copy(),
+            'regulatory_stops': reg_meta.copy()
+        }
+        
+        # 3) Flatten nested 'route_summary' keys
+        for domain_name, meta in route_summary.items():
+            if 'route_summary' in meta:
+                # Move all items from nested route_summary up one level
+                nested_route_summary = meta.pop('route_summary')  # Remove and get the nested dict
+                meta.update(nested_route_summary)  # Add its contents to the parent level
+
+        # Initialize the navigation structure for the route
+        nav = {
+            "route_id": rid,
+            "route_long_name": str(log.route_long_name),
+            "route_short_name": str(log.route_short_name),
+            "route_summary": route_summary,
+            "directions": {
+                "0": {}, 
+                "1": {}
+                }  # Holds direction-level data for direction 0 and 1
+        }
+        directions = [0, 1]
+        # 6) Iterate over directions (0 and 1) and gather data
+        for direction in directions:
+            direction_entry = {
+                "direction_label_keys": log.get_all_keys_regex('direction_topology', f'_{rid}_', f'_{direction}_', match_all = True, log_type='direction_labels'),
+                "direction_violation_keys": log.get_all_keys_regex('direction_topology',  f'_{rid}_', f'_{direction}_', match_all = True, log_type = 'direction_violations'),
+                "canonical_patterns": {}  # canonical stop_id pattern for this direction
+            }
+
+            # 8) Collect stop-level data for each direction
+            pos = 1
+            for stop_id in dir_meta["canonical_patterns"].get(str(direction), []):
+                stop_data = self._get_stop_id_data(rid, direction, stop_id)
+                direction_entry["canonical_patterns"][pos] = stop_data
+                pos += 1
+
+            # 9) Update the direction entry in the navigation structure
+            nav["directions"][str(direction)] = direction_entry
+
+        # 10) Export the final routewise navigation structure
+        # self._dump_safe(nav, f"route_{rid}_routewise_navigation.json")
+        # print(f"✅ Exported routewise navigation for route {rid}")
+
+        return nav
+
+    def build_stopwise_nav(self, pid):
+        """Fixed version of your stopwise navigation builder."""
+        
+        stop_info = self.stop_index[pid]
+
+        parent_station_labelkdict = {}
+        parent_station_violkdict = {}
+        stop_id_labelkdict = {}
+        stop_id_violkdict = {}
+        
+        for rid, log in self.logs.items():
+            # Get parent station keys
+            parent_label_keys = log.get_all_keys_regex('stop_topology', 'parent_station', f'_{pid}', match_all=True, log_type='parent_station_labels')
+            parent_station_labelkdict[rid] = parent_label_keys
+
+            parent_violation_keys = log.get_all_keys_regex('stop_topology', 'parent_station', f'_{pid}', match_all=True, log_type='parent_station_violations')
+            parent_station_violkdict[rid] = parent_violation_keys
+            
+            stop_id_labelkdict[rid] = []
+            stop_id_violkdict[rid] = []
+
+            for stop_id in stop_info['stop_ids']:
+                # Stop topology keys
+                stop_id_labelkdict[rid].extend(log.get_all_keys_regex('stop_topology', 'parent_station', f'_{pid}', 'stop_id', f'_{stop_id}', match_all=True, log_type='stop_id_labels'))
+                stop_id_violkdict[rid].extend(log.get_all_keys_regex('stop_topology', 'parent_station', f'_{pid}', 'stop_id', f'_{stop_id}', match_all=True, log_type='stop_id_violations'))
+
+                # Direction topology keys
+                stop_id_labelkdict[rid].extend(log.get_all_keys_regex('direction_topology', 'stop_id', f'_{stop_id}', match_all=True, log_type='stop_id_labels'))
+                stop_id_violkdict[rid].extend(log.get_all_keys_regex('direction_topology', 'stop_id', f'_{stop_id}', match_all=True, log_type='stop_id_violations'))
+
+        # Sum deepest items in each dictionary
+        parent_labels_total = sum(len(items) for items in parent_station_labelkdict.values())
+        parent_viols_total = sum(len(items) for items in parent_station_violkdict.values())
+        stop_labels_total = sum(len(items) for items in stop_id_labelkdict.values())
+        stop_viols_total = sum(len(items) for items in stop_id_violkdict.values())
+        
+        # Grand total
+        total_lab = parent_labels_total + stop_labels_total 
+        total_viol = parent_viols_total + stop_viols_total
+
+        nav = {
+            "parent_station": pid,
+            "stop_name": stop_info['stop_name'],
+            "stop_ids": stop_info['stop_ids'],
+            "on_routes": stop_info['routes'],
+            "stop_summary": {
+                'total_violations': total_viol,
+                'violation_counts_by_type': {'parent_station': parent_viols_total, 'stop_id': stop_viols_total},  # ✅ Fixed: Use calculated totals
+                'total_labels': total_lab,
+                'label_counts_by_type': {'parent_station': parent_labels_total, 'stop_id': stop_labels_total},  # ✅ Fixed: Use calculated totals
+                'total_routes': len(stop_info['routes']),
+                'total_stop_ids': len(stop_info['stop_ids'])
+            },
+            "routes": {}
+        }
+        
+        for route_id in stop_info['routes']:
+            route_log = self.logs[route_id]  # Get the correct log for this route
+            
+            nav['routes'][route_id] = {
+                'route_id': str(route_log.route_id),
+                'route_long_name': str(route_log.route_long_name),
+                'route_short_name': str(route_log.route_short_name),
+                'total_violations_on_route': {
+                    'total_violations': len(parent_station_violkdict.get(route_id, [])) + len(stop_id_violkdict.get(route_id, [])),
+                    'parent_station_violations': len(parent_station_violkdict.get(route_id, [])),
+                    'stop_id_violations': len(stop_id_violkdict.get(route_id, []))
+                },
+                'total_labels_on_route': {
+                    'total_labels': len(parent_station_labelkdict.get(route_id, [])) + len(stop_id_labelkdict.get(route_id, [])),
+                    'parent_station_labels': len(parent_station_labelkdict.get(route_id, [])),
+                    'stop_id_labels': len(stop_id_labelkdict.get(route_id, []))
+                },
+                'directions': {}
+                }
+           
+            # Get canonical patterns for this route
+            canonical_patterns = route_log.direction_topology_logs['metadata'].get('canonical_patterns', {})
+            
+            for direction_id, pattern_stops in canonical_patterns.items():
+                # Check if any of our stop_ids appear in this direction
+                our_stops_in_direction = [sid for sid in stop_info['stop_ids'] if sid in pattern_stops]
+                
+                if our_stops_in_direction:  # Only include direction if it serves our stop
+                    direction_entry = {
+                        "direction_id": direction_id,
+                        "direction_label_keys": route_log.get_all_keys_regex('direction_topology', f'_{route_id}_', f'direction_id_{direction_id}', match_all=True, log_type='direction_labels'),
+                        "direction_violation_keys": route_log.get_all_keys_regex('direction_topology', f'_{route_id}_', f'direction_id_{direction_id}', match_all=True, log_type='direction_violations'),
+                        "stops_in_direction": {}
+                    }
+                    
+                    for stop_id in our_stops_in_direction:
+                        # Find canonical position
+                        canonical_position = pattern_stops.index(stop_id) + 1 if stop_id in pattern_stops else None
+                        stop_data = self._get_stop_id_data(route_id, direction_id, stop_id)
+                        direction_entry["stops_in_direction"][f'canonical_position'] = {str(canonical_position):stop_data}
+                    
+                    # Add direction to route
+                    nav["routes"][route_id]["directions"][direction_id] = direction_entry
+
+        return nav
+
     def export_all(self, export_root: Path):
         """
         Export all registered route logs under export_root/, each in its own route_<id>/ folder,
@@ -32,52 +202,19 @@ class Exporter:
         export_root = Path(export_root)
         export_root.mkdir(parents=True, exist_ok=True)
 
-        # 1) Per-route exports
-        for rid, log in self.logs.items():
-            route_dir = export_root / f"route_{rid}"
-            route_dir.mkdir(parents=True, exist_ok=True)
-
-            # Topology & regulatory
-            self._dump_safe(log.stop_topology_logs, route_dir / "stop_topology.json")
-            self._dump_safe(log.direction_topology_logs, route_dir / "direction_topology.json")
-            self._dump_safe(log.regulatory_stops_logs, route_dir / "regulatory_stops.json")
-
-            # Performance logs - Now we include analytics_logs which contains histograms and punctuality
-            perf_bundle = {
-                "performance_summary": log.performance_logs['metadata']['performance_summary'],
-                "analytics_logs": log.performance_logs.get("analytics_logs", {}),  # New combined logs
-                "travel_times": log.performance_logs.get("travel_times", {})
-            }
-            def replace_parent_station_with_string(data):
-                """
-                Recursively replaces the value of 'parent_station' with its string version.
-                """
-                if isinstance(data, dict):
-                    # If the data is a dictionary, iterate through its items
-                    for key, value in data.items():
-                        if key == 'parent_station':
-                            # If the key is 'parent_station', convert its value to a string
-                            data[key] = str(value)
-                        else:
-                            # Recursively process the value if it's a dictionary or list
-                            replace_parent_station_with_string(value)
-                elif isinstance(data, list):
-                    # If the data is a list, iterate through its items
-                    for item in data:
-                        replace_parent_station_with_string(item)
-            
-            self._dump_safe(perf_bundle, route_dir / "performance_logs.json")
-
-            # Navigation map
-            nav = log.navigation_structures.get("routewise_navigation", {})
-            replace_parent_station_with_string(nav)
-            self._dump_safe(nav, route_dir / "routewise_navigation.json")
-
-            print(f"✅ Exported route {rid} to {route_dir}")
-
         # 2) Global indexes (no changes needed here)
         self._export_global_route_index(export_root)
         self._export_global_stop_index(export_root)
+
+        # 1) Per-route exports
+        for rid, log in self.logs.items():
+            route_dir = f'route_{rid}'
+            nav = self.build_routewise_nav(rid)
+            self._dump_safe(nav, route_dir / "routewise_navigation.json")
+
+            print(f"✅ Exported route {rid} to {route_dir}")
+        
+        
 
         self._export_global_time_types(export_root)
         self._export_global_violations(export_root)
@@ -96,148 +233,100 @@ class Exporter:
         self._export_csv_mis_tracked_stops(csv_dir)
 
     def _export_global_route_index(self, export_root: Path):
-        """
-        Build and export a global route index JSON mapping each route_id
-        to its human-readable long and short names.
-        """
         route_index = {}
         for rid, log in self.logs.items():
+            stops = set()
+            stop_ids = set()
+            for label_entry in log.stop_topology_logs.get("parent_station_labels", {}).values():
+                parent_station = str(label_entry.get("parent_station", ""))
+                if parent_station:
+                    stops.add(parent_station)
+                if "stop_ids" in label_entry:
+                    stop_ids.update(str(sid) for sid in label_entry["stop_ids"])
+
             route_index[rid] = {
-                "route_long_name":  getattr(log, "route_long_name", None),
-                "route_short_name": getattr(log, "route_short_name", None)
+                "route_id": str(rid),
+                "route_long_name": getattr(log, "route_long_name", None),
+                "route_short_name": getattr(log, "route_short_name", None),
+                "stops": sorted(stops),
+                "route_folder": f"route_{rid}",
+                "summary": {
+                    "total_stops": len(stops),      # ← Fixed: removed sorted()
+                    "total_stop_ids": len(stop_ids) # ← Fixed: removed sorted()
+                }
             }
+
         self._dump_safe(route_index, export_root / "global_route_index.json")
         print(f"🔄 Exported global route index to {export_root / 'global_route_index.json'}")
 
-    def _export_global_stop_index(self, export_root: Path):
+    def _export_global_stop_index(self):
         """
-        Build and export a detailed global stop index JSON by scanning each
-        route's navigation structures. Each stop entry includes:
-        - stop_name
-        - routes list
-        - directions per route
-        - label_stats per domain (routes, occurrences)
-        - label_keys per domain
-        - violation_stats per domain (routes, occurrences)
-        - violation_keys per domain
-        - performance_keys availability (lists of all seen keys)
-        - severity_counts_by_severity: aggregated 1–5 buckets
+        Build and export a global stop index JSON mapping each parent_station
+        to its basic info and which routes serve it.
+        
+        Since all parent stations are classified in stop_topology_logs with labels,
+        we can use that as the primary (and sufficient) source.
         """
-        domains = ["stop_topology", "direction_topology", "regulatory", "parent_station"]
-        stop_index: dict[str, dict] = {}
-
-        # 1️⃣ Gather per-route data
+        stop_index = {}
+        
         for rid, log in self.logs.items():
-            nav = log.navigation_structures.get("routewise_navigation", {}) or {}
-            for direction in nav.get("directions", []):
-                did = direction.get("direction_id")
-                for stop in direction.get("stops", []):
-                    sid = stop.get("stop_id")
-                    parent_station = str(stop.get("parent_station"))
-                    if not parent_station:
-                        continue
+            # Primary source: parent_station_labels from stop topology
+            for label_entry in log.stop_topology_logs.get("parent_station_labels", {}).values():
+                print(label_entry)
+                parent_station = str(label_entry.get("parent_station", ""))
+                
+                if parent_station and parent_station != "UNKNOWN":
+                    if parent_station not in stop_index:
+                        stop_index[parent_station] = {
+                            "parent_station": parent_station,
+                            "stop_name": label_entry.get("stop_name", "UNKNOWN"),
+                            "stop_ids": set(),
+                            "routes": set(),
+                            "stop_folder": f"stop_{self._sanitize_filename(parent_station)}"
+                        }
+                    
+                    # Add route and stop_ids from this label
+                    stop_index[parent_station]["routes"].add(rid)
+                    if "stop_ids" in label_entry:
+                        stop_index[parent_station]["stop_ids"].update(
+                            str(sid) for sid in label_entry["stop_ids"] 
+                        )
+        self.stop_index = stop_index
 
-                    # Initialize entry if first time seeing this parent station
-                    entry = stop_index.setdefault(parent_station, {
-                        "stop_name":      stop.get("stop_name", "UNKNOWN"),
-                        "parent_station": parent_station,
-                        "stop_ids":       set(),
-                        "routes":         set(),
-                        "directions":     defaultdict(set),
-                        "label_stats":    {d: {"routes": set(), "occurrences": 0} for d in domains},
-                        "violation_stats":{d: {"routes": set(), "occurrences": 0} for d in domains},
-                        "label_keys":     {d: [] for d in domains},
-                        "violation_keys": {d: [] for d in domains},
-                        "performance_keys": defaultdict(lambda: {"histograms": [], "punctualities": []}),
-                        "severity_counts_by_severity": {}  # ← NEW histogram
-                    })
-
-                    # Track which routes & directions this stop appears on
-                    entry["routes"].add(rid)
-                    entry["directions"][rid].add(did)
-
-                    # Label stats & keys
-                    for dom, keys in (stop.get("labels") or {}).items():
-                        if dom not in domains:
-                            continue
-                        for k in (keys or []):
-                            entry["label_stats"][dom]["routes"].add(rid)
-                            entry["label_stats"][dom]["occurrences"] += 1
-                            entry["label_keys"][dom].append(k)
-
-                    # Violation stats & keys
-                    for dom, keys in (stop.get("violations") or {}).items():
-                        if dom not in domains:
-                            continue
-                        for k in (keys or []):
-                            entry["violation_stats"][dom]["routes"].add(rid)
-                            entry["violation_stats"][dom]["occurrences"] += 1
-                            entry["violation_keys"][dom].append(k)
-
-                    # Performance availability
-                    p_avail = stop.get("performance_availability") or {}
-                    for tt, hkey in (p_avail.get("histograms") or {}).items():
-                        if hkey:
-                            entry["performance_keys"][tt]["histograms"].append(hkey)
-                    for tt, pkey in (p_avail.get("punctuality") or {}).items():
-                        if pkey:
-                            entry["performance_keys"][tt]["punctualities"].append(pkey)
-
-                    # ──────────────────────────────────────────────────────
-                    # 2️⃣ Aggregate per-stop severity histograms
-                    for sev, cnt in (stop.get("violation_severity_counts") or {}).items():
-                        sev_str = str(sev)
-                        sc = entry["severity_counts_by_severity"]
-                        sc[sev_str] = sc.get(sev_str, 0) + cnt
-                    # ──────────────────────────────────────────────────────
-
-                    # Add the stop_id to the stop_ids list for this parent station
-                    entry["stop_ids"].add(sid)
-
-        # 3️⃣ Sanitize and export for JSON
-        final_index: dict[str, dict] = {}
-        for parent_station, e in stop_index.items():
-            final_index[parent_station] = {
-                "stop_name":      e["stop_name"],
-                "parent_station": e["parent_station"],
-                "stop_ids":       sorted(e["stop_ids"]),
-                "routes":         sorted(e["routes"]),
-                "directions":     {rid: sorted(ds) for rid, ds in e["directions"].items()},
-                "label_stats": {
-                    dom: {
-                        "routes":     sorted(data["routes"]),
-                        "occurrences": data["occurrences"]
-                    }
-                    for dom, data in e["label_stats"].items()
-                },
-                "label_keys":     {dom: list(keys) for dom, keys in e["label_keys"].items()},
-                "violation_stats": {
-                    dom: {
-                        "routes":     sorted(data["routes"]),
-                        "occurrences": data["occurrences"]
-                    }
-                    for dom, data in e["violation_stats"].items()
-                },
-                "violation_keys": {dom: list(keys) for dom, keys in e["violation_keys"].items()},
-                "performance_keys": {
-                    rid: {
-                        "histograms":   ks["histograms"],
-                        "punctualities": ks["punctualities"]
-                    }
-                    for rid, ks in e["performance_keys"].items()
-                },
-                "severity_counts_by_severity": e["severity_counts_by_severity"]  # ← serialized
+        # Convert sets to sorted lists for JSON serialization
+        final_stop_index = {}
+        for parent_station, data in stop_index.items():
+            final_stop_index[parent_station] = {
+                "parent_station": data["parent_station"],
+                "stop_name": data["stop_name"],
+                "stop_ids": sorted(data["stop_ids"]) if data["stop_ids"] else [],
+                "routes": sorted(data["routes"]) if data["routes"] else [],
+                "stop_folder": data["stop_folder"],  # ← Added this line
+                "summary": {
+                    "total_routes": len(data["routes"]),
+                    "total_stop_ids": len(data["stop_ids"])
+                }
             }
 
-        # Write out the JSON
-        self._dump_safe(final_index, export_root / "global_stop_index.json")
-        print(f"🔄 Exported global stop index to {export_root / 'global_stop_index.json'}")
+        #self._dump_safe(final_stop_index, export_root / "global_stop_index.json")
+        #print(f"🔄 Exported global stop index with {len(final_stop_index)} parent stations to {export_root / 'global_stop_index.json'}")
+        return final_stop_index
+
+    def _sanitize_filename(self, name: str) -> str:
+        """Sanitize a string for use as a filename."""
+        import re
+        sanitized = re.sub(r'[<>:"/\\|?*]', '_', str(name))
+        sanitized = sanitized.replace(' ', '_')
+        sanitized = re.sub(r'_+', '_', sanitized)
+        sanitized = sanitized.strip('_')
+        return sanitized or "unknown"
 
     def _export_global_time_types(self, export_root: Path):
         """
         Build and export a list of all time_types found in performance logs across all routes.
         """
         time_types = set()
+        time_types.add("all")
         for log in self.logs.values():
             
             for entry in log.performance_logs.get("analytics_logs", {}).values():
@@ -255,50 +344,37 @@ class Exporter:
         print(f"🔄 Exported global time types to {export_root / 'global_time_types.json'}")
 
     def _export_global_violations(self, export_root: Path):
-        """
-        Flatten all violation entries across routes into a single list JSON.
-        """
-        flat = []
-
+        """Export violations as dict with keys for direct lookup."""
+        violations_dict = {}
+        
         for log in self.logs.values():
-            # STOP TOPOLOGY violations
-            st_logs = log.stop_topology_logs
-            for key in ("parent_station_violations", "stop_id_violations"):
-                for entry in st_logs.get(key, {}).values():
-                    flat.append(entry)
-
-            # DIRECTION TOPOLOGY violations
-            dt_logs = log.direction_topology_logs
-            for key in ("direction_violations", "stop_id_violations"):
-                for entry in dt_logs.get(key, {}).values():
-                    flat.append(entry)
-
-        # Write out the combined list
-        self._dump_safe(flat, export_root / "global_violations.json")
-        print(f"🔄 Exported global violations to {export_root / 'global_violations.json'}")
+            # Preserve original keys from logs
+            for domain_violations in [
+                log.stop_topology_logs.get("parent_station_violations", {}),
+                log.stop_topology_logs.get("stop_id_violations", {}),
+                log.direction_topology_logs.get("direction_violations", {}),
+                log.direction_topology_logs.get("stop_id_violations", {})
+            ]:
+                violations_dict.update(domain_violations)  # Merge with keys preserved
+        
+        self._dump_safe(violations_dict, export_root / "global_violations.json")
 
     def _export_global_labels(self, export_root: Path):
-        """
-        Flatten all label entries across routes into a single list JSON.
-        """
-        flat = []
-
+        """Export labels as dict with keys for direct lookup."""
+        labels_dict = {}
+        
         for log in self.logs.values():
-            # STOP TOPOLOGY labels
-            st_logs = log.stop_topology_logs
-            for key in ("parent_station_labels", "stop_id_labels"):
-                flat.extend(st_logs.get(key, {}).values())
-
-            # DIRECTION TOPOLOGY labels
-            dt_logs = log.direction_topology_logs
-            for key in ("direction_labels",):
-                flat.extend(dt_logs.get(key, {}).values())
-
-            flat.extend(log.regulatory_stops_logs.get("stop_id_regulatory_labels", {}).values())
-
-        # Write out the combined list
-        self._dump_safe(flat, export_root / "global_labels.json")
-        print(f"🔄 Exported global labels to {export_root / 'global_labels.json'}")
+            # Preserve original keys from logs
+            for domain_labels in [
+                log.stop_topology_logs.get("parent_station_labels", {}),
+                log.stop_topology_logs.get("stop_id_labels", {}),
+                log.direction_topology_logs.get("direction_labels", {}),
+                log.direction_topology_logs.get("stop_id_labels", {}),
+                log.regulatory_stops_logs.get("stop_id_regulatory_labels", {})
+            ]:
+                labels_dict.update(domain_labels)  # Merge with keys preserved
+        
+        self._dump_safe(labels_dict, export_root / "global_labels.json")
 
     def _export_global_performance_analytics(self, export_root: Path):
         """
@@ -493,7 +569,7 @@ class Exporter:
                     ])
 
         print(f"🔄 Exported global_travel_times.csv to {csv_path}")
-    # Export underperforming regulatory stops to CSV with UTF-8 encoding
+   
     def _export_csv_underperforming_regulatory_stops(self, csv_dir: Path, threshold: float = 80.0):
         """
         Export CSV of regulatory stops with on-time % below threshold,
@@ -532,7 +608,6 @@ class Exporter:
 
         print(f"🔄 Exported underperforming regulatory stops to {out_path}")
 
-    # Export mis-tracked stops to CSV with UTF-8 encoding
     def _export_csv_mis_tracked_stops(self, csv_dir: Path):
         path = csv_dir / "mis_tracked_stops.csv"
         # aggregate per stop_id/stop_name → list of (violation_type, severity)
@@ -604,3 +679,64 @@ class Exporter:
                 json.dump(obj, f, indent=2, ensure_ascii=False, cls=NumpyEncoder)
         except Exception as e:
             print(f"Error exporting {path}: {e}")
+
+    def _get_stop_id_data(self, rid, direction_id, stop_id):
+        """
+        Collect stop-specific data for a given stop in the route.
+        This includes stop name, parent station, labels, violations, and performance metrics.
+        """
+        log = self.logs[rid]
+        stop_id_data = {
+            "stop_id": stop_id,
+            "stop_name": self._get_stop_name(rid, stop_id),
+            "parent_station":self._get_parent_station(rid, stop_id),
+
+            "parent_station_label_key": log.get_all_keys_regex('stop_topology', f'_{rid}_', 'parent_station', f'_{self._get_parent_station(rid, stop_id)}', match_all = True, log_type = 'parent_station_labels'),
+            "parent_station_violation_key": log.get_all_keys_regex('stop_topology', f'_{rid}_', 'parent_station', f'_{self._get_parent_station(rid, stop_id)}', match_all = True, log_type = 'parent_station_labels'),
+            
+            "stop_id_label_keys": 
+                log.get_all_keys_regex('stop_topology', f'_{rid}_', 'stop_id', f'_{stop_id}', match_all=True, log_type='stop_id_labels') +
+                log.get_all_keys_regex('direction_topology', f'_{rid}_', 'stop_id', f'_{stop_id}', 'direction_id', f'_{direction_id}', match_all=True, log_type='stop_id_labels')
+            ,
+
+            "stop_id_violation_keys": 
+                log.get_all_keys_regex('stop_topology', f'_{rid}_', 'stop_id', f'_{stop_id}', match_all=True, log_type='stop_id_violations') +
+                log.get_all_keys_regex('direction_topology', f'_{rid}_', 'stop_id', f'_{stop_id}', 'direction_id', f'_{direction_id}', match_all=True, log_type='stop_id_violations')
+            ,
+            "stop_id_performance_keys": log.get_all_keys_regex('performance', f'_{rid}_', 'stop_id', f'_{stop_id}','direction_id', f'{direction_id}', match_all = True, log_type = 'analytics_logs'),
+        }
+        return stop_id_data
+    
+    def _get_stop_name(self, rid, stop_id):
+        """
+        Retrieve the name of the stop by finding the stop_id in the keys.
+        """
+        log = self.logs[rid]
+        
+        # Use get_all_keys_regex to find keys containing this stop_id in stop_id_labels
+        matching_keys = log.get_all_keys_regex('stop_topology', 'stop_id', f'{stop_id}', log_type='stop_id_labels')
+        
+        # If we found matching keys, get the stop_name from the first one
+        if matching_keys:
+            first_key = matching_keys[0]
+            entry = log.stop_topology_logs.get("stop_id_labels", {}).get(first_key, {})
+            return entry.get("stop_name", "UNKNOWN")
+        
+        return "UNKNOWN"
+
+    def _get_parent_station(self, rid, stop_id):
+        """
+        Retrieve the parent station by finding the stop_id in the keys.
+        """
+        log = self.logs[rid]
+        
+        # Use get_all_keys_regex to find keys containing this stop_id in stop_id_labels
+        matching_keys = log.get_all_keys_regex('stop_topology', 'stop_id_', f'{stop_id}', log_type='stop_id_labels')
+        
+        # If we found matching keys, get the parent_station from the first one
+        if matching_keys:
+            first_key = matching_keys[0]
+            entry = log.stop_topology_logs.get("stop_id_labels", {}).get(first_key, {})
+            return entry.get("parent_station", "UNKNOWN")
+        
+        return "UNKNOWN"

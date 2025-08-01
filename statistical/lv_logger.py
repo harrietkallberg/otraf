@@ -11,7 +11,6 @@ class LVLogger:
         self.stop_topology_logs = {}
         self.direction_topology_logs = {}
         self.performance_logs = {}
-        self.navigation_structures = {}
         self.set_up_log_structure()
     
     def set_up_log_structure(self):
@@ -76,11 +75,6 @@ class LVLogger:
                 }
             }
         }
-        
-        # ===== NAVIGATION STRUCTURES =====
-        self.navigation_structures = {
-            'routewise_navigation': {}  
-            }
     
     def get_logs(self, domain: str):
         valid_domains = {
@@ -271,3 +265,91 @@ class LVLogger:
             rs['total_directions'] = len(logs.get('direction_labels', {}))
 
         return label_entry
+    
+    def get_available_keys(self, domain: str) -> dict:
+        """
+        Get all available keys for a domain.
+        
+        Returns:
+            dict: {log_type: [keys]} for all log types in the domain
+            
+        Example:
+            For stop_topology domain, returns:
+            {
+                'parent_station_labels': ['stop_topology_123_parent_station_Central', ...],
+                'parent_station_violations': ['stop_topology_123_parent_station_Central_violation', ...],
+                'stop_id_labels': ['stop_topology_123_stop_id_456', ...],
+                'stop_id_violations': ['stop_topology_123_stop_id_789_violation', ...],
+            }
+        """
+        logs = self.get_logs(domain)
+        result = {}
+        
+        # Go through all log types in this domain
+        for log_type, log_data in logs.items():  
+            # Get all keys from this log type
+            result[log_type] = list(log_data.keys())
+        
+        return result
+
+    def get_all_keys_regex(self, domain: str, *contains_parts, match_all=True, log_type=None, exclude=None) -> list:
+        """
+        Get all keys from a domain with regex support, log type filtering, and exclusions.
+        
+        Args:
+            domain: Domain to search in ('stop_topology', 'direction_topology', 'regulatory_stops', 'performance')
+            *contains_parts: Parts to search for (can include regex patterns)
+            match_all: If True, ALL parts must match. If False, ANY part can match.
+            log_type: Filter by specific log type - e.g. 'parent_station_labels', 'direction_violations', etc., or None for all
+            exclude: Parts that must NOT be in the key. Can be string, list, or None
+        """
+        import re
+        
+        domain_keys = self.get_available_keys(domain)
+        matching_keys = []
+        
+        # Compile inclusion patterns
+        patterns = [re.compile(str(part)) for part in contains_parts]
+        
+        # Compile exclusion patterns
+        exclusion_patterns = []
+        if exclude is not None:
+            if isinstance(exclude, (list, tuple)):
+                exclusion_patterns = [re.compile(str(part)) for part in exclude]
+            else:
+                exclusion_patterns = [re.compile(str(exclude))]
+        
+        def key_matches_criteria(key):
+            """Check if key matches inclusion criteria and doesn't match exclusion criteria."""
+            
+            # Check inclusion patterns
+            if match_all:
+                # ALL inclusion patterns must match
+                if not all(pattern.search(key) for pattern in patterns):
+                    return False
+            else:
+                # ANY inclusion pattern must match
+                if patterns and not any(pattern.search(key) for pattern in patterns):
+                    return False
+            
+            # Check exclusion patterns - if ANY exclusion pattern matches, reject the key
+            if any(pattern.search(key) for pattern in exclusion_patterns):
+                return False
+            
+            return True
+        
+        # Filter by specific log_type if provided
+        if log_type:
+            if log_type in domain_keys:
+                keys_list = domain_keys[log_type]
+                for key in keys_list:
+                    if key_matches_criteria(key):
+                        matching_keys.append(key)
+        else:
+            # Search in all log types
+            for current_log_type, keys_list in domain_keys.items():
+                for key in keys_list:
+                    if key_matches_criteria(key):
+                        matching_keys.append(key)
+        
+        return matching_keys
