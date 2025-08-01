@@ -1,79 +1,102 @@
-// src/pages/StopsList.tsx
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { GlobalDataContext } from '../contexts/GlobalDataContext'
+import { useStopData } from '../contexts/StopDataContext'
+import { useAuth } from '../contexts/AuthContext'
 
-interface StopGroup {
-  name: string
-  ids: string[]
-  hasViolation: boolean
+type Violation = { stop_id: string }
+
+interface AggregatedStop {
+  stopName: string
+  stopIds: string[]
+  routes: string[]  // Add routes to the interface
+  hasViol: boolean
 }
 
-// Define the shape of a stop entry
-interface StopEntry {
-  stop_name: string
-  violation_stats: Record<string, { occurrences: number }>
-}
+export default function StopsList() {
+  const [stops, setStops] = useState<Record<string, any>>({})
+  const [violations, setViolations] = useState<Violation[]>([])
+  const { user, session } = useAuth()
+  const { setParentId } = useStopData() // Access stop context to set selected stop name
 
-const StopsList: React.FC = () => {
-  const globalData = useContext(GlobalDataContext)
-  
-  if (!globalData) {
-    return <div className="p-6">Loading stops...</div>
+  useEffect(() => {
+    if (!user || !session?.access_token) return
+
+    const headers = { 
+      'X-User-Id': user.id,
+      'Authorization': `Bearer ${session.access_token}`,
+      'X-Refresh-Token': session.refresh_token,
+    }
+
+    // Fetching stops and violations data
+    Promise.all([
+      fetch('/api/global/stops', { headers }).then(r => r.json()),
+      fetch('/api/global/violations', { headers }).then(r => r.json()),
+    ])
+      .then(([stopsJson, violJson]) => {
+        setStops(stopsJson)
+        setViolations(violJson)
+      })
+      .catch(console.error)
+  }, [user, session])
+
+  const handleStopSelect = (parentId: string) => {
+    setParentId(parentId) // Set stop name in context
   }
 
-  const stopsIndex = globalData.stops as Record<string, StopEntry>
+  // Group stops by stop name, assuming that each stop name can have multiple stop ids
+  const aggregatedStops: Record<string, AggregatedStop> = Object.entries(stops).reduce((acc: Record<string, AggregatedStop>, [id, meta]) => {
+    const parentId = meta.parentId
 
-  // Group by stop_name
-  const groupsMap: Record<string, StopGroup> = {}
-  Object.entries(stopsIndex).forEach(([id, entry]) => {
-    const name = entry.stop_name
-    // check across all domains for any violations
-    const hasViol = Object.values(entry.violation_stats).some(
-      (dom) => dom.occurrences > 0
-    )
-
-    if (!groupsMap[name]) {
-      groupsMap[name] = { name, ids: [], hasViolation: false }
+    if (!acc[parentId]) {
+      acc[parentId] = {
+        stopName: meta.name,
+        stopIds: [],
+        routes: [],  // Initialize routes array
+        hasViol: false,
+      }
     }
-    groupsMap[name].ids.push(id)
-    if (hasViol) groupsMap[name].hasViolation = true
-  })
 
-  // Turn into a sorted array
-  const groups = Object.values(groupsMap).sort((a, b) =>
-    a.name.localeCompare(b.name)
-  )
+    // Add the current stopId to the aggregated stop's stopIds
+    acc[parentId].stopIds.push(id)
+
+    // Add the current route to the aggregated stop's routes
+    meta.routes.forEach((route: string) => {
+      if (!acc[parentId].routes.includes(route)) {
+        acc[parentId].routes.push(route)
+      }
+    })
+
+    // Check if any of the stop_ids in the current stop have violations
+    const hasViol = violations.some((v) => acc[parentId].stopIds.includes(v.stop_id))
+    acc[parentId].hasViol = acc[parentId].hasViol || hasViol
+
+    return acc
+  }, {})
+  
+  // Convert aggregatedStops object back to an array for rendering
+  const list = Object.values(aggregatedStops)
 
   return (
     <div className="px-6 py-4">
       <h2 className="text-2xl font-semibold mb-6">All Stops</h2>
       <div className="space-y-4">
-        {groups.map((g) => (
+        {list.map((stop) => (
           <Link
-            key={g.name}
-            to={`/stops/${g.ids[0]}`}
-            className="block bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5 flex justify-between items-center"
+            key={stop.stopName}
+            to={`/stops/${stop.stopName}`} // Navigate using stop name
+            className="block bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5"
+            onClick={() => handleStopSelect(stop.stopName)} // Pass stop name to context
           >
-            <div>
-              <h3 className="text-lg font-medium">{g.name}</h3>
-              <p className="text-sm text-gray-500">
-                {g.ids.length > 1
-                  ? `${g.ids.length} stop IDs`
-                  : `ID: ${g.ids[0]}`}
-              </p>
+            <div className="flex justify-between items-center">
+              <span className="text-lg">{stop.stopName}</span>
+              <span
+                className={`w-3 h-3 rounded-full ${stop.hasViol ? 'bg-red-500' : 'bg-green-500'}`}
+                aria-label={stop.hasViol ? 'Has violations' : 'No violations'}
+              />
             </div>
-            <span
-              className={`w-3 h-3 rounded-full ${
-                g.hasViolation ? 'bg-red-500' : 'bg-green-500'
-              }`}
-              aria-label={g.hasViolation ? 'Has violations' : 'No violations'}
-            />
           </Link>
         ))}
       </div>
     </div>
   )
 }
-
-export default StopsList

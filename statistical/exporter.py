@@ -48,11 +48,29 @@ class Exporter:
                 "analytics_logs": log.performance_logs.get("analytics_logs", {}),  # New combined logs
                 "travel_times": log.performance_logs.get("travel_times", {})
             }
-
+            def replace_parent_station_with_string(data):
+                """
+                Recursively replaces the value of 'parent_station' with its string version.
+                """
+                if isinstance(data, dict):
+                    # If the data is a dictionary, iterate through its items
+                    for key, value in data.items():
+                        if key == 'parent_station':
+                            # If the key is 'parent_station', convert its value to a string
+                            data[key] = str(value)
+                        else:
+                            # Recursively process the value if it's a dictionary or list
+                            replace_parent_station_with_string(value)
+                elif isinstance(data, list):
+                    # If the data is a list, iterate through its items
+                    for item in data:
+                        replace_parent_station_with_string(item)
+            
             self._dump_safe(perf_bundle, route_dir / "performance_logs.json")
 
             # Navigation map
             nav = log.navigation_structures.get("routewise_navigation", {})
+            replace_parent_station_with_string(nav)
             self._dump_safe(nav, route_dir / "routewise_navigation.json")
 
             print(f"✅ Exported route {rid} to {route_dir}")
@@ -115,12 +133,15 @@ class Exporter:
                 did = direction.get("direction_id")
                 for stop in direction.get("stops", []):
                     sid = stop.get("stop_id")
-                    if sid is None:
+                    parent_station = str(stop.get("parent_station"))
+                    if not parent_station:
                         continue
 
-                    # Initialize entry if first time seeing this stop
-                    entry = stop_index.setdefault(sid, {
+                    # Initialize entry if first time seeing this parent station
+                    entry = stop_index.setdefault(parent_station, {
                         "stop_name":      stop.get("stop_name", "UNKNOWN"),
+                        "parent_station": parent_station,
+                        "stop_ids":       set(),
                         "routes":         set(),
                         "directions":     defaultdict(set),
                         "label_stats":    {d: {"routes": set(), "occurrences": 0} for d in domains},
@@ -128,7 +149,7 @@ class Exporter:
                         "label_keys":     {d: [] for d in domains},
                         "violation_keys": {d: [] for d in domains},
                         "performance_keys": defaultdict(lambda: {"histograms": [], "punctualities": []}),
-                        "severity_counts_by_severity": {}    # ← NEW histogram
+                        "severity_counts_by_severity": {}  # ← NEW histogram
                     })
 
                     # Track which routes & directions this stop appears on
@@ -170,11 +191,16 @@ class Exporter:
                         sc[sev_str] = sc.get(sev_str, 0) + cnt
                     # ──────────────────────────────────────────────────────
 
+                    # Add the stop_id to the stop_ids list for this parent station
+                    entry["stop_ids"].add(sid)
+
         # 3️⃣ Sanitize and export for JSON
         final_index: dict[str, dict] = {}
-        for sid, e in stop_index.items():
-            final_index[sid] = {
+        for parent_station, e in stop_index.items():
+            final_index[parent_station] = {
                 "stop_name":      e["stop_name"],
+                "parent_station": e["parent_station"],
+                "stop_ids":       sorted(e["stop_ids"]),
                 "routes":         sorted(e["routes"]),
                 "directions":     {rid: sorted(ds) for rid, ds in e["directions"].items()},
                 "label_stats": {
@@ -420,7 +446,6 @@ class Exporter:
         # 4) Write out as an array
         self._dump_safe(global_array, export_root / "global_travel_times.json")
         print(f"🔄 Exported aggregated travel times to {export_root / 'global_travel_times.json'}")
-
 
     def _export_csv_global_travel_times(self, csv_dir: Path):
         """

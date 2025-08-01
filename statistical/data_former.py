@@ -1226,6 +1226,7 @@ class DataFormer:
                     "position": pos,
                     "stop_id": sid,
                     "stop_name": meta.get("stop_name"),
+                    "parent_station": meta.get("parent_station"),
                     "labels": labels,
                     "has_violations": any(viols.values()),
                     "violation_severity_counts": stop_sev,

@@ -34,7 +34,7 @@ def route_navigation_structure(route_id):
 
         # Return only the first level of the navigation structure
         # Assuming the structure is a dictionary or a list of dictionaries
-        first_level = {key: navigation_structure[key] for key in list(navigation_structure.keys())[:1]}  # First key-value
+        first_level = {key: navigation_structure[key] for key in list(navigation_structure.keys())}  # First key-value
 
         return jsonify(first_level)
     except Exception as e:

@@ -1,72 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // To fetch the stop ID from the URL
-import { useAuth } from '../contexts/AuthContext';
+import React, { useEffect, useState } from 'react'
+import { useStopData } from '../contexts/StopDataContext'
+import { useAuth } from '../contexts/AuthContext'
+import { useParams } from 'react-router-dom'
 
-const StopLayout: React.FC = () => {
-  const { stopId } = useParams<{ stopId: string }>(); // Extract stopId from URL
-  const { user, session } = useAuth();
-  const [stopData, setStopData] = useState<any>(null); // Store stop-specific data here
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+export default function StopLayout() {
+  const { stopName } = useParams<{ stopName: string }>() // Get stopName from the URL
+  const { stopData, setStopData } = useStopData() // Access stop context to set/get stop data
+  const { user, session } = useAuth() // Access user and session from auth context
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!user || !session?.access_token) return;
+    if (!stopName) {
+      setError('Stop name is missing')
+      setLoading(false)
+      return
+    }
 
-    const fetchStopData = async () => {
-      setLoading(true);
-      setError(null);
+    // Fetch stop data when the stopName is selected
+    if (stopData && stopData.stop_name === stopName) {
+      setLoading(false)
+      return
+    }
 
-      const headers = {
-        'X-User-Id': user.id,
-        'Authorization': `Bearer ${session.access_token}`,
-        'X-Refresh-Token': session.refresh_token, // Pass refresh token in a custom header
-      };
+    if (!user || !session?.access_token) {
+      setError('User not authenticated')
+      setLoading(false)
+      return
+    }
 
-      try {
-        // Fetching stop-specific data from the user's folder
-        const response = await fetch(`/api/stops/${stopId}`, { headers });
-        const data = await response.json();
-        setStopData(data);
-      } catch (err) {
-        setError('PAY ME MORE');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    setLoading(true)
 
-    fetchStopData();
-  }, [stopId, user, session]);
+    const headers = {
+      'Authorization': `Bearer ${session.access_token}`,
+      'X-User-Id': user.id,
+      'X-Refresh-Token': session.refresh_token,
+    }
 
-  if (loading) return <div>Loading stop details...</div>;
-  if (error) return <div>{error}</div>;
+    fetch(`/api/stops/${stopName}`, { headers }) // Fetch stop details using stop name
+      .then((res) => res.json())
+      .then((data) => {
+        setStopData(data)
+      })
+      .catch((err) => {
+        console.error(err)
+        setError('Failed to load stop data')
+      })
+      .finally(() => setLoading(false)) // Set loading to false when data is fetched
+  }, [stopName, user, session, stopData, setStopData])
+
+  if (loading) return <div>Loading stop details...</div>
+  if (error) return <div>{error}</div>
 
   return (
-    <div className="px-6 py-4">
-      <h2 className="text-2xl font-semibold mb-6">Stop: {stopData?.stop_name}</h2>
-      
-      {/* Stop Details */}
+    <div>
+      <h2>Stop: {stopData?.stop_name}</h2>
+      {/* Render the details of the stop */}
       <div>
-        <h3 className="text-xl">Stop Details</h3>
-        <p><strong>Stop ID:</strong> {stopData?.stop_id}</p>
-        <p><strong>Location:</strong> {stopData?.location || 'N/A'}</p>
+        <h3>Routes:</h3>
+        <ul>
+          {stopData?.routes.map((routeId: string) => (
+            <li key={routeId}>{routeId}</li>
+          ))}
+        </ul>
       </div>
-
-      {/* Performance Data (If applicable) */}
-      {stopData?.performance && (
-        <div>
-          <h3 className="text-xl">Performance</h3>
-          <p><strong>Average Travel Time:</strong> {stopData.performance?.avg_time || 'N/A'} seconds</p>
-          <p><strong>Sample Size:</strong> {stopData.performance?.sample_size || 0}</p>
-        </div>
-      )}
-
-      {/* Additional Information */}
-      <div>
-        {/* You can add additional sections for other stop-related data */}
-      </div>
+      {/* Add more sections here to display other details (e.g., directions, violations, etc.) */}
     </div>
-  );
-};
+  )
+}
 
-export default StopLayout;

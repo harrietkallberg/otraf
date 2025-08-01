@@ -72,4 +72,3 @@ const RouteLayout: React.FC = () => {
 }
 
 export default RouteLayout
-

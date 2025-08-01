@@ -9,7 +9,7 @@
     "canonical_share": 0.9550078247261345,
     "violation_counts_by_type": {
       "stop_topology": {
-        "parent_station": 0,
+        "parent_station": "0",
         "stop_id": 0
       },
       "direction_topology": {
@@ -670,6 +670,7 @@
           "position": 1,
           "stop_id": "9022005000416001",
           "stop_name": "Aspnäset",
+          "parent_station": "9021005000416000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000416000_9022005000416001"
@@ -682,9 +683,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005000416001"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000416000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000416000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -696,7 +695,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000416001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -712,6 +711,7 @@
           "position": 2,
           "stop_id": "9022005001598002",
           "stop_name": "Ullstämma by",
+          "parent_station": "9021005001598000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001598000_9022005001598002"
@@ -722,9 +722,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001598000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001598000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -736,7 +734,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001598002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -752,6 +750,7 @@
           "position": 3,
           "stop_id": "9022005003838001",
           "stop_name": "Morgongatan",
+          "parent_station": "9021005003838000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005003838000_9022005003838001"
@@ -762,9 +761,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005003838000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005003838000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -776,7 +773,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005003838001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -792,6 +789,7 @@
           "position": 4,
           "stop_id": "9022005001230001",
           "stop_name": "Middagsgatan",
+          "parent_station": "9021005001230000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001230000_9022005001230001"
@@ -802,9 +800,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001230000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001230000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -816,7 +812,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001230001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -832,6 +828,7 @@
           "position": 5,
           "stop_id": "9022005001229001",
           "stop_name": "Strågatan",
+          "parent_station": "9021005001229000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001229000_9022005001229001"
@@ -842,9 +839,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001229000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001229000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -856,7 +851,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001229001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -872,6 +867,7 @@
           "position": 6,
           "stop_id": "9022005000044003",
           "stop_name": "Hässlegatan",
+          "parent_station": "9021005000044000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000044000_9022005000044003"
@@ -884,9 +880,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005000044003"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000044000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000044000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -898,7 +892,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000044003"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -914,6 +908,7 @@
           "position": 7,
           "stop_id": "9022005001596002",
           "stop_name": "Ortgatan",
+          "parent_station": "9021005001596000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001596000_9022005001596002"
@@ -924,9 +919,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001596000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001596000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -938,7 +931,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001596002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -954,6 +947,7 @@
           "position": 8,
           "stop_id": "9022005001303002",
           "stop_name": "Poleraregatan",
+          "parent_station": "9021005001303000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001303000_9022005001303002"
@@ -964,9 +958,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001303000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001303000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -978,7 +970,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001303002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -994,6 +986,7 @@
           "position": 9,
           "stop_id": "9022005001302002",
           "stop_name": "Galoppgatan",
+          "parent_station": "9021005001302000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001302000_9022005001302002"
@@ -1004,9 +997,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001302000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001302000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1018,7 +1009,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001302002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1034,6 +1025,7 @@
           "position": 10,
           "stop_id": "9022005001301002",
           "stop_name": "Yrkesvägen",
+          "parent_station": "9021005001301000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001301000_9022005001301002"
@@ -1044,9 +1036,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001301000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001301000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1058,7 +1048,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001301002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1074,6 +1064,7 @@
           "position": 11,
           "stop_id": "9022005001300002",
           "stop_name": "Lillgårdsgatan",
+          "parent_station": "9021005001300000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001300000_9022005001300002"
@@ -1084,9 +1075,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001300000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001300000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1098,7 +1087,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001300002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1114,6 +1103,7 @@
           "position": 12,
           "stop_id": "9022005001430002",
           "stop_name": "Berga centrum",
+          "parent_station": "9021005001430000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001430000_9022005001430002"
@@ -1126,9 +1116,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005001430002"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001430000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001430000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1140,7 +1128,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001430002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1156,6 +1144,7 @@
           "position": 13,
           "stop_id": "9022005001431002",
           "stop_name": "Pionjärgatan",
+          "parent_station": "9021005001431000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001431000_9022005001431002"
@@ -1166,9 +1155,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001431000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001431000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1180,7 +1167,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001431002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1196,6 +1183,7 @@
           "position": 14,
           "stop_id": "9022005000412002",
           "stop_name": "Rotegatan",
+          "parent_station": "9021005000412000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000412000_9022005000412002"
@@ -1206,9 +1194,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000412000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000412000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1220,7 +1206,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000412002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1236,6 +1222,7 @@
           "position": 15,
           "stop_id": "9022005004186002",
           "stop_name": "Tinnerbäcksgränd",
+          "parent_station": "9021005004186000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005004186000_9022005004186002"
@@ -1246,9 +1233,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005004186000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005004186000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1260,7 +1245,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005004186002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1276,6 +1261,7 @@
           "position": 16,
           "stop_id": "9022005001249002",
           "stop_name": "US Södra entrén",
+          "parent_station": "9021005001249000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001249000_9022005001249002"
@@ -1288,9 +1274,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005001249002"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001249000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001249000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1302,7 +1286,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001249002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1318,6 +1302,7 @@
           "position": 17,
           "stop_id": "9022005000198002",
           "stop_name": "US Norra entrén",
+          "parent_station": "9021005000198000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000198000_9022005000198002"
@@ -1328,9 +1313,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000198000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000198000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1342,7 +1325,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000198002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1358,6 +1341,7 @@
           "position": 18,
           "stop_id": "9022005000042002",
           "stop_name": "Tinnerbäcksbadet",
+          "parent_station": "9021005000042000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000042000_9022005000042002"
@@ -1368,9 +1352,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000042000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000042000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1382,7 +1364,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000042002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1398,6 +1380,7 @@
           "position": 19,
           "stop_id": "9022005000046006",
           "stop_name": "Trädgårdstorget",
+          "parent_station": "9021005000046000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000046000_9022005000046006"
@@ -1408,9 +1391,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000046000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000046000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1422,7 +1403,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005000046006"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1438,6 +1419,7 @@
           "position": 20,
           "stop_id": "9022005001243002",
           "stop_name": "Kungsgatan",
+          "parent_station": "9021005001243000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001243000_9022005001243002"
@@ -1448,9 +1430,7 @@
               "direction_topology_9011005021700000_direction_id_0"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001243000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001243000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -1462,7 +1442,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_0_9022005001243002"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -1478,6 +1458,7 @@
           "position": 21,
           "stop_id": "9022005000050019",
           "stop_name": "Linköpings resecentrum",
+          "parent_station": "9021005000050000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000050000_9022005000050019"
@@ -1490,9 +1471,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_0_9022005000050019"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000050000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000050000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -1500,7 +1479,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2054,6 +2033,7 @@
           "position": 1,
           "stop_id": "9022005000050019",
           "stop_name": "Linköpings resecentrum",
+          "parent_station": "9021005000050000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000050000_9022005000050019"
@@ -2066,9 +2046,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005000050019"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000050000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000050000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2080,7 +2058,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000050019"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2096,6 +2074,7 @@
           "position": 2,
           "stop_id": "9022005001243001",
           "stop_name": "Kungsgatan",
+          "parent_station": "9021005001243000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001243000_9022005001243001"
@@ -2106,9 +2085,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001243000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001243000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2120,7 +2097,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001243001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2136,6 +2113,7 @@
           "position": 3,
           "stop_id": "9022005000046003",
           "stop_name": "Trädgårdstorget",
+          "parent_station": "9021005000046000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000046000_9022005000046003"
@@ -2146,9 +2124,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000046000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000046000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2160,7 +2136,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000046003"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2176,6 +2152,7 @@
           "position": 4,
           "stop_id": "9022005000042001",
           "stop_name": "Tinnerbäcksbadet",
+          "parent_station": "9021005000042000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000042000_9022005000042001"
@@ -2186,9 +2163,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000042000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000042000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2200,7 +2175,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000042001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2216,6 +2191,7 @@
           "position": 5,
           "stop_id": "9022005000198001",
           "stop_name": "US Norra entrén",
+          "parent_station": "9021005000198000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000198000_9022005000198001"
@@ -2226,9 +2202,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000198000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000198000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2240,7 +2214,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000198001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2256,6 +2230,7 @@
           "position": 6,
           "stop_id": "9022005001249001",
           "stop_name": "US Södra entrén",
+          "parent_station": "9021005001249000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001249000_9022005001249001"
@@ -2268,9 +2243,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005001249001"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001249000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001249000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2282,7 +2255,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001249001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2298,6 +2271,7 @@
           "position": 7,
           "stop_id": "9022005004186001",
           "stop_name": "Tinnerbäcksgränd",
+          "parent_station": "9021005004186000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005004186000_9022005004186001"
@@ -2308,9 +2282,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005004186000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005004186000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2322,7 +2294,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005004186001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2338,6 +2310,7 @@
           "position": 8,
           "stop_id": "9022005000412001",
           "stop_name": "Rotegatan",
+          "parent_station": "9021005000412000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000412000_9022005000412001"
@@ -2348,9 +2321,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000412000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000412000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2362,7 +2333,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000412001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2378,6 +2349,7 @@
           "position": 9,
           "stop_id": "9022005001431001",
           "stop_name": "Pionjärgatan",
+          "parent_station": "9021005001431000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001431000_9022005001431001"
@@ -2388,9 +2360,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001431000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001431000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2402,7 +2372,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001431001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2418,6 +2388,7 @@
           "position": 10,
           "stop_id": "9022005001430001",
           "stop_name": "Berga centrum",
+          "parent_station": "9021005001430000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001430000_9022005001430001"
@@ -2430,9 +2401,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005001430001"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001430000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001430000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2444,7 +2413,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001430001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2460,6 +2429,7 @@
           "position": 11,
           "stop_id": "9022005000043001",
           "stop_name": "Berga Söderleden",
+          "parent_station": "9021005000043000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000043000_9022005000043001"
@@ -2470,9 +2440,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000043000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000043000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2484,7 +2452,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005000043001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2500,6 +2468,7 @@
           "position": 12,
           "stop_id": "9022005001300001",
           "stop_name": "Lillgårdsgatan",
+          "parent_station": "9021005001300000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001300000_9022005001300001"
@@ -2510,9 +2479,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001300000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001300000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2524,7 +2491,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001300001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2540,6 +2507,7 @@
           "position": 13,
           "stop_id": "9022005001301001",
           "stop_name": "Yrkesvägen",
+          "parent_station": "9021005001301000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001301000_9022005001301001"
@@ -2550,9 +2518,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001301000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001301000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2564,7 +2530,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001301001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2580,6 +2546,7 @@
           "position": 14,
           "stop_id": "9022005001302001",
           "stop_name": "Galoppgatan",
+          "parent_station": "9021005001302000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001302000_9022005001302001"
@@ -2590,9 +2557,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001302000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001302000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2604,7 +2569,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001302001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2620,6 +2585,7 @@
           "position": 15,
           "stop_id": "9022005001303001",
           "stop_name": "Poleraregatan",
+          "parent_station": "9021005001303000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001303000_9022005001303001"
@@ -2630,9 +2596,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001303000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001303000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2644,7 +2608,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001303001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2660,6 +2624,7 @@
           "position": 16,
           "stop_id": "9022005001596001",
           "stop_name": "Ortgatan",
+          "parent_station": "9021005001596000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001596000_9022005001596001"
@@ -2670,9 +2635,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001596000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001596000']"
           },
           "has_violations": true,
           "violation_severity_counts": {
@@ -2684,7 +2647,7 @@
               "direction_topology_9011005021700000_direction_id_stop_id_1_9022005001596001"
             ],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2700,6 +2663,7 @@
           "position": 17,
           "stop_id": "9022005000044002",
           "stop_name": "Hässlegatan",
+          "parent_station": "9021005000044000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000044000_9022005000044002"
@@ -2710,9 +2674,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000044000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000044000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -2720,7 +2682,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2736,6 +2698,7 @@
           "position": 18,
           "stop_id": "9022005001229002",
           "stop_name": "Strågatan",
+          "parent_station": "9021005001229000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001229000_9022005001229002"
@@ -2746,9 +2709,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001229000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001229000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -2756,7 +2717,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2772,6 +2733,7 @@
           "position": 19,
           "stop_id": "9022005001230002",
           "stop_name": "Middagsgatan",
+          "parent_station": "9021005001230000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001230000_9022005001230002"
@@ -2782,9 +2744,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001230000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001230000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -2792,7 +2752,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2808,6 +2768,7 @@
           "position": 20,
           "stop_id": "9022005003838002",
           "stop_name": "Morgongatan",
+          "parent_station": "9021005003838000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005003838000_9022005003838002"
@@ -2818,9 +2779,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005003838000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005003838000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -2828,7 +2787,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2844,6 +2803,7 @@
           "position": 21,
           "stop_id": "9022005001598001",
           "stop_name": "Ullstämma by",
+          "parent_station": "9021005001598000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005001598000_9022005001598001"
@@ -2854,9 +2814,7 @@
               "direction_topology_9011005021700000_direction_id_1"
             ],
             "regulatory": [],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005001598000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005001598000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -2864,7 +2822,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {
@@ -2880,6 +2838,7 @@
           "position": 22,
           "stop_id": "9022005000416001",
           "stop_name": "Aspnäset",
+          "parent_station": "9021005000416000",
           "labels": {
             "stop_topology": [
               "stop_topology_9011005021700000_parent_station_stop_id_9021005000416000_9022005000416001"
@@ -2892,9 +2851,7 @@
             "regulatory": [
               "regulatory_stops_9011005021700000_direction_id_stop_id_1_9022005000416001"
             ],
-            "parent_station": [
-              "stop_topology_9011005021700000_parent_station_9021005000416000"
-            ]
+            "parent_station": "['stop_topology_9011005021700000_parent_station_9021005000416000']"
           },
           "has_violations": false,
           "violation_severity_counts": {},
@@ -2902,7 +2859,7 @@
             "stop_topology": [],
             "direction_topology": [],
             "regulatory": [],
-            "parent_station": []
+            "parent_station": "[]"
           },
           "performance_availability": {
             "analytics": {

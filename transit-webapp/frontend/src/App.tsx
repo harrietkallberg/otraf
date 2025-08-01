@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { GlobalDataProvider } from './contexts/GlobalDataContext'
 import { RouteDataProvider } from './contexts/RouteDataContext'  // Import RouteDataProvider
+import { StopDataProvider } from './contexts/StopDataContext'  // Import StopDataProvider
 
 import PrivateRoute from './components/PrivateRoute'
 import Layout from './components/Layout'
@@ -22,29 +23,32 @@ export default function App() {
     <AuthProvider>
       <GlobalDataProvider>
         <RouteDataProvider> {/* Wrap the entire routing section with RouteDataProvider */}
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
+          <StopDataProvider> {/* Wrap Stop-related pages with StopDataProvider */}
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
 
-            <Route
-              element={
-                <PrivateRoute>
-                  <Layout />
-                </PrivateRoute>
-              }
-            >
-              <Route path="/" element={<Dashboard />} />
-              <Route path="routes" element={<RoutesList />} /> {/* Route list page */}
+              <Route
+                element={
+                  <PrivateRoute>
+                    <Layout />
+                  </PrivateRoute>
+                }
+              >
+                <Route path="/" element={<Dashboard />} />
+                <Route path="routes" element={<RoutesList />} /> {/* Route list page */}
 
-              {/* Now RouteLayout and RoutesList both have access to RouteDataContext */}
-              <Route path="routes/:routeId" element={<RouteLayout />} /> {/* Route Layout */}
+                {/* Now RouteLayout and RoutesList both have access to RouteDataContext */}
+                <Route path="routes/:routeId" element={<RouteLayout />} /> {/* Route Layout */}
 
-              <Route path="stops" element={<StopsList />} />
-              <Route path="stops/:sid" element={<StopLayout />} />
-              <Route path="travel-times" element={<TravelTimes />} />
-              <Route path="export-csv" element={<ExportCsvPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-          </Routes>
+                {/* Stop-related routes are now wrapped with StopDataProvider */}
+                <Route path="stops" element={<StopsList />} />
+                <Route path="stops/:sid" element={<StopLayout />} />
+                <Route path="travel-times" element={<TravelTimes />} />
+                <Route path="export-csv" element={<ExportCsvPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Route>
+            </Routes>
+          </StopDataProvider>
         </RouteDataProvider>
       </GlobalDataProvider>
     </AuthProvider>
