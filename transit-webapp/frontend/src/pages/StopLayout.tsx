@@ -21,7 +21,7 @@ const StopLayout: React.FC = () => {
   }
 
   const toggleRoutesVisibility = () => {
-    setShowRoutes(!showRoutes)
+    setShowRoutes(!showRoutes); // Toggle visibility of the whole route details section
   }
 
   useEffect(() => {
@@ -84,21 +84,6 @@ const StopLayout: React.FC = () => {
     )
   }
 
-  // Calculate summary metrics from the stop_nav data structure
-  const totalRoutes = stopData.on_routes?.length || 0
-  const totalStopIds = stopData.stop_ids?.length || 0
-  
-  // Calculate totals from stop_summary
-  const totalLabels = stopData.stop_summary?.stop_topology?.labels_by_type?.parent_station + 
-                     stopData.stop_summary?.stop_topology?.labels_by_type?.stop_id +
-                     stopData.stop_summary?.direction_topology?.labels_by_type?.direction_id +
-                     stopData.stop_summary?.direction_topology?.labels_by_type?.stop_id || 0
-                     
-  const totalViolations = stopData.stop_summary?.stop_topology?.violations_by_type?.parent_station + 
-                         stopData.stop_summary?.stop_topology?.violations_by_type?.stop_id +
-                         stopData.stop_summary?.direction_topology?.violations_by_type?.direction_id +
-                         stopData.stop_summary?.direction_topology?.violations_by_type?.stop_id || 0
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -151,137 +136,84 @@ const StopLayout: React.FC = () => {
           </div>
         </div>
 
-        {/* Performance Summary */}
-        {stopData.performance_summary && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Overall Performance</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-green-50 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-green-600">
-                  {stopData.performance_summary.overall_on_time_rate.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600 mt-1">On Time</div>
-              </div>
-              <div className="bg-red-50 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-red-600">
-                  {stopData.performance_summary.overall_too_late_rate.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600 mt-1">Too Late</div>
-              </div>
-              <div className="bg-amber-50 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-amber-600">
-                  {stopData.performance_summary.overall_too_early_rate.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600 mt-1">Too Early</div>
-              </div>
-              <div className="bg-blue-50 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-blue-600">
-                  {stopData.performance_summary.average_departure_delay.toFixed(0)}s
-                </div>
-                <div className="text-sm text-gray-600 mt-1">Avg Delay</div>
-              </div>
-            </div>
+        {/* Summary Metrics - Only using data from stop_summary */}
+        {stopData.stop_summary && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <MetricCard 
+              title="Total Routes" 
+              value={stopData.stop_summary.total_routes}
+              subtitle="serving this stop"
+              bgColor="bg-blue-50"
+              iconColor="text-blue-600"
+            />
+            <MetricCard 
+              title="Stop IDs" 
+              value={stopData.stop_summary.total_stop_ids}
+              subtitle="physical locations"
+              bgColor="bg-green-50"
+              iconColor="text-green-600"
+            />
+            <MetricCard 
+              title="Labels" 
+              value={stopData.stop_summary.total_labels}
+              subtitle="metadata entries"
+              bgColor="bg-purple-50"
+              iconColor="text-purple-600"
+            />
+            <MetricCard 
+              title="Violations" 
+              value={stopData.stop_summary.total_violations}
+              subtitle="issues detected"
+              bgColor="bg-red-50"
+              iconColor="text-red-600"
+            />
           </div>
         )}
 
-        {/* Summary Metrics */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <MetricCard 
-            title="Total Routes" 
-            value={totalRoutes}
-            subtitle="serving this stop"
-            bgColor="bg-blue-50"
-            iconColor="text-blue-600"
-          />
-          <MetricCard 
-            title="Stop IDs" 
-            value={totalStopIds}
-            subtitle="physical locations"
-            bgColor="bg-green-50"
-            iconColor="text-green-600"
-          />
-          <MetricCard 
-            title="Labels" 
-            value={totalLabels}
-            subtitle="metadata entries"
-            bgColor="bg-purple-50"
-            iconColor="text-purple-600"
-          />
-          <MetricCard 
-            title="Violations" 
-            value={totalViolations}
-            subtitle="issues detected"
-            bgColor="bg-red-50"
-            iconColor="text-red-600"
-          />
-        </div>
-
         {/* Label/Violation Breakdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {stopData.stop_summary && (
-            <>
+        {stopData.stop_summary && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {stopData.stop_summary.label_counts_by_type && (
               <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Label Distribution</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Stop Topology - Parent Station</span>
+                    <span className="text-sm text-gray-600">Parent Station</span>
                     <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.stop_topology?.labels_by_type?.parent_station || 0}
+                      {stopData.stop_summary.label_counts_by_type.parent_station}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Stop Topology - Stop ID</span>
+                    <span className="text-sm text-gray-600">Stop ID</span>
                     <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.stop_topology?.labels_by_type?.stop_id || 0}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Direction Topology - Direction ID</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.direction_topology?.labels_by_type?.direction_id || 0}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Direction Topology - Stop ID</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.direction_topology?.labels_by_type?.stop_id || 0}
+                      {stopData.stop_summary.label_counts_by_type.stop_id}
                     </span>
                   </div>
                 </div>
               </div>
+            )}
 
+            {stopData.stop_summary.violation_counts_by_type && (
               <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Violation Distribution</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Stop Topology - Parent Station</span>
+                    <span className="text-sm text-gray-600">Parent Station</span>
                     <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.stop_topology?.violations_by_type?.parent_station || 0}
+                      {stopData.stop_summary.violation_counts_by_type.parent_station}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Stop Topology - Stop ID</span>
+                    <span className="text-sm text-gray-600">Stop ID</span>
                     <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.stop_topology?.violations_by_type?.stop_id || 0}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Direction Topology - Direction ID</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.direction_topology?.violations_by_type?.direction_id || 0}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Direction Topology - Stop ID</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {stopData.stop_summary.direction_topology?.violations_by_type?.stop_id || 0}
+                      {stopData.stop_summary.violation_counts_by_type.stop_id}
                     </span>
                   </div>
                 </div>
               </div>
-            </>
-          )}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* Routes Detail Section */}
         {stopData.routes && Object.keys(stopData.routes).length > 0 && (
@@ -343,145 +275,114 @@ const MetricCard: React.FC<{
   </div>
 )
 
-// Route Detail Card - Updated for stop_nav structure
+// Route Detail Card
 const RouteDetailCard: React.FC<{ 
   route: any
   routeId: string
   isExpanded: boolean
   onToggleExpansion: () => void
-}> = ({ route, routeId, isExpanded, onToggleExpansion }) => {
-  
-  // Calculate totals from route_summary
-  const totalLabels = route.route_summary?.stop_topology?.labels_by_type?.parent_station + 
-                     route.route_summary?.stop_topology?.labels_by_type?.stop_id +
-                     route.route_summary?.direction_topology?.labels_by_type?.direction_id +
-                     route.route_summary?.direction_topology?.labels_by_type?.stop_id || 0
-                     
-  const totalViolations = route.route_summary?.stop_topology?.violations_by_type?.parent_station + 
-                         route.route_summary?.stop_topology?.violations_by_type?.stop_id +
-                         route.route_summary?.direction_topology?.violations_by_type?.direction_id +
-                         route.route_summary?.direction_topology?.violations_by_type?.stop_id || 0
-
-  return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
-      <div className="bg-gray-50 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="flex-shrink-0">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <span className="text-sm font-bold text-blue-700">{route.route_short_name}</span>
-              </div>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-base font-semibold text-gray-900">{route.route_long_name}</h3>
-              <p className="text-sm text-gray-500">Route ID: {route.route_id}</p>
-              {/* Performance Summary */}
-              {route.performace_summary && (
-                <div className="mt-2 flex items-center space-x-4 text-xs text-gray-600">
-                  <span className="text-green-600">
-                    On Time: {route.performace_summary.overall_on_time_rate.toFixed(1)}%
-                  </span>
-                  <span className="text-red-600">
-                    Late: {route.performace_summary.overall_too_late_rate.toFixed(1)}%
-                  </span>
-                  <span className="text-amber-600">
-                    Early: {route.performace_summary.overall_too_early_rate.toFixed(1)}%
-                  </span>
-                </div>
-              )}
-              <button
-                onClick={onToggleExpansion}
-                className="inline-flex items-center mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 focus:outline-none transition-colors"
-              >
-                {isExpanded ? (
-                  <>
-                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
-                    </svg>
-                    Hide Directions
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                    Show Directions
-                  </>
-                )}
-              </button>
+}> = ({ route, routeId, isExpanded, onToggleExpansion }) => (
+  <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="bg-gray-50 px-6 py-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <div className="flex-shrink-0">
+            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span className="text-sm font-bold text-blue-700">{route.route_short_name}</span>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex-1">
+            <h3 className="text-base font-semibold text-gray-900">{route.route_long_name}</h3>
+            <p className="text-sm text-gray-500">Route ID: {route.route_id}</p>
+            <button
+              onClick={onToggleExpansion}
+              className="inline-flex items-center mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 focus:outline-none transition-colors"
+            >
+              {isExpanded ? (
+                <>
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                  </svg>
+                  Hide Directions
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                  Show Directions
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+        <div className="flex items-center space-x-3">
+          {route.total_labels_on_route && (
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border bg-blue-100 text-blue-800 border-blue-200">
-              {totalLabels} Labels
+              {route.total_labels_on_route.total_labels} Labels
             </span>
+          )}
+          {route.total_violations_on_route && (
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${
-              totalViolations > 0 
+              route.total_violations_on_route.total_violations > 0 
                 ? 'bg-red-100 text-red-800 border-red-200' 
                 : 'bg-green-100 text-green-800 border-green-200'
             }`}>
-              {totalViolations} Violations
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {isExpanded && route.directions && (
-        <div className="px-6 py-4 border-t border-gray-200">
-          <h4 className="text-sm font-medium text-gray-700 mb-4">Directions</h4>
-          <div className="space-y-4">
-            {Object.entries(route.directions).map(([directionId, direction]: [string, any]) => (
-              <DirectionSection 
-                key={directionId} 
-                directionId={directionId} 
-                direction={direction}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-// Direction Section - Updated for stop_nav structure
-const DirectionSection: React.FC<{ 
-  directionId: string
-  direction: any
-}> = ({ directionId, direction }) => {
-  
-  // Get stops from canonical_position
-  const stops = direction.stops_in_direction?.canonical_position || {}
-  const stopCount = Object.keys(stops).length
-  
-  // Calculate totals from direction_summary
-  const totalLabels = direction.direction_summary?.direction_topology?.labels_by_type?.direction_id || 0
-                     
-  const totalViolations = direction.direction_summary?.direction_topology?.violations_by_type?.direction_id  || 0
-
-  return (
-    <div className="bg-gray-50 rounded-lg p-4">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-3">
-          <h5 className="font-medium text-gray-800">Direction {directionId}</h5>
-          <span className="text-xs text-gray-500">{stopCount} stops</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-            {totalLabels} labels
-          </span>
-          {totalViolations > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-              {totalViolations} violations
+              {route.total_violations_on_route.total_violations} Violations
             </span>
           )}
         </div>
       </div>
-      
+    </div>
+
+    {isExpanded && route.directions && (
+      <div className="px-6 py-4 border-t border-gray-200">
+        <h4 className="text-sm font-medium text-gray-700 mb-4">Directions</h4>
+        <div className="space-y-4">
+          {Object.entries(route.directions).map(([directionId, direction]: [string, any]) => (
+            <DirectionSection 
+              key={directionId} 
+              directionId={directionId} 
+              direction={direction}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+)
+
+// Direction Section
+const DirectionSection: React.FC<{ 
+  directionId: string
+  direction: any
+}> = ({ directionId, direction }) => (
+  <div className="bg-gray-50 rounded-lg p-4">
+    <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center space-x-3">
+        <h5 className="font-medium text-gray-800">Direction {directionId}</h5>
+        <span className="text-xs text-gray-500">
+          {direction.stops_in_direction?.canonical_position ? 
+            Object.keys(direction.stops_in_direction.canonical_position).length : 0} stops
+        </span>
+      </div>
+      <div className="flex items-center space-x-2">
+        {direction.direction_label_keys?.length > 0 && (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            {direction.direction_label_keys.length} labels
+          </span>
+        )}
+        {direction.direction_violation_keys?.length > 0 && (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+            {direction.direction_violation_keys.length} violations
+          </span>
+        )}
+      </div>
+    </div>
+    
+    {direction.stops_in_direction?.canonical_position && (
       <div className="space-y-2">
-        {Object.entries(stops)
-          .sort(([a], [b]) => parseInt(a) - parseInt(b))
-          .map(([position, stop]: [string, any]) => (
+        {Object.entries(direction.stops_in_direction.canonical_position).map(([position, stop]: [string, any]) => (
           <div key={position} className="bg-white rounded-md border border-gray-200 p-3">
             <div className="flex items-center justify-between">
               <div className="flex-1">
@@ -494,7 +395,6 @@ const DirectionSection: React.FC<{
                   <div>
                     <p className="text-sm font-medium text-gray-900">{stop.stop_name}</p>
                     <p className="text-xs text-gray-500">Stop ID: {stop.stop_id}</p>
-                    <p className="text-xs text-gray-500">Parent: {stop.parent_station}</p>
                   </div>
                 </div>
               </div>
@@ -514,19 +414,13 @@ const DirectionSection: React.FC<{
                     {stop.stop_id_violation_keys.length} violations
                   </span>
                 )}
-                {/* Show regulatory stop indicator */}
-                {stop.stop_id_summary?.regulatory_stops?.regulatory_stop_ids > 0 && (
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-                    REG
-                  </span>
-                )}
               </div>
             </div>
           </div>
         ))}
       </div>
-    </div>
-  )
-}
+    )}
+  </div>
+)
 
 export default StopLayout

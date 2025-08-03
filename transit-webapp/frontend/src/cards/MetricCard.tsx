@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 interface MetricCardProps {
@@ -8,13 +9,7 @@ interface MetricCardProps {
   iconColor: string
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ 
-  title, 
-  value, 
-  subtitle, 
-  bgColor, 
-  iconColor 
-}) => (
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, subtitle, bgColor, iconColor }) => (
   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
     <div className="flex items-center">
       <div className={`flex-shrink-0 ${bgColor} rounded-lg p-3`}>
