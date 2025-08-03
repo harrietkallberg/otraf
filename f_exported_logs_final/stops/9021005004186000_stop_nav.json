@@ -1,0 +1,506 @@
+{
+  "parent_station": "9021005004186000",
+  "stop_name": "Tinnerbäcksgränd",
+  "stop_ids": [
+    "9022005004186002",
+    "9022005004186001"
+  ],
+  "on_routes": [
+    "9011005021700000",
+    "9011005021600000"
+  ],
+  "stop_summary": {
+    "stop_topology": {
+      "labels_by_type": {
+        "parent_station": 4,
+        "stop_id": 4
+      },
+      "violations_by_type": {
+        "parent_station": 4,
+        "stop_id": 0
+      }
+    },
+    "direction_topology": {
+      "labels_by_type": {
+        "direction_id": 4,
+        "stop_id": 4
+      },
+      "violations_by_type": {
+        "direction_id": 4,
+        "stop_id": 4
+      }
+    },
+    "regulatory_stops": {
+      "regulatory_stop_ids": 0
+    },
+    "performance": {
+      "available_performace_analytics": 20
+    }
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 12.09,
+    "overall_on_time_rate": 69.89500000000001,
+    "overall_too_late_rate": 18.015,
+    "average_departure_delay": 87.23562884027288
+  },
+  "routes": {
+    "9011005021700000": {
+      "route_id": "9011005021700000",
+      "route_long_name": "217",
+      "route_short_name": "17",
+      "route_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "parent_station": 2,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 0
+        },
+        "performance": {
+          "available_performace_analytics": 10
+        }
+      },
+      "performace_summary": {
+        "overall_too_early_rate": 11.26,
+        "overall_on_time_rate": 72.28,
+        "overall_too_late_rate": 16.46,
+        "average_departure_delay": 81.47548703588373
+      },
+      "directions": {
+        "0": {
+          "direction_id": "0",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stops_in_direction": {
+            "canonical_position": {
+              "15": {
+                "stop_id": "9022005004186002",
+                "stop_name": "Tinnerbäcksgränd",
+                "parent_station": 9021005004186000,
+                "direction_id_label_key": [
+                  "direction_topology_9011005021700000_direction_id_0"
+                ],
+                "direction_id_violation_key": [
+                  "direction_topology_9011005021700000_direction_id_0"
+                ],
+                "parent_station_label_key": [
+                  "stop_topology_9011005021700000_parent_station_9021005004186000"
+                ],
+                "parent_station_violation_key": [
+                  "stop_topology_9011005021700000_parent_station_9021005004186000"
+                ],
+                "stop_id_label_keys": [
+                  "stop_topology_9011005021700000_parent_station_stop_id_9021005004186000_9022005004186002",
+                  "direction_topology_9011005021700000_direction_id_stop_id_0_9022005004186002"
+                ],
+                "stop_id_violation_keys": [
+                  "direction_topology_9011005021700000_direction_id_stop_id_0_9022005004186002"
+                ],
+                "stop_id_performance_keys": [
+                  "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005004186002_am_rush",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005004186002_day",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005004186002_night",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005004186002_pm_rush",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_0_9022005004186002_weekend"
+                ],
+                "stop_id_summary": {
+                  "stop_topology": {
+                    "labels_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 0
+                    }
+                  },
+                  "direction_topology": {
+                    "labels_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    }
+                  },
+                  "regulatory_stops": {
+                    "regulatory_stop_ids": 0
+                  },
+                  "performance": {
+                    "available_performace_analytics": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "1": {
+          "direction_id": "1",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stops_in_direction": {
+            "canonical_position": {
+              "7": {
+                "stop_id": "9022005004186001",
+                "stop_name": "Tinnerbäcksgränd",
+                "parent_station": 9021005004186000,
+                "direction_id_label_key": [
+                  "direction_topology_9011005021700000_direction_id_1"
+                ],
+                "direction_id_violation_key": [
+                  "direction_topology_9011005021700000_direction_id_1"
+                ],
+                "parent_station_label_key": [
+                  "stop_topology_9011005021700000_parent_station_9021005004186000"
+                ],
+                "parent_station_violation_key": [
+                  "stop_topology_9011005021700000_parent_station_9021005004186000"
+                ],
+                "stop_id_label_keys": [
+                  "stop_topology_9011005021700000_parent_station_stop_id_9021005004186000_9022005004186001",
+                  "direction_topology_9011005021700000_direction_id_stop_id_1_9022005004186001"
+                ],
+                "stop_id_violation_keys": [
+                  "direction_topology_9011005021700000_direction_id_stop_id_1_9022005004186001"
+                ],
+                "stop_id_performance_keys": [
+                  "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005004186001_am_rush",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005004186001_day",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005004186001_night",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005004186001_pm_rush",
+                  "performance_9011005021700000_direction_id_stop_id_time_type_1_9022005004186001_weekend"
+                ],
+                "stop_id_summary": {
+                  "stop_topology": {
+                    "labels_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 0
+                    }
+                  },
+                  "direction_topology": {
+                    "labels_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    }
+                  },
+                  "regulatory_stops": {
+                    "regulatory_stop_ids": 0
+                  },
+                  "performance": {
+                    "available_performace_analytics": 5
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "9011005021600000": {
+      "route_id": "9011005021600000",
+      "route_long_name": "216",
+      "route_short_name": "16",
+      "route_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "parent_station": 2,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 0
+        },
+        "performance": {
+          "available_performace_analytics": 10
+        }
+      },
+      "performace_summary": {
+        "overall_too_early_rate": 12.92,
+        "overall_on_time_rate": 67.51,
+        "overall_too_late_rate": 19.57,
+        "average_departure_delay": 92.99577064466202
+      },
+      "directions": {
+        "0": {
+          "direction_id": "0",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stops_in_direction": {
+            "canonical_position": {
+              "25": {
+                "stop_id": "9022005004186001",
+                "stop_name": "Tinnerbäcksgränd",
+                "parent_station": 9021005004186000,
+                "direction_id_label_key": [
+                  "direction_topology_9011005021600000_direction_id_0"
+                ],
+                "direction_id_violation_key": [
+                  "direction_topology_9011005021600000_direction_id_0"
+                ],
+                "parent_station_label_key": [
+                  "stop_topology_9011005021600000_parent_station_9021005004186000"
+                ],
+                "parent_station_violation_key": [
+                  "stop_topology_9011005021600000_parent_station_9021005004186000"
+                ],
+                "stop_id_label_keys": [
+                  "stop_topology_9011005021600000_parent_station_stop_id_9021005004186000_9022005004186001",
+                  "direction_topology_9011005021600000_direction_id_stop_id_0_9022005004186001"
+                ],
+                "stop_id_violation_keys": [
+                  "direction_topology_9011005021600000_direction_id_stop_id_0_9022005004186001"
+                ],
+                "stop_id_performance_keys": [
+                  "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005004186001_am_rush",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005004186001_day",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005004186001_night",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005004186001_pm_rush",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_0_9022005004186001_weekend"
+                ],
+                "stop_id_summary": {
+                  "stop_topology": {
+                    "labels_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 0
+                    }
+                  },
+                  "direction_topology": {
+                    "labels_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    }
+                  },
+                  "regulatory_stops": {
+                    "regulatory_stop_ids": 0
+                  },
+                  "performance": {
+                    "available_performace_analytics": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "1": {
+          "direction_id": "1",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stops_in_direction": {
+            "canonical_position": {
+              "4": {
+                "stop_id": "9022005004186002",
+                "stop_name": "Tinnerbäcksgränd",
+                "parent_station": 9021005004186000,
+                "direction_id_label_key": [
+                  "direction_topology_9011005021600000_direction_id_1"
+                ],
+                "direction_id_violation_key": [
+                  "direction_topology_9011005021600000_direction_id_1"
+                ],
+                "parent_station_label_key": [
+                  "stop_topology_9011005021600000_parent_station_9021005004186000"
+                ],
+                "parent_station_violation_key": [
+                  "stop_topology_9011005021600000_parent_station_9021005004186000"
+                ],
+                "stop_id_label_keys": [
+                  "stop_topology_9011005021600000_parent_station_stop_id_9021005004186000_9022005004186002",
+                  "direction_topology_9011005021600000_direction_id_stop_id_1_9022005004186002"
+                ],
+                "stop_id_violation_keys": [
+                  "direction_topology_9011005021600000_direction_id_stop_id_1_9022005004186002"
+                ],
+                "stop_id_performance_keys": [
+                  "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005004186002_am_rush",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005004186002_day",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005004186002_night",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005004186002_pm_rush",
+                  "performance_9011005021600000_direction_id_stop_id_time_type_1_9022005004186002_weekend"
+                ],
+                "stop_id_summary": {
+                  "stop_topology": {
+                    "labels_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "parent_station": 1,
+                      "stop_id": 0
+                    }
+                  },
+                  "direction_topology": {
+                    "labels_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    },
+                    "violations_by_type": {
+                      "direction_id": 1,
+                      "stop_id": 1
+                    }
+                  },
+                  "regulatory_stops": {
+                    "regulatory_stop_ids": 0
+                  },
+                  "performance": {
+                    "available_performace_analytics": 5
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

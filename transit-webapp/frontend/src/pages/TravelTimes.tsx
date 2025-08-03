@@ -1,6 +1,6 @@
 // src/pages/TravelTimes.tsx
-import React, { useEffect, useState, useMemo } from 'react'
-import { useAuth } from '../contexts/AuthContext'
+import React, { useEffect, useState, useMemo, useContext } from 'react'
+import { GlobalDataContext  } from '../contexts/GlobalDataContext'
 
 interface ByRouteEntry {
   route_id: number
@@ -29,10 +29,18 @@ const TravelTimes: React.FC = () => {
   const [fromName, setFromName] = useState('')
   const [toName, setToName] = useState('')
   const [timeType, setTimeType] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
   const [expandedSegments, setExpandedSegments] = useState<Set<number>>(new Set())
-  const { user, session } = useAuth()
+  const globalData = useContext(GlobalDataContext)
+
+  // Set segments directly from travel_times when globalData is available
+  useEffect(() => {
+    if (!globalData?.travel_times) return
+
+    const { travel_times } = globalData
+    console.log('Setting travel times data:', travel_times.length, 'segments')
+    
+    setSegments(travel_times)
+  }, [globalData])
 
   const hasLetters = (s: string) => /\D/.test(s)
 
@@ -46,172 +54,113 @@ const TravelTimes: React.FC = () => {
     setExpandedSegments(newExpanded)
   }
 
+  // Smart filter clearing - only clear if current selection becomes invalid
   useEffect(() => {
-    if (!user || !session?.access_token) {
-      setLoading(false)
-      return
-    }
+    if (!fromName || !toName) return // Don't clear if nothing is selected
     
-    setLoading(true)
-    setError(null)
+    // Check if current fromName is still valid
+    const validFromStops = new Set<string>()
+    const validToStops = new Set<string>()
     
-    const headers = {
-      'X-User-Id': user.id,
-      'Authorization': `Bearer ${session.access_token}`,
-      'X-Refresh-Token': session.refresh_token,
-    }
-    
-    Promise.all([
-      fetch('/api/global/stops', { headers }).then(async r => {
-        if (!r.ok) {
-          throw new Error(`Failed to fetch stops: ${r.status} ${r.statusText}`)
-        }
-        return r.json()
-      }),
-      fetch('/api/global/travel_times', { headers }).then(async r => {
-        if (!r.ok) {
-          throw new Error(`Failed to fetch travel times: ${r.status} ${r.statusText}`)
-        }
-        return r.json()
-      })
-    ])
-    .then(([stops, timesData]) => {
-      console.log('Stops data:', stops)
-      console.log('Times data keys:', Object.keys(timesData).length)
-      
-      if (!stops || typeof stops !== 'object') {
-        throw new Error('Invalid stops data format')
+    segments.forEach(segment => {
+      const hasData = (typeof segment.aggregated?.mean === 'number') ||
+                     (segment.by_route?.some(r => typeof r.mean === 'number'))
+      if (!hasData) return
+
+      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
+      const timeMatch = !timeType || segment.time_type === timeType
+
+      if (routeMatch && timeMatch) {
+        if (hasLetters(segment.from_stop_name)) validFromStops.add(segment.from_stop_name)
+        if (hasLetters(segment.to_stop_name)) validToStops.add(segment.to_stop_name)
       }
-      
-      let timesArray: any[] = []
-      
-      if (Array.isArray(timesData)) {
-        timesArray = timesData
-      } else if (timesData && typeof timesData === 'object') {
-        timesArray = Object.values(timesData)
-        console.log(`Converted dictionary to array: ${timesArray.length} segments`)
-      } else {
-        throw new Error(`Expected travel times to be an object or array, got: ${typeof timesData}`)
+    })
+
+    // Only clear if current selection is no longer valid
+    if (fromName && !validFromStops.has(fromName)) {
+      setFromName('')
+      setToName('') // Also clear toName since fromName changed
+    } else if (toName && !validToStops.has(toName)) {
+      setToName('')
+    }
+  }, [route, timeType, fromName, toName, segments])
+
+  // Smart clearing for toName when fromName changes
+  useEffect(() => {
+    if (!fromName || !toName) return // Don't clear if nothing is selected
+    
+    // Check if current toName is still reachable from current fromName
+    const validToStops = new Set<string>()
+    
+    segments.forEach(segment => {
+      const hasData = (typeof segment.aggregated?.mean === 'number') ||
+                     (segment.by_route?.some(r => typeof r.mean === 'number'))
+      if (!hasData) return
+
+      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
+      const timeMatch = !timeType || segment.time_type === timeType
+      const fromMatch = segment.from_stop_name === fromName
+
+      if (routeMatch && timeMatch && fromMatch) {
+        if (hasLetters(segment.to_stop_name)) validToStops.add(segment.to_stop_name)
       }
-      
-      const withNames = timesArray.map(s => ({
-        ...s,
-        from_stop_name: stops[s.from_stop_id]?.stop_name || s.from_stop_id,
-        to_stop_name: stops[s.to_stop_id]?.stop_name || s.to_stop_id,
-      }))
-      setSegments(withNames)
-      setLoading(false)
     })
-    .catch((err) => {
-      console.error('Error loading travel times data:', err)
-      setError(err.message || 'Failed to load travel times data')
-      setLoading(false)
-    })
-  }, [user, session])
 
-  // Clear dependent filters when parent filters change
-  useEffect(() => {
-    setFromName('')
-    setToName('')
-  }, [route, timeType])
+    // Only clear toName if it's no longer reachable from current fromName
+    if (toName && !validToStops.has(toName)) {
+      setToName('')
+    }
+  }, [fromName, route, timeType, toName, segments])
 
-  useEffect(() => {
-    setToName('')
-  }, [fromName])
-
-  // Compute available options
-  const availableOptions = useMemo(() => {
+  // Much shorter progressive filtering - single pass approach
+  const { availableOptions, filteredSegments } = useMemo(() => {
     const routes = new Set<number>()
     const timeTypes = new Set<string>()
     const fromStops = new Set<string>()
     const toStops = new Set<string>()
+    const filtered: TravelSegment[] = []
 
     segments.forEach(segment => {
-      // Check if segment has actual data
       const hasData = (typeof segment.aggregated?.mean === 'number') ||
                      (segment.by_route?.some(r => typeof r.mean === 'number'))
-      
       if (!hasData) return
 
-      timeTypes.add(segment.time_type)
-      if (hasLetters(segment.from_stop_name)) fromStops.add(segment.from_stop_name)
-      if (hasLetters(segment.to_stop_name)) toStops.add(segment.to_stop_name)
-      
-      segment.by_route?.forEach(r => routes.add(r.route_id))
-    })
-
-    // Apply current filters to get available options
-    const filtered = segments.filter(segment => {
+      // Apply current filters
       const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
       const fromMatch = !fromName || segment.from_stop_name === fromName
       const toMatch = !toName || segment.to_stop_name === toName
       const timeMatch = !timeType || segment.time_type === timeType
-      
-      const hasData = (typeof segment.aggregated?.mean === 'number') ||
-                     (segment.by_route?.some(r => typeof r.mean === 'number'))
-      
-      return routeMatch && fromMatch && toMatch && timeMatch && hasData
-    })
 
-    const filteredRoutes = new Set<number>()
-    const filteredTimeTypes = new Set<string>()
-    const filteredFromStops = new Set<string>()
-    const filteredToStops = new Set<string>()
+      // If matches all current filters, include in results
+      if (routeMatch && fromMatch && toMatch && timeMatch) {
+        filtered.push(segment)
+      }
 
-    filtered.forEach(segment => {
-      filteredTimeTypes.add(segment.time_type)
-      if (hasLetters(segment.from_stop_name)) filteredFromStops.add(segment.from_stop_name)
-      if (hasLetters(segment.to_stop_name)) filteredToStops.add(segment.to_stop_name)
-      segment.by_route?.forEach(r => filteredRoutes.add(r.route_id))
+      // Collect available options based on partial matches (progressive filtering)
+      if (fromMatch && toMatch && timeMatch) segment.by_route?.forEach(r => routes.add(r.route_id))
+      if (routeMatch && toMatch && timeMatch) timeTypes.add(segment.time_type)
+      if (routeMatch && toMatch && timeMatch && hasLetters(segment.from_stop_name)) fromStops.add(segment.from_stop_name)
+      if (routeMatch && fromMatch && timeMatch && hasLetters(segment.to_stop_name)) toStops.add(segment.to_stop_name)
     })
 
     return {
-      routes: Array.from(filteredRoutes).sort((a, b) => a - b),
-      timeTypes: Array.from(filteredTimeTypes).sort(),
-      fromStops: Array.from(filteredFromStops).sort((a, b) => a.localeCompare(b)),
-      toStops: Array.from(filteredToStops).sort((a, b) => a.localeCompare(b))
+      availableOptions: {
+        routes: Array.from(routes).sort((a, b) => a - b),
+        timeTypes: Array.from(timeTypes).sort(),
+        fromStops: Array.from(fromStops).sort((a, b) => a.localeCompare(b)),
+        toStops: Array.from(toStops).sort((a, b) => a.localeCompare(b))
+      },
+      filteredSegments: filtered
     }
   }, [segments, route, fromName, toName, timeType])
 
-  // Filter segments for display
-  const filteredSegments = useMemo(() => {
-    return segments.filter(segment => {
-      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
-      const fromMatch = !fromName || segment.from_stop_name === fromName
-      const toMatch = !toName || segment.to_stop_name === toName
-      const timeMatch = !timeType || segment.time_type === timeType
-      
-      const hasData = !route 
-        ? (typeof segment.aggregated?.mean === 'number')
-        : segment.by_route?.some(r => r.route_id === Number(route) && typeof r.mean === 'number')
-      
-      return routeMatch && fromMatch && toMatch && timeMatch && hasData
-    })
-  }, [segments, route, fromName, toName, timeType])
-
-  if (loading) {
+  if (!globalData) {
     return <div className="p-6">Loading travel times...</div>
-  }
-
-  if (error) {
-    return (
-      <div className="p-6">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          <strong>Error:</strong> {error}
-        </div>
-        <button 
-          onClick={() => window.location.reload()} 
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Retry
-        </button>
-      </div>
-    )
   }
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">🕒 Search Travel Times</h1>
+      <h1 className="text-2xl font-bold mb-4"> Search Travel Times</h1>
       
       <div className="mb-4 text-sm text-gray-600">
         Found {segments.length} travel segments total, {filteredSegments.length} matching filters
@@ -227,22 +176,8 @@ const TravelTimes: React.FC = () => {
           >
             <option value="">(all routes)</option>
             {availableOptions.routes.map(rid => (
-              <option key={rid} value={rid}>Route {rid}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1">Time Type</label>
-          <select
-            value={timeType}
-            onChange={e => setTimeType(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(any time)</option>
-            {availableOptions.timeTypes.map(tt => (
-              <option key={tt} value={tt}>
-                {tt.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              <option key={rid} value={rid}>
+                Route {globalData.routes?.[rid]?.route_short_name || rid}
               </option>
             ))}
           </select>
@@ -275,6 +210,23 @@ const TravelTimes: React.FC = () => {
             ))}
           </select>
         </div>
+
+        <div>
+          <label className="block mb-1">Time Type</label>
+          <select
+            value={timeType}
+            onChange={e => setTimeType(e.target.value)}
+            className="w-full border p-2 rounded"
+          >
+            <option value="">(any time)</option>
+            {availableOptions.timeTypes.map(tt => (
+              <option key={tt} value={tt}>
+                {tt.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              </option>
+            ))}
+          </select>
+        </div>
+
       </div>
 
       <div className="space-y-4">
@@ -298,7 +250,7 @@ const TravelTimes: React.FC = () => {
                     ?.filter(r => r.route_id === Number(route))
                     .map((r, i) => (
                       <div key={i}>
-                        Route {r.route_id}, dir {r.direction_id}:{' '}
+                        Route {globalData.routes?.[r.route_id]?.route_short_name || r.route_id}, dir {r.direction_id}:{' '}
                         {typeof r.mean === 'number'
                           ? <strong>{r.mean.toFixed(1)} s</strong>
                           : 'n/a'}
@@ -339,7 +291,7 @@ const TravelTimes: React.FC = () => {
                         <div className="mt-2 pl-4 border-l-2 border-gray-200 space-y-1">
                           {s.by_route.map((r, i) => (
                             <div key={i} className="text-xs">
-                              Route {r.route_id}, dir {r.direction_id}:{' '}
+                              Route {globalData.routes?.[r.route_id]?.route_short_name || r.route_id}, dir {r.direction_id}:{' '}
                               {typeof r.mean === 'number'
                                 ? `${r.mean.toFixed(1)} s`
                                 : 'n/a'}

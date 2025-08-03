@@ -1,0 +1,47 @@
+{
+  "parent_station": "9021005004230000",
+  "stop_name": "Garnisonen",
+  "stop_ids": [
+    "9022005004230001",
+    "9022005004230002"
+  ],
+  "on_routes": [
+    "9011005020200000",
+    "9011005020400000"
+  ],
+  "stop_summary": {},
+  "performance_summary": {
+    "overall_too_early_rate": 14.405000000000001,
+    "overall_on_time_rate": 73.805,
+    "overall_too_late_rate": 11.795000000000002,
+    "average_departure_delay": 64.3896867441282
+  },
+  "routes": {
+    "9011005020200000": {
+      "route_id": "9011005020200000",
+      "route_long_name": "202",
+      "route_short_name": "2",
+      "route_summary": {},
+      "performace_summary": {
+        "overall_too_early_rate": 15.9,
+        "overall_on_time_rate": 74.39,
+        "overall_too_late_rate": 9.71,
+        "average_departure_delay": 55.48267353940962
+      },
+      "directions": {}
+    },
+    "9011005020400000": {
+      "route_id": "9011005020400000",
+      "route_long_name": "204",
+      "route_short_name": "4",
+      "route_summary": {},
+      "performace_summary": {
+        "overall_too_early_rate": 12.91,
+        "overall_on_time_rate": 73.22,
+        "overall_too_late_rate": 13.88,
+        "average_departure_delay": 73.2966999488468
+      },
+      "directions": {}
+    }
+  }
+}

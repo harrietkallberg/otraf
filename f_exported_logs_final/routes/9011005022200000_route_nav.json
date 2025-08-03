@@ -1,0 +1,3138 @@
+{
+  "route_id": "9011005022200000",
+  "route_long_name": "222",
+  "route_short_name": "22",
+  "route_summary": {
+    "stop_topology": {
+      "labels_by_type": {
+        "parent_station": 55,
+        "stop_id": 55
+      },
+      "violations_by_type": {
+        "parent_station": 55,
+        "stop_id": 0
+      }
+    },
+    "direction_topology": {
+      "labels_by_type": {
+        "direction_id": 55,
+        "stop_id": 55
+      },
+      "violations_by_type": {
+        "direction_id": 55,
+        "stop_id": 40
+      }
+    },
+    "regulatory_stops": {
+      "regulatory_stop_ids": 8
+    },
+    "performance": {
+      "available_performace_analytics": 83
+    }
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 9.37,
+    "overall_on_time_rate": 69.73,
+    "overall_too_late_rate": 20.9,
+    "average_departure_delay": 102.05701964224012
+  },
+  "directions": {
+    "0": {
+      "direction_id": "0",
+      "direction_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 28,
+            "stop_id": 28
+          },
+          "violations_by_type": {
+            "parent_station": 28,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 28,
+            "stop_id": 28
+          },
+          "violations_by_type": {
+            "direction_id": 28,
+            "stop_id": 19
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 4
+        },
+        "performance": {
+          "available_performace_analytics": 56
+        }
+      },
+      "stops_in_direction": {
+        "1": {
+          "stop_id": "9022005004139001",
+          "stop_name": "Mjärdevi",
+          "parent_station": 9021005004139000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004139000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004139000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004139000_9022005004139001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004139001",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_0_9022005004139001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004139001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004139001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004139001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "2": {
+          "stop_id": "9022005004232001",
+          "stop_name": "Mjärdevi Center",
+          "parent_station": 9021005004232000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004232000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004232000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004232000_9022005004232001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004232001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004232001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004232001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004232001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "3": {
+          "stop_id": "9022005003847001",
+          "stop_name": "Forskningsbyn",
+          "parent_station": 9021005003847000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003847000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003847000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003847000_9022005003847001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005003847001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005003847001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003847001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003847001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "4": {
+          "stop_id": "9022005080182002",
+          "stop_name": "Nobeltorget",
+          "parent_station": 9021005080182000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080182000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080182000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005080182000_9022005080182002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005080182002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080182002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080182002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "5": {
+          "stop_id": "9022005080004002",
+          "stop_name": "Vallastadens skola",
+          "parent_station": 9021005080004000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080004000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080004000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005080004002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005080004002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "6": {
+          "stop_id": "9022005004236002",
+          "stop_name": "Djurgården",
+          "parent_station": 9021005004236000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004236000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004236000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004236000_9022005004236002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004236002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004236002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004236002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004236002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "7": {
+          "stop_id": "9022005004253002",
+          "stop_name": "Garnisonen södra",
+          "parent_station": 9021005004253000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004253000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004253000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004253000_9022005004253002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004253002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005004253002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005004253002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "8": {
+          "stop_id": "9022005000412001",
+          "stop_name": "Rotegatan",
+          "parent_station": 9021005000412000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000412000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000412000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000412000_9022005000412001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000412001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000412001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000412001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000412001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "9": {
+          "stop_id": "9022005001431001",
+          "stop_name": "Pionjärgatan",
+          "parent_station": 9021005001431000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001431000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001431000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001431000_9022005001431001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001431001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001431001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001431001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001431001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "10": {
+          "stop_id": "9022005001430001",
+          "stop_name": "Berga centrum",
+          "parent_station": 9021005001430000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001430000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001430000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001430000_9022005001430001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001430001",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_0_9022005001430001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001430001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001430001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001430001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "11": {
+          "stop_id": "9022005000043001",
+          "stop_name": "Berga Söderleden",
+          "parent_station": 9021005000043000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000043000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000043000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000043000_9022005000043001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000043001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000043001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000043001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000043001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "12": {
+          "stop_id": "9022005001231001",
+          "stop_name": "Ridhusgatan",
+          "parent_station": 9021005001231000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001231000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001231000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001231000_9022005001231001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001231001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001231001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001231001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001231001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "13": {
+          "stop_id": "9022005000045001",
+          "stop_name": "Resedan",
+          "parent_station": 9021005000045000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000045000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000045000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000045000_9022005000045001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000045001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000045001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000045001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000045001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "14": {
+          "stop_id": "9022005001232001",
+          "stop_name": "Myntgatan",
+          "parent_station": 9021005001232000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001232000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001232000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001232000_9022005001232001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001232001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001232001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001232001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001232001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "15": {
+          "stop_id": "9022005001233001",
+          "stop_name": "Grindgatan",
+          "parent_station": 9021005001233000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001233000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001233000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001233000_9022005001233001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001233001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001233001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001233001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001233001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "16": {
+          "stop_id": "9022005003838002",
+          "stop_name": "Morgongatan",
+          "parent_station": 9021005003838000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003838000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003838000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003838000_9022005003838002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005003838002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005003838002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003838002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003838002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "17": {
+          "stop_id": "9022005001598001",
+          "stop_name": "Ullstämma by",
+          "parent_station": 9021005001598000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001598000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001598000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001598000_9022005001598001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001598001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001598001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001598001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001598001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "18": {
+          "stop_id": "9022005000416001",
+          "stop_name": "Aspnäset",
+          "parent_station": 9021005000416000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000416000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000416000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000416000_9022005000416001",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000416001",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_0_9022005000416001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000416001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000416001_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000416001_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "19": {
+          "stop_id": "9022005000226002",
+          "stop_name": "Lövsbergsvägen",
+          "parent_station": 9021005000226000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000226000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000226000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000226000_9022005000226002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000226002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000226002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000226002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000226002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "20": {
+          "stop_id": "9022005001394002",
+          "stop_name": "Ekdalsvägen",
+          "parent_station": 9021005001394000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001394000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001394000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001394000_9022005001394002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001394002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001394002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001394002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "21": {
+          "stop_id": "9022005000437002",
+          "stop_name": "Vårdsbergsvägen",
+          "parent_station": 9021005000437000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000437000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000437000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000437000_9022005000437002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000437002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000437002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000437002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "22": {
+          "stop_id": "9022005001398002",
+          "stop_name": "Strandängsvägen",
+          "parent_station": 9021005001398000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001398000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001398000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001398000_9022005001398002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001398002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001398002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001398002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "23": {
+          "stop_id": "9022005001400002",
+          "stop_name": "Aspeliden",
+          "parent_station": 9021005001400000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001400000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001400000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001400000_9022005001400002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001400002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001400002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001400002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "24": {
+          "stop_id": "9022005001401002",
+          "stop_name": "Kvinnebystigen",
+          "parent_station": 9021005001401000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001401000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001401000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001401000_9022005001401002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001401002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001401002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001401002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "25": {
+          "stop_id": "9022005003850002",
+          "stop_name": "Ektunavägen",
+          "parent_station": 9021005003850000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003850000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003850000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003850000_9022005003850002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005003850002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003850002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003850002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "26": {
+          "stop_id": "9022005000054002",
+          "stop_name": "Ekholmens centrum",
+          "parent_station": 9021005000054000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000054000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000054000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000054000_9022005000054002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005000054002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000054002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005000054002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "27": {
+          "stop_id": "9022005003559002",
+          "stop_name": "Järdalavägen 50",
+          "parent_station": 9021005003559000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003559000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003559000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003559000_9022005003559002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005003559002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003559002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005003559002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        },
+        "28": {
+          "stop_id": "9022005001318002",
+          "stop_name": "Ekhaga",
+          "parent_station": 9021005001318000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_0"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001318000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001318000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001318000_9022005001318002",
+            "direction_topology_9011005022200000_direction_id_stop_id_0_9022005001318002",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_0_9022005001318002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001318002_night",
+            "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005001318002_pm_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          }
+        }
+      }
+    },
+    "1": {
+      "direction_id": "1",
+      "direction_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 27,
+            "stop_id": 27
+          },
+          "violations_by_type": {
+            "parent_station": 27,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 27,
+            "stop_id": 27
+          },
+          "violations_by_type": {
+            "direction_id": 27,
+            "stop_id": 21
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 4
+        },
+        "performance": {
+          "available_performace_analytics": 27
+        }
+      },
+      "stops_in_direction": {
+        "1": {
+          "stop_id": "9022005001318001",
+          "stop_name": "Ekhaga",
+          "parent_station": 9021005001318000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001318000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001318000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001318000_9022005001318001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001318001",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_1_9022005001318001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001318001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001318001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "2": {
+          "stop_id": "9022005003559001",
+          "stop_name": "Järdalavägen 50",
+          "parent_station": 9021005003559000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003559000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003559000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003559000_9022005003559001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003559001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003559001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003559001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "3": {
+          "stop_id": "9022005000054001",
+          "stop_name": "Ekholmens centrum",
+          "parent_station": 9021005000054000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000054000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000054000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000054000_9022005000054001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000054001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000054001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000054001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "4": {
+          "stop_id": "9022005003850001",
+          "stop_name": "Ektunavägen",
+          "parent_station": 9021005003850000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003850000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003850000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003850000_9022005003850001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003850001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003850001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003850001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "5": {
+          "stop_id": "9022005001401001",
+          "stop_name": "Kvinnebystigen",
+          "parent_station": 9021005001401000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001401000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001401000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001401000_9022005001401001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001401001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001401001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001401001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "6": {
+          "stop_id": "9022005001400001",
+          "stop_name": "Aspeliden",
+          "parent_station": 9021005001400000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001400000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001400000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001400000_9022005001400001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001400001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001400001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001400001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "7": {
+          "stop_id": "9022005001398001",
+          "stop_name": "Strandängsvägen",
+          "parent_station": 9021005001398000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001398000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001398000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001398000_9022005001398001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001398001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001398001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001398001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "8": {
+          "stop_id": "9022005000437001",
+          "stop_name": "Vårdsbergsvägen",
+          "parent_station": 9021005000437000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000437000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000437000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000437000_9022005000437001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000437001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000437001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000437001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "9": {
+          "stop_id": "9022005001394001",
+          "stop_name": "Ekdalsvägen",
+          "parent_station": 9021005001394000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001394000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001394000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001394000_9022005001394001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001394001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001394001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001394001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "10": {
+          "stop_id": "9022005000226001",
+          "stop_name": "Lövsbergsvägen",
+          "parent_station": 9021005000226000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000226000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000226000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000226000_9022005000226001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000226001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000226001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000226001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "11": {
+          "stop_id": "9022005000416002",
+          "stop_name": "Aspnäset",
+          "parent_station": 9021005000416000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000416000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000416000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000416000_9022005000416002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000416002",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_1_9022005000416002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000416002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000416002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "12": {
+          "stop_id": "9022005001598002",
+          "stop_name": "Ullstämma by",
+          "parent_station": 9021005001598000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001598000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001598000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001598000_9022005001598002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001598002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001598002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001598002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "13": {
+          "stop_id": "9022005003838001",
+          "stop_name": "Morgongatan",
+          "parent_station": 9021005003838000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003838000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003838000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003838000_9022005003838001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003838001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003838001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003838001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "14": {
+          "stop_id": "9022005001233002",
+          "stop_name": "Grindgatan",
+          "parent_station": 9021005001233000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001233000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001233000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001233000_9022005001233002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001233002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001233002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001233002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "15": {
+          "stop_id": "9022005001232002",
+          "stop_name": "Myntgatan",
+          "parent_station": 9021005001232000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001232000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001232000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001232000_9022005001232002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001232002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001232002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001232002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "16": {
+          "stop_id": "9022005000045002",
+          "stop_name": "Resedan",
+          "parent_station": 9021005000045000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000045000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000045000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000045000_9022005000045002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000045002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000045002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000045002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "17": {
+          "stop_id": "9022005001231002",
+          "stop_name": "Ridhusgatan",
+          "parent_station": 9021005001231000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001231000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001231000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001231000_9022005001231002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001231002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001231002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001231002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "18": {
+          "stop_id": "9022005001430002",
+          "stop_name": "Berga centrum",
+          "parent_station": 9021005001430000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001430000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001430000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001430000_9022005001430002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001430002",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_1_9022005001430002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001430002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001430002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "19": {
+          "stop_id": "9022005001431002",
+          "stop_name": "Pionjärgatan",
+          "parent_station": 9021005001431000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001431000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005001431000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005001431000_9022005001431002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001431002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005001431002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005001431002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "20": {
+          "stop_id": "9022005000412002",
+          "stop_name": "Rotegatan",
+          "parent_station": 9021005000412000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000412000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005000412000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005000412000_9022005000412002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000412002"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005000412002"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005000412002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "21": {
+          "stop_id": "9022005004253001",
+          "stop_name": "Garnisonen södra",
+          "parent_station": 9021005004253000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004253000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004253000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004253000_9022005004253001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005004253001"
+          ],
+          "stop_id_violation_keys": [
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005004253001"
+          ],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004253001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "22": {
+          "stop_id": "9022005004236001",
+          "stop_name": "Djurgården",
+          "parent_station": 9021005004236000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004236000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004236000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004236000_9022005004236001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005004236001"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004236001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "23": {
+          "stop_id": "9022005080004001",
+          "stop_name": "Vallastadens skola",
+          "parent_station": 9021005080004000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080004000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080004000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005080004001"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080004001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "24": {
+          "stop_id": "9022005080182001",
+          "stop_name": "Nobeltorget",
+          "parent_station": 9021005080182000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080182000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005080182000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005080182000_9022005080182001",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005080182001"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080182001_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "25": {
+          "stop_id": "9022005003847002",
+          "stop_name": "Forskningsbyn",
+          "parent_station": 9021005003847000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003847000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005003847000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005003847000_9022005003847002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005003847002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005003847002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "26": {
+          "stop_id": "9022005004232003",
+          "stop_name": "Mjärdevi Center",
+          "parent_station": 9021005004232000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004232000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004232000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004232000_9022005004232003",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005004232003"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004232003_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        },
+        "27": {
+          "stop_id": "9022005004139002",
+          "stop_name": "Mjärdevi",
+          "parent_station": 9021005004139000,
+          "direction_id_label_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "direction_id_violation_key": [
+            "direction_topology_9011005022200000_direction_id_1"
+          ],
+          "parent_station_label_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004139000"
+          ],
+          "parent_station_violation_key": [
+            "stop_topology_9011005022200000_parent_station_9021005004139000"
+          ],
+          "stop_id_label_keys": [
+            "stop_topology_9011005022200000_parent_station_stop_id_9021005004139000_9022005004139002",
+            "direction_topology_9011005022200000_direction_id_stop_id_1_9022005004139002",
+            "regulatory_stops_9011005022200000_direction_id_stop_id_1_9022005004139002"
+          ],
+          "stop_id_violation_keys": [],
+          "stop_id_performance_keys": [
+            "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005004139002_am_rush"
+          ],
+          "stop_id_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 1
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

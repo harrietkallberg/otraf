@@ -6,6 +6,8 @@ export interface RouteDataContextType {
   setRouteId: (id: string | null) => void
   routeData: any | null
   setRouteData: (data: any) => void
+  isLoading: boolean // Add loading state
+  error: string | null // Add error state
 }
 
 export const RouteDataContext = createContext<RouteDataContextType | null>(null)
@@ -17,31 +19,70 @@ interface ProviderProps {
 export const RouteDataProvider: React.FC<ProviderProps> = ({ children }) => {
   const [routeId, setRouteId] = useState<string | null>(null)
   const [routeData, setRouteData] = useState<any | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
-  const { user, session, isLoading } = useAuth()
+  const { user, session, isLoading: authLoading } = useAuth()
 
   useEffect(() => {
-    if (!routeId || !user || !session || isLoading) {
+    if (!routeId || !user || !session || authLoading) {
+      if (!routeId) {
+        setRouteData(null)
+        setIsLoading(false)
+        setError(null)
+      }
       return
     }
+
+    // If we already have data for this routeId, don't fetch again
+    if (routeData && routeData.route_id === routeId) {
+      setIsLoading(false)
+      return
+    }
+
+    setIsLoading(true)
+    setError(null)
+    // Clear old data immediately when starting new fetch
+    setRouteData(null)
 
     const headers = {
       'X-User-Id': user.id,
       'Authorization': `Bearer ${session.access_token}`,
-      'X-Refresh-Token': session.refresh_token,  // Pass refresh token in a custom header
+      'X-Refresh-Token': session.refresh_token,
     }
 
-    fetch(`/api/routes/${routeId}/navigation_structure`, { headers })
-      .then((res) => res.json())
-      .then((data) => setRouteData(data))
-      .catch((err) => {
-        console.error('Error fetching route data:', err)
-        setError('Failed to load route data.')
+    console.log('RouteDataContext fetching for routeId:', routeId)
+
+    fetch(`/api/routes/${routeId}`, { headers })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+        }
+        return res.json()
       })
-  }, [routeId, user, session, isLoading]) // Trigger fetch when routeId changes
+      .then((data) => {
+        console.log('RouteDataContext received data for routeId:', routeId)
+        setRouteData(data)
+        setError(null)
+      })
+      .catch((err) => {
+        console.error('RouteDataContext error:', err)
+        setError('Failed to load route data.')
+        setRouteData(null)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [routeId, user, session, authLoading])
 
   return (
-    <RouteDataContext.Provider value={{ routeId, setRouteId, routeData, setRouteData }}>
+    <RouteDataContext.Provider value={{ 
+      routeId, 
+      setRouteId, 
+      routeData, 
+      setRouteData, 
+      isLoading, 
+      error 
+    }}>
       {children}
     </RouteDataContext.Provider>
   )

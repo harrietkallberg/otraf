@@ -1,49 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { useRouteData } from '../contexts/RouteDataContext' // Access context to set routeId
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { GlobalDataContext } from '../contexts/GlobalDataContext'
+import { useRouteData } from '../contexts/RouteDataContext'
 
 type RouteMeta = {
   route_long_name: string
   route_short_name: string
 }
-type Violation = { route_id: string }
 
 export default function RoutesList() {
-  const [routes, setRoutes] = useState<Record<string, RouteMeta>>({})
-  const [violations, setViolations] = useState<Violation[]>([])
-  const { user, session } = useAuth()
-  const { setRouteId } = useRouteData() // Use context to set routeId when selecting a route
+  const globalData = useContext(GlobalDataContext)
+  const { setRouteId } = useRouteData()
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!user || !session?.access_token) return
-    
-    const headers = { 
-      'X-User-Id': user.id,
-      'Authorization': `Bearer ${session.access_token}`,
-      'X-Refresh-Token': session.refresh_token,  // Pass refresh token in a custom header
-    }
-    
-    Promise.all([
-      fetch('/api/global/routes', { headers }).then(r => r.json()),
-      fetch('/api/global/violations', { headers }).then(r => r.json()),
-    ])
-      .then(([routesJson, violJson]) => {
-        setRoutes(routesJson)
-        setViolations(violJson)
-      })
-      .catch(console.error)
-  }, [user, session])
+  if (!globalData) {
+    return <div className="px-6 py-4">Loading routes...</div>
+  }
 
-  const list = Object.entries(routes).map(([id, meta]) => ({
+  const list = Object.entries(globalData.routes).map(([id, meta]) => ({
     id,
     longName: meta.route_long_name,
     shortName: meta.route_short_name,
-    hasViol: violations.some(v => v.route_id === id),
   }))
 
-  const handleRouteSelect = (routeId: string) => {
-    setRouteId(routeId)  // Set the selected routeId in context when the route is clicked
+  const handleRouteSelect = async (routeId: string) => {
+    console.log('Setting routeId in context:', routeId)
+    
+    // First, set the routeId in context
+    setRouteId(routeId)
+    
+    // Then navigate to the route AFTER context is updated
+    navigate(`/routes/${routeId}`)
   }
 
   return (
@@ -51,23 +38,23 @@ export default function RoutesList() {
       <h2 className="text-2xl font-semibold mb-6">All Routes</h2>
       <div className="space-y-4">
         {list.map((r) => (
-          <Link
+          <div
             key={r.id}
-            to={`/routes/${r.id}`}  // Navigate to RouteLayout with routeId
-            className="block bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5 flex justify-between items-center"
-            onClick={() => handleRouteSelect(r.id)}  // Trigger routeId selection here
+            className="block bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5 cursor-pointer"
+            onClick={() => handleRouteSelect(r.id)}
           >
             <div>
-              <h3 className="text-lg font-medium">Route {r.longName}</h3>
-              <p className="text-sm text-gray-500">
-                Short name: {r.shortName}
-              </p>
+              <h3 className="text-lg font-medium">Route {r.shortName}</h3>
+              <div className="text-sm text-gray-500 mt-2 space-y-2">
+                <div>
+                  <span className="font-medium">Long Name:</span> {r.longName}
+                </div>
+                <div>
+                  <span className="font-medium">Route ID:</span> {r.id}
+                </div>
+              </div>
             </div>
-            <span
-              className={`w-3 h-3 rounded-full ${r.hasViol ? 'bg-red-500' : 'bg-green-500'}`}
-              aria-label={r.hasViol ? 'Has violations' : 'No violations'}
-            />
-          </Link>
+          </div>
         ))}
       </div>
     </div>

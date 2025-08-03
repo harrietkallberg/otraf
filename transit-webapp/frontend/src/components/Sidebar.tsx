@@ -17,12 +17,13 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="w-64 bg-gray-100 p-4 border-r h-full">
-      <h2 className="text-xl font-bold mb-4">Transit Dashboard</h2>
+      <h2 className="text-xl font-bold mb-4">Transit Analyzer</h2>
       {navItem('/', 'Dashboard')}
       {navItem('/travel-times', 'Travel Times')}
       {navItem('/routes', 'Routes')}
       {navItem('/stops',  'Stops')}
-      {navItem('/export-csv', 'Export CSV')}  {/* ← new */}
+      {navItem('/export-csv', 'Export CSV')}
+      {navItem('/explore-logs', 'Explore Logs')}
     </div>
   )
 }

@@ -1,11 +1,35 @@
 import React, { createContext, ReactNode, useState, useEffect } from 'react'
 import { useAuth } from './AuthContext'
 
+interface ByRouteEntry {
+  route_id: number
+  direction_id: string
+  mean: number | null
+  sample_size: number
+}
+
+interface TravelSegment {
+  seg_key: string
+  from_stop_id: string
+  to_stop_id: string
+  from_stop_name: string
+  to_stop_name: string
+  time_type: string
+  aggregated: {
+    mean: number | null
+    sample_size: number
+  }
+  by_route: ByRouteEntry[]
+}
+
 export interface GlobalData {
+  stops: Record<string, any>
+  routes: Record<string, any>
   labels: Record<string, any>
   violations: Record<string, any>
   time_types: string[]
-  stops: Record<string, any>
+  travel_times: TravelSegment[]
+  performance: Record<string, any>
 }
 
 // Create a context that can be GlobalData or null
@@ -19,6 +43,7 @@ export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
   const [data, setData] = useState<GlobalData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const { user, session, isLoading } = useAuth()
+  console.log('GlobalDataProvider render:', { user: !!user, session: !!session, isLoading, data: !!data }) // Add this
 
   useEffect(() => {
     // Only fetch data if user is authenticated and we have a session
@@ -44,17 +69,23 @@ export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
 
     // Fetch global data using both tokens and user ID in headers
     Promise.all([
+      fetch('/api/global/stops', { headers }).then(r => r.json()),
+      fetch('/api/global/routes', { headers }).then(r => r.json()),
       fetch('/api/global/labels', { headers }).then(r => r.json()),
       fetch('/api/global/violations', { headers }).then(r => r.json()),
       fetch('/api/global/time_types', { headers }).then(r => r.json()),
-      fetch('/api/global/stops', { headers }).then(r => r.json()),
+      fetch('/api/global/travel_times', { headers }).then(r => r.json()),
+      fetch('/api/global/performance_analytics', { headers }).then(r => r.json())
     ])
-      .then(([labels, violations, time_types, stops]) =>
+      .then(([stops, routes, labels, violations, time_types, travel_times, performance]) =>
         setData({
+          stops: stops,
+          routes: routes,
           labels: labels,
           violations: violations,
-          time_types,
-          stops: stops,
+          time_types: time_types,
+          travel_times: travel_times,
+          performance: performance
         })
       )
       .catch((err) => {

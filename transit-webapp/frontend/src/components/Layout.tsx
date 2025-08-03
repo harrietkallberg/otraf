@@ -7,6 +7,7 @@ import { supabase } from '../supabaseClient'
 
 const Layout: React.FC = () => {
   const { user } = useAuth()
+  console.log('Layout rendering, user:', !!user) // Add this line
 
   const handleLogout = async () => {
     await supabase.auth.signOut()

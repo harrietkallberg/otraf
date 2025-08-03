@@ -5,7 +5,7 @@ from flask import Flask
 from api.routes      import routes_bp
 from api.stops       import stops_bp
 from api.global_data import global_bp
-from api.csv_routes  import csv_routes_bp
+from api.csv         import csv_bp
 
 def create_app():
     app = Flask(__name__)
@@ -16,7 +16,7 @@ def create_app():
     app.register_blueprint(routes_bp,     url_prefix='/api/routes')
     app.register_blueprint(stops_bp,      url_prefix='/api/stops')
     app.register_blueprint(global_bp,     url_prefix='/api/global')
-    app.register_blueprint(csv_routes_bp, url_prefix='/api/csv')
+    app.register_blueprint(csv_bp,        url_prefix='/api/csv')
 
     return app
 
