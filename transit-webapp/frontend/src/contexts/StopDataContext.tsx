@@ -1,13 +1,15 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react'
 import { useAuth } from './AuthContext'
+import * as DataInterfaces from './DataInterfaces'
 
+// Update the stopData type with stop_summary
 export interface StopDataContextType {
-  parentId: string | null
-  setParentId: (id: string | null) => void
-  stopData: any | null
-  setStopData: (data: any) => void
-  isLoading: boolean // Add loading state
-  error: string | null // Add error state
+  parentId: string | null;
+  setParentId: (id: string | null) => void;
+  stopData: DataInterfaces.StopData | null;  // Correctly using StopData interface
+  setStopData: (data: any) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 export const StopDataContext = createContext<StopDataContextType | null>(null)
@@ -18,7 +20,7 @@ interface ProviderProps {
 
 export const StopDataProvider: React.FC<ProviderProps> = ({ children }) => {
   const [parentId, setParentId] = useState<string | null>(null)
-  const [stopData, setStopData] = useState<any | null>(null)
+  const [stopData, setStopData] = useState<DataInterfaces.StopData | null>(null)  // Correct type for stopData
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const { user, session, isLoading: authLoading } = useAuth()
@@ -41,8 +43,7 @@ export const StopDataProvider: React.FC<ProviderProps> = ({ children }) => {
 
     setIsLoading(true)
     setError(null)
-    // Clear old data immediately when starting new fetch
-    setStopData(null)
+    setStopData(null)  // Clear old data immediately when starting new fetch
 
     const headers = {
       'X-User-Id': user.id,
@@ -61,7 +62,7 @@ export const StopDataProvider: React.FC<ProviderProps> = ({ children }) => {
       })
       .then((data) => {
         console.log('StopDataContext received data for parentId:', parentId)
-        setStopData(data)
+        setStopData(data)  // Data is typed as StopData
         setError(null)
       })
       .catch((err) => {

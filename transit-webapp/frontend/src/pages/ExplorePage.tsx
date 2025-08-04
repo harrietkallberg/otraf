@@ -38,20 +38,6 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
   useEffect(() => {
     if (!globalData) return
 
-    // Debug: Let's see what's actually in the data
-    console.log('GlobalData structure:', {
-      hasLabels: !!globalData.labels,
-      hasViolations: !!globalData.violations,
-      hasPerformance: !!globalData.performance,
-      labelsType: Array.isArray(globalData.labels) ? 'array' : 'object',
-      violationsType: Array.isArray(globalData.violations) ? 'array' : 'object',
-      labelKeys: globalData.labels ? Object.keys(globalData.labels).slice(0, 5) : [],
-      violationKeys: globalData.violations ? Object.keys(globalData.violations).slice(0, 5) : [],
-      performanceKeys: globalData.performance ? Object.keys(globalData.performance).slice(0, 5) : [],
-      sampleLabel: globalData.labels ? globalData.labels[Object.keys(globalData.labels)[0]] : null,
-      sampleViolation: globalData.violations ? globalData.violations[Object.keys(globalData.violations)[0]] : null
-    })
-
     // Convert labels and violations arrays to objects keyed by entity_key if needed
     const labelsObj = Array.isArray(globalData.labels) 
       ? Object.fromEntries(globalData.labels.map((label: any) => [label.entity_key, label]))

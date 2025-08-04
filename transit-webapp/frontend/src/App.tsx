@@ -13,11 +13,10 @@ import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
 import RoutesList from './pages/RoutesList'
 import StopsList from './pages/StopsList'
-import RouteLayout from './pages/RouteLayout'
-import StopLayout from './pages/StopLayout'
 import TravelTimes from './pages/TravelTimes'
 import ExportCsvPage from './pages/ExportCsv'
 import ExplorePage from './pages/ExplorePage'
+import UnifiedLayoutPage from './pages/UnifiedLayout'
 
 export default function App() {
   return (
@@ -37,9 +36,9 @@ export default function App() {
               >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="routes" element={<RoutesList />} />
-                <Route path="routes/:routeId" element={<RouteLayout />} />
+                <Route path="routes/:routeId" element={<UnifiedLayoutPage />} />
                 <Route path="stops" element={<StopsList />} />
-                <Route path="stops/:parentId" element={<StopLayout />} />
+                <Route path="stops/:parentId" element={<UnifiedLayoutPage />} />
                 <Route path="travel-times" element={<TravelTimes />} />
                 <Route path="export-csv" element={<ExportCsvPage />} />
                 <Route path="explore-logs" element={<ExplorePage />} />

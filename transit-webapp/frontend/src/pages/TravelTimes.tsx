@@ -10,7 +10,6 @@ interface ByRouteEntry {
 }
 
 interface TravelSegment {
-  seg_key: string
   from_stop_id: string
   to_stop_id: string
   from_stop_name: string
@@ -36,8 +35,9 @@ const TravelTimes: React.FC = () => {
   useEffect(() => {
     if (!globalData?.travel_times) return
 
-    const { travel_times } = globalData
-    console.log('Setting travel times data:', travel_times.length, 'segments')
+    
+    const { stops, routes, labels, violations, time_types, travel_times, performance } = globalData
+    console.log('Setting travel times data:', travel_times)
     
     setSegments(travel_times)
   }, [globalData])
@@ -56,7 +56,7 @@ const TravelTimes: React.FC = () => {
 
   // Smart filter clearing - only clear if current selection becomes invalid
   useEffect(() => {
-    if (!fromName || !toName) return // Don't clear if nothing is selected
+    if (!fromName || !toName || !Array.isArray(segments)) return // Add array check
     
     // Check if current fromName is still valid
     const validFromStops = new Set<string>()
@@ -87,7 +87,7 @@ const TravelTimes: React.FC = () => {
 
   // Smart clearing for toName when fromName changes
   useEffect(() => {
-    if (!fromName || !toName) return // Don't clear if nothing is selected
+    if (!fromName || !toName || !Array.isArray(segments)) return // Add array check
     
     // Check if current toName is still reachable from current fromName
     const validToStops = new Set<string>()
@@ -114,6 +114,19 @@ const TravelTimes: React.FC = () => {
 
   // Much shorter progressive filtering - single pass approach
   const { availableOptions, filteredSegments } = useMemo(() => {
+    // Add safety check for segments array
+    if (!Array.isArray(segments)) {
+      return {
+        availableOptions: {
+          routes: [],
+          timeTypes: [],
+          fromStops: [],
+          toStops: []
+        },
+        filteredSegments: []
+      }
+    }
+
     const routes = new Set<number>()
     const timeTypes = new Set<string>()
     const fromStops = new Set<string>()
@@ -156,6 +169,18 @@ const TravelTimes: React.FC = () => {
 
   if (!globalData) {
     return <div className="p-6">Loading travel times...</div>
+  }
+
+  // Add additional safety check
+  if (!Array.isArray(globalData.travel_times)) {
+    return (
+      <div className="p-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+          <h3 className="font-medium">Error Loading Travel Times</h3>
+          <p className="text-sm mt-1">Travel times data is not in the expected format.</p>
+        </div>
+      </div>
+    )
   }
 
   return (

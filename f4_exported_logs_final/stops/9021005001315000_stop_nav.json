@@ -1,0 +1,503 @@
+{
+  "parent_station": "9021005001315000",
+  "stop_name": "Solhaga",
+  "stop_ids": [
+    "9022005001315001",
+    "9022005001315002"
+  ],
+  "on_routes": [
+    "9011005022600000",
+    "9011005020300000"
+  ],
+  "stop_summary": {
+    "stop_topology": {
+      "labels_by_type": {
+        "parent_station": 4,
+        "stop_id": 4
+      },
+      "violations_by_type": {
+        "parent_station": 4,
+        "stop_id": 0
+      }
+    },
+    "direction_topology": {
+      "labels_by_type": {
+        "direction_id": 4,
+        "stop_id": 4
+      },
+      "violations_by_type": {
+        "direction_id": 4,
+        "stop_id": 4
+      }
+    },
+    "regulatory_stops": {
+      "regulatory_stop_ids": 0
+    },
+    "performance": {
+      "available_performace_analytics": 19
+    },
+    "total_trip_instances": 75292
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 10.8,
+    "overall_on_time_rate": 76.27000000000001,
+    "overall_too_late_rate": 12.93,
+    "average_departure_delay": 72.34101187121291,
+    "canonical_share": 0.5514432837456881
+  },
+  "routes": {
+    "9011005022600000": {
+      "route_id": "9011005022600000",
+      "route_long_name": "226",
+      "route_short_name": "26",
+      "route_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "parent_station": 2,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 0
+        },
+        "performance": {
+          "available_performace_analytics": 9
+        },
+        "total_trip_instances": 8231
+      },
+      "performance_summary": {
+        "overall_too_early_rate": 11.27,
+        "overall_on_time_rate": 76.26,
+        "overall_too_late_rate": 12.47,
+        "average_departure_delay": 67.29562828988023,
+        "canonical_share": 0.22974122220872312
+      },
+      "directions": {
+        "0": {
+          "direction_id": "0",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 4
+            }
+          },
+          "stop_ids_in_direction": {
+            "18": {
+              "stop_id": "9022005001315001",
+              "stop_name": "Solhaga",
+              "parent_station": "9021005001315000",
+              "direction_id_label_key": [
+                "direction_topology_9011005022600000_direction_id_0"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005022600000_direction_id_0"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005022600000_parent_station_9021005001315000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005022600000_parent_station_9021005001315000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005022600000_parent_station_stop_id_9021005001315000_9022005001315001",
+                "direction_topology_9011005022600000_direction_id_stop_id_0_9022005001315001"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005022600000_direction_id_stop_id_0_9022005001315001"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001315001_day",
+                "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001315001_night",
+                "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001315001_pm_rush",
+                "performance_9011005022600000_direction_id_stop_id_time_type_0_9022005001315001_weekend"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 4
+                }
+              }
+            }
+          }
+        },
+        "1": {
+          "direction_id": "1",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stop_ids_in_direction": {
+            "14": {
+              "stop_id": "9022005001315002",
+              "stop_name": "Solhaga",
+              "parent_station": "9021005001315000",
+              "direction_id_label_key": [
+                "direction_topology_9011005022600000_direction_id_1"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005022600000_direction_id_1"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005022600000_parent_station_9021005001315000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005022600000_parent_station_9021005001315000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005022600000_parent_station_stop_id_9021005001315000_9022005001315002",
+                "direction_topology_9011005022600000_direction_id_stop_id_1_9022005001315002"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005022600000_direction_id_stop_id_1_9022005001315002"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001315002_am_rush",
+                "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001315002_day",
+                "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001315002_night",
+                "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001315002_pm_rush",
+                "performance_9011005022600000_direction_id_stop_id_time_type_1_9022005001315002_weekend"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 5
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "9011005020300000": {
+      "route_id": "9011005020300000",
+      "route_long_name": "203",
+      "route_short_name": "3",
+      "route_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "parent_station": 2,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 0
+        },
+        "performance": {
+          "available_performace_analytics": 10
+        },
+        "total_trip_instances": 67061
+      },
+      "performance_summary": {
+        "overall_too_early_rate": 10.33,
+        "overall_on_time_rate": 76.28,
+        "overall_too_late_rate": 13.39,
+        "average_departure_delay": 77.38639545254559,
+        "canonical_share": 0.8731453452826531
+      },
+      "directions": {
+        "0": {
+          "direction_id": "0",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stop_ids_in_direction": {
+            "7": {
+              "stop_id": "9022005001315001",
+              "stop_name": "Solhaga",
+              "parent_station": "9021005001315000",
+              "direction_id_label_key": [
+                "direction_topology_9011005020300000_direction_id_0"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005020300000_direction_id_0"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005020300000_parent_station_9021005001315000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005020300000_parent_station_9021005001315000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005020300000_parent_station_stop_id_9021005001315000_9022005001315001",
+                "direction_topology_9011005020300000_direction_id_stop_id_0_9022005001315001"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005020300000_direction_id_stop_id_0_9022005001315001"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001315001_am_rush",
+                "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001315001_day",
+                "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001315001_night",
+                "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001315001_pm_rush",
+                "performance_9011005020300000_direction_id_stop_id_time_type_0_9022005001315001_weekend"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 5
+                }
+              }
+            }
+          }
+        },
+        "1": {
+          "direction_id": "1",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stop_ids_in_direction": {
+            "8": {
+              "stop_id": "9022005001315002",
+              "stop_name": "Solhaga",
+              "parent_station": "9021005001315000",
+              "direction_id_label_key": [
+                "direction_topology_9011005020300000_direction_id_1"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005020300000_direction_id_1"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005020300000_parent_station_9021005001315000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005020300000_parent_station_9021005001315000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005020300000_parent_station_stop_id_9021005001315000_9022005001315002",
+                "direction_topology_9011005020300000_direction_id_stop_id_1_9022005001315002"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005020300000_direction_id_stop_id_1_9022005001315002"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001315002_am_rush",
+                "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001315002_day",
+                "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001315002_night",
+                "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001315002_pm_rush",
+                "performance_9011005020300000_direction_id_stop_id_time_type_1_9022005001315002_weekend"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 5
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

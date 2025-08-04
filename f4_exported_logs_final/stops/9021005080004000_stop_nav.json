@@ -1,0 +1,495 @@
+{
+  "parent_station": "9021005080004000",
+  "stop_name": "Vallastadens skola",
+  "stop_ids": [
+    "9022005080004001",
+    "9022005080004002"
+  ],
+  "on_routes": [
+    "9011005020400000",
+    "9011005022200000"
+  ],
+  "stop_summary": {
+    "stop_topology": {
+      "labels_by_type": {
+        "parent_station": 4,
+        "stop_id": 4
+      },
+      "violations_by_type": {
+        "parent_station": 4,
+        "stop_id": 0
+      }
+    },
+    "direction_topology": {
+      "labels_by_type": {
+        "direction_id": 4,
+        "stop_id": 4
+      },
+      "violations_by_type": {
+        "direction_id": 4,
+        "stop_id": 3
+      }
+    },
+    "regulatory_stops": {
+      "regulatory_stop_ids": 0
+    },
+    "performance": {
+      "available_performace_analytics": 13
+    },
+    "total_trip_instances": 59548
+  },
+  "performance_summary": {
+    "overall_too_early_rate": 11.14,
+    "overall_on_time_rate": 71.475,
+    "overall_too_late_rate": 17.39,
+    "average_departure_delay": 87.67685979554346,
+    "canonical_share": 0.5442141623932669
+  },
+  "routes": {
+    "9011005020400000": {
+      "route_id": "9011005020400000",
+      "route_long_name": "204",
+      "route_short_name": "4",
+      "route_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "parent_station": 2,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 0
+        },
+        "performance": {
+          "available_performace_analytics": 10
+        },
+        "total_trip_instances": 56519
+      },
+      "performance_summary": {
+        "overall_too_early_rate": 12.91,
+        "overall_on_time_rate": 73.22,
+        "overall_too_late_rate": 13.88,
+        "average_departure_delay": 73.2966999488468,
+        "canonical_share": 0.09800244165678798
+      },
+      "directions": {
+        "0": {
+          "direction_id": "0",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stop_ids_in_direction": {
+            "9": {
+              "stop_id": "9022005080004002",
+              "stop_name": "Vallastadens skola",
+              "parent_station": "9021005080004000",
+              "direction_id_label_key": [
+                "direction_topology_9011005020400000_direction_id_0"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005020400000_direction_id_0"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005020400000_parent_station_9021005080004000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005020400000_parent_station_9021005080004000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005020400000_parent_station_stop_id_9021005080004000_9022005080004002",
+                "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005020400000_direction_id_stop_id_0_9022005080004002"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_am_rush",
+                "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_day",
+                "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_night",
+                "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_pm_rush",
+                "performance_9011005020400000_direction_id_stop_id_time_type_0_9022005080004002_weekend"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 5
+                }
+              }
+            }
+          }
+        },
+        "1": {
+          "direction_id": "1",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 5
+            }
+          },
+          "stop_ids_in_direction": {
+            "9": {
+              "stop_id": "9022005080004001",
+              "stop_name": "Vallastadens skola",
+              "parent_station": "9021005080004000",
+              "direction_id_label_key": [
+                "direction_topology_9011005020400000_direction_id_1"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005020400000_direction_id_1"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005020400000_parent_station_9021005080004000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005020400000_parent_station_9021005080004000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005020400000_parent_station_stop_id_9021005080004000_9022005080004001",
+                "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005020400000_direction_id_stop_id_1_9022005080004001"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_am_rush",
+                "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_day",
+                "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_night",
+                "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_pm_rush",
+                "performance_9011005020400000_direction_id_stop_id_time_type_1_9022005080004001_weekend"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 5
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "9011005022200000": {
+      "route_id": "9011005022200000",
+      "route_long_name": "222",
+      "route_short_name": "22",
+      "route_summary": {
+        "stop_topology": {
+          "labels_by_type": {
+            "parent_station": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "parent_station": 2,
+            "stop_id": 0
+          }
+        },
+        "direction_topology": {
+          "labels_by_type": {
+            "direction_id": 2,
+            "stop_id": 2
+          },
+          "violations_by_type": {
+            "direction_id": 2,
+            "stop_id": 1
+          }
+        },
+        "regulatory_stops": {
+          "regulatory_stop_ids": 0
+        },
+        "performance": {
+          "available_performace_analytics": 3
+        },
+        "total_trip_instances": 3029
+      },
+      "performance_summary": {
+        "overall_too_early_rate": 9.37,
+        "overall_on_time_rate": 69.73,
+        "overall_too_late_rate": 20.9,
+        "average_departure_delay": 102.05701964224012,
+        "canonical_share": 0.9904258831297458
+      },
+      "directions": {
+        "0": {
+          "direction_id": "0",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 2
+            }
+          },
+          "stop_ids_in_direction": {
+            "5": {
+              "stop_id": "9022005080004002",
+              "stop_name": "Vallastadens skola",
+              "parent_station": "9021005080004000",
+              "direction_id_label_key": [
+                "direction_topology_9011005022200000_direction_id_0"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005022200000_direction_id_0"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005022200000_parent_station_9021005080004000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005022200000_parent_station_9021005080004000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004002",
+                "direction_topology_9011005022200000_direction_id_stop_id_0_9022005080004002"
+              ],
+              "stop_id_violation_keys": [
+                "direction_topology_9011005022200000_direction_id_stop_id_0_9022005080004002"
+              ],
+              "stop_id_performance_keys": [
+                "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_night",
+                "performance_9011005022200000_direction_id_stop_id_time_type_0_9022005080004002_pm_rush"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 2
+                }
+              }
+            }
+          }
+        },
+        "1": {
+          "direction_id": "1",
+          "direction_summary": {
+            "stop_topology": {
+              "labels_by_type": {
+                "parent_station": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "parent_station": 1,
+                "stop_id": 0
+              }
+            },
+            "direction_topology": {
+              "labels_by_type": {
+                "direction_id": 1,
+                "stop_id": 1
+              },
+              "violations_by_type": {
+                "direction_id": 1,
+                "stop_id": 0
+              }
+            },
+            "regulatory_stops": {
+              "regulatory_stop_ids": 0
+            },
+            "performance": {
+              "available_performace_analytics": 1
+            }
+          },
+          "stop_ids_in_direction": {
+            "23": {
+              "stop_id": "9022005080004001",
+              "stop_name": "Vallastadens skola",
+              "parent_station": "9021005080004000",
+              "direction_id_label_key": [
+                "direction_topology_9011005022200000_direction_id_1"
+              ],
+              "direction_id_violation_key": [
+                "direction_topology_9011005022200000_direction_id_1"
+              ],
+              "parent_station_label_key": [
+                "stop_topology_9011005022200000_parent_station_9021005080004000"
+              ],
+              "parent_station_violation_key": [
+                "stop_topology_9011005022200000_parent_station_9021005080004000"
+              ],
+              "stop_id_label_keys": [
+                "stop_topology_9011005022200000_parent_station_stop_id_9021005080004000_9022005080004001",
+                "direction_topology_9011005022200000_direction_id_stop_id_1_9022005080004001"
+              ],
+              "stop_id_violation_keys": [],
+              "stop_id_performance_keys": [
+                "performance_9011005022200000_direction_id_stop_id_time_type_1_9022005080004001_am_rush"
+              ],
+              "stop_id_summary": {
+                "stop_topology": {
+                  "labels_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "parent_station": 1,
+                    "stop_id": 0
+                  }
+                },
+                "direction_topology": {
+                  "labels_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 1
+                  },
+                  "violations_by_type": {
+                    "direction_id": 1,
+                    "stop_id": 0
+                  }
+                },
+                "regulatory_stops": {
+                  "regulatory_stop_ids": 0
+                },
+                "performance": {
+                  "available_performace_analytics": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

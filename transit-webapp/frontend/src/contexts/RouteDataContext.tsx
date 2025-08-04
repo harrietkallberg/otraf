@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react'
 import { useAuth } from './AuthContext'
+import * as DataInterfaces from './DataInterfaces'
 
 export interface RouteDataContextType {
-  routeId: string | null
-  setRouteId: (id: string | null) => void
-  routeData: any | null
-  setRouteData: (data: any) => void
-  isLoading: boolean // Add loading state
-  error: string | null // Add error state
+  routeId: string | null;
+  setRouteId: (id: string | null) => void;
+  routeData: DataInterfaces.RouteData | null;  // Correctly using RouteData interface
+  setRouteData: (data: any) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 export const RouteDataContext = createContext<RouteDataContextType | null>(null)
@@ -18,7 +19,7 @@ interface ProviderProps {
 
 export const RouteDataProvider: React.FC<ProviderProps> = ({ children }) => {
   const [routeId, setRouteId] = useState<string | null>(null)
-  const [routeData, setRouteData] = useState<any | null>(null)
+  const [routeData, setRouteData] = useState<DataInterfaces.RouteData | null>(null)  // Correct type for routeData
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const { user, session, isLoading: authLoading } = useAuth()
@@ -41,8 +42,7 @@ export const RouteDataProvider: React.FC<ProviderProps> = ({ children }) => {
 
     setIsLoading(true)
     setError(null)
-    // Clear old data immediately when starting new fetch
-    setRouteData(null)
+    setRouteData(null)  // Clear old data immediately when starting new fetch
 
     const headers = {
       'X-User-Id': user.id,
@@ -61,7 +61,7 @@ export const RouteDataProvider: React.FC<ProviderProps> = ({ children }) => {
       })
       .then((data) => {
         console.log('RouteDataContext received data for routeId:', routeId)
-        setRouteData(data)
+        setRouteData(data)  // Data is typed as RouteData
         setError(null)
       })
       .catch((err) => {

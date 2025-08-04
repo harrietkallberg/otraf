@@ -27,9 +27,9 @@ export interface GlobalData {
   routes: Record<string, any>
   labels: Record<string, any>
   violations: Record<string, any>
+  performance: Record<string, any>
   time_types: string[]
   travel_times: TravelSegment[]
-  performance: Record<string, any>
 }
 
 // Create a context that can be GlobalData or null
@@ -73,19 +73,19 @@ export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
       fetch('/api/global/routes', { headers }).then(r => r.json()),
       fetch('/api/global/labels', { headers }).then(r => r.json()),
       fetch('/api/global/violations', { headers }).then(r => r.json()),
+      fetch('/api/global/performance_analytics', { headers }).then(r => r.json()),
       fetch('/api/global/time_types', { headers }).then(r => r.json()),
-      fetch('/api/global/travel_times', { headers }).then(r => r.json()),
-      fetch('/api/global/performance_analytics', { headers }).then(r => r.json())
+      fetch('/api/global/travel_times', { headers }).then(r => r.json())
     ])
-      .then(([stops, routes, labels, violations, time_types, travel_times, performance]) =>
+      .then(([stops, routes, labels, violations, performance, time_types, travel_times]) =>
         setData({
           stops: stops,
           routes: routes,
           labels: labels,
           violations: violations,
+          performance: performance,
           time_types: time_types,
-          travel_times: travel_times,
-          performance: performance
+          travel_times: travel_times
         })
       )
       .catch((err) => {
