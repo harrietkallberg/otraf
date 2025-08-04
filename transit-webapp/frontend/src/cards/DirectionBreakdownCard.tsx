@@ -66,7 +66,6 @@ const DirectionTile: React.FC<DirectionTileProps> = ({
 }) => {
   const [showPunctualityFlow, setShowPunctualityFlow] = useState(false);
   const [showStopSequence, setShowStopSequence] = useState(false);
-  const [showLogSpecs, setShowLogSpecs] = useState(false);
   const [selectedTimeType, setSelectedTimeType] = useState('day');
   const [selectedMetric, setSelectedMetric] = useState('on_time');
 
@@ -126,18 +125,7 @@ const DirectionTile: React.FC<DirectionTileProps> = ({
               : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
           }`}
         >
-          {showStopSequence ? 'Hide' : 'Show'} Stop Sequence
-        </button>
-        
-        <button
-          onClick={() => setShowLogSpecs(!showLogSpecs)}
-          className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md border transition-colors ${
-            showLogSpecs 
-              ? 'bg-blue-50 text-blue-700 border-blue-200' 
-              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          {showLogSpecs ? 'Hide' : 'Show'} Log Specifications
+          {showStopSequence ? 'Hide' : 'Show'} Stop Sequence & Details
         </button>
       </div>
 
@@ -185,7 +173,7 @@ const DirectionTile: React.FC<DirectionTileProps> = ({
           </div>
         )}
 
-        {/* Stop Sequence */}
+        {/* Stop Sequence with integrated detailed logs */}
         {showStopSequence && (
           <div>
             <StopSequence 
@@ -196,8 +184,6 @@ const DirectionTile: React.FC<DirectionTileProps> = ({
             />
           </div>
         )}
-
-        
       </div>
     </div>
   );

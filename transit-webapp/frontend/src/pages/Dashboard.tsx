@@ -22,6 +22,7 @@ const Dashboard: React.FC = () => {
         },
         violationsBySeverity: {},
         labelsByType: {},
+        violationsByType: {},
         overallPunctuality: null,
         problematicRoutes: []
       }
@@ -36,17 +37,22 @@ const Dashboard: React.FC = () => {
     const labelsObj = Array.isArray(labels) 
       ? Object.fromEntries(labels.map((label: any) => [label.entity_key, label]))
       : labels || {}
-    const violationsObj = Array.isArray(violations)
+
+    const violationsObj_s = Array.isArray(violations)
+      ? Object.fromEntries(violations.map((violation: any) => [violation.entity_key, violation]))
+      : violations || {}
+    
+    const violationsObj_t = Array.isArray(violations)
       ? Object.fromEntries(violations.map((violation: any) => [violation.entity_key, violation]))
       : violations || {}
 
     const totalLabels = Object.keys(labelsObj).length
-    const totalViolations = Object.keys(violationsObj).length
+    const totalViolations = Object.keys(violationsObj_s).length
     const totalPerformanceMetrics = Object.keys(performance || {}).length
     const totalTravelSegments = travel_times?.length || 0
 
     // Analyze violations by severity
-    const violationsBySeverity = Object.values(violationsObj).reduce((acc: Record<string, number>, violation: any) => {
+    const violationsBySeverity = Object.values(violationsObj_s).reduce((acc: Record<string, number>, violation: any) => {
       const severity = violation.severity || 1
       acc[severity] = (acc[severity] || 0) + 1
       return acc
@@ -55,6 +61,13 @@ const Dashboard: React.FC = () => {
     // Analyze labels by type
     const labelsByType = Object.values(labelsObj).reduce((acc: Record<string, number>, label: any) => {
       const type = label.label_type || 'unknown'
+      acc[type] = (acc[type] || 0) + 1
+      return acc
+    }, {})
+
+    // Analyze violations by type
+    const violationsByType = Object.values(violationsObj_t).reduce((acc: Record<string, number>, violation: any) => {
+      const type = violation.violation_type || 'unknown'  // ✅ Now using the correct parameter name
       acc[type] = (acc[type] || 0) + 1
       return acc
     }, {})
@@ -92,24 +105,6 @@ const Dashboard: React.FC = () => {
       avgDelay: (totalDelaySum / totalSamples).toFixed(1)
     } : null
 
-    // Find routes with most issues
-    const routeIssues = Object.values(violationsObj).reduce((acc: Record<string, number>, violation: any) => {
-      const routeId = violation.route_id
-      if (routeId) {
-        acc[routeId] = (acc[routeId] || 0) + 1
-      }
-      return acc
-    }, {})
-
-    const problematicRoutes = Object.entries(routeIssues)
-      .sort(([,a], [,b]) => (b as number) - (a as number))
-      .slice(0, 5)
-      .map(([routeId, count]) => ({
-        routeId,
-        routeName: routes[routeId]?.route_short_name || routeId,
-        issueCount: count as number
-      }))
-
     return {
       totals: {
         totalStops,
@@ -122,8 +117,8 @@ const Dashboard: React.FC = () => {
       },
       violationsBySeverity,
       labelsByType,
-      overallPunctuality,
-      problematicRoutes
+      violationsByType,
+      overallPunctuality
     }
   }, [globalData]) // Simplified dependency
 
@@ -242,38 +237,24 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Routes with Most Issues */}
-      {metrics.problematicRoutes.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4"> Routes Requiring Attention</h3>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {metrics.problematicRoutes.map((route, index) => (
-              <div key={route.routeId} className="text-center p-3 bg-red-50 rounded-lg">
-                <div className="text-lg font-bold text-red-600">Route {route.routeName}</div>
-                <div className="text-sm text-gray-600">{route.issueCount} issues</div>
-                <div className="text-xs text-gray-500">#{index + 1} most issues</div>
+      {/* Violation Types Distribution */}
+      <div className="rg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold mb-4"> System Violations Distribution</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Object.entries(metrics.violationsByType)
+            .sort(([,a], [,b]) => (b as number) - (a as number))
+            .slice(0, 8)
+            .map(([type, count]) => (
+              <div key={type} className="text-center p-3 bg-red-50 rounded-lg">
+                <div className="text-lg font-bold text-red-600">{String(count)}</div>
+                <div className="text-xs text-gray-600 capitalize">
+                  {type.replace(/_/g, ' ')}
+                </div>
               </div>
             ))}
-          </div>
         </div>
-      )}
-
-      {/* Routes with Most Issues */}
-      {/* {metrics.problematicStops.length > 0 &&*/ (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4"> Stops Requiring Attention</h3>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {metrics.problematicRoutes.map((route, index) => (
-              <div key={route.routeId} className="text-center p-3 bg-red-50 rounded-lg">
-                <div className="text-lg font-bold text-red-600">Route {route.routeName}</div>
-                <div className="text-sm text-gray-600">{route.issueCount} issues</div>
-                <div className="text-xs text-gray-500">#{index + 1} most issues</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
+      </div>
+  
       {/* Label Types Distribution */}
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold mb-4"> System Labels Distribution</h3>
