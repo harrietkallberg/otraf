@@ -80,7 +80,7 @@ const RouteTile: React.FC<RouteTileProps> = ({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-4">
           <h3 className="text-lg font-medium text-gray-900">
-            Route {route.route_short_name} - {route.route_long_name}
+            Route {route.route_short_name}
           </h3>
           
           {/* Markers */}
