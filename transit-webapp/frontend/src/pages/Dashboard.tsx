@@ -144,10 +144,10 @@ const Dashboard: React.FC = () => {
 
       {/* Main Overview Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card title="Routes" value={metrics.totals.totalRoutes}  />
-        <Card title="Stops" value={metrics.totals.totalStops} />
-        <Card title="Performance Metrics" value={metrics.totals.totalPerformanceMetrics}  />
-        <Card title="Travel Segments" value={metrics.totals.totalTravelSegments}  />
+        <Card title="Routes" value={metrics.totals.totalRoutes} bgColor="bg-sky-100" textColor="text-sky-600" />
+        <Card title="Stops" value={metrics.totals.totalStops} bgColor="bg-orange-100" textColor="text-orange-600" />
+        <Card title="Performance Metrics" value={metrics.totals.totalPerformanceMetrics} bgColor="bg-amber-100" textColor="text-amber-600" />
+        <Card title="Travel Segments" value={metrics.totals.totalTravelSegments} bgColor="bg-indigo-100" textColor="text-indigo-600" />
       </div>
 
       {/* System Health Section */}
@@ -238,7 +238,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Violation Types Distribution */}
-      <div className="rg-white rounded-lg shadow p-6">
+      <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold mb-4"> System Violations Distribution</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {Object.entries(metrics.violationsByType)
@@ -280,13 +280,15 @@ interface CardProps {
   title: string
   value: number
   icon?: string
+  bgColor?: string
+  textColor?: string
 }
 
-const Card: React.FC<CardProps> = ({ title, value, icon }) => (
-  <div className="bg-white rounded-lg shadow p-6 flex flex-col items-center">
+const Card: React.FC<CardProps> = ({ title, value, icon, bgColor = "bg-white", textColor = "text-gray-900" }) => (
+  <div className={`${bgColor} rounded-lg shadow p-6 flex flex-col items-center border border-gray-200`}>
     {icon && <div className="text-2xl mb-2">{icon}</div>}
     <h2 className="text-lg font-medium text-gray-700">{title}</h2>
-    <p className="text-3xl font-bold mt-2 text-gray-900">{value.toLocaleString()}</p>
+    <p className={`text-3xl font-bold mt-2 ${textColor}`}>{value.toLocaleString()}</p>
   </div>
 )
 

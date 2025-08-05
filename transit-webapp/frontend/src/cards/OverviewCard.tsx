@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StopData, RouteData } from '../shared/types';
+import { GlobalDataContext } from '../contexts/GlobalDataContext';
 
 // Type guard to check if the data is of type StopData
 const isStopData = (data: StopData | RouteData): data is StopData => {
@@ -16,6 +17,8 @@ interface OverviewCardProps {
 }
 
 const OverviewCard: React.FC<OverviewCardProps> = ({ data }) => {
+  const globalData = useContext(GlobalDataContext);
+
   return (
     <div className="bg-white shadow-sm rounded-lg border border-gray-200">
       <div className="px-6 py-8">
@@ -27,10 +30,10 @@ const OverviewCard: React.FC<OverviewCardProps> = ({ data }) => {
               <>
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+                    <div className="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center">
+                      <span className="text-lg font-bold text-sky-600">
+                        {data.route_short_name}
+                      </span>
                     </div>
                   </div>
                   <div>
@@ -68,16 +71,11 @@ const OverviewCard: React.FC<OverviewCardProps> = ({ data }) => {
                   <div className="mt-6">
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Stops on Route</h3>
                     <div className="flex flex-wrap gap-2">
-                      {data.on_stops.slice(0, 8).map((stopId: string, index: number) => (
-                        <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
-                          {stopId}
+                      {data.on_stops.map((parentStationId: string, index: number) => (
+                        <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200">
+                          {globalData?.stops?.[parentStationId]?.stop_name || parentStationId}
                         </span>
                       ))}
-                      {data.on_stops.length > 8 && (
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                          +{data.on_stops.length - 8} more
-                        </span>
-                      )}
                     </div>
                   </div>
                 )}
@@ -89,8 +87,8 @@ const OverviewCard: React.FC<OverviewCardProps> = ({ data }) => {
               <>
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
@@ -142,9 +140,11 @@ const OverviewCard: React.FC<OverviewCardProps> = ({ data }) => {
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Routes Serving This Stop</h3>
                     <div className="flex flex-wrap gap-2">
                       {data.on_routes?.map((routeId: string, index: number) => (
-                        <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-                          {routeId}
-                        </span>
+                        <div key={index} className="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center border border-sky-200">
+                          <span className="text-xs font-bold text-sky-600">
+                            {globalData?.routes?.[routeId]?.route_short_name || routeId}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -184,24 +184,24 @@ const OverviewCard: React.FC<OverviewCardProps> = ({ data }) => {
                 <div className="text-xs text-red-800">Total Violations</div>
               </div>
               
-              <div className="text-center p-3 bg-green-50 rounded-lg">
-                <div className="text-lg font-bold text-green-600">
+              <div className="text-center p-3 bg-amber-50 rounded-lg">
+                <div className="text-lg font-bold text-amber-600">
                   {isRouteData(data) 
                     ? data.route_summary?.performance?.available_performace_analytics || 0
                     : data.stop_summary?.performance?.available_performace_analytics || 0
                   }
                 </div>
-                <div className="text-xs text-green-800">Analytics Available</div>
+                <div className="text-xs text-amber-800">Analytics Available</div>
               </div>
               
-              <div className="text-center p-3 bg-amber-50 rounded-lg">
-                <div className="text-lg font-bold text-amber-600">
+              <div className="text-center p-3 bg-orange-50 rounded-lg">
+                <div className="text-lg font-bold text-orange-600">
                   {isRouteData(data) 
                     ? data.route_summary?.regulatory_stops?.regulatory_stop_ids || 0
                     : data.stop_summary?.regulatory_stops?.regulatory_stop_ids || 0
                   }
                 </div>
-                <div className="text-xs text-amber-800">Regulatory Stops</div>
+                <div className="text-xs text-orange-800">Regulatory Stops</div>
               </div>
             </div>
           </div>

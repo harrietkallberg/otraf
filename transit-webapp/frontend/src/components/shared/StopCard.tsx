@@ -60,16 +60,16 @@ export const StopCard: React.FC<StopCardProps> = ({
   return (
     <div className={`border rounded-lg transition-all ${
       isRegulatory 
-        ? 'border-amber-200 bg-amber-50' 
-        : 'border-gray-200 bg-white hover:bg-gray-50'
+        ? 'border-orange-200 bg-orange-50 hover:bg-orange-100' 
+        : 'border-gray-200 bg-white hover:bg-gray-100'
     }`}>
       <div className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className={`${badgeSize} rounded-full flex items-center justify-center font-bold ${
               isRegulatory 
-                ? 'bg-amber-200 text-amber-800' 
-                : 'bg-blue-100 text-blue-800'
+                ? 'bg-orange-200 text-orange-800' 
+                : 'bg-orange-100 text-orange-800'
             }`}>
               {'position' in stopIdData ? stopIdData.position : '?'}
             </div>

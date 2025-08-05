@@ -96,8 +96,8 @@ const DirectionTile: React.FC<DirectionTileProps> = ({
               </span>
             )}
             {analytics > 0 && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                {analytics} analytics
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                {analytics} performance analytics
               </span>
             )}
           </div>

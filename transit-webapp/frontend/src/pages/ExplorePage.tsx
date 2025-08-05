@@ -1,7 +1,9 @@
-import React, { useState, useContext, useMemo, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalDataContext } from '../contexts/GlobalDataContext'
-import StopDetailsView from '../components/shared/StopDetailsView'
+import { StopDetailsView, Badge } from '../components/shared'
+import { ProgressiveSearchFilters, FilterConfig } from '../components/shared/ProgressiveSearchFilters'
+import { useProgressiveSearch, FilterValidationRule } from '../hooks/useProgressiveSearch'
 
 interface ExplorePageProps {}
 
@@ -25,12 +27,6 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
   const { routeId: urlRouteId, directionId: urlDirectionId, stopId: urlStopId, timeType: urlTimeType } = useParams()
   const globalData = useContext(GlobalDataContext)
   
-  // State for search filters
-  const [selectedRouteId, setSelectedRouteId] = useState(urlRouteId || '')
-  const [selectedDirectionId, setSelectedDirectionId] = useState(urlDirectionId || '')
-  const [selectedStopId, setSelectedStopId] = useState(urlStopId || '')
-  const [selectedTimeType, setSelectedTimeType] = useState(urlTimeType || '')
-
   // All combinations from performance data
   const [allCombinations, setAllCombinations] = useState<ResultCombination[]>([])
 
@@ -47,99 +43,58 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
       ? Object.fromEntries(globalData.violations.map((violation: any) => [violation.entity_key, violation]))
       : globalData.violations || {}
 
-    console.log('Converted data:', {
-      labelsObjKeys: Object.keys(labelsObj).slice(0, 5),
-      violationsObjKeys: Object.keys(violationsObj).slice(0, 5)
-    })
-
     const combinations: ResultCombination[] = []
 
     // Extract all combinations from performance data
     Object.keys(globalData.performance || {}).forEach(key => {
-      // Better regex that specifically looks for the pattern
       const match = key.match(/^performance_([^_]+(?:_[^_]+)*)_direction_id_stop_id_time_type_(\d+)_([^_]+)_(.+)$/)
       if (match) {
         const [, routeId, directionId, stopId, timeType] = match
-        
-        // Debug the regex parsing for first few keys
-        if (combinations.length < 3) {
-          console.log(`Parsing key: ${key}`)
-          console.log(`Parsed:`, { routeId, directionId, stopId, timeType })
-        }
-        
-        // Get performance data
         const performanceData = globalData.performance[key]
         
         // Find parent station by looking up the stop_id in global stops data
         let parentStation = performanceData?.parent_station
-        let allStopIdsForThisStation = [stopId] // Start with current stop_id
+        let allStopIdsForThisStation = [stopId]
         
         if (!parentStation && globalData.stops) {
-          // Search through all parent stations to find which one contains this stop_id
           for (const [parentStationId, stationData] of Object.entries(globalData.stops)) {
             if (stationData.stop_ids && stationData.stop_ids.includes(stopId)) {
               parentStation = parentStationId
-              allStopIdsForThisStation = stationData.stop_ids // Get ALL stop_ids for this parent station
+              allStopIdsForThisStation = stationData.stop_ids
               break
             }
           }
         }
         
-        // Build standardized keys following the logger's build_entity_key pattern:
-        // {domain}_{route_id}_{kind}_{identifier}
-        // Include ALL hierarchical levels that could apply to this combination
+        // Build possible label and violation keys
         const possibleLabelKeys = [
-          // Direction + Stop level for current stop (most specific)
           `direction_topology_${routeId}_direction_id_stop_id_${directionId}_${stopId}`,
-          // Direction level (applies to whole direction)
           `direction_topology_${routeId}_direction_id_${directionId}`,
-          // Regulatory stops for current stop
           `regulatory_stops_${routeId}_direction_id_stop_id_${directionId}_${stopId}`,
-          // Parent station level (if we have parent station - applies to whole parent station)
           ...(parentStation ? [`stop_topology_${routeId}_parent_station_${parentStation}`] : []),
-          // Parent station + stop level for current stop (if we have parent station)
           ...(parentStation ? [`stop_topology_${routeId}_parent_station_stop_id_${parentStation}_${stopId}`] : []),
-          // Parent station + stop level for ALL other stop_ids in this parent station
           ...(parentStation ? allStopIdsForThisStation
-            .filter(sid => sid !== stopId) // Exclude current stop_id as we already have it
+            .filter(sid => sid !== stopId)
             .map(sid => `stop_topology_${routeId}_parent_station_stop_id_${parentStation}_${sid}`) : []),
-          // Direction + Stop level for ALL other stop_ids in this parent station
           ...allStopIdsForThisStation
-            .filter(sid => sid !== stopId) // Exclude current stop_id as we already have it
+            .filter(sid => sid !== stopId)
             .map(sid => `direction_topology_${routeId}_direction_id_stop_id_${directionId}_${sid}`)
         ]
 
         const possibleViolationKeys = [
-          // Direction + Stop level for current stop (most specific)
           `direction_topology_${routeId}_direction_id_stop_id_${directionId}_${stopId}`,
-          // Direction level (applies to whole direction)
           `direction_topology_${routeId}_direction_id_${directionId}`,
-          // Parent station level (if we have parent station - applies to whole parent station)
           ...(parentStation ? [`stop_topology_${routeId}_parent_station_${parentStation}`] : []),
-          // Parent station + stop level for current stop (if we have parent station)
           ...(parentStation ? [`stop_topology_${routeId}_parent_station_stop_id_${parentStation}_${stopId}`] : []),
-          // Parent station + stop level for ALL other stop_ids in this parent station
           ...(parentStation ? allStopIdsForThisStation
-            .filter(sid => sid !== stopId) // Exclude current stop_id as we already have it
+            .filter(sid => sid !== stopId)
             .map(sid => `stop_topology_${routeId}_parent_station_stop_id_${parentStation}_${sid}`) : []),
-          // Direction + Stop level for ALL other stop_ids in this parent station
           ...allStopIdsForThisStation
-            .filter(sid => sid !== stopId) // Exclude current stop_id as we already have it
+            .filter(sid => sid !== stopId)
             .map(sid => `direction_topology_${routeId}_direction_id_stop_id_${directionId}_${sid}`)
         ]
         
-        // Debug for first few combinations
-        if (combinations.length < 3) {
-          console.log(`Debug combination ${combinations.length + 1}:`, {
-            routeId, directionId, stopId, timeType, parentStation,
-            possibleLabelKeys,
-            possibleViolationKeys,
-            foundLabels: possibleLabelKeys.filter(key => labelsObj[key]),
-            foundViolations: possibleViolationKeys.filter(key => violationsObj[key])
-          })
-        }
-        
-        // Get actual label and violation data using the standardized keys
+        // Get actual label and violation data
         const labels = possibleLabelKeys
           .filter(labelKey => labelsObj[labelKey])
           .map(labelKey => ({ key: labelKey, ...labelsObj[labelKey] }))
@@ -166,110 +121,122 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
       }
     })
 
-    console.log('Setting explore combinations:', combinations.length, 'total')
-    console.log('Sample combinations with labels/violations:', 
-      combinations.filter(c => c.labelCount > 0 || c.violationCount > 0).slice(0, 3)
-    )
     setAllCombinations(combinations)
   }, [globalData])
 
-  const hasLetters = (s: string) => /\D/.test(s)
-
-  // Smart filter clearing - only clear if current selection becomes invalid
-  useEffect(() => {
-    if (!selectedRouteId && !selectedDirectionId && !selectedStopId && !selectedTimeType) return
-    
-    const validRoutes = new Set<string>()
-    const validDirections = new Set<string>()
-    const validStops = new Set<string>()
-    const validTimeTypes = new Set<string>()
-    
-    allCombinations.forEach(combination => {
-      if (!combination.hasPerformance) return
-
-      const routeMatch = !selectedRouteId || combination.routeId === selectedRouteId
-      const directionMatch = !selectedDirectionId || combination.directionId === selectedDirectionId
-      const stopMatch = !selectedStopId || combination.stopId === selectedStopId
-      const timeMatch = !selectedTimeType || combination.timeType === selectedTimeType
-
-      if (directionMatch && stopMatch && timeMatch) validRoutes.add(combination.routeId)
-      if (routeMatch && stopMatch && timeMatch) validDirections.add(combination.directionId)
-      if (routeMatch && directionMatch && timeMatch) validStops.add(combination.stopId)
-      if (routeMatch && directionMatch && stopMatch) validTimeTypes.add(combination.timeType)
-    })
-
-    // Only clear if current selection is no longer valid
-    if (selectedRouteId && !validRoutes.has(selectedRouteId)) {
-      setSelectedRouteId('')
-      setSelectedDirectionId('')
-      setSelectedStopId('')
-      setSelectedTimeType('')
-    } else if (selectedDirectionId && !validDirections.has(selectedDirectionId)) {
-      setSelectedDirectionId('')
-      setSelectedStopId('')
-      setSelectedTimeType('')
-    } else if (selectedStopId && !validStops.has(selectedStopId)) {
-      setSelectedStopId('')
-      setSelectedTimeType('')
-    } else if (selectedTimeType && !validTimeTypes.has(selectedTimeType)) {
-      setSelectedTimeType('')
+  // Define filter rules for progressive search
+  const filterRules: FilterValidationRule<ResultCombination>[] = [
+    {
+      key: 'routeId',
+      validateItem: (item, filters) => !filters.routeId || item.routeId === filters.routeId,
+      extractOptions: (item) => item.routeId,
+    },
+    {
+      key: 'directionId',
+      validateItem: (item, filters) => !filters.directionId || item.directionId === filters.directionId,
+      extractOptions: (item) => item.directionId,
+      dependencies: ['stopId', 'timeType']
+    },
+    {
+      key: 'stopId',
+      validateItem: (item, filters) => !filters.stopId || item.stopId === filters.stopId,
+      extractOptions: (item) => item.stopId,
+      dependencies: ['timeType']
+    },
+    {
+      key: 'timeType',
+      validateItem: (item, filters) => !filters.timeType || item.timeType === filters.timeType,
+      extractOptions: (item) => item.timeType,
     }
-  }, [selectedRouteId, selectedDirectionId, selectedStopId, selectedTimeType, allCombinations])
+  ];
 
-  // Progressive filtering and results - single pass approach
-  const { availableOptions, filteredResults } = useMemo(() => {
-    const routes = new Set<string>()
-    const directions = new Set<string>()
-    const stops = new Set<string>()
-    const timeTypes = new Set<string>()
-    const filtered: ResultCombination[] = []
+  // Use the progressive search hook
+  const {
+    filters,
+    setFilter,
+    filteredData: filteredResults,
+    availableOptions
+  } = useProgressiveSearch({
+    data: allCombinations,
+    initialFilters: {
+      routeId: urlRouteId || '',
+      directionId: urlDirectionId || '',
+      stopId: urlStopId || '',
+      timeType: urlTimeType || ''
+    },
+    filterRules,
+    hasValidData: (item) => item.hasPerformance
+  });
 
-    allCombinations.forEach(combination => {
-      if (!combination.hasPerformance) return
-
-      // Apply current filters
-      const routeMatch = !selectedRouteId || combination.routeId === selectedRouteId
-      const directionMatch = !selectedDirectionId || combination.directionId === selectedDirectionId
-      const stopMatch = !selectedStopId || combination.stopId === selectedStopId
-      const timeMatch = !selectedTimeType || combination.timeType === selectedTimeType
-
-      // If matches all current filters, include in results
-      if (routeMatch && directionMatch && stopMatch && timeMatch) {
-        filtered.push(combination)
-      }
-
-      // Collect available options based on partial matches (progressive filtering)
-      if (directionMatch && stopMatch && timeMatch) routes.add(combination.routeId)
-      if (routeMatch && stopMatch && timeMatch) directions.add(combination.directionId)
-      if (routeMatch && directionMatch && timeMatch) stops.add(combination.stopId)
-      if (routeMatch && directionMatch && stopMatch) timeTypes.add(combination.timeType)
-    })
-
-    return {
-      availableOptions: {
-        routes: Array.from(routes).sort(),
-        directions: Array.from(directions).sort(),
-        stops: Array.from(stops).sort(),
-        timeTypes: Array.from(timeTypes).sort()
-      },
-      filteredResults: filtered.sort((a, b) => {
-        // Ensure all values are strings before comparing
-        const aRouteName = String(a.routeName || a.routeId)
-        const bRouteName = String(b.routeName || b.routeId)
-        const aStopName = String(a.stopName || a.stopId)
-        const bStopName = String(b.stopName || b.stopId)
-        const aDirectionId = String(a.directionId)
-        const bDirectionId = String(b.directionId)
-        const aTimeType = String(a.timeType)
-        const bTimeType = String(b.timeType)
-        
-        return aRouteName.localeCompare(bRouteName) || 
-               aDirectionId.localeCompare(bDirectionId) ||
-               aStopName.localeCompare(bStopName) ||
-               aTimeType.localeCompare(bTimeType)
+  // Create filter configurations
+  const filterConfigs: FilterConfig[] = [
+    {
+      key: 'routeId',
+      label: 'Route',
+      placeholder: '(all routes)',
+      value: filters.routeId || '',
+      onChange: (value) => setFilter('routeId', value),
+      options: Array.from(availableOptions.routeId || []).sort().map(routeId => ({
+        value: routeId,
+        label: `Route ${globalData?.routes?.[routeId]?.route_short_name || routeId}`
+      }))
+    },
+    {
+      key: 'directionId',
+      label: 'Direction',
+      placeholder: '(both directions)',
+      value: filters.directionId || '',
+      onChange: (value) => setFilter('directionId', value),
+      options: [
+        { value: '0', label: 'Direction 0' },
+        { value: '1', label: 'Direction 1' }
+      ].filter(option => availableOptions.directionId?.has(option.value))
+    },
+    {
+      key: 'stopId',
+      label: 'Stop',
+      placeholder: '(all stops)',
+      value: filters.stopId || '',
+      onChange: (value) => setFilter('stopId', value),
+      options: Array.from(availableOptions.stopId || []).sort().map(stopId => {
+        const stopName = allCombinations.find(c => c.stopId === stopId)?.stopName || stopId;
+        return {
+          value: stopId,
+          label: `${stopName} (${stopId})`
+        };
       })
+    },
+    {
+      key: 'timeType',
+      label: 'Time Type',
+      placeholder: '(all time types)',
+      value: filters.timeType || '',
+      onChange: (value) => setFilter('timeType', value),
+      options: (globalData?.time_types || [])
+        .filter((timeType: string) => availableOptions.timeType?.has(timeType))
+        .map((timeType: string) => ({
+          value: timeType,
+          label: timeType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+        }))
     }
-  }, [allCombinations, selectedRouteId, selectedDirectionId, selectedStopId, selectedTimeType])
+  ];
+
+  // Sort filtered results
+  const sortedResults = filteredResults.sort((a, b) => {
+    const aRouteName = String(a.routeName || a.routeId)
+    const bRouteName = String(b.routeName || b.routeId)
+    const aStopName = String(a.stopName || a.stopId)
+    const bStopName = String(b.stopName || b.stopId)
+    const aDirectionId = String(a.directionId)
+    const bDirectionId = String(b.directionId)
+    const aTimeType = String(a.timeType)
+    const bTimeType = String(b.timeType)
+    
+    return aRouteName.localeCompare(bRouteName) || 
+           aDirectionId.localeCompare(bDirectionId) ||
+           aStopName.localeCompare(bStopName) ||
+           aTimeType.localeCompare(bTimeType)
+  });
 
   if (!globalData) {
     return <div className="p-6">Loading explore data...</div>
@@ -277,83 +244,23 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
 
   return (
     <div className="p-6">
-      
-      <h1 className="text-2xl font-bold mb-4"> Explore Logs of Performance, Delays, Labels and Violations</h1>
+      <h1 className="text-2xl font-bold mb-4">Explore Logs</h1>
       
       <div className="mb-4 text-sm text-gray-600">
-        Found {allCombinations.length} combinations total, {filteredResults.length} matching filters
+        Found {allCombinations.length} combinations with logs of performance, labels and violations
       </div>
 
       {/* Progressive Search Filters */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        <div>
-          <label className="block mb-1">Route</label>
-          <select
-            value={selectedRouteId}
-            onChange={(e) => setSelectedRouteId(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(all routes)</option>
-            {availableOptions.routes.map(routeId => (
-              <option key={routeId} value={routeId}>
-                Route {globalData.routes?.[routeId]?.route_short_name || routeId}
-              </option>
-            ))}
-          </select>
-        </div>
+      <ProgressiveSearchFilters
+        title="Filter Results"
+        subtitle={`Showing ${sortedResults.length} of ${allCombinations.length} combinations`}
+        filters={filterConfigs}
+        className="mb-6"
+      />
 
-        <div>
-          <label className="block mb-1">Direction</label>
-          <select
-            value={selectedDirectionId}
-            onChange={(e) => setSelectedDirectionId(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(both directions)</option>
-            <option value="0">Direction 0</option>
-            <option value="1">Direction 1</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1">Stop</label>
-          <select
-            value={selectedStopId}
-            onChange={(e) => setSelectedStopId(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(all stops)</option>
-            {availableOptions.stops.map(stopId => {
-              const stopName = allCombinations.find(c => c.stopId === stopId)?.stopName || stopId
-              return (
-                <option key={stopId} value={stopId}>
-                  {stopName} ({stopId})
-                </option>
-              )
-            })}
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1">Time Type</label>
-          <select
-            value={selectedTimeType}
-            onChange={(e) => setSelectedTimeType(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(all time types)</option>
-            {globalData.time_types?.map(timeType => (
-              <option key={timeType} value={timeType}>
-                {timeType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Results - Updated to use shared components */}
+      {/* Results */}
       <div className="space-y-4">
-        {filteredResults.map((result, idx) => (
+        {sortedResults.map((result, idx) => (
           <ExploreResultCard 
             key={idx}
             result={result}
@@ -361,7 +268,7 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
           />
         ))}
 
-        {filteredResults.length === 0 && (
+        {sortedResults.length === 0 && (
           <div className="text-center py-8">
             <p className="text-gray-500 text-lg">No matching combinations found.</p>
             <p className="text-gray-400 text-sm mt-2">
@@ -374,77 +281,84 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
   )
 }
 
-// New component that replaces ResultTile
+// Refactored component using shared components
 const ExploreResultCard: React.FC<{
   result: ResultCombination;
   globalData: any;
 }> = ({ result, globalData }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // Check if this is a regulatory stop
+  const isRegulatory = result.performanceData?.analytics?.is_regulatory_stop || 
+                       result.labels.some(label => label.key?.includes('regulatory_stops'));
+
   return (
-    <div className="border p-4 rounded shadow-sm bg-white">
-      {/* Card Header - Keep the original header from ResultTile */}
-      <div className="flex justify-between items-center mb-2">
-        <span className="text-sm text-gray-500">
-          {result.timeType.replace('_', ' ').toUpperCase()}
-        </span>
+    <div className={`border rounded-lg transition-all ${
+      isRegulatory 
+        ? 'border-orange-200 bg-orange-50' 
+        : 'border-gray-200 bg-white'
+    }`}>
+      <div className="p-4">
+        {/* Card Header */}
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-500">
+            {result.timeType.replace('_', ' ').toUpperCase()}
+          </span>
+          
+          {/* Summary Badges using shared Badge component */}
+          <div className="flex items-center space-x-2">
+            {result.performanceData?.analytics?.punctuality && (
+              <Badge 
+                count={0} 
+                type="analytics" 
+                customText={`${result.performanceData.analytics.punctuality.punctuality_distribution.percentages.on_time}% on time`}
+                size="sm"
+              />
+            )}
+            {isRegulatory && (
+              <Badge count={0} type="regulatory" customText="Regulatory" size="sm" />
+            )}
+            {result.labelCount > 0 && (
+              <Badge count={result.labelCount} type="labels" size="sm" />
+            )}
+            {result.violationCount > 0 && (
+              <Badge count={result.violationCount} type="violations" size="sm" />
+            )}
+          </div>
+        </div>
         
-        {/* Summary Badges */}
-        <div className="flex items-center space-x-2">
-          {result.performanceData?.analytics?.punctuality && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-              {result.performanceData.analytics.punctuality.punctuality_distribution.percentages.on_time}% on time
-            </span>
-          )}
-          {result.performanceData?.analytics?.is_regulatory_stop && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-              Regulatory
-            </span>
-          )}
-          {result.labelCount > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {result.labelCount} labels
-            </span>
-          )}
-          {result.violationCount > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-              {result.violationCount} violations
-            </span>
-          )}
+        <div className="text-lg font-semibold mb-1">
+          Route {result.routeName} - {result.stopName}
         </div>
-      </div>
-      
-      <div className="text-lg font-semibold mb-1">
-        Route {result.routeName} - {result.stopName}
-      </div>
-      
-      <div className="text-sm text-gray-600 mb-3">
-        Direction {result.directionId} • Stop ID: {result.stopId}
-      </div>
-
-      {/* Performance Summary */}
-      {result.performanceData?.analytics?.punctuality && (
-        <div className="text-sm text-gray-600 space-x-4 mb-3">
-          <span>
-            Sample: {result.performanceData.analytics.punctuality.sample_size.toLocaleString()}
-          </span>
-          <span>
-            Mean delay: {result.performanceData.analytics.punctuality.basic_statistics.mean_delay.toFixed(1)}s
-          </span>
+        
+        <div className="text-sm text-gray-600 mb-3">
+          Direction {result.directionId} • Stop ID: {result.stopId}
         </div>
-      )}
 
-      {/* Show Details / Hide Details Button */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 focus:outline-none transition-colors"
-      >
-        {isExpanded ? 'Hide Details' : 'Show Details'}
-      </button>
+        {/* Performance Summary */}
+        {result.performanceData?.analytics?.punctuality && (
+          <div className="text-sm text-gray-600 space-x-4 mb-3">
+            <span>
+              Sample: {result.performanceData.analytics.punctuality.sample_size.toLocaleString()}
+            </span>
+            <span>
+              Mean delay: {result.performanceData.analytics.punctuality.basic_statistics.mean_delay.toFixed(1)}s
+            </span>
+          </div>
+        )}
 
-      {/* Expanded Details - Use shared component */}
+        {/* Show Details / Hide Details Button */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 focus:outline-none transition-colors"
+        >
+          {isExpanded ? 'Hide Details' : 'Show Details'}
+        </button>
+      </div>
+
+      {/* Expanded Details - Using shared StopDetailsView component */}
       {isExpanded && (
-        <div className="mt-4 pt-4 border-t border-gray-200">
+        <div className="border-t border-gray-200 p-4 bg-white">
           <StopDetailsView 
             labels={result.labels}
             violations={result.violations}

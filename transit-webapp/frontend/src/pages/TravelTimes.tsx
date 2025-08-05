@@ -1,6 +1,8 @@
 // src/pages/TravelTimes.tsx
-import React, { useEffect, useState, useMemo, useContext } from 'react'
-import { GlobalDataContext  } from '../contexts/GlobalDataContext'
+import React, { useEffect, useState, useContext } from 'react'
+import { GlobalDataContext } from '../contexts/GlobalDataContext'
+import { ProgressiveSearchFilters, FilterConfig } from '../components/shared/ProgressiveSearchFilters'
+import { useProgressiveSearch, FilterValidationRule } from '../hooks/useProgressiveSearch'
 
 interface ByRouteEntry {
   route_id: number
@@ -24,22 +26,14 @@ interface TravelSegment {
 
 const TravelTimes: React.FC = () => {
   const [segments, setSegments] = useState<TravelSegment[]>([])
-  const [route, setRoute] = useState('')
-  const [fromName, setFromName] = useState('')
-  const [toName, setToName] = useState('')
-  const [timeType, setTimeType] = useState('')
   const [expandedSegments, setExpandedSegments] = useState<Set<number>>(new Set())
   const globalData = useContext(GlobalDataContext)
 
   // Set segments directly from travel_times when globalData is available
   useEffect(() => {
     if (!globalData?.travel_times) return
-
-    
-    const { stops, routes, labels, violations, time_types, travel_times, performance } = globalData
-    console.log('Setting travel times data:', travel_times)
-    
-    setSegments(travel_times)
+    console.log('Setting travel times data:', globalData.travel_times)
+    setSegments(globalData.travel_times)
   }, [globalData])
 
   const hasLetters = (s: string) => /\D/.test(s)
@@ -54,118 +48,102 @@ const TravelTimes: React.FC = () => {
     setExpandedSegments(newExpanded)
   }
 
-  // Smart filter clearing - only clear if current selection becomes invalid
-  useEffect(() => {
-    if (!fromName || !toName || !Array.isArray(segments)) return // Add array check
-    
-    // Check if current fromName is still valid
-    const validFromStops = new Set<string>()
-    const validToStops = new Set<string>()
-    
-    segments.forEach(segment => {
-      const hasData = (typeof segment.aggregated?.mean === 'number') ||
-                     (segment.by_route?.some(r => typeof r.mean === 'number'))
-      if (!hasData) return
-
-      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
-      const timeMatch = !timeType || segment.time_type === timeType
-
-      if (routeMatch && timeMatch) {
-        if (hasLetters(segment.from_stop_name)) validFromStops.add(segment.from_stop_name)
-        if (hasLetters(segment.to_stop_name)) validToStops.add(segment.to_stop_name)
-      }
-    })
-
-    // Only clear if current selection is no longer valid
-    if (fromName && !validFromStops.has(fromName)) {
-      setFromName('')
-      setToName('') // Also clear toName since fromName changed
-    } else if (toName && !validToStops.has(toName)) {
-      setToName('')
+  // Define filter rules for progressive search
+  const filterRules: FilterValidationRule<TravelSegment>[] = [
+    {
+      key: 'route',
+      validateItem: (item, filters) => !filters.route || item.by_route?.some(r => r.route_id === Number(filters.route)),
+      extractOptions: (item) => item.by_route?.map(r => r.route_id) || [],
+    },
+    {
+      key: 'fromName',
+      validateItem: (item, filters) => !filters.fromName || item.from_stop_name === filters.fromName,
+      extractOptions: (item) => hasLetters(item.from_stop_name) ? item.from_stop_name : [],
+      dependencies: ['toName']
+    },
+    {
+      key: 'toName',
+      validateItem: (item, filters) => !filters.toName || item.to_stop_name === filters.toName,
+      extractOptions: (item) => hasLetters(item.to_stop_name) ? item.to_stop_name : [],
+    },
+    {
+      key: 'timeType',
+      validateItem: (item, filters) => !filters.timeType || item.time_type === filters.timeType,
+      extractOptions: (item) => item.time_type,
     }
-  }, [route, timeType, fromName, toName, segments])
+  ];
 
-  // Smart clearing for toName when fromName changes
-  useEffect(() => {
-    if (!fromName || !toName || !Array.isArray(segments)) return // Add array check
-    
-    // Check if current toName is still reachable from current fromName
-    const validToStops = new Set<string>()
-    
-    segments.forEach(segment => {
-      const hasData = (typeof segment.aggregated?.mean === 'number') ||
-                     (segment.by_route?.some(r => typeof r.mean === 'number'))
-      if (!hasData) return
-
-      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
-      const timeMatch = !timeType || segment.time_type === timeType
-      const fromMatch = segment.from_stop_name === fromName
-
-      if (routeMatch && timeMatch && fromMatch) {
-        if (hasLetters(segment.to_stop_name)) validToStops.add(segment.to_stop_name)
-      }
-    })
-
-    // Only clear toName if it's no longer reachable from current fromName
-    if (toName && !validToStops.has(toName)) {
-      setToName('')
+  // Use the progressive search hook
+  const {
+    filters,
+    setFilter,
+    filteredData: filteredSegments,
+    availableOptions
+  } = useProgressiveSearch({
+    data: segments,
+    initialFilters: {},
+    filterRules,
+    hasValidData: (item) => {
+      return (typeof item.aggregated?.mean === 'number') ||
+             (item.by_route?.some(r => typeof r.mean === 'number'));
     }
-  }, [fromName, route, timeType, toName, segments])
+  });
 
-  // Much shorter progressive filtering - single pass approach
-  const { availableOptions, filteredSegments } = useMemo(() => {
-    // Add safety check for segments array
-    if (!Array.isArray(segments)) {
-      return {
-        availableOptions: {
-          routes: [],
-          timeTypes: [],
-          fromStops: [],
-          toStops: []
-        },
-        filteredSegments: []
-      }
+  // Create filter configurations
+  const filterConfigs: FilterConfig[] = [
+    {
+      key: 'route',
+      label: 'Route',
+      placeholder: '(all routes)',
+      value: filters.route || '',
+      onChange: (value) => setFilter('route', value),
+      options: Array.from(availableOptions.route || [])
+        .sort((a, b) => Number(a) - Number(b))
+        .map(routeId => ({
+          value: routeId,
+          label: `Route ${globalData?.routes?.[Number(routeId)]?.route_short_name || routeId}`
+        }))
+    },
+    {
+      key: 'fromName',
+      label: 'From Stop',
+      placeholder: '(any stop)',
+      value: filters.fromName || '',
+      onChange: (value) => setFilter('fromName', value),
+      options: Array.from(availableOptions.fromName || [])
+        .sort((a, b) => a.localeCompare(b))
+        .map(name => ({
+          value: name,
+          label: name
+        }))
+    },
+    {
+      key: 'toName',
+      label: 'To Stop',
+      placeholder: '(any stop)',
+      value: filters.toName || '',
+      onChange: (value) => setFilter('toName', value),
+      options: Array.from(availableOptions.toName || [])
+        .sort((a, b) => a.localeCompare(b))
+        .map(name => ({
+          value: name,
+          label: name
+        }))
+    },
+    {
+      key: 'timeType',
+      label: 'Time Type',
+      placeholder: '(any time)',
+      value: filters.timeType || '',
+      onChange: (value) => setFilter('timeType', value),
+      options: Array.from(availableOptions.timeType || [])
+        .sort()
+        .map(timeType => ({
+          value: timeType,
+          label: timeType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+        }))
     }
-
-    const routes = new Set<number>()
-    const timeTypes = new Set<string>()
-    const fromStops = new Set<string>()
-    const toStops = new Set<string>()
-    const filtered: TravelSegment[] = []
-
-    segments.forEach(segment => {
-      const hasData = (typeof segment.aggregated?.mean === 'number') ||
-                     (segment.by_route?.some(r => typeof r.mean === 'number'))
-      if (!hasData) return
-
-      // Apply current filters
-      const routeMatch = !route || segment.by_route?.some(r => r.route_id === Number(route))
-      const fromMatch = !fromName || segment.from_stop_name === fromName
-      const toMatch = !toName || segment.to_stop_name === toName
-      const timeMatch = !timeType || segment.time_type === timeType
-
-      // If matches all current filters, include in results
-      if (routeMatch && fromMatch && toMatch && timeMatch) {
-        filtered.push(segment)
-      }
-
-      // Collect available options based on partial matches (progressive filtering)
-      if (fromMatch && toMatch && timeMatch) segment.by_route?.forEach(r => routes.add(r.route_id))
-      if (routeMatch && toMatch && timeMatch) timeTypes.add(segment.time_type)
-      if (routeMatch && toMatch && timeMatch && hasLetters(segment.from_stop_name)) fromStops.add(segment.from_stop_name)
-      if (routeMatch && fromMatch && timeMatch && hasLetters(segment.to_stop_name)) toStops.add(segment.to_stop_name)
-    })
-
-    return {
-      availableOptions: {
-        routes: Array.from(routes).sort((a, b) => a - b),
-        timeTypes: Array.from(timeTypes).sort(),
-        fromStops: Array.from(fromStops).sort((a, b) => a.localeCompare(b)),
-        toStops: Array.from(toStops).sort((a, b) => a.localeCompare(b))
-      },
-      filteredSegments: filtered
-    }
-  }, [segments, route, fromName, toName, timeType])
+  ];
 
   if (!globalData) {
     return <div className="p-6">Loading travel times...</div>
@@ -184,163 +162,150 @@ const TravelTimes: React.FC = () => {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4"> Search Travel Times</h1>
-      
-      <div className="mb-4 text-sm text-gray-600">
-        Found {segments.length} travel segments total, {filteredSegments.length} matching filters
+    <div className="p-6 space-y-6">
+      {/* Header Section */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">Travel Times</h1>
+        <div className="text-sm text-gray-500">
+          {filteredSegments.length} of {segments.length} segments
+        </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        <div>
-          <label className="block mb-1">Route</label>
-          <select
-            value={route}
-            onChange={e => setRoute(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(all routes)</option>
-            {availableOptions.routes.map(rid => (
-              <option key={rid} value={rid}>
-                Route {globalData.routes?.[rid]?.route_short_name || rid}
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* Progressive Search Filters */}
+      <ProgressiveSearchFilters
+        title="Filter Travel Times"
+        subtitle={`Showing ${filteredSegments.length} of ${segments.length} travel segments`}
+        filters={filterConfigs}
+        className="mb-6"
+      />
 
-        <div>
-          <label className="block mb-1">From Stop</label>
-          <select
-            value={fromName}
-            onChange={e => setFromName(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(any stop)</option>
-            {availableOptions.fromStops.map(name => (
-              <option key={name} value={name}>{name}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1">To Stop</label>
-          <select
-            value={toName}
-            onChange={e => setToName(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(any stop)</option>
-            {availableOptions.toStops.map(name => (
-              <option key={name} value={name}>{name}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1">Time Type</label>
-          <select
-            value={timeType}
-            onChange={e => setTimeType(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">(any time)</option>
-            {availableOptions.timeTypes.map(tt => (
-              <option key={tt} value={tt}>
-                {tt.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-              </option>
-            ))}
-          </select>
-        </div>
-
-      </div>
-
+      {/* Travel Segments */}
       <div className="space-y-4">
         {filteredSegments.map((s, idx) => (
-          <div key={idx} className="border p-4 rounded shadow-sm bg-white">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500">
-                {s.time_type?.replace('_', ' ').toUpperCase() || 'UNKNOWN'}
-              </span>
-            </div>
-
-            <div className="text-lg font-semibold my-1">
-              {s.from_stop_name} → {s.to_stop_name}
-            </div>
-
-            <div className="text-sm text-gray-700">
-              {route ? (
-                // When a route is selected, show only that route's data - no "Show Details" button
-                <div className="space-y-1">
-                  {s.by_route
-                    ?.filter(r => r.route_id === Number(route))
-                    .map((r, i) => (
-                      <div key={i}>
-                        Route {globalData.routes?.[r.route_id]?.route_short_name || r.route_id}, dir {r.direction_id}:{' '}
-                        {typeof r.mean === 'number'
-                          ? <strong>{r.mean.toFixed(1)} s</strong>
-                          : 'n/a'}
-                        {r.sample_size > 0 && (
-                          <span className="text-gray-500 ml-2">
-                            ({r.sample_size.toLocaleString()} samples)
-                          </span>
-                        )}
-                      </div>
-                    ))
-                  }
-                </div>
-              ) : (
-                // When no route is selected, show aggregated with expandable details from by_route
-                <div className="space-y-2">
-                  <div>
-                    Aggregated:{' '}
-                    {typeof s.aggregated?.mean === 'number'
-                      ? <strong>{s.aggregated.mean.toFixed(1)} s</strong>
-                      : 'n/a'}
-                    {s.aggregated?.sample_size > 0 && (
-                      <span className="text-gray-500 ml-2">
-                        ({s.aggregated.sample_size.toLocaleString()} samples)
-                      </span>
-                    )}
+          <div key={idx} className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="px-6 py-4">
+              <div className="flex items-center justify-between">
+                {/* Icon and Main Info */}
+                <div className="flex items-center space-x-4 flex-1">
+                  {/* Travel Time Icon */}
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                        <circle cx="4" cy="12" r="3" fill="none" />
+                        <circle cx="20" cy="12" r="3" fill="none" />
+                        <line x1="7" y1="12" x2="17" y2="12" strokeLinecap="round" />
+                      </svg>
+                    </div>
                   </div>
-                  
-                  {s.by_route && s.by_route.length > 0 && (
-                    <>
-                      <button
-                        onClick={() => toggleSegmentDetails(idx)}
-                        className="text-blue-600 hover:text-blue-800 text-sm underline"
-                      >
-                        {expandedSegments.has(idx) ? 'Hide Details' : 'Show Details'}
-                      </button>
-                      
-                      {expandedSegments.has(idx) && (
-                        <div className="mt-2 pl-4 border-l-2 border-gray-200 space-y-1">
-                          {s.by_route.map((r, i) => (
-                            <div key={i} className="text-xs">
-                              Route {globalData.routes?.[r.route_id]?.route_short_name || r.route_id}, dir {r.direction_id}:{' '}
+
+                 {/* Segment Info */}
+                <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                        {s.from_stop_name} → {s.to_stop_name}
+                    </h3>
+                    <div className="text-sm text-gray-600 mt-1">
+                        {s.time_type?.replace('_', ' ').toUpperCase() || 'UNKNOWN'} {' '}
+                        {!filters.route && typeof s.aggregated?.mean === 'number' ? (
+                        // Show the dot and the mean if available
+                        `• ${s.aggregated?.mean.toFixed(1)}s average across routes`
+                        ) : (
+                        // Show just the dot if no data is available
+                        ' '
+                        )}
+                        {s.aggregated?.sample_size > 0 && (
+                        <span className="text-gray-500">
+                            {' '}• {s.aggregated.sample_size.toLocaleString()} samples
+                        </span>
+                        )}
+                    </div>
+                </div>
+                </div>
+                {/* Expand/Collapse Button */}
+                {!filters.route && s.by_route && s.by_route.length > 0 && (
+                  <button
+                    onClick={() => toggleSegmentDetails(idx)}
+                    className="flex items-center text-indigo-600 hover:text-indigo-800 text-sm"
+                  >
+                    {expandedSegments.has(idx) ? 'Hide Details' : 'Show Details'}
+                    <svg className={`w-4 h-4 ml-1 transition-transform ${expandedSegments.has(idx) ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              {/* Route-specific data or expanded details */}
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                {filters.route ? (
+                  // When a route is selected, show only that route's data
+                  <div className="space-y-2">
+                    {s.by_route
+                      ?.filter(r => r.route_id === Number(filters.route))
+                      .map((r, i) => (
+                        <div key={i} className="flex items-center space-x-3">
+                          <div className="w-6 h-6 bg-sky-100 rounded flex items-center justify-center">
+                            <span className="text-xs font-bold text-sky-600">
+                              {globalData.routes?.[r.route_id]?.route_short_name || r.route_id}
+                            </span>
+                          </div>
+                          <div className="flex-1">
+                            <span className="text-sm text-gray-700">
                               {typeof r.mean === 'number'
-                                ? `${r.mean.toFixed(1)} s`
-                                : 'n/a'}
+                                ? <span className="font-semibold">{r.mean.toFixed(1)}s</span>
+                                : <span className="text-gray-500">n/a</span>}
+                              {r.sample_size > 0 && (
+                                <span className="text-gray-500 ml-2">
+                                  ({r.sample_size.toLocaleString()} samples, Direction {r.direction_id}:{' '} )
+                                </span>
+                              )}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                ) : (
+                  // When no route is selected, show expandable details
+                  expandedSegments.has(idx) && s.by_route && s.by_route.length > 0 && (
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">By Route & Direction:</h4>
+                      {s.by_route.map((r, i) => (
+                        <div key={i} className="flex items-center space-x-3">
+                          <div className="w-6 h-6 bg-sky-100 rounded flex items-center justify-center">
+                            <span className="text-xs font-bold text-sky-600">
+                              {globalData.routes?.[r.route_id]?.route_short_name || r.route_id}
+                            </span>
+                          </div>
+                          <div className="flex-1">
+                            <span className="text-sm text-gray-700">
+                              Direction {r.direction_id}:{' '}
+                              {typeof r.mean === 'number'
+                                ? <span className="font-semibold">{r.mean.toFixed(1)}s</span>
+                                : <span className="text-gray-500">n/a</span>}
                               {r.sample_size > 0 && (
                                 <span className="text-gray-500 ml-2">
                                   ({r.sample_size.toLocaleString()} samples)
                                 </span>
                               )}
-                            </div>
-                          ))}
+                            </span>
+                          </div>
                         </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              )}
+                      ))}
+                    </div>
+                  )
+                )}
+              </div>
             </div>
           </div>
         ))}
 
+        {/* Empty State */}
         {filteredSegments.length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-lg">No matching segments found.</p>
-            <p className="text-gray-400 text-sm mt-2">
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-lg mb-2">
+              No matching travel segments found
+            </div>
+            <p className="text-gray-500 text-sm">
               Try adjusting your filters to see available travel time data.
             </p>
           </div>
@@ -350,4 +315,4 @@ const TravelTimes: React.FC = () => {
   )
 }
 
-export default TravelTimes
+export default TravelTimes;

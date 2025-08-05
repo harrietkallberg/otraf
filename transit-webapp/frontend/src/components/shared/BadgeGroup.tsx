@@ -35,9 +35,6 @@ export const BadgeGroup: React.FC<BadgeGroupProps> = ({
       {violationCount > 0 && (
         <Badge count={violationCount} type="violations" size={size} />
       )}
-      {performanceCount > 0 && (
-        <Badge count={performanceCount} type="analytics" size={size} />
-      )}
       {performanceData?.analytics?.punctuality && (
         <Badge 
           count={0} 

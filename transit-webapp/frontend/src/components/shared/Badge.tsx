@@ -14,8 +14,23 @@ export const Badge: React.FC<BadgeProps> = ({ count, type, size = 'md', customTe
     switch (type) {
       case 'labels': return 'bg-blue-100 text-blue-800';
       case 'violations': return 'bg-red-100 text-red-800';
-      case 'analytics': return 'bg-green-100 text-green-800';
-      case 'regulatory': return 'bg-amber-100 text-amber-800';
+      case 'analytics': 
+        if (!customText) return 'bg-amber-100 text-amber-800';
+        
+        // Extract percentage from text like "XX:75%" or "75%"
+        const percentMatch = customText.match(/(\d+(?:\.\d+)?)%/);
+        if (percentMatch) {
+          const percentage = parseFloat(percentMatch[1]);
+          if (percentage < 50) {
+            return 'bg-red-100 text-red-800';
+          }
+          if (percentage < 80) {
+            return 'bg-amber-100 text-amber-800';
+          }
+        }
+        
+        return 'bg-emerald-100 text-emerald-800';
+      case 'regulatory': return 'bg-orange-100 text-orange-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };

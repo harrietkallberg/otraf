@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'; // Chart.js dependencies
+import React, { useContext } from 'react';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { GlobalDataContext } from '../contexts/GlobalDataContext';
 
 // Register necessary chart components
@@ -20,7 +20,7 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
   selectedTimeType, 
   selectedMetric 
 }) => {
-    const globalData = useContext(GlobalDataContext)
+  const globalData = useContext(GlobalDataContext);
 
   if (!globalData || !direction.stop_ids_in_direction) {
     return <div className="text-gray-500 text-sm">No performance data available</div>;
@@ -31,42 +31,71 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
     .sort(([a], [b]) => parseInt(a) - parseInt(b))
     .map(([position, stop]: [string, any]) => ({
       position: parseInt(position),
-      stopId: stop.stop_id,
-      stopName: stop.stop_name,
-      isRegulatory: stop.regulatory || false  // Assuming `regulatory` field indicates regulatory stops
+      stopIdData: stop,
+      ...stop
     }));
 
   // Collect performance data for each stop
   const performanceData = sortedStops.map(stop => {
-    const performanceKey = `performance_${routeId}_direction_id_stop_id_time_type_${directionId}_${stop.stopId}_${selectedTimeType}`;
-    const performance = globalData.performance?.[performanceKey];
+    // Find the performance key manually (similar to the hook logic)
+    const performanceKeys = stop.stopIdData.stop_id_performance_keys || [];
+    const performanceKey = performanceKeys.find((key: string) => 
+      key.includes(`_${selectedTimeType}_`) || key.includes(selectedTimeType)
+    ) || performanceKeys[0];
+    
+    const stopPerformanceData = performanceKey ? globalData?.performance?.[performanceKey] : null;
 
     let value = 0;
-    if (performance?.analytics?.punctuality?.punctuality_distribution?.percentages) {
-      value = performance.analytics.punctuality.punctuality_distribution.percentages[selectedMetric] || 0;
+    if (stopPerformanceData?.analytics?.punctuality?.punctuality_distribution?.percentages) {
+      value = stopPerformanceData.analytics.punctuality.punctuality_distribution.percentages[selectedMetric] || 0;
     }
+
+    // Check if this is a regulatory stop by looking at the stop_id_summary
+    const isRegulatory = stop.stopIdData?.stop_id_summary?.regulatory_stops?.regulatory_stop_ids > 0;
 
     return {
       ...stop,
       value,
-      hasData: !!performance
+      hasData: !!stopPerformanceData,
+      isRegulatory
     };
   });
 
   const maxValue = Math.max(...performanceData.map(d => d.value), 100);
 
-  const getColor = (value: number, metric: string) => {
+  const getColor = (value: number, metric: string, isRegulatory: boolean = false) => {
     const intensity = Math.min(value / maxValue, 1);
+    
+    // Regular colors for non-regulatory stops
     switch (metric) {
       case 'on_time':
         return `rgba(34, 197, 94, ${0.3 + intensity * 0.7})`; // Green
       case 'too_late':
         return `rgba(239, 68, 68, ${0.3 + intensity * 0.7})`; // Red
       case 'too_early':
-        return `rgba(245, 158, 11, ${0.3 + intensity * 0.7})`; // Yellow
+        return `rgba(245, 158, 11, ${0.2 + intensity * 0.7})`; // Yellow
       default:
-        return `rgba(156, 163, 175, ${0.3 + intensity * 0.7})`; // Gray
+        return `rgba(156, 163, 175, ${0.2 + intensity * 0.7})`; // Gray
     }
+  };
+
+  const getBorderColor = (value: number, metric: string, isRegulatory: boolean = false) => {
+    if (!isRegulatory) return 'transparent';
+    // Return darker versions of the bar colors for regulatory stops
+   switch (metric) {
+      case 'on_time':
+        return 'rgba(37, 151, 79, 1)'; // Darker green
+      case 'too_late':
+        return 'rgba(201, 75, 75, 1)'; // Darker red
+      case 'too_early':
+        return 'rgba(255, 147, 64, 1)'; // Darker orange
+      default:
+        return 'rgba(88, 101, 122, 1)'; // Darker gray
+    }
+  };
+
+  const getBorderWidth = (isRegulatory: boolean) => {
+    return isRegulatory ? 2 : 0; // No border for regulatory stops
   };
 
   const getMetricDisplayName = (metric: string) => {
@@ -99,44 +128,6 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
     }
   };
 
-  const chartData = {
-    labels: Object.values(sortedStops).map((stop) => stop.stopName),
-    datasets: [
-      {
-        label: 'Punctuality Flow',
-        data: performanceData.map((stop) => stop.value),
-        backgroundColor: performanceData.map((stop) => getColor(stop.value, selectedMetric)),
-        borderColor: performanceData.map((stop) => getColor(stop.value, selectedMetric)),
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: `Punctuality Flow - ${getMetricDisplayName(selectedMetric)} (${getTimeTypeDisplayName(selectedTimeType)})`,
-      },
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: 'Stop Names',
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Punctuality',
-        },
-        beginAtZero: true,
-      },
-    },
-  };
-
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4">
       <div className="flex flex-col space-y-4">
@@ -151,38 +142,47 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
         <div className="relative">
           <div className="flex items-end justify-between space-x-1 h-48">
             {performanceData.map((stop, index) => (
-              <div key={stop.stopId} className="flex flex-col items-center flex-1 group">
+              <div key={stop.stop_id} className="flex flex-col items-center flex-1 group">
                 {/* Bar */}
                 <div className="relative w-full flex flex-col justify-end h-40">
                   <div
-                    className="w-full rounded-t transition-all duration-200 group-hover:opacity-80 border border-gray-300"
+                    className="w-full rounded-t transition-all duration-200 group-hover:opacity-80"
                     style={{
                       height: `${(stop.value / maxValue) * 100}%`,
-                      backgroundColor: getColor(stop.value, selectedMetric),
-                      minHeight: stop.hasData ? '4px' : '2px',
+                      backgroundColor: getColor(stop.value, selectedMetric, stop.isRegulatory),
+                      border: `${getBorderWidth(stop.isRegulatory)}px solid ${getBorderColor(stop.value, selectedMetric, stop.isRegulatory)}`,
+                      minHeight: stop.hasData ? '4px' : '2px'
                     }}
                   />
 
                   {/* Tooltip on hover */}
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
-                    <div className="font-medium">{stop.stopName}</div>
+                    <div className="font-medium">{stop.stop_name}</div>
                     <div className="text-center">
                       {stop.hasData ? `${stop.value.toFixed(1)}%` : 'No data'}
                     </div>
                     <div className="text-center text-gray-300">
                       Position {stop.position}
                     </div>
+                    {stop.isRegulatory && (
+                      <div className="text-center text-orange-500 font-bold">
+                        Regulatory Stop
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Position label */}
-                <div 
-                  className="text-xs font-medium text-gray-600 mt-1"
-                  style={{
-                    fontWeight: stop.isRegulatory ? 'bolder' : 'normal' // Bold if regulatory stop
-                  }}
-                >
-                  {stop.position}
+                {/* Position label with fixed height container */}
+                <div className="h-6 flex items-center justify-center mt-1">
+                  <div 
+                    className={`text-xs ${
+                      stop.isRegulatory 
+                        ? 'font-bold text-orange-500 bg-orange-100 px-2 py-1 rounded-md' 
+                        : 'font-medium text-gray-600'
+                    }`}
+                  >
+                    {stop.position}
+                  </div>
                 </div>
               </div>
             ))}
@@ -206,9 +206,16 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
           <div className="flex items-center space-x-1">
             <div
               className="w-3 h-3 rounded border border-gray-300"
-              style={{ backgroundColor: getColor(maxValue, selectedMetric) }}
+              style={{ backgroundColor: getColor(maxValue, selectedMetric, false) }}
             />
-            <span>{getMetricDisplayName(selectedMetric)} %</span>
+            <span>Regular Stop</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <div
+              className="w-3 h-3 rounded border-2 border-gray-800 shadow"
+              style={{ backgroundColor: getColor(maxValue, selectedMetric, true) }}
+            />
+            <span>Regulatory Stop</span>
           </div>
           <span>•</span>
           <span>Hover for details</span>
@@ -217,6 +224,11 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
         {/* Summary */}
         <div className="text-center text-sm text-gray-600">
           Showing {performanceData.filter((d) => d.hasData).length} of {performanceData.length} stops with data
+          {performanceData.filter((d) => d.isRegulatory).length > 0 && (
+            <span className="ml-2 text-yellow-700 font-medium">
+              ({performanceData.filter((d) => d.isRegulatory).length} regulatory)
+            </span>
+          )}
         </div>
 
         {/* Performance Summary */}
@@ -225,18 +237,20 @@ const PunctualityFlowChart: React.FC<PunctualityFlowChartProps> = ({
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-sm font-medium text-gray-700">Average</div>
-                <div className="text-lg font-bold">{(performanceData.filter((d) => d.hasData).reduce((sum, d) => sum + d.value, 0) / performanceData.filter((d) => d.hasData).length).toFixed(1)}%</div>
+                <div className="text-lg font-bold">
+                  {(performanceData.filter((d) => d.hasData).reduce((sum, d) => sum + d.value, 0) / performanceData.filter((d) => d.hasData).length).toFixed(1)}%
+                </div>
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-700">Best Stop</div>
                 <div className="text-lg font-bold text-green-600">
-                  {Math.min(...performanceData.filter((d) => d.hasData).map((d) => d.value)).toFixed(1)}%
+                  {Math.max(...performanceData.filter((d) => d.hasData).map((d) => d.value)).toFixed(1)}%
                 </div>
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-700">Worst Stop</div>
                 <div className="text-lg font-bold text-red-600">
-                  {Math.max(...performanceData.filter((d) => d.hasData).map((d) => d.value)).toFixed(1)}%
+                  {Math.min(...performanceData.filter((d) => d.hasData).map((d) => d.value)).toFixed(1)}%
                 </div>
               </div>
             </div>
