@@ -11,8 +11,7 @@ import Layout from './components/Layout'
 import LoginPage from './pages/LoginPage'
 
 import Dashboard from './pages/Dashboard'
-import RoutesList from './pages/RoutesList'
-import StopsList from './pages/StopsList'
+import  DataList  from './pages/DataList'
 import TravelTimes from './pages/TravelTimes'
 import ExportCsvPage from './pages/ExportCsv'
 import ExplorePage from './pages/ExplorePage'
@@ -35,9 +34,9 @@ export default function App() {
                 }
               >
                 <Route path="/" element={<Dashboard />} />
-                <Route path="routes" element={<RoutesList />} />
+                <Route path="routes" element={<DataList type = 'routes' />} />
                 <Route path="routes/:routeId" element={<UnifiedLayoutPage />} />
-                <Route path="stops" element={<StopsList />} />
+                <Route path="stops" element={<DataList type = 'stops' />} />
                 <Route path="stops/:parentId" element={<UnifiedLayoutPage />} />
                 <Route path="travel-times" element={<TravelTimes />} />
                 <Route path="export-csv" element={<ExportCsvPage />} />

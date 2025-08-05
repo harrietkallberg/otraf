@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react'
 import { useAuth } from './AuthContext'
-import * as DataInterfaces from './DataInterfaces'
+import * as DataInterfaces from '../shared/types'
 
 // Update the stopData type with stop_summary
 export interface StopDataContextType {

@@ -1,7 +1,9 @@
+// src/components/cards/RouteBreakdownCard.tsx
 import React, { useState } from 'react';
-import { RouteData } from '../contexts/DataInterfaces';
-import CompactHistogram from './CompactHistogram';
+import { RouteData, StopIdDataWithPosition } from '../shared/types';
+import { StopCard, TimeTypeSelector} from '../components/shared';
 
+// Correct interface for the main component
 interface RouteBreakdownCardProps {
   title: string;
   routes: { [routeId: string]: RouteData };
@@ -9,6 +11,7 @@ interface RouteBreakdownCardProps {
   globalData: any;
 }
 
+// Main component - this is what gets imported in UnifiedLayout
 const RouteBreakdownCard: React.FC<RouteBreakdownCardProps> = ({ 
   title, 
   routes, 
@@ -50,6 +53,7 @@ const RouteBreakdownCard: React.FC<RouteBreakdownCardProps> = ({
   );
 };
 
+// Internal component interfaces
 interface RouteTileProps {
   routeId: string;
   route: RouteData;
@@ -126,6 +130,7 @@ const RouteTile: React.FC<RouteTileProps> = ({
   );
 };
 
+// Internal direction component
 interface RouteDirectionTileProps {
   routeId: string;
   directionId: string;
@@ -147,7 +152,7 @@ const RouteDirectionTile: React.FC<RouteDirectionTileProps> = ({
   const availableTimeTypes = globalData?.time_types || ['scheduled'];
 
   // Find stops in this direction that belong to our parent station
-  const relevantStops = direction.stop_ids_in_direction 
+  const relevantStops: StopIdDataWithPosition[] = direction.stop_ids_in_direction 
     ? Object.entries(direction.stop_ids_in_direction)
         .filter(([_, stopIdData]: [string, any]) => stopIdData.parent_station === parentStation)
         .sort(([a], [b]) => parseInt(a) - parseInt(b))
@@ -188,33 +193,26 @@ const RouteDirectionTile: React.FC<RouteDirectionTileProps> = ({
         </div>
 
         {/* Time Type Selector - always visible when direction is shown */}
-        <div className="flex items-center space-x-2">
-          <label className="text-sm font-medium text-gray-700">Time Type:</label>
-          <select
-            value={selectedTimeType}
-            onChange={(e) => setSelectedTimeType(e.target.value)}
-            className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          >
-            {availableTimeTypes.map((timeType: string) => (
-              <option key={timeType} value={timeType}>
-                {timeType.replace('_', ' ').toUpperCase()}
-              </option>
-            ))}
-          </select>
-        </div>
+        <TimeTypeSelector
+          selectedTimeType={selectedTimeType}
+          availableTimeTypes={availableTimeTypes}
+          onTimeTypeChange={setSelectedTimeType}
+          size="sm"
+        />
       </div>
 
       {/* Always show relevant stops for this direction */}
       {relevantStops.length > 0 && (
         <div className="space-y-3">
           {relevantStops.map((stopIdData) => (
-            <StopDetailsCard 
+            <StopCard 
               key={stopIdData.stop_id}
               stopIdData={stopIdData}
-              routeId={routeId}
-              directionId={directionId}
               globalData={globalData}
-              selectedTimeType={selectedTimeType}
+              externalTimeType={selectedTimeType}
+              size="sm"
+              showTimeSelector={false}
+              positionBadgeSize="sm"
             />
           ))}
         </div>
@@ -229,255 +227,5 @@ const RouteDirectionTile: React.FC<RouteDirectionTileProps> = ({
   );
 };
 
-// Reusable stop details card component
-interface StopDetailsCardProps {
-  stopIdData: any;
-  routeId: string;
-  directionId: string;
-  globalData: any;
-  selectedTimeType: string;
-}
-
-const StopDetailsCard: React.FC<StopDetailsCardProps> = ({ 
-  stopIdData, 
-  routeId, 
-  directionId, 
-  globalData,
-  selectedTimeType
-}) => {
-  const [showDetails, setShowDetails] = useState(false);
-  
-  const isRegulatory = stopIdData.stop_id_label_keys?.some((key: string) => 
-    key.includes('regulatory_stops')
-  );
-
-  const labelCount = stopIdData.stop_id_label_keys?.length || 0;
-  const violationCount = stopIdData.stop_id_violation_keys?.length || 0;
-  const performanceCount = stopIdData.stop_id_performance_keys?.length || 0;
-
-  // Get the actual data for the selected time type
-  const getDataForTimeType = (timeType: string) => {
-    // Get labels (these don't change by time type)
-    const labels = (stopIdData.stop_id_label_keys || [])
-      .map((key: string) => globalData?.labels?.[key])
-      .filter(Boolean);
-    
-    // Get violations (these don't change by time type)
-    const violations = (stopIdData.stop_id_violation_keys || [])
-      .map((key: string) => globalData?.violations?.[key])
-      .filter(Boolean);
-    
-    // Find performance data for this specific time type
-    const performanceKeys = stopIdData.stop_id_performance_keys || [];
-    const performanceKey = performanceKeys.find((key: string) => 
-      key.includes(`_${timeType}_`) || key.includes(timeType)
-    ) || performanceKeys[0]; // Fallback to first available
-    
-    const performanceData = performanceKey ? globalData?.performance?.[performanceKey] : null;
-
-    return {
-      labels,
-      violations,
-      performanceData
-    };
-  };
-
-  const currentData = getDataForTimeType(selectedTimeType);
-
-  return (
-    <div className="border border-gray-200 rounded p-3 bg-white">
-      {/* Stop Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-3">
-          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-            isRegulatory 
-              ? 'bg-amber-200 text-amber-800' 
-              : 'bg-blue-100 text-blue-800'
-          }`}>
-            {stopIdData.position}
-          </div>
-          <div>
-            <h5 className="font-medium text-gray-900">{stopIdData.stop_name}</h5>
-            <p className="text-xs text-gray-600">Stop ID: {stopIdData.stop_id}</p>
-          </div>
-        </div>
-        
-        {/* Stop-level markers and individual toggle */}
-        <div className="flex items-center space-x-2">
-          {isRegulatory && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-200 text-amber-800">
-              Regulatory
-            </span>
-          )}
-          {labelCount > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {labelCount} labels
-            </span>
-          )}
-          {violationCount > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-              {violationCount} violations
-            </span>
-          )}
-          {performanceCount > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-              {performanceCount} analytics
-            </span>
-          )}
-          
-          {/* Individual Show/Hide toggle on each stop */}
-          {(labelCount > 0 || violationCount > 0 || performanceCount > 0) && (
-            <button
-              onClick={() => setShowDetails(!showDetails)}
-              className="text-xs text-blue-700 hover:text-blue-800"
-            >
-              {showDetails ? 'Hide' : 'Show'}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Show details when expanded */}
-      {showDetails && (
-        <div className="border-t border-gray-200 pt-3">
-          <StopDetailsView 
-            labels={currentData.labels}
-            violations={currentData.violations}
-            performanceData={currentData.performanceData}
-          />
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Component that shows the detailed data for a stop (reused from StopSequence)
-const StopDetailsView: React.FC<{
-  labels: any[];
-  violations: any[];
-  performanceData: any;
-}> = ({ labels, violations, performanceData }) => {
-  
-  return (
-    <div className="space-y-4">
-      
-      {/* Performance Details */}
-      {performanceData?.analytics && (
-        <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-3">Performance Analysis</h4>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            
-            {/* Punctuality Breakdown */}
-            <div className="bg-gray-50 rounded-lg p-3">
-              <h5 className="text-xs font-medium text-gray-600 mb-2">PUNCTUALITY DISTRIBUTION</h5>
-              <div className="space-y-1">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-green-600">On Time</span>
-                  <span className="text-xs font-medium">{performanceData.analytics.punctuality.punctuality_distribution.percentages.on_time}%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-yellow-600">Too Early</span>
-                  <span className="text-xs font-medium">{performanceData.analytics.punctuality.punctuality_distribution.percentages.too_early}%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-red-600">Too Late</span>
-                  <span className="text-xs font-medium">{performanceData.analytics.punctuality.punctuality_distribution.percentages.too_late}%</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Statistics */}
-            <div className="bg-gray-50 rounded-lg p-3">
-              <h5 className="text-xs font-medium text-gray-600 mb-2">DELAY STATISTICS</h5>
-              <div className="space-y-1">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600">Mean</span>
-                  <span className="text-xs font-medium">{performanceData.analytics.punctuality.basic_statistics.mean_delay.toFixed(1)}s</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600">Median</span>
-                  <span className="text-xs font-medium">{performanceData.analytics.punctuality.basic_statistics.median_delay}s</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-600">Sample Size</span>
-                  <span className="text-xs font-medium">{performanceData.analytics.punctuality.sample_size.toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Compact Histogram */}
-            <CompactHistogram performanceData={performanceData} />
-          </div>
-        </div>
-      )}
-
-      {/* Labels */}
-      {labels && labels.length > 0 && (
-        <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Labels ({labels.length})</h4>
-          <div className="space-y-2">
-            {labels.map((label, index) => (
-              <div key={index} className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {label.label_type}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-700">{label.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Violations */}
-      {violations && violations.length > 0 && (
-        <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Violations ({violations.length})</h4>
-          <div className="space-y-2">
-            {violations.map((violation, index) => {
-              const getSeverityColor = (severity: number) => {
-                if (severity >= 5) return 'bg-red-100 text-red-800 border-red-200'
-                if (severity >= 3) return 'bg-orange-100 text-orange-800 border-orange-200'
-                return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-              }
-
-              return (
-                <div key={index} className="bg-red-50 border border-red-200 rounded-lg p-2">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                          {violation.violation_type}
-                        </span>
-                        {violation.severity && (
-                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getSeverityColor(violation.severity)}`}>
-                            Severity {violation.severity}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-700">{violation.description}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* No Additional Data */}
-      {(!labels || labels.length === 0) && (!violations || violations.length === 0) && !performanceData?.analytics && (
-        <div className="text-center py-4 text-gray-500 text-xs">
-          No detailed data found for this combination
-        </div>
-      )}
-    </div>
-  )
-};
-
+// Make sure to export the main component as default
 export default RouteBreakdownCard;

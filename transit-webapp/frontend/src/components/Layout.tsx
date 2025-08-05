@@ -22,7 +22,7 @@ const Layout: React.FC = () => {
           {user && (
             <button
               onClick={handleLogout}
-              className="ml-auto px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+              className="ml-auto px-4 py-1 bg-red-600 text-white rounded hover:bg-red-800"
             >
               Logout
             </button>

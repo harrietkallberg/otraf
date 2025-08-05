@@ -1,12 +1,192 @@
-import React from 'react';
-import { PerformanceSummary } from '../contexts/DataInterfaces';
+import React, { useMemo } from 'react';
+import { PerformanceSummary } from '../shared/types';
+
+// Hook to aggregate labels and violations by filtering global data based on context
+const useAggregatedIssues = (data: PerformanceSummary | null, globalData: any, context: { type: 'route' | 'stop', id: string }) => {
+  return useMemo(() => {
+    if (!data || !globalData) {
+      return {
+        labels: [],
+        violations: []
+      };
+    }
+
+    // Convert labels/violations to arrays if needed
+    const labelsArray = Array.isArray(globalData.labels) ? globalData.labels : Object.values(globalData.labels || {});
+    const violationsArray = Array.isArray(globalData.violations) ? globalData.violations : Object.values(globalData.violations || {});
+
+    let relevantLabels: any[] = [];
+    let relevantViolations: any[] = [];
+
+    if (context.type === 'route') {
+      // Filter by route_id for route-level data
+      relevantLabels = labelsArray.filter((label: any) => 
+        label.route_id === context.id || 
+        label.entity_key?.includes(`_${context.id}_`)
+      );
+      
+      relevantViolations = violationsArray.filter((violation: any) => 
+        violation.route_id === context.id || 
+        violation.entity_key?.includes(`_${context.id}_`)
+      );
+      
+    } else if (context.type === 'stop') {
+      // For stop-level data, get all stop_ids associated with this parent station
+      const parentStationData = globalData.stops?.[context.id];
+      const associatedStopIds = parentStationData?.stop_ids || [context.id];
+      
+      relevantLabels = labelsArray.filter((label: any) => 
+        // Match parent station
+        label.parent_station === context.id ||
+        label.entity_key?.includes(`_${context.id}_`) ||
+        // Match any associated stop_id
+        associatedStopIds.some((stopId: string) => 
+          label.stop_id === stopId || 
+          label.entity_key?.includes(`_${stopId}_`)
+        )
+      );
+      
+      relevantViolations = violationsArray.filter((violation: any) => 
+        // Match parent station
+        violation.parent_station === context.id ||
+        violation.entity_key?.includes(`_${context.id}_`) ||
+        // Match any associated stop_id
+        associatedStopIds.some((stopId: string) => 
+          violation.stop_id === stopId || 
+          violation.entity_key?.includes(`_${stopId}_`)
+        )
+      );
+    }
+
+    return {
+      labels: relevantLabels,
+      violations: relevantViolations
+    };
+  }, [data, globalData, context]);
+};
+
+// Issue Breakdown component
+interface IssueBreakdownProps {
+  labels: any[];
+  violations: any[];
+  performanceData?: any;
+}
+
+const IssueBreakdown: React.FC<IssueBreakdownProps> = ({ 
+  labels, 
+  violations, 
+  performanceData 
+}) => {
+  // Calculate issue metrics by severity level (1-5)
+  const severity5Violations = violations.filter(v => v.severity === 5).length;
+  const severity4Violations = violations.filter(v => v.severity === 4).length;
+  const severity3Violations = violations.filter(v => v.severity === 3).length;
+  const severity2Violations = violations.filter(v => v.severity === 2).length;
+  const severity1Violations = violations.filter(v => v.severity === 1).length;
+ 
+  // Performance issues
+  const hasPerformanceIssues = performanceData?.overall_on_time_rate < 80;
+  const hasHighDelays = performanceData?.average_departure_delay > 120;
+  
+  const totalIssues = violations.length + (hasPerformanceIssues ? 1 : 0) + (hasHighDelays ? 1 : 0);
+
+  return (
+    <div className="bg-gray-50 rounded-lg p-4">
+      <h4 className="text-sm font-medium text-gray-700 mb-3">Issue Summary</h4>
+      <div className="space-y-3">
+        
+        {/* Severity 5 - Critical */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-red-600"></div>
+            <span className="text-sm text-gray-600">Critical (Severity 5)</span>
+          </div>
+          <span className={`text-sm font-medium ${
+            severity5Violations > 0 ? 'text-red-600' : 'text-gray-400'
+          }`}>
+            {severity5Violations}
+          </span>
+        </div>
+
+        {/* Severity 4 - High */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <span className="text-sm text-gray-600">High (Severity 4)</span>
+          </div>
+          <span className={`text-sm font-medium ${
+            severity4Violations > 0 ? 'text-red-500' : 'text-gray-400'
+          }`}>
+            {severity4Violations}
+          </span>
+        </div>
+
+        {/* Severity 3 - Medium */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-orange-400"></div>
+            <span className="text-sm text-gray-600">Medium (Severity 3)</span>
+          </div>
+          <span className={`text-sm font-medium ${
+            severity3Violations > 0 ? 'text-orange-600' : 'text-gray-400'
+          }`}>
+            {severity3Violations}
+          </span>
+        </div>
+
+        {/* Severity 2 - Low */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <span className="text-sm text-gray-600">Low (Severity 2)</span>
+          </div>
+          <span className={`text-sm font-medium ${
+            severity2Violations > 0 ? 'text-yellow-600' : 'text-gray-400'
+          }`}>
+            {severity2Violations}
+          </span>
+        </div>
+
+        {/* Severity 1 - Minimal */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-yellow-300"></div>
+            <span className="text-sm text-gray-600">Minimal (Severity 1)</span>
+          </div>
+          <span className={`text-sm font-medium ${
+            severity1Violations > 0 ? 'text-yellow-600' : 'text-gray-400'
+          }`}>
+            {severity1Violations}
+          </span>
+        </div>
+
+        {/* No Issues Found */}
+        {totalIssues === 0 && labels.length === 0 && (
+          <div className="text-center py-2">
+            <span className="text-sm text-green-600 font-medium">✓ No Issues Found</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 interface PerformanceSummaryProps {
   title: string;
   data: PerformanceSummary | null;
+  globalData: any;
+  context: { type: 'route' | 'stop', id: string };
 }
 
-const PerformanceSummaryCard: React.FC<PerformanceSummaryProps> = ({ title, data }) => {
+const PerformanceSummaryCard: React.FC<PerformanceSummaryProps> = ({ 
+  title, 
+  data, 
+  globalData,
+  context 
+}) => {
+  // Always call hooks at the top level
+  const { labels, violations } = useAggregatedIssues(data, globalData, context);
+
   if (!data) {
     return (
       <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-6">
@@ -102,55 +282,13 @@ const PerformanceSummaryCard: React.FC<PerformanceSummaryProps> = ({ title, data
               </div>
             </div>
           </div>
-
-          {/* Performance Summary */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Quick Summary</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Best performing:</span>
-                <span className="font-medium text-green-600">
-                  {data.overall_on_time_rate > Math.max(data.overall_too_early_rate, data.overall_too_late_rate) 
-                    ? 'On Time' 
-                    : data.overall_too_early_rate > data.overall_too_late_rate 
-                      ? 'Too Early' 
-                      : 'Too Late'}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Delay trend:</span>
-                <span className={`font-medium ${
-                  data.average_departure_delay > 60 
-                    ? 'text-red-600' 
-                    : data.average_departure_delay > 30 
-                      ? 'text-yellow-600' 
-                      : 'text-green-600'
-                }`}>
-                  {data.average_departure_delay > 60 
-                    ? 'High delays' 
-                    : data.average_departure_delay > 30 
-                      ? 'Moderate delays' 
-                      : 'Low delays'}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Route adherence:</span>
-                <span className={`font-medium ${
-                  data.canonical_share > 0.9 
-                    ? 'text-green-600' 
-                    : data.canonical_share > 0.8 
-                      ? 'text-yellow-600' 
-                      : 'text-red-600'
-                }`}>
-                  {data.canonical_share > 0.9 
-                    ? 'Excellent' 
-                    : data.canonical_share > 0.8 
-                      ? 'Good' 
-                      : 'Needs improvement'}
-                </span>
-              </div>
-            </div>
-          </div>
+          
+          {/* Issue Breakdown */}
+          <IssueBreakdown 
+            labels={labels}
+            violations={violations}
+            performanceData={data}
+          />
         </div>
       </div>
     </div>

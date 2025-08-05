@@ -6,7 +6,7 @@ import { useStopData } from '../contexts/StopDataContext';
 import { GlobalDataContext } from '../contexts/GlobalDataContext';
 
 import PerformanceSummaryCard from '../cards/PerformanceSummaryCard';
-import { StopData, RouteData } from '../contexts/DataInterfaces';
+import { StopData, RouteData } from '../shared/types';
 import OverviewCard from '../cards/OverviewCard';
 import DirectionBreakdownCard from '../cards/DirectionBreakdownCard';
 import RouteBreakdownCard from '../cards/RouteBreakdownCard';
@@ -83,10 +83,15 @@ const UnifiedLayout: React.FC = () => {
 
         {/* Performance Summary */}
         {dataToShow.performance_summary && (
-          <PerformanceSummaryCard 
-            title="Performance Summary" 
-            data={dataToShow.performance_summary} 
-          />
+        <PerformanceSummaryCard 
+            title="Performance Summary"
+            data={dataToShow.performance_summary}
+            globalData={globalData}
+            context={{
+            type: isStopData(dataToShow) ? 'stop' : 'route',
+            id: isStopData(dataToShow) ? dataToShow.parent_station : dataToShow.route_id
+            }}
+        />
         )}
 
         {/* Route Layout: Direction Breakdown */}

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useMemo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalDataContext } from '../contexts/GlobalDataContext'
-import ResultTile from '../cards/ResultTile'
+import StopDetailsView from '../components/shared/StopDetailsView'
 
 interface ExplorePageProps {}
 
@@ -351,13 +351,12 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
         </div>
       </div>
 
-      {/* Results */}
+      {/* Results - Updated to use shared components */}
       <div className="space-y-4">
         {filteredResults.map((result, idx) => (
-          <ResultTile 
+          <ExploreResultCard 
             key={idx}
             result={result}
-            index={idx}
             globalData={globalData}
           />
         ))}
@@ -374,5 +373,88 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
     </div>
   )
 }
+
+// New component that replaces ResultTile
+const ExploreResultCard: React.FC<{
+  result: ResultCombination;
+  globalData: any;
+}> = ({ result, globalData }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="border p-4 rounded shadow-sm bg-white">
+      {/* Card Header - Keep the original header from ResultTile */}
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-sm text-gray-500">
+          {result.timeType.replace('_', ' ').toUpperCase()}
+        </span>
+        
+        {/* Summary Badges */}
+        <div className="flex items-center space-x-2">
+          {result.performanceData?.analytics?.punctuality && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              {result.performanceData.analytics.punctuality.punctuality_distribution.percentages.on_time}% on time
+            </span>
+          )}
+          {result.performanceData?.analytics?.is_regulatory_stop && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+              Regulatory
+            </span>
+          )}
+          {result.labelCount > 0 && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              {result.labelCount} labels
+            </span>
+          )}
+          {result.violationCount > 0 && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+              {result.violationCount} violations
+            </span>
+          )}
+        </div>
+      </div>
+      
+      <div className="text-lg font-semibold mb-1">
+        Route {result.routeName} - {result.stopName}
+      </div>
+      
+      <div className="text-sm text-gray-600 mb-3">
+        Direction {result.directionId} • Stop ID: {result.stopId}
+      </div>
+
+      {/* Performance Summary */}
+      {result.performanceData?.analytics?.punctuality && (
+        <div className="text-sm text-gray-600 space-x-4 mb-3">
+          <span>
+            Sample: {result.performanceData.analytics.punctuality.sample_size.toLocaleString()}
+          </span>
+          <span>
+            Mean delay: {result.performanceData.analytics.punctuality.basic_statistics.mean_delay.toFixed(1)}s
+          </span>
+        </div>
+      )}
+
+      {/* Show Details / Hide Details Button */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 focus:outline-none transition-colors"
+      >
+        {isExpanded ? 'Hide Details' : 'Show Details'}
+      </button>
+
+      {/* Expanded Details - Use shared component */}
+      {isExpanded && (
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <StopDetailsView 
+            labels={result.labels}
+            violations={result.violations}
+            performanceData={result.performanceData}
+            size="lg"
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default ExplorePage

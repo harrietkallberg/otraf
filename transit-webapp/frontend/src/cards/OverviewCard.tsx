@@ -1,5 +1,5 @@
 import React from 'react';
-import { StopData, RouteData } from '../contexts/DataInterfaces';
+import { StopData, RouteData } from '../shared/types';
 
 // Type guard to check if the data is of type StopData
 const isStopData = (data: StopData | RouteData): data is StopData => {

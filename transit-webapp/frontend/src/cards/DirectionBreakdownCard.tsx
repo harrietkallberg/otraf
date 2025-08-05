@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DirectionData } from '../contexts/DataInterfaces';
+import { DirectionData } from '../shared/types';
 import PunctualityFlowChart from './PunctualityFlowChart';
 import StopSequence from './StopSequence';
 

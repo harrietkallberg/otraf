@@ -1,5 +1,5 @@
 import React from 'react';
-import { Summary } from '../contexts/DataInterfaces'; // Import the correct interface
+import { Summary } from '../shared/types'; // Import the correct interface
 
 interface SummaryCardProps {
   title: string;

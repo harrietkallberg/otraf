@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
 
-interface CompactHistogramProps {
-  performanceData: any;  // Performance data that contains the histograms
-}
-
-
 // Compact Histogram Component
 const CompactHistogram: React.FC<{
   performanceData: any
