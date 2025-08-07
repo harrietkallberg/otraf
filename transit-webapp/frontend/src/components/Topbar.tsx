@@ -1,6 +1,5 @@
 // src/components/Topbar.tsx
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
 
 interface TopbarProps {
   title: string
@@ -8,8 +7,6 @@ interface TopbarProps {
 }
 
 const Topbar: React.FC<TopbarProps> = ({ title, children }) => {
-  const [query, setQuery] = useState('')
-  const navigate = useNavigate()
 
   return (
     <div className="flex items-center justify-between px-6 py-3 bg-white shadow border-b sticky top-0 z-50">

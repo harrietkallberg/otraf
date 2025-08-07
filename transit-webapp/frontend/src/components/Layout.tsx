@@ -18,18 +18,18 @@ const Layout: React.FC = () => {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex-1 flex flex-col">
-        <Topbar title="Transit Dashboard">
+        <Topbar title=" ">
           {user && (
             <button
               onClick={handleLogout}
-              className="ml-auto px-4 py-1 bg-red-600 text-white rounded hover:bg-red-800"
+              className="ml-auto px-4 py-1 bg-red-700 text-white rounded hover:bg-red-800"
             >
               Logout
             </button>
           )}
         </Topbar>
         <main className="p-4 overflow-auto">
-          <Outlet /> {/* ✅ Route children render here */}
+          <Outlet /> 
         </main>
       </div>
     </div>

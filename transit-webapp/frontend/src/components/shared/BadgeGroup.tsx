@@ -22,7 +22,6 @@ export const BadgeGroup: React.FC<BadgeGroupProps> = ({
   
   const labelCount = stopIdData.stop_id_label_keys.length;
   const violationCount = stopIdData.stop_id_violation_keys.length;
-  const performanceCount = stopIdData.stop_id_performance_keys.length;
 
   return (
     <div className="flex items-center space-x-2">

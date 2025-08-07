@@ -41,7 +41,7 @@ interface ProviderProps {
 
 export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
   const [data, setData] = useState<GlobalData | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [ , setError] = useState<string | null>(null)
   const { user, session, isLoading } = useAuth()
   console.log('GlobalDataProvider render:', { user: !!user, session: !!session, isLoading, data: !!data }) // Add this
 

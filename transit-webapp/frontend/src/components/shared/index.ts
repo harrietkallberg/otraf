@@ -8,6 +8,8 @@ export { StopDetailsView } from './StopDetailsView';
 export { StopCard } from './StopCard';
 export { IssueBreakdown } from './IssueBreakdown';
 export { ProgressiveSearchFilters } from './ProgressiveSearchFilters';
+export { PageHeader } from './PageHeader';
+export { AccessControl, RestrictedContentOverlay } from './AccessControl';
 
 // Export types
 export type { ComponentSize } from '../../shared/types';

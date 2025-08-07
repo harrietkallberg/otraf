@@ -1,7 +1,9 @@
 // src/pages/Dashboard.tsx
-import React, { useContext, useEffect, useState, useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { GlobalDataContext } from '../contexts/GlobalDataContext'
 import { useAuth } from '../contexts/AuthContext'
+import { PageHeader } from '../components/shared'
+import { AccessControl } from '../components/shared/AccessControl'
 
 const Dashboard: React.FC = () => {
   const { user, session } = useAuth();
@@ -28,7 +30,7 @@ const Dashboard: React.FC = () => {
       }
     }
 
-    const { stops, routes, labels, violations, time_types, travel_times, performance } = globalData
+    const { stops, routes, labels, violations, travel_times, performance } = globalData
 
     const totalStops = Object.keys(stops).length
     const totalRoutes = Object.keys(routes).length
@@ -67,7 +69,7 @@ const Dashboard: React.FC = () => {
 
     // Analyze violations by type
     const violationsByType = Object.values(violationsObj_t).reduce((acc: Record<string, number>, violation: any) => {
-      const type = violation.violation_type || 'unknown'  // ✅ Now using the correct parameter name
+      const type = violation.violation_type || 'unknown'
       acc[type] = (acc[type] || 0) + 1
       return acc
     }, {})
@@ -120,7 +122,7 @@ const Dashboard: React.FC = () => {
       violationsByType,
       overallPunctuality
     }
-  }, [globalData]) // Simplified dependency
+  }, [globalData])
 
   // Early returns after all hooks
   if (!session || !session.access_token || !session.refresh_token || !user) {
@@ -131,18 +133,16 @@ const Dashboard: React.FC = () => {
     return <div className="p-6">Loading dashboard…</div>
   }
 
-  const { time_types } = globalData
+  const helpText = "This dashboard shows key performance indicators for your entire transit system, including route and stop counts, system-wide punctuality metrics, and violation summaries. Navigate to other pages to explore detailed breakdowns by specific routes, stops, or time periods."
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Transit System Dashboard</h1>
-        <div className="text-sm text-gray-500">
-          {time_types?.length || 0} time periods tracked
-        </div>
-      </div>
+      <PageHeader 
+        title="System Dashboard"
+        helpText={helpText}
+      />
 
-      {/* Main Overview Cards */}
+      {/* Main Overview Cards - Always visible */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card title="Routes" value={metrics.totals.totalRoutes} bgColor="bg-sky-100" textColor="text-sky-600" />
         <Card title="Stops" value={metrics.totals.totalStops} bgColor="bg-orange-100" textColor="text-orange-600" />
@@ -150,128 +150,130 @@ const Dashboard: React.FC = () => {
         <Card title="Travel Segments" value={metrics.totals.totalTravelSegments} bgColor="bg-indigo-100" textColor="text-indigo-600" />
       </div>
 
-      {/* System Health Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        {/* Overall Punctuality */}
-        {metrics.overallPunctuality && (
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4"> System-Wide Punctuality</h3>
-            <div className="text-sm text-gray-600 mb-4">
-              Based on {metrics.totals.totalSamples.toLocaleString()} samples
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-green-600">On Time</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-32 bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-green-500 h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${metrics.overallPunctuality.onTime}%` }}
-                    ></div>
-                  </div>
-                  <span className="font-medium w-12">{metrics.overallPunctuality.onTime}%</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-yellow-600">Too Early</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-32 bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-yellow-500 h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${metrics.overallPunctuality.tooEarly}%` }}
-                    ></div>
-                  </div>
-                  <span className="font-medium w-12">{metrics.overallPunctuality.tooEarly}%</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-red-600">Too Late</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-32 bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-red-500 h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${metrics.overallPunctuality.tooLate}%` }}
-                    ></div>
-                  </div>
-                  <span className="font-medium w-12">{metrics.overallPunctuality.tooLate}%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* System Issues Summary */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4"> System Issues</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">{metrics.totals.totalViolations}</div>
-              <div className="text-sm text-gray-600">Total Violations</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{metrics.totals.totalLabels}</div>
-              <div className="text-sm text-gray-600">Total Labels</div>
-            </div>
-          </div>
+      {/* Protected Content - System Health Section */}
+      <AccessControl requireAdmin={true}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
-          {/* Violations by Severity */}
-          <div className="mt-4">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Violations by Severity</h4>
-            <div className="space-y-1">
-              {Object.entries(metrics.violationsBySeverity)
-                .sort(([a], [b]) => Number(b) - Number(a))
-                .map(([severity, count]) => (
-                  <div key={severity} className="flex items-center justify-between text-sm">
-                    <span className={`
-                      ${Number(severity) >= 5 ? 'text-red-600' : 
-                        Number(severity) >= 3 ? 'text-orange-600' : 'text-yellow-600'}
-                    `}>
-                      Severity {severity}
-                    </span>
-                    <span className="font-medium">{String(count)}</span>
+          {/* Overall Punctuality */}
+          {metrics.overallPunctuality && (
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4"> System-Wide Punctuality</h3>
+              <div className="text-sm text-gray-600 mb-4">
+                Based on {metrics.totals.totalSamples.toLocaleString()} samples
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-green-600">On Time</span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-green-500 h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${metrics.overallPunctuality.onTime}%` }}
+                      ></div>
+                    </div>
+                    <span className="font-medium w-12">{metrics.overallPunctuality.onTime}%</span>
                   </div>
-                ))}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-yellow-600">Too Early</span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-yellow-500 h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${metrics.overallPunctuality.tooEarly}%` }}
+                      ></div>
+                    </div>
+                    <span className="font-medium w-12">{metrics.overallPunctuality.tooEarly}%</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-red-600">Too Late</span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-red-500 h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${metrics.overallPunctuality.tooLate}%` }}
+                      ></div>
+                    </div>
+                    <span className="font-medium w-12">{metrics.overallPunctuality.tooLate}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* System Issues Summary */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold mb-4"> System Issues</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-red-600">{metrics.totals.totalViolations}</div>
+                <div className="text-sm text-gray-600">Total Violations</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">{metrics.totals.totalLabels}</div>
+                <div className="text-sm text-gray-600">Total Labels</div>
+              </div>
+            </div>
+            
+            {/* Violations by Severity */}
+            <div className="mt-4">
+              <h4 className="text-sm font-medium text-gray-700 mb-2">Violations by Severity</h4>
+              <div className="space-y-1">
+                {Object.entries(metrics.violationsBySeverity)
+                  .sort(([a], [b]) => Number(b) - Number(a))
+                  .map(([severity, count]) => (
+                    <div key={severity} className="flex items-center justify-between text-sm">
+                      <span className={`
+                        ${Number(severity) >= 5 ? 'text-red-600' : 
+                          Number(severity) >= 3 ? 'text-orange-600' : 'text-yellow-600'}
+                      `}>
+                        Severity {severity}
+                      </span>
+                      <span className="font-medium">{String(count)}</span>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Violation Types Distribution */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold mb-4"> System Violations Distribution</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {Object.entries(metrics.violationsByType)
-            .sort(([,a], [,b]) => (b as number) - (a as number))
-            .slice(0, 8)
-            .map(([type, count]) => (
-              <div key={type} className="text-center p-3 bg-red-50 rounded-lg">
-                <div className="text-lg font-bold text-red-600">{String(count)}</div>
-                <div className="text-xs text-gray-600 capitalize">
-                  {type.replace(/_/g, ' ')}
+        {/* Violation Types Distribution */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold mb-4"> System Violations Distribution</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Object.entries(metrics.violationsByType)
+              .sort(([,a], [,b]) => (b as number) - (a as number))
+              .slice(0, 8)
+              .map(([type, count]) => (
+                <div key={type} className="text-center p-3 bg-red-50 rounded-lg">
+                  <div className="text-lg font-bold text-red-600">{String(count)}</div>
+                  <div className="text-xs text-gray-600 capitalize">
+                    {type.replace(/_/g, ' ')}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
-      </div>
-  
-      {/* Label Types Distribution */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold mb-4"> System Labels Distribution</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {Object.entries(metrics.labelsByType)
-            .sort(([,a], [,b]) => (b as number) - (a as number))
-            .slice(0, 8)
-            .map(([type, count]) => (
-              <div key={type} className="text-center p-3 bg-blue-50 rounded-lg">
-                <div className="text-lg font-bold text-blue-600">{String(count)}</div>
-                <div className="text-xs text-gray-600 capitalize">
-                  {type.replace(/_/g, ' ')}
+    
+        {/* Label Types Distribution */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold mb-4"> System Labels Distribution</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Object.entries(metrics.labelsByType)
+              .sort(([,a], [,b]) => (b as number) - (a as number))
+              .slice(0, 8)
+              .map(([type, count]) => (
+                <div key={type} className="text-center p-3 bg-blue-50 rounded-lg">
+                  <div className="text-lg font-bold text-blue-600">{String(count)}</div>
+                  <div className="text-xs text-gray-600 capitalize">
+                    {type.replace(/_/g, ' ')}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
-      </div>
+      </AccessControl>
     </div>
   )
 }

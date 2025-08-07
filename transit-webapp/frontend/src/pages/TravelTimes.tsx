@@ -1,7 +1,7 @@
 // src/pages/TravelTimes.tsx
 import React, { useEffect, useState, useContext } from 'react'
 import { GlobalDataContext } from '../contexts/GlobalDataContext'
-import { ProgressiveSearchFilters, FilterConfig } from '../components/shared/ProgressiveSearchFilters'
+import { ProgressiveSearchFilters, FilterConfig, PageHeader } from '../components/shared'
 import { useProgressiveSearch, FilterValidationRule } from '../hooks/useProgressiveSearch'
 
 interface ByRouteEntry {
@@ -27,8 +27,8 @@ interface TravelSegment {
 const TravelTimes: React.FC = () => {
   const [segments, setSegments] = useState<TravelSegment[]>([])
   const [expandedSegments, setExpandedSegments] = useState<Set<number>>(new Set())
-  const [showHelp, setShowHelp] = useState(false)
   const globalData = useContext(GlobalDataContext)
+  const helpText = "This page provides travel times between consecutive stops on transit routes, measured in seconds and organized by time periods like AM Rush, PM Rush, Day, Night, and Weekend. Use the filters to narrow down to specific routes or stops. When no route is selected, you'll see aggregated averages across all routes. Click \"Show Details\" to see breakdowns by individual routes and directions.";
 
   // Set segments directly from travel_times when globalData is available
   useEffect(() => {
@@ -164,49 +164,11 @@ const TravelTimes: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header Section with Help */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-4">
-          <h1 className="text-3xl font-bold">Travel Times</h1>
-          <button
-            onClick={() => setShowHelp(!showHelp)}
-            className="w-7 h-7 bg-blue-100 hover:bg-blue-200 rounded-full flex items-center justify-center transition-colors duration-200"
-            title="Help"
-          >
-            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </button>
-        </div>
-        <div className="text-sm text-gray-500">
-          {filteredSegments.length} of {segments.length} segments
-        </div>
-      </div>
-
-      {/* Help Section */}
-      {showHelp && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0">
-              <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-blue-900 mb-3">Travel Times Help</h3>
-              <p className="text-sm text-blue-800 leading-relaxed">
-                This page provides travel times between consecutive stops on transit routes, measured in seconds and organized by time periods like AM Rush, PM Rush, Day, Night, and Weekend. Use the filters to narrow down to specific routes or stops. When no route is selected, you'll see aggregated averages across all routes. Click "Show Details" to see breakdowns by individual routes and directions.
-              </p>
-              <button
-                onClick={() => setShowHelp(false)}
-                className="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium"
-              >
-                Got it, hide help
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <PageHeader 
+        title="Travel Times"
+        helpText={helpText}
+        subtitle={`${filteredSegments.length} of ${segments.length} segments`}
+      />
 
       {/* Progressive Search Filters */}
       <ProgressiveSearchFilters

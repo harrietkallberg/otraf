@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext';
+
+import { PageHeader } from '../components/shared'
 
 const downloads = [
   {
@@ -53,8 +55,7 @@ interface DownloadState {
 const ExportCsvPage: React.FC = () => {
   const { user, session } = useAuth();
   const [downloadStates, setDownloadStates] = useState<DownloadState>({});
-  const [showHelp, setShowHelp] = useState(false);
-
+  const helpText =  'This page provides CSV exports of transit system data including travel times between stops, regulatory stops that are underperforming, and stops with data quality issues. All files use UTF-8 encoding and include headers for easy identification. Downloads are filtered based on your access permissions and may take a few moments for large datasets.'
   const handleDownload = async (href: string, fileName: string) => {
     try {
       // Check if the session is valid
@@ -156,49 +157,10 @@ const ExportCsvPage: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header Section with Help */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-3">
-          <h1 className="text-3xl font-bold text-gray-900">Export Data</h1>
-          <button
-            onClick={() => setShowHelp(!showHelp)}
-            className="w-7 h-7 bg-blue-100 hover:bg-blue-200 rounded-full flex items-center justify-center transition-colors duration-200"
-            title="Help"
-          >
-            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </button>
-        </div>
-        <div className="text-sm text-gray-500">
-          {downloads.length} available exports
-        </div>
-      </div>
-
-      {/* Help Section */}
-      {showHelp && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0">
-              <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-blue-900 mb-3">Export Data Help</h3>
-              <p className="text-sm text-blue-800 leading-relaxed">
-                This page provides CSV exports of transit system data including travel times between stops, regulatory stops that are underperforming, and stops with data quality issues. All files use UTF-8 encoding and include headers for easy identification. Downloads are filtered based on your access permissions and may take a few moments for large datasets.
-              </p>
-              <button
-                onClick={() => setShowHelp(false)}
-                className="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium"
-              >
-                Got it, hide help
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <PageHeader 
+        title="Export CSV"
+        helpText={helpText}
+      />
 
       {/* Download Cards - All in one row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

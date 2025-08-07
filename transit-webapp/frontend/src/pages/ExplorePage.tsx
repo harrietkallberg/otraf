@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalDataContext } from '../contexts/GlobalDataContext'
-import { StopDetailsView, Badge } from '../components/shared'
+import { StopDetailsView, Badge, PageHeader } from '../components/shared'
 import { ProgressiveSearchFilters, FilterConfig } from '../components/shared/ProgressiveSearchFilters'
 import { useProgressiveSearch, FilterValidationRule } from '../hooks/useProgressiveSearch'
+import { AccessControl } from '../components/shared'
 
 interface ExplorePageProps {}
 
@@ -26,10 +27,10 @@ interface ResultCombination {
 const ExplorePage: React.FC<ExplorePageProps> = () => {
   const { routeId: urlRouteId, directionId: urlDirectionId, stopId: urlStopId, timeType: urlTimeType } = useParams()
   const globalData = useContext(GlobalDataContext)
-  const [showHelp, setShowHelp] = useState(false)
   
   // All combinations from performance data
   const [allCombinations, setAllCombinations] = useState<ResultCombination[]>([])
+  const helpText = "This page provides a comprehensive view of all performance data, labels, and violations across routes, directions, stops, and time periods. Each combination represents a unique route-direction-stop-time scenario with associated performance metrics, regulatory labels, and topology violations. Use the filters to narrow down to specific combinations and click \"Show Details\" to see detailed performance analytics, labels, and violation information for each scenario.";
 
   // Extract all combinations when globalData is available
   useEffect(() => {
@@ -245,49 +246,11 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header Section with Help */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-4">
-          <h1 className="text-3xl font-bold">Explore Logs</h1>
-          <button
-            onClick={() => setShowHelp(!showHelp)}
-            className="w-7 h-7 bg-blue-100 hover:bg-blue-200 rounded-full flex items-center justify-center transition-colors duration-200"
-            title="Help"
-          >
-            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </button>
-        </div>
-        <div className="text-sm text-gray-500">
-          {allCombinations.length} combinations found
-        </div>
-      </div>
-
-      {/* Help Section */}
-      {showHelp && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0">
-              <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-blue-900 mb-3">Explore Logs Help</h3>
-              <p className="text-sm text-blue-800 leading-relaxed">
-                This page provides a comprehensive view of all performance data, labels, and violations across routes, directions, stops, and time periods. Each combination represents a unique route-direction-stop-time scenario with associated performance metrics, regulatory labels, and topology violations. Use the filters to narrow down to specific combinations and click "Show Details" to see detailed performance analytics, labels, and violation information for each scenario.
-              </p>
-              <button
-                onClick={() => setShowHelp(false)}
-                className="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium"
-              >
-                Got it, hide help
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <PageHeader 
+        title="Explore Logs"
+        helpText={helpText}
+        subtitle={`${allCombinations.length} combinations found`}
+      />
 
       {/* Progressive Search Filters */}
       <ProgressiveSearchFilters
@@ -296,7 +259,8 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
         filters={filterConfigs}
         className="mb-6"
       />
-
+      {/* Protected Content - System Health Section */}
+      <AccessControl requireAdmin={true}>
       {/* Results */}
       <div className="space-y-4">
         {sortedResults.map((result, idx) => (
@@ -316,6 +280,7 @@ const ExplorePage: React.FC<ExplorePageProps> = () => {
           </div>
         )}
       </div>
+      </AccessControl>
     </div>
   )
 }
