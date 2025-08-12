@@ -51,8 +51,8 @@ export const RouteDataProvider: React.FC<ProviderProps> = ({ children }) => {
     }
 
     console.log('RouteDataContext fetching for routeId:', routeId)
-
-    fetch(`/api/routes/${routeId}`, { headers })
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    fetch(`${API_BASE_URL}/api/routes/${routeId}`, { headers })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}: ${res.statusText}`)

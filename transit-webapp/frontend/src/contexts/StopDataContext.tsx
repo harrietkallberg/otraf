@@ -52,8 +52,8 @@ export const StopDataProvider: React.FC<ProviderProps> = ({ children }) => {
     }
 
     console.log('StopDataContext fetching for parentId:', parentId)
-
-    fetch(`/api/stops/${parentId}`, { headers })
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    fetch(`${API_BASE_URL}/api/stops/${parentId}`, { headers })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}: ${res.statusText}`)
