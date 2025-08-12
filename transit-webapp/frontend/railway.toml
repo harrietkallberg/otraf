@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+# Build first, then serve the static build on the provided $PORT
+preDeployCommand = "npm ci && npm run build"
+startCommand = "npx serve -s build -l $PORT"

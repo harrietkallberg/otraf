@@ -1,0 +1,6 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+# Flask dev server is fine to start; we can swap to gunicorn later
+startCommand = "python -m flask run --host=0.0.0.0 --port=$PORT"
