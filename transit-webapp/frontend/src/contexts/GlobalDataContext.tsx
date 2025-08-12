@@ -1,73 +1,86 @@
-import React, { createContext, ReactNode, useState, useEffect } from 'react'
-import { useAuth } from './AuthContext'
+import React, { createContext, ReactNode, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 interface ByRouteEntry {
-  route_id: number
-  direction_id: string
-  mean: number | null
-  sample_size: number
+  route_id: number;
+  direction_id: string;
+  mean: number | null;
+  sample_size: number;
 }
 
 interface TravelSegment {
-  seg_key: string
-  from_stop_id: string
-  to_stop_id: string
-  from_stop_name: string
-  to_stop_name: string
-  time_type: string
+  seg_key: string;
+  from_stop_id: string;
+  to_stop_id: string;
+  from_stop_name: string;
+  to_stop_name: string;
+  time_type: string;
   aggregated: {
-    mean: number | null
-    sample_size: number
-  }
-  by_route: ByRouteEntry[]
+    mean: number | null;
+    sample_size: number;
+  };
+  by_route: ByRouteEntry[];
 }
 
 export interface GlobalData {
-  stops: Record<string, any>
-  routes: Record<string, any>
-  labels: Record<string, any>
-  violations: Record<string, any>
-  performance: Record<string, any>
-  time_types: string[]
-  travel_times: TravelSegment[]
+  stops: Record<string, any>;
+  routes: Record<string, any>;
+  labels: Record<string, any>;
+  violations: Record<string, any>;
+  performance: Record<string, any>;
+  time_types: string[];
+  travel_times: TravelSegment[];
 }
 
-// Create a context that can be GlobalData or null
-export const GlobalDataContext = createContext<GlobalData | null>(null)
+export const GlobalDataContext = createContext<GlobalData | null>(null);
 
 interface ProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
-  const [data, setData] = useState<GlobalData | null>(null)
-  const [ , setError] = useState<string | null>(null)
-  const { user, session, isLoading } = useAuth()
-  console.log('GlobalDataProvider render:', { user: !!user, session: !!session, isLoading, data: !!data }) // Add this
+  const [data, setData] = useState<GlobalData | null>(null);
+  const { user, session, userRole, isLoading: authLoading, isUserRoleLoading } = useAuth();
+
+  console.log('GlobalDataProvider render:', { 
+    user: !!user, 
+    session: !!session, 
+    userRole: !!userRole, 
+    authLoading, 
+    isUserRoleLoading,
+    data: !!data 
+  });
 
   useEffect(() => {
-    // Only fetch data if user is authenticated and we have a session
-    if (!user || !session || isLoading) {
-      console.log('User not ready:', { user: !!user, session: !!session, isLoading })
-      setData(null)
-      setError(null)
-      return
+    // Only fetch data if auth is complete and user is authenticated
+    // Wait for both auth loading and user role loading to complete
+    if (authLoading || isUserRoleLoading || !user || !session) {
+      console.log('User not ready:', { 
+        user: !!user, 
+        session: !!session, 
+        userRole: !!userRole, 
+        authLoading, 
+        isUserRoleLoading 
+      });
+      setData(null);
+      return;
     }
 
-    // Send both user ID, session token, and refresh token
-    const headers = { 
+    console.log('All auth states ready, fetching global data...');
+
+    const headers = {
       'X-User-Id': user.id,
       'Authorization': `Bearer ${session.access_token}`,
-      'X-Refresh-Token': session.refresh_token,  // Pass refresh token in a custom header
-    }
+      'X-Refresh-Token': session.refresh_token,
+    };
 
     console.log('Headers being sent:', {
       'X-User-Id': user.id,
-      'Authorization': `Bearer ${session.access_token.substring(0, 20)}...`, // Log partial token for debugging
-      'X-Refresh-Token': `Bearer ${session.refresh_token.substring(0, 20)}...` // Log partial refresh token for debugging
-    })
+      'Authorization': `Bearer ${session.access_token.substring(0, 20)}...`,
+      'X-Refresh-Token': `${session.refresh_token.substring(0, 20)}...`
+    });
 
-    // Fetch global data using both tokens and user ID in headers
+    // Fetch global data using tokens and user ID in headers
     Promise.all([
       fetch('/api/global/stops', { headers }).then(r => r.json()),
       fetch('/api/global/routes', { headers }).then(r => r.json()),
@@ -77,32 +90,32 @@ export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
       fetch('/api/global/time_types', { headers }).then(r => r.json()),
       fetch('/api/global/travel_times', { headers }).then(r => r.json())
     ])
-      .then(([stops, routes, labels, violations, performance, time_types, travel_times]) =>
+      .then(([stops, routes, labels, violations, performance, time_types, travel_times]) => {
+        console.log('✅ Global data fetched successfully');
         setData({
-          stops: stops,
-          routes: routes,
-          labels: labels,
-          violations: violations,
-          performance: performance,
-          time_types: time_types,
-          travel_times: travel_times
-        })
-      )
-      .catch((err) => {
-        console.error(err)
-        setError('Failed to load global data. Please try again later.')
+          stops,
+          routes,
+          labels,
+          violations,
+          performance,
+          time_types,
+          travel_times
+        });
       })
-  }, [user, session, isLoading])
+      .catch((err) => {
+        console.error('❌ Error fetching global data:', err);
+        setData(null);
+      });
+  }, [authLoading, isUserRoleLoading, user, session, userRole]);
 
   return (
     <GlobalDataContext.Provider value={data}>
       {children}
     </GlobalDataContext.Provider>
-  )
-}
+  );
+};
 
-// Custom hook for easier usage with proper typing
 export const useGlobalData = () => {
-  const context = React.useContext(GlobalDataContext)
-  return context // This can be null, components should handle this
-}
+  const context = React.useContext(GlobalDataContext);
+  return context;
+};

@@ -1,6 +1,8 @@
 # app.py (or create_app())
 import os
 from flask import Flask, jsonify
+from flask_cors import CORS
+
 
 from api.routes      import routes_bp
 from api.stops       import stops_bp
@@ -9,6 +11,7 @@ from api.csv         import csv_bp
 
 def create_app():
     app = Flask(__name__)
+    ##CORS(app, resources={r"/api/*": {"origins": "https://frontend-production-fc3f.up.railway.app"}})
 
     # Example flag
     app.config['USE_SUPABASE'] = os.getenv("USE_SUPABASE", "false").lower() == "true"
@@ -17,7 +20,6 @@ def create_app():
     app.register_blueprint(stops_bp,      url_prefix='/api/stops')
     app.register_blueprint(global_bp,     url_prefix='/api/global')
     app.register_blueprint(csv_bp,        url_prefix='/api/csv')
-
 
     
     @app.get("/")

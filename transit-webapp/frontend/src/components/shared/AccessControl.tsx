@@ -59,7 +59,7 @@ const AccessControl: React.FC<AccessControlProps> = ({
   fallback,
   showUpgradeMessage = true 
 }) => {
-  const { isAdmin, isLoading } = useAuth()
+  const { userRole, isLoading } = useAuth()
 
   // While loading, show loading state
   if (isLoading) {
@@ -72,7 +72,7 @@ const AccessControl: React.FC<AccessControlProps> = ({
   }
 
   // If admin access is required and user is not admin
-  if (requireAdmin && !isAdmin) {
+  if (requireAdmin && userRole!=='admin') {
     if (fallback) {
       return <>{fallback}</>
     }

@@ -1,171 +1,163 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { supabase } from '../supabaseClient'
-import { User, Session } from '@supabase/supabase-js'
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { supabase } from '../supabaseClient';
+import { User, Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
-  user: User | null
-  session: Session | null
-  userRole: string | null
-  isAdmin: boolean
-  isLoading: boolean
-  refreshRole: () => Promise<void>
+  user: User | null;
+  session: Session | null;
+  userRole: string | null;
+  isLoading: boolean;
+  isUserRoleLoading: boolean; // Add this to the interface
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [session, setSession] = useState<Session | null>(null)
-  const [userRole, setUserRole] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUserRoleLoading, setIsUserRoleLoading] = useState(false);
 
-  console.log('🔄 AuthProvider render - Current state:', {
-    user: user?.email || null,
-    session: !!session,
-    userRole,
-    isLoading
-  })
+  const fetchUserRole = async (userId: string, accessToken: string, refreshToken: string) => {
+    setIsUserRoleLoading(true);
+    console.log('👤 Starting fetchUserRole for userId:', userId);
+    console.log('🔍 Access token exists:', !!accessToken);
+    console.log('🔍 Refresh token exists:', !!refreshToken);
 
-  // Computed property for admin check
-  const isAdmin = userRole === 'admin'
-
-  // Function to fetch user role
-  const fetchUserRole = async (userId: string) => {
-    console.log('📋 fetchUserRole called for userId:', userId)
-    
     try {
-      // Simple fallback approach - if we can't query Supabase reliably,
-      // let's use a more practical solution
-      console.log('🔍 Using environment-based role assignment...')
+      console.log('🔗 About to query Supabase user_roles table...');
       
-      // Check if this is a known admin user by email pattern or specific ID
-      // You can modify this logic based on your needs
-      const isKnownAdmin = userId === '2c16edf4-fa45-4ac6-b708-c16e5ccd7f9d' // Your specific admin ID
+      // Add a timeout to prevent hanging indefinitely
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Supabase query timeout after 10 seconds')), 15000);
+      });
+
+      console.log('📤 Executing Supabase query...');
       
-      if (isKnownAdmin) {
-        console.log('✅ Recognized admin user, assigning admin role')
-        setUserRole('admin')
-      } else {
-        console.log('👤 Unknown user, assigning user role')
-        setUserRole('user')
+      // Race between the query and timeout
+      const queryPromise = supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .single();
+
+      const { data, error } = await Promise.race([queryPromise, timeoutPromise]) as any;
+
+      console.log('📡 Response from Supabase:', { data, error });
+
+      if (error) {
+        console.error('🚨 Supabase error details:', {
+          message: error.message,
+          code: error.code,
+          hint: error.hint,
+          details: error.details
+        });
+        throw error;
+      }
+
+      console.log('✔️ User role fetched successfully:', data);
+      setUserRole(data?.role ?? 'user');
+    } catch (err) {
+      console.error('❌ Caught error in fetchUserRole:', err);
+      console.error('❌ Error type:', typeof err);
+      console.error('❌ Error constructor:', err?.constructor?.name);
+      
+      // Check if it's a timeout error
+      if (err instanceof Error && err.message.includes('timeout')) {
+        console.error('⏰ Query timed out - there may be a connection or RLS policy issue');
       }
       
-      // TODO: Once we figure out the Supabase client issue, we can replace this
-      // with the proper database query
+      // Check if it's a network error
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        console.error('🌐 Network error detected');
+      }
       
-    } catch (err) {
-      console.error('❌ Error in role assignment:', err)
-      setUserRole('user')
+      setUserRole('user');
+    } finally {
+      console.log('🏁 fetchUserRole finally block reached');
+      setIsUserRoleLoading(false);
     }
-  }
-
-  // Function to refresh role (useful for admin panel)
-  const refreshRole = async () => {
-    console.log('🔄 refreshRole called')
-    if (user?.id) {
-      await fetchUserRole(user.id)
-    } else {
-      console.log('⚠️ No user ID available for role refresh')
-    }
-  }
+  };
 
   useEffect(() => {
-    console.log('🚀 AuthProvider useEffect starting...')
+    console.log('🚀 AuthProvider useEffect starting...');
     
     // Check session and user state when the app starts
     supabase.auth.getSession().then(async ({ data, error }) => {
-      console.log('🔐 getSession result:', { 
-        session: !!data.session, 
-        user: data.session?.user?.email || null,
-        error: error?.message || null
-      })
-
       if (error) {
-        console.error('❌ Error getting session:', error)
+        console.error('Error getting session:', error);
+        setIsLoading(false);
+        return;
       }
 
-      setSession(data.session)
-      setUser(data.session?.user ?? null)
-      
+      console.log('Session data:', data);
+
+      setSession(data.session);
+      setUser(data.session?.user ?? null);
+
+      // Only fetch role if session is valid and user is authenticated
       if (data.session?.user?.id) {
-        console.log('👤 User found, fetching role...')
-        await fetchUserRole(data.session.user.id)
+        console.log('👤 User found, fetching role...');
+        await fetchUserRole(data.session.user.id, data.session.access_token, data.session.refresh_token);
       } else {
-        console.log('👤 No user found, clearing role')
-        setUserRole(null)
+        setUserRole(null);
+        setIsUserRoleLoading(false);
       }
       
-      console.log('✅ Initial auth check complete, setting isLoading to false')
-      setIsLoading(false)
+      // Set auth loading to false after everything is complete
+      setIsLoading(false);
     }).catch((err) => {
-      console.error('💥 Fatal error in getSession:', err)
-      setIsLoading(false)
-    })
+      console.error('Error in getSession:', err);
+      setIsLoading(false);
+      setIsUserRoleLoading(false);
+    });
 
-    console.log('👂 Setting up auth state change listener...')
     const { data: listener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log('🔔 Auth state change:', { 
-        event, 
-        session: !!session, 
-        user: session?.user?.email || null 
-      })
+      console.log('🔔 Auth state change:', { event, session });
 
-      setSession(session)
-      setUser(session?.user ?? null)
-      
+      setSession(session);
+      setUser(session?.user ?? null);
+
       if (session?.user?.id) {
-        console.log('👤 User logged in, fetching role...')
-        await fetchUserRole(session.user.id)
+        console.log('👤 User logged in, fetching role...');
+        await fetchUserRole(session.user.id, session.access_token, session.refresh_token);
       } else {
-        console.log('👤 User logged out, clearing role')
-        setUserRole(null)
+        setUserRole(null);
+        setIsUserRoleLoading(false);
       }
-      
-      console.log('✅ Auth state change processed, setting isLoading to false')
-      setIsLoading(false)
-    })
+
+      setIsLoading(false);
+    });
 
     return () => {
-      console.log('🧹 Cleaning up auth listener')
-      listener?.subscription.unsubscribe()
-    }
-  }, [])
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
 
-  // Log whenever state changes
   useEffect(() => {
-    console.log('📊 Auth state update:', {
-      user: user?.email || null,
-      session: !!session,
-      userRole,
-      isAdmin,
-      isLoading
-    })
-  }, [user, session, userRole, isAdmin, isLoading])
+    console.log('📊 Auth state update:', { user, session, userRole, isLoading, isUserRoleLoading });
+  }, [user, session, userRole, isLoading, isUserRoleLoading]);
 
   const contextValue = {
-    user, 
-    session, 
-    userRole, 
-    isAdmin, 
-    isLoading, 
-    refreshRole 
-  }
-
-  console.log('🎯 AuthProvider returning context value:', contextValue)
+    user,
+    session,
+    userRole,
+    isLoading,
+    isUserRoleLoading
+  };
 
   return (
     <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export const useAuth = () => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    console.error('❌ useAuth must be used within an AuthProvider')
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error('useAuth must be used within an AuthProvider');
   }
-  console.log('🎯 useAuth returning:', context)
-  return context
-}
+  return context;
+};
