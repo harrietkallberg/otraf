@@ -72,7 +72,7 @@ export const RouteDataProvider: React.FC<ProviderProps> = ({ children }) => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [routeId, user, session, authLoading])
+  }, [routeId, user, session, authLoading, routeData])
 
   return (
     <RouteDataContext.Provider value={{ 

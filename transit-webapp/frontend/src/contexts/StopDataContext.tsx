@@ -73,7 +73,7 @@ export const StopDataProvider: React.FC<ProviderProps> = ({ children }) => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [parentId, user, session, authLoading])
+  }, [parentId, user, session, authLoading, stopData])
 
   return (
     <StopDataContext.Provider value={{ 

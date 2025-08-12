@@ -84,18 +84,19 @@ export function useProgressiveSearch<T>({
       if (currentValue && !validOptions[rule.key].has(currentValue)) {
         newFilters[rule.key] = '';
         hasChanges = true;
-        
+
         // Clear dependent filters
         if (rule.dependencies) {
-          rule.dependencies.forEach(depKey => {
+          for (const depKey of rule.dependencies) {
             if (newFilters[depKey]) {
               newFilters[depKey] = '';
               hasChanges = true;
             }
-          });
+          }
         }
       }
     }
+
 
     if (hasChanges) {
       setFilters(newFilters);
