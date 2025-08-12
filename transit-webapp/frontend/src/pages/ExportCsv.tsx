@@ -3,9 +3,10 @@ import { useAuth } from '../contexts/AuthContext';
 
 import { PageHeader } from '../components/shared'
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 const downloads = [
   {
-    href: '/api/csv/travel_times',
+    href: `${API_BASE_URL}/api/csv/travel_times`,
     fileName: 'global_travel_times.csv',
     title: 'Global Travel Times',
     description: 'Aggregated mean & per-route travel times between every stop segment and time-of-day.',
@@ -20,7 +21,7 @@ const downloads = [
     category: 'Performance Data'
   },
   {
-    href: '/api/csv/underperforming_regulatory_stops',
+    href: `${API_BASE_URL}/api/csv/underperforming_regulatory_stops`,
     fileName: 'underperforming_regulatory_stops.csv',
     title: 'Underperforming Regulatory Stops',
     description: 'All regulatory stops whose overall on-time percentage fell below the performance threshold.',
@@ -33,7 +34,7 @@ const downloads = [
     category: 'Regulatory Data'
   },
   {
-    href: '/api/csv/mis_tracked_stops',
+    href: `${API_BASE_URL}/api/csv/mis_tracked_stops`,
     fileName: 'mis_tracked_stops.csv',
     title: 'Mis-tracked Stops',
     description: 'Stops flagged for topology violations, with counts and max severity per stop.',
