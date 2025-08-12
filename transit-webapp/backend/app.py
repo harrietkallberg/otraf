@@ -11,7 +11,7 @@ from api.csv         import csv_bp
 
 def create_app():
     app = Flask(__name__)
-    ##CORS(app, resources={r"/api/*": {"origins": "https://frontend-production-fc3f.up.railway.app"}})
+    CORS(app, resources={r"/api/*": {"origins": "https://frontend-production-fc3f.up.railway.app"}})
 
     # Example flag
     app.config['USE_SUPABASE'] = os.getenv("USE_SUPABASE", "false").lower() == "true"
