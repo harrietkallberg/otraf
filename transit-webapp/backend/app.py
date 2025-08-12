@@ -26,10 +26,6 @@ def create_app():
     def index():
         return jsonify(status="ok", service="backend", docs="/api/*")
 
-    @app.get("/api/health")
-    def health():
-        return jsonify(status="healthy")
-
 
     return app
 

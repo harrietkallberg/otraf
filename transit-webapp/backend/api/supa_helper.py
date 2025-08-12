@@ -2,9 +2,10 @@ from supabase import create_client
 import json
 from flask import abort, send_file
 from io import BytesIO
+import os
 
-SUPABASE_URL = 'https://uaqfokbeqneynggspqwk.supabase.co'
-SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhcWZva2JlcW5leW5nZ3NwcXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0NTQwMjIsImV4cCI6MjA2OTAzMDAyMn0.m04qZFLCqgHZGCpFjWVGrX6mxskdlsARsul7MStgV_8'
+SUPABASE_URL = os.environ.get('SUPABASE_URL')
+SUPABASE_KEY = os.environ.get('SUPABASE_KEY')
 
 def get_supabase(auth_token: str, refresh_token: str):
     """Initialize Supabase client with JWT token and refresh token for session management."""
