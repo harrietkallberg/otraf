@@ -80,15 +80,16 @@ export const GlobalDataProvider: React.FC<ProviderProps> = ({ children }) => {
       'X-Refresh-Token': `${session.refresh_token.substring(0, 20)}...`
     });
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
     // Fetch global data using tokens and user ID in headers
     Promise.all([
-      fetch('/api/global/stops', { headers }).then(r => r.json()),
-      fetch('/api/global/routes', { headers }).then(r => r.json()),
-      fetch('/api/global/labels', { headers }).then(r => r.json()),
-      fetch('/api/global/violations', { headers }).then(r => r.json()),
-      fetch('/api/global/performance_analytics', { headers }).then(r => r.json()),
-      fetch('/api/global/time_types', { headers }).then(r => r.json()),
-      fetch('/api/global/travel_times', { headers }).then(r => r.json())
+      fetch(`${API_BASE_URL}/api/global/stops`, { headers }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/global/routes`, { headers }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/global/labels`, { headers }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/global/violations`, { headers }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/global/performance_analytics`, { headers }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/global/time_types`, { headers }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/global/travel_times`, { headers }).then(r => r.json())
     ])
       .then(([stops, routes, labels, violations, performance, time_types, travel_times]) => {
         console.log('✅ Global data fetched successfully');
