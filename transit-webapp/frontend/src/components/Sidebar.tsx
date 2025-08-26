@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="w-64 bg-gray-100 p-4 border-r h-full">
-      <h2 className="text-xl font-bold mb-4">Transit Analyzer</h2>
+      <h2 className="text-xl font-bold mb-4">Transit Informer</h2>
       <div className="space-y-1">
         {navItem('/', 'Dashboard', 
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
