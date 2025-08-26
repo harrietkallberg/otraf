@@ -262,8 +262,8 @@ const LoginPage: React.FC = () => {
 
       {/* Login Form */}
       <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-md w-full relative z-50 border-2 border-gray-200" style={{boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)'}}>
-        <h1 className="text-3xl font-bold text-center text-grey-900 mb-2">Transit Analyzer</h1>
-        <p className="text-center text-grey-900 mb-6">Your Guide to Valuable Insights.</p>
+        <h1 className="text-3xl font-bold text-center text-grey-900 mb-2">Transit Informer</h1>
+        <p className="text-center text-grey-900 mb-6">Your one-stop hub for data-driven insights.</p>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
