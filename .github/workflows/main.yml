@@ -1,21 +1,8 @@
-name: Keep Supabase Storage awake
-
-on:
-  schedule:
-    # Kör var 5:e dag kl 06:00 UTC
-    - cron: '0 6 */5 * *'
-  workflow_dispatch:
-
-jobs:
-  ping-supabase-storage:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Ping Supabase Storage bucket
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          SUPABASE_BUCKET: your-bucket   # ändra om din bucket heter något annat
+          SUPABASE_BUCKET: your-bucket   # ändra till din riktiga bucket
         run: |
           echo "Pinging Supabase Storage bucket '$SUPABASE_BUCKET' at $SUPABASE_URL..."
 
@@ -24,7 +11,15 @@ jobs:
             -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
             -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
             -H "Content-Type: application/json" \
-            --data '{"limit":1,"offset":0,"sortBy":{"column":"name","order":"asc"}}')
+            --data '{
+              "prefix": "",
+              "limit": 1,
+              "offset": 0,
+              "sortBy": {
+                "column": "name",
+                "order": "asc"
+              }
+            }')
 
           echo "Response code: $HTTP_CODE"
           echo "Response body:"
