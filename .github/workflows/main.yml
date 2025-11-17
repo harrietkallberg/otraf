@@ -1,0 +1,38 @@
+name: Keep Supabase Storage awake
+
+on:
+  schedule:
+    # Kör var 5:e dag kl 06:00 UTC
+    - cron: '0 6 */5 * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase-storage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase Storage bucket
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_BUCKET: your-bucket   # ändra om din bucket heter något annat
+        run: |
+          echo "Pinging Supabase Storage bucket '$SUPABASE_BUCKET' at $SUPABASE_URL..."
+
+          HTTP_CODE=$(curl -s -o /tmp/resp.json -w "%{http_code}" \
+            -X POST "$SUPABASE_URL/storage/v1/object/list/$SUPABASE_BUCKET" \
+            -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+            -H "Content-Type: application/json" \
+            --data '{"limit":1,"offset":0,"sortBy":{"column":"name","order":"asc"}}')
+
+          echo "Response code: $HTTP_CODE"
+          echo "Response body:"
+          cat /tmp/resp.json || true
+
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "Supabase Storage ping successful ✅"
+          else
+            echo "Supabase Storage ping failed ❌"
+            exit 1
+          fi
